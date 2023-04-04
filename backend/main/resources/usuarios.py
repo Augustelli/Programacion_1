@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request, abort
 import json
-
+from backend.app import app
 #Se recibe un JSON -> {key : value}
 #Roles ? Valor del JSON?
 
@@ -14,7 +14,7 @@ class Usuarios(Resource):
 
     #Como aplicar roles
 
-    def obtener_lista_usuarios(self):
+    def get(self):
         '''GET -> Rol admin'''
         return datos
 
@@ -135,8 +135,16 @@ class UsuarioAlumno(Resource):
     'GET: . Obtener un usuario alumno. Rol: ADMIN, PROFESOR'
     
     
-    'PUT: Editar un usuario alumno. Rol: ADMIN, PROFESOR'
-    
+    def  editar_usuario(self, user_id ):
+        '''PUT -> Rol Admin'''
+        try:
+            if int(user_id) in datos.keys():
+                usuario = datos[int(user_id)]
+                informacion = request.get_json()
+                usuario.update(informacion)
+                return 'Información actualizada con éxito', 201
+        except:
+            abort(404, 'No se ha podido actualizar el usuario de id {}'.format(user_id))
     'DELETE: Eliminar un usuario alumno (cambiar de estado o suspender). Rol: ADMIN, PROFESOR'
 
     pass
