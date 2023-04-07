@@ -1,5 +1,5 @@
 {
-  "1": {"nombre": "Planificación 1", "descripcion": "Descripción 1", "alumno": "1", "profesor": "3", "estado": "Activa"},
-  "2": {"nombre": "Planificación 2", "descripcion": "Descripción 2", "profesor": "3", "estado": "Activa"},
-  "3": {"nombre": "Planificación 3", "descripcion": "Descripción 3", "alumno": "1", "estado": "Inactiva"}
+  "1": [{"nombre": "Planificación 1", "descripcion": "Descripción 1", "alumno": "1", "profesor": "3", "estado": "Activa"}],
+  "2": [{"nombre": "Planificación 2", "descripcion": "Descripción 2", "profesor": "3", "estado": "Activa"}],
+  "3": [{"nombre": "Planificación 3", "descripcion": "Descripción 3", "alumno": "1", "estado": "Inactiva"}]
 }

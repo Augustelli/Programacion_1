@@ -3,7 +3,7 @@ from flask import request, abort
 import json
 import datetime
 
-with open('json_planificaciones.json') as JSON:
+with open('main/resource/json_planificaciones.json') as JSON:
     #Convierto JSON  a diccionario
     planificaciones = json.load(JSON)
 
@@ -43,16 +43,17 @@ class PlanificacionProfesor(Resource):
     def editar_planificaion_alumno(self, user_id, data):
 
         try:
-            if planificaciones[user_id]:
-                planificaciones[user_id].update(data)
+            pass
         except:
-            abort(422, f'No se ha podido realizar el cambio.')
+            pass
+    
     def cambiar_estado_alumno(self, user_id):
 
         try:
             data[user_id]['estado'] = 'deudor' if data[user_id]['estado'] == 'activo' else  'activo'
         except:
             abort(422, f'No se ha podido realizar el cambio de estado.')
+            
 class PlanificacionProfesores(Resource):
     
     def obtener_planificaciones(self):

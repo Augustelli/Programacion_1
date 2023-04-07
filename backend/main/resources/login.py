@@ -3,7 +3,7 @@ from flask import request, abort
 import json
 import hashlib as hash
 
-with open('json_db.json') as JSON:
+with open('main/resource/json_db.json') as JSON:
     db= json.load(JSON)
     
 class Login(Resource):

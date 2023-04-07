@@ -1,11 +1,11 @@
 from flask_restful import Resource
 from flask import request, abort
 import json
-from backend.app import app
+
 #Se recibe un JSON -> {key : value}
 #Roles ? Valor del JSON?
 
-with open('json_ex.json') as JSON:
+with open('main/resource/json_ex.json') as JSON:
     datos = json.load(JSON)
 
 

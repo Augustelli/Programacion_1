@@ -2,10 +2,10 @@ from flask_restful import Resource
 from flask import request, abort
 import json
 
-with open('backend/main/resources/json_planificaciones.json') as JSON:
+with open('main/resource/json_planificaciones.json') as JSON:
     pagos = json.load(JSON)
 
-with open('json_ex.json') as JSON:
+with open('./json_ex.json') as JSON:
     data = json.load(JSON)
     
 class Pago(Resource):
