@@ -14,15 +14,16 @@ class Usuarios(Resource):
 
     #Como aplicar roles
 
-    def get(self):
+    def obtener_listado_usuarios(self):
         '''GET -> Rol admin'''
         return datos
 
-    def crear_usuario(self):
+
+    def crear_usuario(self,data):
         '''POST -> Rol admin'''
         try:
-            informacion = request.get_json()
-            id = int(max(datos.keys())) + 1
+            informacion = data
+            id = str(int(max(datos.keys())) + 1)
             datos[id] = informacion
             return datos[id], 201
 
@@ -36,20 +37,18 @@ class Usuario(Resource):
     def obterner_usuario(self, user_id):
         '''GET -> Rik Admin'''
         try:
-            if int(user_id) in datos.keys():
-                return datos[int(user_id)]
+            if datos[user_id]:
+                return datos[(user_id)]
         except:
-            abort(404, 'No se ha encontrado el usuario de ID {}'.format(user_id))
+            abort(404, '')
 
 
-
-    def  editar_usuario(self, user_id ):
+    def  editar_usuario(self, user_id, data ):
         '''PUT -> Rol Admin'''
         try:
-            if int(user_id) in datos.keys():
-                usuario = datos[int(user_id)]
-                informacion = request.get_json()
-                usuario.update(informacion)
+            if datos[user_id]:
+                usuario = datos[(user_id)]
+                usuario.update(data)
                 return 'Información actualizada con éxito', 201
         except:
             abort(404, 'No se ha podido actualizar el usuario de id {}'.format(user_id))
@@ -58,8 +57,8 @@ class Usuario(Resource):
         '''DELETE -> Rol Admin'''
 
         try:
-            if int(user_id) in datos.keys():
-                del datos[int(user_id)]
+            if datos[user_id]:
+                del datos[(user_id)]
                 return ('Usuario de id {} eliminado'.format(user_id), 201)
         except:
             abort(404, 'No se ha encontrado el usuario de id {}'.format(user_id))
@@ -70,7 +69,7 @@ class UsuarioAlumnos(Resource):
     def obtener_listado_usuarios(self, user_id = None):
         '''GET -> Admin, Profesor'''
         try:
-            if int(user_id) in datos.keys():
+            if datos[user_id]:
                 return datos[user_id]
             elif user_id == None:
                 return datos
@@ -79,25 +78,23 @@ class UsuarioAlumnos(Resource):
             
 
 
-    def crear_usuario(self):
+    def crear_usuario(self,data):
         '''POST -> Admin, profesor'''
         try:
-            informacion = request.get_json()
-            id = int(max(datos.keys())) + 1
-            datos[id] = informacion
+            id = str(int(max(datos.keys())) + 1)
+            datos[id] =  data
             return datos[id], 201
 
         except:
             abort(404, 'Error al crear el usuario')
 
-            
-
+class UsuarioAlumno(Resource):
 
     def eliminar_usuario_alumno(self, user_id):
         '''DELETE -> Rol Admin, Profesor'''
         try:
-            if int(user_id) in datos.keys():
-                del datos[int(user_id)]
+            if datos[user_id]:
+                del datos[(user_id)]
                 return ('Usuario de id {} eliminado'.format(user_id), 201)
         except:
             abort(404, 'No se ha encontrado el usuario de id {}'.format(user_id))
@@ -106,74 +103,42 @@ class UsuarioAlumnos(Resource):
     def cambiar_estado_alumno(self, user_id, nuevo_estado):
         '''PUT -> Admin, Profesor'''
         try:
-            if int(user_id) in datos.keys():
+            if datos[user_id]:
                 datos[int(user_id)].update(request.get_json())
 
         except:
             abort(404, 'No se ha podido cambiar el estado del alumno')
             
-                
+    def obtener_usuario_alumno(self, user_id):
+
+        try:
+            if datos[user_id]:
+                return datos[(user_id)]
+        except:
+            abort(404, f'no se ha encontrado el usuario de id {user_id}.')
 
 
 class UsuarioProfesor(Resource):
+    
     def obtener_listado_alumnos(self):
         'GET: Obtener listado de usuarios. Rol: ADMIN, PROFESOR'
         return datos.key("alumno")
             
-    def crear_usuario(self):
+    def crear_usuario(self, data):
         'POST: Crear un usuario. Rol: ADMIN, PROFESOR'
         try:
-            informacion = request.get_json()
-            id = int(max(datos.keys())) + 1
-            datos[id] = informacion
+            id = str(int(max(datos.keys())) + 1)
+            datos[id] = data
             return datos[id], 201
         except:
             abort(404, 'Error al crear el usuario')
 
-
-class UsuarioAlumno(Resource):
-    'GET: . Obtener un usuario alumno. Rol: ADMIN, PROFESOR'
-    
-    
-    def  editar_usuario(self, user_id ):
-        '''PUT -> Rol Admin'''
+    def editar_usuario_alumno(self, user_id, data):
         try:
-            if int(user_id) in datos.keys():
-                usuario = datos[int(user_id)]
-                informacion = request.get_json()
-                usuario.update(informacion)
+            if datos[user_id]:
+                usuario = datos[(user_id)]
+                usuario.update(data)
                 return 'Información actualizada con éxito', 201
         except:
-            abort(404, 'No se ha podido actualizar el usuario de id {}'.format(user_id))
-    'DELETE: Eliminar un usuario alumno (cambiar de estado o suspender). Rol: ADMIN, PROFESOR'
+            abort(404, 'Error al actualizar el usuario')
 
-    pass
-
-class PlanificacionAlumno(Resource):
-    'GET: Obtener las planificaciones por un alumno. Rol: ADMIN, PROFESOR, ALUMNO'
-    pass
-
-class PlanificacionesProfesores(Resource):
-    'GET: Obtener las planificaciones. Rol: ADMIN, PROFESOR'
-    'POST: Crear planificaciones. Rol: ADMIN, PROFESOR'
-
-    pass
-
-class PlanificacionProfesor(Resource):
-    'GET: Obtener una planificación. Rol: ADMIN, PROFESOR'
-    'PUT: Editar una planificación. Rol: ADMIN, PROFESOR'
-    'DELETE: Eliminar o cambiar de estado una planificación. Rol: ADMIN, PROFESOR'
-    pass
-
-class ProfesorClases(Resource):
-    'GET: Obtener un listado de profesores con clases. Rol: cualquiera'
-    pass
-
-class Pago(Resource):
-    'GET: Obtener pago por alumno. Rol: ADMIN, PROFESOR'
-    'PUT: Actualizar el estado del pago. Rol: ADMIN, PROFESOR'
-    pass
-
-class Login(Resource):
-    'POST: crea el acceso a la app. Rol: cualquiera'
-    pass
