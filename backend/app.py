@@ -1,5 +1,5 @@
 import os
-from main.__init__ import create_app
+from main import create_app
 
 app = create_app()
 app.app_context().push()

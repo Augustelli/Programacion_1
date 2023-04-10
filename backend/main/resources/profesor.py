@@ -2,10 +2,23 @@ from flask_restful import Resource
 from flask import request, abort
 import json
 
-with open('main/resource/json_clsaes_profesor.json','w+') as JSON:
-    clases = json.load(JSON)
+
+
+# class ProfesoresClases(Resource):
+
+#     def get(self):
+#         return clases
+    
 
 class ProfesorClases(Resource):
-
-    def obtener_clases_profesor(self):
-        return clases
+    def get(self, user_id ):
+        if int(user_id) in clases:
+            return clases[user_id]
+        else:
+            return '', 404 
+clases = {
+    "1":"Lunes, miercoles, viernes",
+    "2" : "Martes, Jueves,",
+    "3" : "Lunes, Martes, Miercoles",
+    "4": "Jueves, Viernes"  
+}
