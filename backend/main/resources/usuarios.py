@@ -34,7 +34,7 @@ class Usuario(Resource):
     def get(self, user_id):
         '''GET -> Rik Admin'''
         try:
-            if datos[user_id]:
+            if datos[str(user_id)]:
                 return datos[(user_id)]
         except:
             abort(404, '')
@@ -43,8 +43,8 @@ class Usuario(Resource):
     def put(self, user_id ):
         '''PUT -> Rol Admin'''
         try:
-            if int(user_id) in datos:
-                usuario = datos[(user_id)]
+            if str(user_id) in datos.keys():
+                usuario = datos[str(user_id)]
                 data = request.get_json()
                 usuario.update(data)
                 return 'Información actualizada con éxito', 201
@@ -96,15 +96,18 @@ class UsuarioAlumno(Resource):
             abort(404, 'No se ha encontrado el usuario de id {}'.format(user_id))
 
 
-    def put(self, user_id, nuevo_estado):
+    def put(self, user_id):
         '''PUT -> Admin, Profesor'''
         try:
-            if datos[user_id]:
-                datos[int(user_id)].update(request.get_json())
-
+          if str(user_id) in datos.keys():
+              usuario = datos[str(user_id)]
+              data = request.get_json()
+              usuario.update(data)
+              return 'Información actualizada con éxito', 201
         except:
-            abort(404, 'No se ha podido cambiar el estado del alumno')
-            
+                    abort(404, 'No se ha podido actualizar el usuario de id {}'.format(user_id))
+
+
     def get(self, user_id):
 
         try:
@@ -119,19 +122,19 @@ class UsuarioProfesor(Resource):
     def get(self, user_id):
       'GET: Obtener listado de usuarios. Rol: ADMIN, PROFESOR'
       try:
-          if datos[int(user_id)]:
-              return datos[user_id]
+          if datos[str(user_id)]:
+              return datos[(user_id)]
       except:
-          abort(404, 'No encontrado')
-            
+          abort(404, '')
+          
     def put(self, user_id):
-        'POST: Crear un usuario. Rol: ADMIN, PROFESOR'
+
         try:
-          if int(user_id) in datos:
+          if str(user_id) in datos:
             usuario = datos[str(user_id)]
             data = request.get_json()
             usuario.update(data)
-            return '', 201
+            return 'Éxito', 201
            
         except:
             abort(404, 'Error al crear el usuario')

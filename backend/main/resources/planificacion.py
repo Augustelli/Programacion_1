@@ -30,14 +30,17 @@ class PlanificacionProfesor(Resource):
         try:
             if planificaciones[user_id]:
                 del planificaciones[user_id]
+                return 'Se ha eliminado con éxito', 201
         except:
             abort(404, 'No se ha encontrado la planificación del alumno.')
 
-    def put(self, user_id, data):
+    def put(self, user_id):
 
         try:
-            if planificaciones[user_id]:
-                planificaciones[user_id].update(data)
+            if planificaciones[str(user_id)]:
+                data = request.get_json()
+                planificaciones[str(user_id)].update(data)
+                return 'Se ha editado con éxito', 201
         except:
             abort(422, f'No se ha podido realizar el cambio.')
 
@@ -48,23 +51,23 @@ class PlanificacionProfesor(Resource):
 class PlanificacionesProfesores(Resource):
     
     def get(self):
-        return planificaciones.json
+        return planificaciones
 
-    def post(self, user_id, data):
+    def post(self):
         try:
-            if data[user_id] and planificaciones[user_id]:
-                planificaciones[user_id].update(data)  #El alumno ya tiene planificaciones
-            
-            elif user_id in data.keys(): #alumno no tiene planificaciones previas
-                planificaciones[user_id] = data
+            informacion = request.get_json()
+            id = str(int(max(planificaciones.keys())) + 1)
+            planificaciones[id] = informacion
+            return planificaciones[id], 201
+
         except:
-            abort(404, 'No se ha podido concretar')
+            abort(404, 'Error al crear el usuario')
 
 
 planificaciones = {
-  "1": [{"nombre": "Planificación 1", "descripcion": "Descripción 1", "alumno": "1", "profesor": "3", "estado": "Activa"}],
-  "2": [{"nombre": "Planificación 2", "descripcion": "Descripción 2", "profesor": "3", "estado": "Activa"}],
-  "3": [{"nombre": "Planificación 3", "descripcion": "Descripción 3", "alumno": "1", "estado": "Inactiva"}]
+  "1": {"nombre": "Planificación 1", "descripcion": "Descripción 1", "alumno": "1", "profesor": "3", "estado": "Activa"},
+  "2": {"nombre": "Planificación 2", "descripcion": "Descripción 2", "profesor": "3", "estado": "Activa"},
+  "3": {"nombre": "Planificación 3", "descripcion": "Descripción 3", "alumno": "1", "estado": "Inactiva"}
 }
 
 data = {

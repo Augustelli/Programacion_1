@@ -12,10 +12,10 @@ import json
 
 class ProfesorClases(Resource):
     def get(self, user_id ):
-        if int(user_id) in clases:
-            return clases[user_id]
+        if str(user_id) in clases:
+            return clases[str(user_id)]
         else:
-            return '', 404 
+            return 'Éxito', 404 
 clases = {
     "1":"Lunes, miercoles, viernes",
     "2" : "Martes, Jueves,",

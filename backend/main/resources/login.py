@@ -8,17 +8,15 @@ import hashlib as hash
 class Login(Resource):
     
 
-    def post(self, user_name, password):
-
+    def post(self):
         try:
-            nuevo_usuario = request.json()
-            id = str(int(db.keys())+1)
-            db[id] = nuevo_usuario
+            informacion = request.get_json()
+            id = str(int(max(db.keys())) + 1)
+            db[id] = informacion
             return db[id], 201
 
         except:
-            abort(404, 'No se ha encontrado ese usuario')
-
+            abort(404, 'Error al crear el log in')
     # def sing_up(self, password, user_name):
     #     pass
     
@@ -30,6 +28,6 @@ class Login(Resource):
 
 db = {
 
-    "admin":"admin",
-    "Augusto" : "admin"
+    "1":"admin",
+    "2" : "admin"
 }

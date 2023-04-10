@@ -7,8 +7,8 @@ class Pago(Resource):
     
     def get(self, user_id):
         try:
-            if int(user_id) in pagos:
-                return pagos[user_id]
+            if str(user_id) in pagos:
+                return pagos[str(user_id)]
         except:
             abort(404, 'No se ha encontrado pagos del alumnmo')
 

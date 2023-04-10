@@ -33,7 +33,7 @@ def create_app():
     
     api.add_resource(resources.ProfesorClasesRec, '/profesor_clases/<user_id>')
 
-    api.add_resource(resources.PagoRec, '/pago')
+    api.add_resource(resources.PagoRec, '/pago/<user_id>')
 
     api.add_resource(resources.LoginRec, '/login')
     api.init_app(app)
