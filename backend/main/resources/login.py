@@ -1,12 +1,8 @@
 from flask_restful import Resource
 from flask import request, abort
-import json
-import hashlib as hash
 
 
-    
 class Login(Resource):
-    
 
     def post(self):
         try:
@@ -15,19 +11,16 @@ class Login(Resource):
             db[id] = informacion
             return db[id], 201
 
-        except:
+        except BaseException:
             abort(404, 'Error al crear el log in')
     # def sing_up(self, password, user_name):
     #     pass
-    
 
     # def get(self):
     #    pass
-    
 
 
 db = {
-
-    "1":"admin",
-    "2" : "admin"
+    "1": "admin",
+    "2": "admin"
 }

@@ -1,20 +1,18 @@
 from flask_restful import Resource
 from flask import request, abort
-import json
 
-#Se recibe un JSON -> {key : value}
-#Roles ? Valor del JSON?
+# Se recibe un JSON -> {key : value}
+# oles ? Valor del JSON?
 
 
 class Usuarios(Resource):
     '''Colección de usurios'''
 
-    #Como aplicar roles
+    # Como aplicar roles
 
     def get(self):
         '''GET -> Rol amin'''
         return datos
-
 
     def post(self):
         '''POST -> Rol admin'''
@@ -24,7 +22,7 @@ class Usuarios(Resource):
             datos[id] = informacion
             return datos[id], 201
 
-        except:
+        except BaseException:
             abort(404, 'Error al crear el usuario')
 
 
@@ -36,11 +34,10 @@ class Usuario(Resource):
         try:
             if datos[str(user_id)]:
                 return datos[(user_id)]
-        except:
+        except BaseException:
             abort(404, '')
 
-
-    def put(self, user_id ):
+    def put(self, user_id):
         '''PUT -> Rol Admin'''
         try:
             if str(user_id) in datos.keys():
@@ -48,7 +45,7 @@ class Usuario(Resource):
                 data = request.get_json()
                 usuario.update(data)
                 return 'Información actualizada con éxito', 201
-        except:
+        except BaseException:
             abort(404, 'No se ha podido actualizar el usuario de id {}'.format(user_id))
 
     def delete(self, user_id):
@@ -58,20 +55,19 @@ class Usuario(Resource):
             if datos[user_id]:
                 del datos[(user_id)]
                 return ('Usuario de id {} eliminado'.format(user_id), 204)
-        except:
+        except BaseException:
             abort(404, 'No se ha encontrado el usuario de id {}'.format(user_id))
-            
+
 
 class UsuariosAlumnos(Resource):
 
     def get(self):
         '''GET -> Admin, Profesor'''
         try:
-                return datos
-        except:
+          return datos
+        except BaseException:
             abort(404, 'Usuarios no encontrados.')
-          
-    
+
     def post(self):
         '''POST -> Rol admin'''
         try:
@@ -80,8 +76,8 @@ class UsuariosAlumnos(Resource):
             datos[id] = informacion
             return datos[id], 201
 
-        except:
-           abort(404, 'Error al crear el usuario')
+        except BaseException:
+          abort(404, 'Error al crear el usuario')
        
 
 class UsuarioAlumno(Resource):
@@ -92,9 +88,8 @@ class UsuarioAlumno(Resource):
             if datos[user_id]:
                 del datos[(user_id)]
                 return ('Usuario de id {} eliminado'.format(user_id), 201)
-        except:
+        except BaseException:
             abort(404, 'No se ha encontrado el usuario de id {}'.format(user_id))
-
 
     def put(self, user_id):
         '''PUT -> Admin, Profesor'''
@@ -107,20 +102,19 @@ class UsuarioAlumno(Resource):
         except:
                     abort(404, 'No se ha podido actualizar el usuario de id {}'.format(user_id))
 
-
     def get(self, user_id):
 
         try:
             if datos[user_id]:
                 return datos[(user_id)]
-        except:
+        except BaseException:
             abort(404, f'no se ha encontrado el usuario de id {user_id}.')
 
 
 class UsuarioProfesor(Resource):
     
     def get(self, user_id):
-      'GET: Obtener listado de usuarios. Rol: ADMIN, PROFESOR'
+      '''GET: Obtener listado de usuarios. Rol: ADMIN, PROFESOR'''
       try:
           if datos[str(user_id)]:
               return datos[(user_id)]
