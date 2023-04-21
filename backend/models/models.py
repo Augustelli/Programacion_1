@@ -1,5 +1,4 @@
 from ..main import db
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Float
 from datetime import datetime, time
 import hashlib
@@ -9,7 +8,7 @@ class Usuario(db.Model):
     __tablename__ = 'usuario'
 
     idUsuario = db.Column(db.Integer, primary_key=True, nullable=False, index=True)
-    nombre = db.Column(db.String(50), nullable=False, default=lambda: str(self.idUsuario))
+    nombre = db.Column(db.String(50), nullable=False, default=str(idUsuario))
     apellido = db.Column(db.String(50), nullable=False, default='apellido')
     fecha_nacimiento = db.Column(db.Date, nullable=False, default=datetime.date.today())
     email = db.Column(db.String(50), nullable=False, unique=True)
@@ -73,7 +72,7 @@ class ClaseProfesor(db.Model):
 
 
 class Clases(db.Model):
-    
+
     __tablename__ = 'clases'
 
     idClases = db.Column(db.Integer, primary_key=True, index=True, nullable=False)
@@ -91,7 +90,7 @@ class Planificacion(db.Model):
     planificacion = db.Column(db.String)  # json ???
     frecuencia = db.Column(db.String)
 
-    idUsuario = db.Column(db.Integer, db.ForeingKey('planificiaciones_usuario.idUsuario'), nullable=False)  # Me parece que tiene que ser como el de abajo
+    idUsuario = db.Column(db.Integer, db.ForeingKey('planificiaciones_usuario.idUsuario'), nullable=False)  # Me parece que tiene que ser como e abajo
     idUsuario = db.Column(db.Integer, db.ForeingKey('usuario.idUsuario'), nullable=False)
     idClase = db.Column(db.Integer, db.ForeingKey('clases.idClases'), nullable=False)
 
