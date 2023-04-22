@@ -1,0 +1,9 @@
+from .Alumno import Alumno as AlumnoModel
+from .ClaseProfesor import ClaseProfesor as ClaseProfesrorModelo
+from .Clases import Clases as ClaseModelo
+from .Pagos import Pagos as PagosModelo
+from .Planificacion import Planificacion as PlanificacionModelo
+from .Planificaciones_profesor import Planificaciones_Profesor as Planificacion_ProfesorModelo
+from .Planificaciones_usuario import Planificaciones_Usuario as Planificaciones_UsuarioModelo
+from .Profesor import Profesor as ProfesorModelo
+from .Usuario import Usuario as UsuarioModelo
