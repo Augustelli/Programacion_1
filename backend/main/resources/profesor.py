@@ -1,22 +1,15 @@
 from flask_restful import Resource
+from main import db
+from main.models import ClaseModelo
+from flask import abort
 
-
-# class ProfesoresClases(Resource):
-
-#     def get(self):
-#         return clases
 
 class ProfesorClases(Resource):
     def get(self, user_id):
-        if str(user_id) in clases:
-            return clases[str(user_id)]
-        else:
-            return 'Éxito', 404
-
-
-clases = {
-    "1": "Lunes, miercoles, viernes",
-    "2": "Martes, Jueves,",
-    "3": "Lunes, Martes, Miercoles",
-    "4": "Jueves, Viernes"
-}
+        try:
+            clases = db.session.query(ClaseModelo).all()
+            return clases.to_json()
+        except Exception:
+            abort(404, 'No se ha encontrado las clases.')
+        finally:
+            db.session.close()

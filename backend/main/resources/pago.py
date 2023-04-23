@@ -1,27 +1,20 @@
 from flask_restful import Resource
 from flask import abort
+from main.models import PagosModelo
+from main import db
 
 
 class Pago(Resource):
 
     def get(self, user_id):
         try:
-            if str(user_id) in pagos:
-                return pagos[str(user_id)]
+            rescate_pago = db.session.query(PagosModelo).filter(PagosModelo.idUsuario == user_id ).firts()
+            return rescate_pago.to_json(), 201
+
         except BaseException:
             abort(404, 'No se ha encontrado pagos del alumnmo')
 
+        finally:
+            db.session.close()
 
-# class Pagos(Resource):
-#     def get(self):
-#         try:
-#             return pagos
-#         except:
-#             abort(404, 'No se ha encontrado pagos.')
-
-pagos = {
-
-  "1": {'alumno': '1', 'monto': '1000', 'estado': 'Pendiente'},
-  "2": {'alumno': '2', 'monto': '1500', 'estado': 'Pagado'},
-
-  }
+    def put(self, user_id)
