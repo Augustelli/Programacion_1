@@ -17,4 +17,7 @@ class Pago(Resource):
         finally:
             db.session.close()
 
-    def put(self, user_id)
+    def put(self, user_id):
+
+        estado = db.session.query(PagosModelo).filter(PagosModelo.idUsuario).first()
+        

@@ -1,5 +1,5 @@
 from .Alumno import Alumno as AlumnoModel
-from .ClaseProfesor import ClaseProfesor as ClaseProfesrorModelo
+from .ClaseProfesor import ClaseProfesor as ClaseProfesorModelo
 from .Clases import Clases as ClaseModelo
 from .Pagos import Pagos as PagosModelo
 from .Planificacion import Planificacion as PlanificacionModelo

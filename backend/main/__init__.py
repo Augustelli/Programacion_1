@@ -1,12 +1,11 @@
 from flask import Flask
 from dotenv import load_dotenv
 from flask_restful import Api
-import main.resources as resources
 from flask_sqlalchemy import SQLAlchemy
 import os
 
+
 api = Api()
-# Inicialización de la App
 db = SQLAlchemy()
 
 
@@ -18,9 +17,11 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.getenv('DATABASE_PATH')}{os.getenv('DATABASE_NAME')}"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    if not os.path.exists(f"{os.getenv('DATABASE_PATH')}{os.getenv('DATABASE_NAME')}"):
-        db.create_all()
+    if not os.path.exists(str(os.getenv('DATABASE_PATH'))+str(os.getenv('DATABASE_NAME'))):
+        os.mknod(str(os.getenv('DATABASE_PATH'))+str(os.getenv('DATABASE_NAME')))
 
+    db.init_app(app)
+    import main.resources as resources
     api.add_resource(resources.UsuariosRec, '/usuarios')
 
     api.add_resource(resources.UsuarioRec, '/usuario/<user_id>')
@@ -42,5 +43,6 @@ def create_app():
     api.add_resource(resources.PagoRec, '/pago/<user_id>')
 
     api.add_resource(resources.LoginRec, '/login')
+    db.create_all()
     api.init_app(app)
     return app

@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from main import db
+from .. import db
 from main.models import ClaseModelo
 from flask import abort
 

@@ -1,4 +1,4 @@
-from main import db
+from .. import db
 from sqlalchemy import Float
 from datetime import datetime
 import hashlib
