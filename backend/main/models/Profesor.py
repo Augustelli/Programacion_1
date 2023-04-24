@@ -1,4 +1,4 @@
-from main import db
+from .. import db
 from sqlalchemy import Float
 
 
@@ -8,7 +8,7 @@ class Profesor(db.Model):
 
     idProfesor = db.Column(db.Integer, nullable=False, primary_key=True, index=True)
     especialidad = db.Column(db.String(50), default='No posee.')
-    idClases = db.Column(db.Integer, db.ForeignKey('clases.idClases'), nuallable=False)
+    idClases = db.Column(db.Integer, nullable=False)
     # idPlanificaciones = db.Column(db.Integer, db.ForeignKey('planificaciones_profesor.id')) No se si va porque hay tabla intersección
     salario = db.Column(Float, nullable=False)
 

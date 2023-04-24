@@ -1,12 +1,12 @@
-from main import db
+from .. import db
 from datetime import datetime
 
 
-class Pagos(db.Models):
+class Pagos(db.Model):
     __tablename__ = 'pagos'
 
     idPago = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, index=True)
-    idUsuario = db.Column(db.Integer, db.ForeignKey('usuario.idUsuario'), nullable=False)
+    idUsuario = db.Column(db.Integer, nullable=False)
     estado = db.Column(db.String(10), nullable=False, default='No pagado')
     fecha_pago = db.Column(db.DateTime, default=datetime.utcnow())
 

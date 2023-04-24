@@ -6,7 +6,7 @@ class Alumno(db.Model):
     __tablename__ = 'alumno'
 
     idAlumno = db.Column(db.Integer, primary_key=True, index=True, nullable=False)
-    planificacion = db.Column(db.Integer, db.ForeignKey('planificacion_usuario.idPlanificacion'), nullable=False)
+    planificacion = db.Column(db.Integer, nullable=False)
     estado = db.Column(db.Boolean, nullable=False, default=False)
 
     def __repr__(self):

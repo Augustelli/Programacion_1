@@ -42,7 +42,6 @@ def create_app():
 
     api.add_resource(resources.PagoRec, '/pago/<user_id>')
 
-    api.add_resource(resources.LoginRec, '/login')
-    db.create_all()
+    # api.add_resource(resources.LoginRec, '/login')
     api.init_app(app)
     return app

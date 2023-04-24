@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request, abort
-from main import db
-from main.models import Planificacion_ProfesorModelo, Planificaciones_UsuarioModelo, PlanificacionModelo    
+from .. import db
+from main.models import Planificaciones_UsuarioModelo, PlanificacionModelo    
 
 
 class PlanificacionAlumno(Resource):

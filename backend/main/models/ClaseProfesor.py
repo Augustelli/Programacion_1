@@ -1,10 +1,10 @@
-from main import db
+from .. import db
 
 
 class ClaseProfesor(db.Model):
     __tablename__ = 'clases_profesor'
-    idProfesor = db.Column(db.Integer, db.ForeignKey('profesor.idProfesor'), nullable=False)
-    idClases = db.Column(db.Integer, db.ForeignKey('clases.idClases'), nullable=False)
+    idProfesor = db.Column(db.Integer, primary_key=True, nullable=False, index=True)
+    idClases = db.Column(db.Integer, nullable=False)
 
 #   ** RELACIONES de Clases_Profesor
 

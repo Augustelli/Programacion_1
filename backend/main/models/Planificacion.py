@@ -1,4 +1,4 @@
-from main import db
+from .. import db
 
 
 class Planificacion(db.Model):
@@ -9,8 +9,8 @@ class Planificacion(db.Model):
     planificacion = db.Column(db.String)
     frecuencia = db.Column(db.String)
 
-    idUsuario = db.Column(db.Integer, db.ForeingKey('planificiaciones_usuario.idUsuario'), nullable=False)  # Me parece que tiene que ser como e abajo
-    idClase = db.Column(db.Integer, db.ForeingKey('clases.idClases'), nullable=False)
+    idUsuario = db.Column(db.Integer, nullable=False)  # Me parece que tiene que ser como e abajo
+    idClase = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         return f'<Planificaicion - idPlanificacion: {self.idPlanificacion} - planificacion: {self.planificacion} - frecuencia: {self.frecuencia} - idUsuario: {self.idUsuario} - idClase: {self.idClase}>'  # noqa: E501

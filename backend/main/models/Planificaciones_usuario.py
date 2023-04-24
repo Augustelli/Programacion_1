@@ -4,8 +4,8 @@ from .. import db
 class Planificaciones_Usuario(db.Model):
 
     __tablename__ = 'planificaciones_usuario'
-    idUsuario = db.Column(db.Integer, db.ForeignKey('usuario.idUsuario'))
-    idPlanificacion = db.Column(db.Integer, db.ForeignKey('planificacion.idPlanificacion'))
+    idUsuario = db.Column(db.Integer, primary_key=True)
+    idPlanificacion = db.Column(db.Integer)
 
     def __repr__(self):
         return f'<Planificaciones_Usuario - idUsuario:{self.idUsuario} - idPlanificacion: {self.idPlanificacion}>'

@@ -1,10 +1,10 @@
-from main import db
+from .. import db
 
 
 class Planificaciones_Profesor(db.Model):
 
-    idProfesor = db.Column(db.Integer, db.ForeignKey('profesor.idProfesor'))
-    idPlanificacion = db.Column(db.Integer, db.ForeignKey('planificacion.idPlanificacion'))
+    idProfesor = db.Column(db.Integer, primary_key=True, index=True)
+    idPlanificacion = db.Column(db.Integer)
 
     def __repr__(self):
         return f'<Planificaciones_Profesor - idProfesor: {self.idProfesor} - idPlanificacion: {self.idPlanificacion}>'

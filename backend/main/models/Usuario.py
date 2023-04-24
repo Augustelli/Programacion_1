@@ -10,14 +10,14 @@ class Usuario(db.Model):
     idUsuario = db.Column(db.Integer, primary_key=True, nullable=False, index=True)
     nombre = db.Column(db.String(50), nullable=False, default=str(idUsuario))
     apellido = db.Column(db.String(50), nullable=False, default='apellido')
-    fecha_nacimiento = db.Column(db.Date, nullable=False, default=datetime.date.today())
+    fecha_nacimiento = db.Column(db.Date, nullable=False, default=lambda: datetime.date.today())
     email = db.Column(db.String(50), nullable=False, unique=True)
     # Recordar que para crear la contraseña necesitamos llamar al método crear_contraseña para que compute el hash y lo almacene
     password_hash = db.Column(db.String(64), nullable=False)
     rol = db.Column(db.String(10), nullable=False)
     altura = db.Column(Float, nullable=True)
     peso = db.Column(Float, nullable=True)
-    dni = db.Column(db.Integer(8), nullable=False, unique=True)
+    dni = db.Column(db.Integer, nullable=False, unique=True)
     estado = db.Column(db.Boolean, nullable=False, default=False)
 
     def crear_contrasegna(self, contrasegna):

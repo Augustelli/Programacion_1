@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import abort
 from main.models import PagosModelo
-from main import db
+from .. import db
 
 
 class Pago(Resource):
@@ -20,4 +20,5 @@ class Pago(Resource):
     def put(self, user_id):
 
         estado = db.session.query(PagosModelo).filter(PagosModelo.idUsuario).first()
+        
         
