@@ -19,9 +19,11 @@ class PlanificacionAlumno(Resource):
 
 class PlanificacionProfesor(Resource):
 
-    def get(self, user_id):
+    def get(self, user_id, idplanificacion):
         try:
-            planificacion = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.idPlanificacion).all()
+            planificacion = db.session.query(PlanificacionModelo).filter(
+                PlanificacionModelo.idUsuario == user_id,
+                PlanificacionModelo.idPlanificacion == idplanificacion).first()
             return planificacion.to_json()
 
         except BaseException:

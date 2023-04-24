@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import abort
-from main.models import PagosModelo
+from main.models import PagosModelo, UsuarioModelo
 from .. import db
 
 
@@ -8,7 +8,7 @@ class Pago(Resource):
 
     def get(self, user_id):
         try:
-            rescate_pago = db.session.query(PagosModelo).filter(PagosModelo.idUsuario == user_id ).firts()
+            rescate_pago = db.session.query(PagosModelo).filter(PagosModelo.idUsuario == user_id).firts()
             return rescate_pago.to_json(), 201
 
         except BaseException:
@@ -18,7 +18,13 @@ class Pago(Resource):
             db.session.close()
 
     def put(self, user_id):
-
-        estado = db.session.query(PagosModelo).filter(PagosModelo.idUsuario).first()
-        
-        
+        try:
+            pago = db.session.query(PagosModelo).filter(PagosModelo.idUsuario == user_id).order_by(PagosModelo.estado.asc()).all()
+            pago.estado = "No pagado" if pago.estado == "Pagado" else "Pagado"
+            usuario = db.session.query(UsuarioModelo).filter_by(UsuarioModelo.idUsuario == user_id).first()
+            usuario.estado = pago.estado
+            db.session.commit()
+        except Exception:
+            abort(404, f'No se pudo realizar la actualización del estado. Usuario id {user_id}')
+        finally:
+            db.session.close()

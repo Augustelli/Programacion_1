@@ -5,7 +5,7 @@ from flask import abort
 
 
 class ProfesorClases(Resource):
-    def get(self, user_id):
+    def get(self):
         try:
             clases = db.session.query(ClaseModelo).all()
             return clases.to_json()
