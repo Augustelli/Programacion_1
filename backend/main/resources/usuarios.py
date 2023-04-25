@@ -11,8 +11,9 @@ class Usuarios(Resource):
     def get(self):
 
         try:
-            usuarios = db.session.usuario(UsuarioModelo).all()
-            return jsonify(usuario.to_json() for usuario in usuarios)
+            usuarios = db.session.query(UsuarioModelo).all()
+            usuarios_json = [usuario.to_json() for usuario in usuarios]
+            return jsonify(usuarios_json)
 
         except Exception:
             abort(404, 'Query no encontrado')

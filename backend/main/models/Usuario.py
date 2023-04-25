@@ -7,10 +7,10 @@ import hashlib
 class Usuario(db.Model):
     __tablename__ = 'usuario'
 
-    idUsuario = db.Column(db.Integer, primary_key=True, nullable=False, index=True)
+    idUsuario = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(50), nullable=False, default=str(idUsuario))
     apellido = db.Column(db.String(50), nullable=False, default='apellido')
-    fecha_nacimiento = db.Column(db.Date, nullable=False, default=lambda: datetime.date.today())
+    fecha_nacimiento = db.Column(db.String(50), nullable=True)
     email = db.Column(db.String(50), nullable=False, unique=True)
     # Recordar que para crear la contraseña necesitamos llamar al método crear_contraseña para que compute el hash y lo almacene
     password_hash = db.Column(db.String(64), nullable=False)
@@ -29,13 +29,13 @@ class Usuario(db.Model):
 
     def __init__(self, **kwargs):
         super(Usuario, self).__init__(**kwargs)
-        if self.role is None:
-            self.role = 'alumno'
+        if self.rol is None:
+            self.rol = 'alumno'
 
-    def establecer_role(self, role):
-        if role not in ['alumno', 'profesor', 'admin']:
+    def establecer_rol(self, rol):
+        if rol not in ['alumno', 'profesor', 'admin']:
             raise ValueError('Rol inválido')
-        self.role = role
+        self.rol = rol
 
     def __repr__(self):
         return f'<Usuario: {self.nombre} {self.apellido} {self.estado}>'
