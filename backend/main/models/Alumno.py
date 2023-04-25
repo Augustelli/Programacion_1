@@ -5,7 +5,7 @@ class Alumno(db.Model):
 
     __tablename__ = 'alumno'
 
-    idAlumno = db.Column(db.Integer, primary_key=True, index=True, nullable=False)
+    idAlumno = db.Column(db.Integer, primary_key=True)
     planificacion = db.Column(db.Integer, nullable=False)
     estado = db.Column(db.Boolean, nullable=False, default=False)
 

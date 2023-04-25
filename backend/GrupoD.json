@@ -1,16 +1,23 @@
 {
 	"info": {
-		"_postman_id": "3de46baa-2c27-43ef-b640-6bf226ee6243",
+		"_postman_id": "75ad4e34-6e04-4686-9c35-a37845effc77",
 		"name": "Programacion_1",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26654694"
+		"_exporter_id": "26654361"
 	},
 	"item": [
 		{
 			"name": "Devolver lista de usuarios",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \n    \"id_usuario\": 1\n\n}"
+				},
 				"url": {
 					"raw": "http://127.0.0.1:5000/usuarios",
 					"protocol": "http",
@@ -35,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\"nombre\": \"test_1\",\n\"apellido\": \"test_1\",\n\"edad\": 99,\n\"email\": \"test_1\",\n\"telefono\": \"+54911111111110\",\n\"estado\" : \"activo\",\n\"rol\": \"admin\"\n}",
+					"raw": "{   \n\"nombre\": \"test_1\",\n\"apellido\": \"test_1\",\n\"fecha_nacimiento\":\"06/11/1999\",\n\"email\": \"augustokark@hotmail.com\",\n\"passwprd_hash\":\"hola1234\",\n\"rol\": \"alumno\",\n\"altura\":170,\n\"peso\":70,\n\"dni\": 42243664,\n\"estado\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"

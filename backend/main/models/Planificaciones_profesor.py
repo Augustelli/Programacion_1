@@ -3,6 +3,7 @@ from .. import db
 
 class Planificaciones_Profesor(db.Model):
 
+    __tablename__ = 'planificaciones_profesor'
     idProfesor = db.Column(db.Integer, primary_key=True, index=True)
     idPlanificacion = db.Column(db.Integer)
 
