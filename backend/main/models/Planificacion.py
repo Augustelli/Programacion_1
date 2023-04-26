@@ -6,38 +6,39 @@ class Planificacion(db.Model):
     __tablename__ = 'planificacion'
 
     idPlanificacion = db.Column(db.Integer, primary_key=True, index=True, nullable=False)
-    planificacion = db.Column(db.String)
+    rutina=db.Column(db.String(50), nullable=False)
     frecuencia = db.Column(db.String)
-
-    idUsuario = db.Column(db.Integer, nullable=False)  # Me parece que tiene que ser como e abajo
-    idClase = db.Column(db.Integer, nullable=False)
+    id_Alumno = db.Column(db.Integer,db.ForeignKey('alumno.idAlumno'))  
+    id_Clase = db.Column(db.Integer, db.ForeignKey('clases.idClases'))
+    alumno = db.relationship('Alumno', back_populates='planificacion', cascade='all, delete-orphan', single_parent=True)
+    clase = db.relationship('Clase', back_populates='planificacion', cascade='all, delete-orphan', single_parent=True)
 
     def __repr__(self):
-        return f'<Planificaicion - idPlanificacion: {self.idPlanificacion} - planificacion: {self.planificacion} - frecuencia: {self.frecuencia} - idUsuario: {self.idUsuario} - idClase: {self.idClase}>'  # noqa: E501
+        return f'<Planificaicion - idPlanificacion: {self.idPlanificacion} - planificacion: {self.planificacion} - frecuencia: {self.frecuencia} - idUsuario: {self.idUsuario} - id_Clase: {self.id_Clase}>'  # noqa: E501
 
     def to_json(self):
         planificacion_json = {
             'idPlanificacion': self.idPlanificacion,
-            'planificacion': self.planificacion,
+            'rutina': self.rutina,
             'frecuencia': self.frecuencia,
-            'idUsuario': self.idUsuario,
-            'idClase': self.idClase
+            'id_Alumno': self.id_Alumno,
+            'id_Clase': self.id_Clase
         }
         return planificacion_json
 
     @staticmethod
     def from_json(planificacion_json):
         idPlanificacion = planificacion_json.get('idPlanificacion')
-        planificacion = planificacion_json.get('planificacion')
+        rutina = planificacion_json.get('rutina')
         frecuencia = planificacion_json.get('frecuencia')
         idUsuario = planificacion_json.get('idUsuario')
-        idClase = planificacion_json.get('idClase')
+        id_Clase = planificacion_json.get('id_Clase')
 
         return Planificacion(
             idPlanificacion=idPlanificacion,
-            planificacion=planificacion,
+            rutina=rutina,
             frecuencia=frecuencia,
             idUsuario=idUsuario,
-            idClase=idClase
+            id_Clase=id_Clase
         )
 #   ** RELACIONES de Planificacion

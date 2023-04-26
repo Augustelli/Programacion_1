@@ -9,15 +9,20 @@ class Clases(db.Model):
     idClases = db.Column(db.Integer, primary_key=True, index=True, nullable=False)
     nombre = db.Column(db.String(50), nullable=False, default='Rutina personal.')
     horario = db.Column(db.Time, default=time(0, 0))
+    dias=db.Column(db.String(50), nullable=False, default='Lunes a Viernes.')
+    clasesProfesor = db.relationship('ClaseProfesor', back_populates='clases', cascade='all, delete-orphan')
+    planificaciones = db.relationship('Planificaciones', back_populates='clases', cascade='all, delete-orphan')
+
 
     def __repr__(self):
-        return f'<Clases idClases: {self.idClases}> - Nombre: {self.nombre} - Horario: {self.horario}'
+        return f'<Clases idClases: {self.idClases}> - Nombre: {self.nombre} - Horario: {self.horario} - Dias: {self.dias}'
 
     def to_json(self):
         clases_json = {
             'idClases': self.idClases,
             'nombre': self.nombre,
-            'horario': self.horario
+            'horario': self.horario,
+            'dias': self.dias
         }
         return clases_json
 
@@ -26,9 +31,11 @@ class Clases(db.Model):
         idClases = clases_json.get('idClases')
         nombre = clases_json.get('nombre')
         horario = clases_json.get('horario')
+        dias=clases_json.get('dias')
         return Clases(
             idClases=idClases,
             nombre=nombre,
-            horario=horario
+            horario=horario,
+            dias=dias
         )
 #   ** RELACIONES de Clases

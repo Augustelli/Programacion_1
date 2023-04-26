@@ -1,34 +1,36 @@
 from .. import db
 
 
+
 class Alumno(db.Model):
 
     __tablename__ = 'alumno'
 
     idAlumno = db.Column(db.Integer, primary_key=True)
-    planificacion = db.Column(db.Integer, nullable=False)
-    estado = db.Column(db.Boolean, nullable=False, default=False)
+    alumno_dni=db.Column(db.Integer,db.ForeignKey('usuario.dni'))
+    usuario = db.relationship('Usuario', uselist=False,back_populates='alumno',cascade='all, delete-orphan')
+    planificacion = db.relationship('Planificacion', back_populates='alumno', cascade='all, delete-orphan', single_parent=True)
+
+
+    
 
     def __repr__(self):
-        return f'<Alumno - ID:{self.idAlumno} - estado: {self.estado}\nPlanificacion: {self.planificacion} >'
+        return f'<Alumno - ID:{self.idAlumno} - alumno_dni: {self.alumno_dni} >'
 
     def to_json(self):
         alumno_json = {
             'idAlumno': self.idAlumno,
-            'planificacion': self.planificacion,
-            'estado': self.estado
+            'alumno_dni': self.alumno_dni
         }
         return alumno_json
 
     @staticmethod
     def from_json(alumno_json):
         idALumno = alumno_json.get('idAlumno')
-        planificacion = alumno_json.get('planificacion')
-        estado = alumno_json.get('estado')
+        alumno_dni=alumno_json.get('alumno_dni')
         return Alumno(
             idALumno=idALumno,
-            planificacion=planificacion,
-            estado=estado
+            alumno_dni=alumno_dni
         )
 
 #   ** RELACIONES de Alumno

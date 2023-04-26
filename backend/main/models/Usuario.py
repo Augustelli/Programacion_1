@@ -7,18 +7,22 @@ import hashlib
 class Usuario(db.Model):
     __tablename__ = 'usuario'
 
-    idUsuario = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(50), nullable=False, default=str(idUsuario))
+    dni = db.Column(db.Integer, primary_key=True, index=True)
+    #idUsuario = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(50), nullable=False, default=('dni'))
     apellido = db.Column(db.String(50), nullable=False, default='apellido')
-    fecha_nacimiento = db.Column(db.String(50), nullable=True)
     email = db.Column(db.String(50), nullable=False, unique=True)
+    fecha_nacimiento = db.Column(db.String(50), nullable=True)
+    estado = db.Column(db.Boolean, nullable=False, default=False)
     # Recordar que para crear la contraseña necesitamos llamar al método crear_contraseña para que compute el hash y lo almacene
-    password_hash = db.Column(db.String(64), nullable=False)
     rol = db.Column(db.String(10), nullable=False)
+    nombre_usuario = db.Column(db.String(50), nullable=False, unique=True)
+    password_hash = db.Column(db.String(64), nullable=False)
     altura = db.Column(Float, nullable=True)
     peso = db.Column(Float, nullable=True)
-    dni = db.Column(db.Integer, nullable=False, unique=True)
-    estado = db.Column(db.Boolean, nullable=False, default=False)
+    profesor= db.relationship('Profesor', uselist=False, back_populates='usuario', cascade='all, delete-orphan',single_parent=True)
+    alumno= db.relationship('Alumno', uselist=False, back_populates='usuario', cascade='all, delete-orphan',single_parent=True)
+    pagos= db.relationship('Pago', back_populates='usuario', cascade='all, delete-orphan',single_parent=True)
 
     def crear_contrasegna(self, contrasegna):
         self.password_hash = hashlib.sha256(contrasegna.encode('utf-8')).hexdigest()
@@ -43,46 +47,47 @@ class Usuario(db.Model):
     def to_json(self):
 
         usuario_json = {
-            'idUsuario': self.idUsuario,
+            'dni': self.dni,
             'nombre': self.nombre,
             'apellido': self.apellido,
-            'fecha_nacimiento': self.fecha_nacimiento,
             'email': self.email,
-            'password_hash': self.password_hash,
+            'fecha_nacimiento': self.fecha_nacimiento,
+            'estado': self.estado,
             'rol': self.rol,
+            'nombre_usuario': self.nombre_usuario,
+            #'password_hash': self.password_hash,
             'altura': self.altura,
-            'peso': self.peso,
-            'dni': self.dni,
-            'estado': self.estado
+            'peso': self.peso
         }
         return usuario_json
 
     @staticmethod
     def from_json(usuario_json):
-        idUsuario = usuario_json.get('idUsuario')
+        dni= usuario_json.get('dni')
         nombre = usuario_json.get('nombre')
         apellido = usuario_json.get('apellido')
-        fecha_nacimiento = usuario_json.get('fecha_nacimiento')
         email = usuario_json.get('email')
-        password_hash = usuario_json.get('password_hash')
+        fecha_nacimiento = usuario_json.get('fecha_nacimiento')
+        estado = usuario_json.get('estado')
+        #password_hash = usuario_json.get('password_hash')
         rol = usuario_json.get('rol')
+        nombre_usuario = usuario_json.get('nombre_usuario')
         altura = usuario_json.get('altura')
         peso = usuario_json.get('peso')
-        dni = usuario_json.get('dni')
-        estado = usuario_json.get('estado')
+        
 
         return Usuario(
-            idUsuario=idUsuario,
+            dni=dni,
             nombre=nombre,
             apellido=apellido,
-            fecha_nacimiento=fecha_nacimiento,
             email=email,
-            password_hash=password_hash,
+            fecha_nacimiento=fecha_nacimiento,
+            #password_hash=password_hash,
+            estado=estado,
             rol=rol,
+            nombre_usuario=nombre_usuario,
             altura=altura,
             peso=peso,
-            dni=dni,
-            estado=estado,
         )
 
 #   ** RELACIONES de Usuario

@@ -3,8 +3,13 @@ from .. import db
 
 class ClaseProfesor(db.Model):
     __tablename__ = 'clases_profesor'
-    idProfesor = db.Column(db.Integer, primary_key=True, nullable=False, index=True)
-    idClases = db.Column(db.Integer, nullable=False)
+    idClaseProfesor = db.Column(db.Integer, primary_key=True, index=True, nullable=False)
+    idProfesor = db.Column(db.Integer, db.ForeignKey('profesor.idProfesor'),nullable=False, index=True)
+    idClases = db.Column(db.Integer, db.ForeignKey('clases.idClases'),nullable=False)
+    clases=db.relationship('Clases',back_populates='clases_profesor',cascade='all, delete-orphan',single_parent=True)
+    profesor=db.relationship('Profesor',back_populates='clases_profesor',cascade='all, delete-orphan',single_parent=True)
+
+
 
 #   ** RELACIONES de Clases_Profesor
 
