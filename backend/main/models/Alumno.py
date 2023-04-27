@@ -1,18 +1,14 @@
 from .. import db
 
 
-
 class Alumno(db.Model):
 
     __tablename__ = 'alumno'
 
     idAlumno = db.Column(db.Integer, primary_key=True)
-    alumno_dni=db.Column(db.Integer,db.ForeignKey('usuario.dni'))
-    usuario = db.relationship('Usuario', uselist=False,back_populates='alumno',cascade='all, delete-orphan')
+    alumno_dni = db.Column(db.Integer, db.ForeignKey('usuario.dni'))
+    usuario = db.relationship('Usuario', uselist=False, back_populates='alumno', cascade='all, delete-orphan')
     planificacion = db.relationship('Planificacion', back_populates='alumno', cascade='all, delete-orphan', single_parent=True)
-
-
-    
 
     def __repr__(self):
         return f'<Alumno - ID:{self.idAlumno} - alumno_dni: {self.alumno_dni} >'
@@ -27,7 +23,7 @@ class Alumno(db.Model):
     @staticmethod
     def from_json(alumno_json):
         idALumno = alumno_json.get('idAlumno')
-        alumno_dni=alumno_json.get('alumno_dni')
+        alumno_dni = alumno_json.get('alumno_dni')
         return Alumno(
             idALumno=idALumno,
             alumno_dni=alumno_dni

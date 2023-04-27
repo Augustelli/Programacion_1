@@ -6,10 +6,13 @@ class Planificacion(db.Model):
     __tablename__ = 'planificacion'
 
     idPlanificacion = db.Column(db.Integer, primary_key=True, index=True, nullable=False)
-    rutina=db.Column(db.String(50), nullable=False)
+    rutina = db.Column(db.String(50), nullable=False)
     frecuencia = db.Column(db.String)
-    id_Alumno = db.Column(db.Integer,db.ForeignKey('alumno.idAlumno'))  
+    id_Alumno = db.Column(db.Integer, db.ForeignKey('alumno.idAlumno'))
     id_Clase = db.Column(db.Integer, db.ForeignKey('clases.idClases'))
+    idProfesor = db.Column(db.Integer, db.ForeignKey('profesor.idProfesor'))
+# RELACIONES de Usuario
+    profesor = db.relationship('Profesor', back_populates='planificacion', cascade='all, delete-orphan')
     alumno = db.relationship('Alumno', back_populates='planificacion', cascade='all, delete-orphan', single_parent=True)
     clase = db.relationship('Clase', back_populates='planificacion', cascade='all, delete-orphan', single_parent=True)
 

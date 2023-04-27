@@ -3,7 +3,7 @@ from .ClaseProfesor import ClaseProfesor as ClaseProfesorModelo
 from .Clases import Clases as ClaseModelo
 from .Pagos import Pagos as PagosModelo
 from .Planificacion import Planificacion as PlanificacionModelo
-from .Planificaciones_profesor import Planificaciones_Profesor as Planificacion_ProfesorModelo
-from .Planificaciones_usuario import Planificaciones_Usuario as Planificaciones_UsuarioModelo
 from .Profesor import Profesor as ProfesorModelo
 from .Usuario import Usuario as UsuarioModelo
+from .Usuario_contrasegna import Usuario_Contrasegna as Usuario_contrasegnaModelo
+from .Login_usuario import Login_usuario as Login_usuarioModelo

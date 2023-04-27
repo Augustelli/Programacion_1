@@ -1,14 +1,14 @@
 from flask_restful import Resource
 from flask import request, abort
 from .. import db
-from main.models import Planificaciones_UsuarioModelo, PlanificacionModelo    
+from main.models import PlanificacionModelo
 
 
 class PlanificacionAlumno(Resource):
 
     def get(self, user_id):
         try:
-            planificacion = db.session.query(Planificaciones_UsuarioModelo).filter(Planificaciones_UsuarioModelo.idUsuario).all()
+            planificacion = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.id_Alumno == user_id).all()
             return planificacion.to_json()
 
         except BaseException:
@@ -19,36 +19,33 @@ class PlanificacionAlumno(Resource):
 
 class PlanificacionProfesor(Resource):
 
-    def get(self, user_id, idplanificacion):
+    def get(self, idplanificacion):
         try:
             planificacion = db.session.query(PlanificacionModelo).filter(
-                PlanificacionModelo.idUsuario == user_id,
                 PlanificacionModelo.idPlanificacion == idplanificacion).first()
-            return planificacion.to_json()
+            return planificacion.to_json(), 201
 
         except BaseException:
-            abort(404, f'Planificaciones del Profesor {user_id} no encontradas')
+            abort(404, f'Planificaciones de if {idplanificacion} no encontrada')
         finally:
             db.session.close()
 
-    def delete(self, user_id, idplanificacion):
+    def delete(self, idplanificacion):
         try:
             planificacion_eliminar = db.session.query(PlanificacionModelo).filter(
-                PlanificacionModelo.idPlanificacion == idplanificacion,
-                PlanificacionModelo.idUsuario == user_id)
+                PlanificacionModelo.idPlanificacion == idplanificacion)
             db.session.delete(planificacion_eliminar)
             db.session.commit()
         except BaseException:
-            abort(404, 'No se ha encontrado la planificación del alumno.')
+            abort(404, 'No se ha encontrado la planificación  de id {}.').format(idplanificacion)
         finally:
             db.session.close()
 
-    def put(self, user_id, idplanificacion):
+    def put(self, idplanificacion):
 
         try:
             planificacion_editar = db.session.query(PlanificacionModelo).filter(
                 PlanificacionModelo.idPlanificacion == idplanificacion,
-                PlanificacionModelo.idUsuario == user_id
             ).first()
             informacion = request.get_json().items()
             for campo, valor in informacion:

@@ -8,4 +8,4 @@ from .planificacion import PlanificacionProfesor as PlanProfesorRec
 from .planificacion import PlanificacionesProfesores as PlansProfesoresRec
 from .profesor import ProfesorClases as ProfesorClasesRec
 from .pago import Pago as PagoRec
-#from .login import Login as LoginRec
+from .login import Login as LoginRec

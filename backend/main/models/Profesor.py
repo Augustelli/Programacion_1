@@ -1,18 +1,17 @@
 from .. import db
-from sqlalchemy import Float
 
 
 class Profesor(db.Model):
 
     __tablename__ = 'profesor'
 
-    idProfesor = db.Column(db.Integer ,nullable=False, primary_key=True, index=True)
-    profesor_dni= db.Column(db.Integer, db.ForeignKey('usuario.dni'), nullable=False)
+    idProfesor = db.Column(db.Integer, nullable=False, primary_key=True, index=True)
+    profesor_dni = db.Column(db.Integer, db.ForeignKey('usuario.dni'), nullable=False)
     especialidad = db.Column(db.String(50), default='No posee.')
-    salario = db.Column(Float, nullable=False)
+    salario = db.Column(db.Float, nullable=False)
     usuario = db.relationship('Usuario', uselist=False, back_populates='profesor', cascade='all, delete-orphan')
     clases_profesor = db.relationship('ClaseProfesor', back_populates='profesor', cascade='all, delete-orphan', single_parent=True)
-    
+    planificaciones = db.relationship('Planificacion', back_populates='profesor', cascade='all, delete-orphan')
 
     def __repr__(self):
         profesor_json = {
@@ -29,7 +28,6 @@ class Profesor(db.Model):
         profesor_dni = profesor_json.get('profesor_dni')
         especialidad = profesor_json.get('especialidad')
         salario = profesor_json.get('salario')
-        
 
         return Profesor(
             idProfesor=idProfesor,

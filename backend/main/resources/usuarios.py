@@ -2,6 +2,7 @@ from flask_restful import Resource
 from flask import request, abort, jsonify
 from .. import db
 from main.models import UsuarioModelo, AlumnoModel, ProfesorModelo
+from sqlalchemy import or_
 
 
 class Usuarios(Resource):
@@ -21,23 +22,16 @@ class Usuarios(Resource):
             db.session.close()
 
     def post(self):
-
-        # usuario_nuevo = UsuarioModelo.from_json(request.get_json())
-        # db.session.add(usuario_nuevo)
-        # db.session.commit()
-        # return usuario_nuevo.to_json(), 201
-    
         # Crear un usuario
         try:
             usuario_nuevo = UsuarioModelo.from_json(request.get_json())
             db.session.add(usuario_nuevo)
             db.session.commit()
             return usuario_nuevo.to_json(), 201
-
         except BaseException:
-           abort(404, 'Error al crear el usuario')
+            abort(404, 'Error al crear el usuario')
         finally:
-           db.session.close()
+            db.session.close()
 
 
 class Usuario(Resource):
@@ -45,7 +39,7 @@ class Usuario(Resource):
     def get(self, user_id):
         try:
             usuario_rescatado = db.session.query(UsuarioModelo).filter(
-                UsuarioModelo.idUsuario == user_id,).first()
+                UsuarioModelo.dni == user_id,).first()
             return usuario_rescatado.to_json(), 201
         except Exception:
             abort(404, f'No se ha encontrado del usuario de id: {user_id}')
@@ -55,7 +49,7 @@ class Usuario(Resource):
     def put(self, user_id):
 
         try:
-            usuario_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.idUsuario == user_id).first()
+            usuario_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == user_id).first()
             informacion = request.get_json().items()
             for campo, valor in informacion:
                 setattr(usuario_editar, campo, valor)
@@ -70,7 +64,7 @@ class Usuario(Resource):
     def delete(self, user_id):
 
         try:
-            usuario_eliminar = db.session.query(UsuarioModelo).filter(UsuarioModelo.idUsuario == user_id).first()
+            usuario_eliminar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == user_id).first()
             db.session.delete(usuario_eliminar)
             db.session.commit()
             return 204
@@ -87,14 +81,20 @@ class UsuariosAlumnos(Resource):
             alumnos = db.session.query(AlumnoModel).all()
             return alumnos.to_json()
         except BaseException:
-            abort(404, 'Usuarios no encontrados.')
+            abort(404, 'Alumnos no encontrados.')
         finally:
             db.session.close()
 
     def post(self):
         try:
-            alumno_nuevo = AlumnoModel.from_json(request.get_json())
-            db.session.add(alumno_nuevo)
+            datos = request.get_json()
+            if datos['rol'] != 'alumno':
+                datos['rol'] = 'alumno'
+
+            usuario_nuevo = UsuarioModelo.from_json(datos)
+            db.session.add(usuario_nuevo)
+            dni_usuario = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == usuario_nuevo.dni).first()
+            alumno_nuevo = AlumnoModel(dni=dni_usuario)
             db.session.commit()
             return alumno_nuevo.to_json(), 201
 
@@ -109,7 +109,10 @@ class UsuarioAlumno(Resource):
     def delete(self, user_id):
         '''DELETE -> Rol Admin, Profesor'''
         try:
-            alumno_eliminar = db.session.query(AlumnoModel).filter(AlumnoModel.idAlumno == user_id).first()
+            alumno_eliminar = db.session.query(AlumnoModel).filter(or_(
+                AlumnoModel.dni == user_id,
+                AlumnoModel.idAlumno == user_id
+            )).first()
             db.session.delete(alumno_eliminar)
             db.session.commit()
             return 204
@@ -121,7 +124,7 @@ class UsuarioAlumno(Resource):
     def put(self, user_id):
 
         try:
-            alumno_editar = db.session.query(AlumnoModel).filter(AlumnoModel.idAlumno == user_id).first()
+            alumno_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == user_id).first()
             informacion = request.get_json().items()
             for campo, valor in informacion:
                 setattr(alumno_editar, campo, valor)
@@ -139,8 +142,8 @@ class UsuarioAlumno(Resource):
     def get(self, user_id):
 
         try:
-            alumno_rescatado = db.session.query(AlumnoModel).filter(
-                AlumnoModel.idAlumno == user_id,).first()
+            alumno_rescatado = db.session.query(UsuarioModelo).filter(
+                UsuarioModelo.dni == user_id,).first()
             return alumno_rescatado.to_json(), 201
         except Exception:
             abort(404, f'No se ha encontrado del alumno de id: {user_id}')
@@ -153,17 +156,19 @@ class UsuarioProfesor(Resource):
     def get(self, user_id):
 
         try:
-            profesor_rescatado = db.session.query(ProfesorModelo).filter(
-                ProfesorModelo.idProfesor == user_id,).first()
+            dni_profesor = db.session.query(ProfesorModelo).filter(ProfesorModelo.idProfesor == user_id)
+            if dni_profesor is None:
+                raise Exception('ID no pertenece a un profesor.')
+            profesor_rescatado = db.session.query(UsuarioModelo).filter(UsuarioModelo.profesor_dni == user_id,).first()
             return profesor_rescatado.to_json(), 201
         except Exception:
-            abort(404, f'No se ha encontrado del alumno de id: {user_id}')
+            abort(404, f'No se ha encontrado del Profesor de id: {user_id}')
         finally:
             db.session.close()
 
     def put(self, user_id):
         try:
-            alumno_editar = db.session.query(AlumnoModel).filter(AlumnoModel.idAlumno == user_id).first()
+            alumno_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == user_id).first()
             informacion = request.get_json().items()
             for campo, valor in informacion:
                 setattr(alumno_editar, campo, valor)

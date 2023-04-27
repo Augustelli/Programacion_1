@@ -8,7 +8,9 @@ class Pago(Resource):
 
     def get(self, user_id):
         try:
-            rescate_pago = db.session.query(PagosModelo).filter(PagosModelo.idUsuario == user_id).firts()
+            rescate_pago = db.session.query(PagosModelo).filter(
+                PagosModelo.dni == user_id
+            ).firts()
             return rescate_pago.to_json(), 201
 
         except BaseException:
@@ -19,9 +21,9 @@ class Pago(Resource):
 
     def put(self, user_id):
         try:
-            pago = db.session.query(PagosModelo).filter(PagosModelo.idUsuario == user_id).order_by(PagosModelo.estado.asc()).all()
+            pago = db.session.query(PagosModelo).filter(PagosModelo.dni == user_id).order_by(PagosModelo.estado.asc()).all()
             pago.estado = "No pagado" if pago.estado == "Pagado" else "Pagado"
-            usuario = db.session.query(UsuarioModelo).filter_by(UsuarioModelo.idUsuario == user_id).first()
+            usuario = db.session.query(UsuarioModelo).filter_by(UsuarioModelo.dni == user_id).first()
             usuario.estado = pago.estado
             db.session.commit()
         except Exception:

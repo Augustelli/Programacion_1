@@ -6,11 +6,12 @@ class Pagos(db.Model):
     __tablename__ = 'pagos'
 
     idPago = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, index=True)
-    monto=db.Column(db.Integer,nullable=False)
-    #fecha_de_pago=db.Column(db.DateTime,nullable=False)
+    monto = db.Column(db.Integer, nullable=False)
     fecha_de_pago = db.Column(db.DateTime, default=datetime.utcnow())
     estado = db.Column(db.String(10), nullable=False, default='No pagado')
-    dni=db.Column(db.Integer, db.ForeignKey('usuario.dni'), nullable=False)
+    dni = db.Column(db.Integer, db.ForeignKey('usuario.dni'), nullable=False)
+
+    # Relacion Pagos
     usuario = db.relationship('Usuario', uselist=False, back_populates='pagos', cascade='all, delete-orphan')
 
     def __repr__(self):
@@ -29,10 +30,10 @@ class Pagos(db.Model):
     @staticmethod
     def from_json(pago_json):
         idPago = pago_json.get('idPago')
-        monto=pago_json.get('monto')
+        monto = pago_json.get('monto')
         fecha_pago = pago_json.get('fecha_pago')
         estado = pago_json.get('estado')
-        dni=pago_json.get('dni')
+        dni = pago_json.get('dni')
         return Pagos(
             idPago=idPago,
             monto=monto,
@@ -40,4 +41,4 @@ class Pagos(db.Model):
             estado=estado,
             dni=dni
         )
-# RELACIONES Pagos
+
