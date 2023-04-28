@@ -14,7 +14,7 @@ class Planificacion(db.Model):
 # RELACIONES de Usuario
     profesor = db.relationship('Profesor', back_populates='planificacion', cascade='all, delete-orphan')
     alumno = db.relationship('Alumno', back_populates='planificacion', cascade='all, delete-orphan', single_parent=True)
-    clase = db.relationship('Clase', back_populates='planificacion', cascade='all, delete-orphan', single_parent=True)
+    clase = db.relationship('Clases', back_populates='planificacion', cascade='all, delete-orphan', single_parent=True)
 
     def __repr__(self):
         return f'<Planificaicion - idPlanificacion: {self.idPlanificacion} - planificacion: {self.planificacion} - frecuencia: {self.frecuencia} - idUsuario: {self.idUsuario} - id_Clase: {self.id_Clase}>'  # noqa: E501
