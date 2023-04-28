@@ -9,5 +9,5 @@ from .planificacion import PlanificacionesProfesores as PlansProfesoresRec
 from .profesor import ProfesorClases as ProfesorClasesRec
 from .pago import Pago as PagoRec
 from .login import Login as LoginRec
-from .clases import Clase as ClaseRec
+from .clases import Clase_R as ClaseRec
 from .clases import Clases_R as ClasesRec

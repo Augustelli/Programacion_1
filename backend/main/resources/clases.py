@@ -27,7 +27,7 @@ class Clases_R(db.Model):
             db.session.close()
 
 
-class Clase(db.Model):
+class Clase_R(db.Model):
 
     def delete(self, idclase):
         try:
