@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request, abort
 from .. import db
-from main.models import Usuario_contrasegnaModelo, Login_usuarioModelo
+from main.models import Usuario_ContrasegnaModelo, Login_usuarioModelo
 import hashlib
 
 
@@ -10,8 +10,8 @@ class Login(Resource):
     def post(self):
         try:
             informacion = request.get_json()
-            info_validar = db.session.query(Usuario_contrasegnaModelo).filter(
-                Usuario_contrasegnaModelo.nombre_usuario == informacion.json['nombre_usuario']
+            info_validar = db.session.query(Usuario_ContrasegnaModelo).filter(
+                Usuario_ContrasegnaModelo.nombre_usuario == informacion.json['nombre_usuario']
             )
             if info_validar.contrasegna_hash == hashlib.sha256(informacion.json['contrasegna_hash'].encode('utf-8')).hexdigest():
                 log_in = Login_usuarioModelo(

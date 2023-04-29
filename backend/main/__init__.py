@@ -32,6 +32,11 @@ def create_app():
 
     api.add_resource(resources.UsrProfesorRec, '/profesor/<user_id>')
 
+    #api.add_resource(resources.Usuario_contraseñaRec, '/usuario_contraseña/<user_id>')  # noqa: E501
+
+    api.add_resource(resources. Usuario_contrasegnaRec, '/usuario_contrasegna')
+
+
     # api.add_resource(resources.PlanAlumnoRec, '/planificacion/<user_id>')
 
     # api.add_resource(resources.PlanProfesorRec, '/planificacion_profesor/<user_id>/<idplanificacion>')  # noqa: E501
