@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request, abort, jsonify
 from .. import db
-from main.models import UsuarioModelo, AlumnoModel, ProfesorModelo, Usuario_ContrasegnaModelo
+from main.models import UsuarioModelo, AlumnoModel, ProfesorModelo
 from sqlalchemy import or_
 
 
@@ -179,29 +179,3 @@ class UsuarioProfesor(Resource):
         except BaseException:
 
             abort(404, 'No se ha podido actualizar el usuario de id {}'.format(user_id))
-
-class Usuario_Contrasegna(Resource):
-    
-        def get(self):
-            try:
-                usuario_contrasegna = db.session.query(Usuario_ContrasegnaModelo).all()
-                return usuario_contrasegna.to_json()
-            except BaseException:
-                abort(404, 'Alumnos no encontrados.')
-            finally:
-                db.session.close()
-        
-        def post(self):
-            try:
-                datos = request.get_json()
-                usuario_contrasegna_nuevo = Usuario_ContrasegnaModelo.from_json(datos)
-                db.session.add(usuario_contrasegna_nuevo)
-                db.session.commit()
-                return usuario_contrasegna_nuevo.to_json(), 201
-            except BaseException:
-                abort(404, 'Error al crear el usuario')
-            finally:
-                db.session.close()
-
-
-        
