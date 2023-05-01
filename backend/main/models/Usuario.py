@@ -1,5 +1,6 @@
 from .. import db
 from sqlalchemy import Float
+
 class Usuario(db.Model):
     __tablename__ = 'usuario'
 
@@ -13,12 +14,14 @@ class Usuario(db.Model):
     nombre_usuario = db.Column(db.String(50), db.ForeignKey('usuario_contrasegna.nombre_usuario'))
     altura = db.Column(Float, nullable=True)
     peso = db.Column(Float, nullable=True)
+    contrasegna= db.Column(db.String(50), nullable=False)
 
     # Definimos la relación uno a uno con la tabla Alumno
     alumno = db.relationship('Alumno', back_populates='usuario', uselist=False)
     profesor = db.relationship('Profesor', back_populates='usuario', uselist=False)
-    usuario_contrasegna = db.relationship('Usuario_Contrasegna', back_populates='usuario', uselist=False)
+    #usuario_contrasegna = db.relationship('Usuario_Contrasegna', back_populates='usuario', uselist=False)
     usuario_pagos = db.relationship('Pagos', back_populates='pagos_usuario',cascade='all, delete-orphan', single_parent=True)
+    login1= db.relationship('Login_usuario', back_populates='login_usuario_contrasegna',uselist=False)
    
 
 
