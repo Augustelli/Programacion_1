@@ -42,11 +42,13 @@ def create_app():
 
     api.add_resource(resources.PagoRec, '/pago/<user_id>')
 
+    #api.add_resource(resources.PagosRec, '/pagos')
+
     api.add_resource(resources.LoginRec, '/login')
 
-    api.add_resource(resources.ClaseRec, '/clase/<idclase>')
+    # api.add_resource(resources.ClaseRec, '/clase/<idclase>')
 
-    api.add_resource(resources.ClasesRec, '/clases')
+    # api.add_resource(resources.ClasesRec, '/clases')
 
     api.init_app(app)
     return app

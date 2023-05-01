@@ -54,3 +54,5 @@ class Pagos(db.Model):
             abort(404, 'No se ha podido realizar la consulta')
         finally:
             db.session.close()
+
+            
