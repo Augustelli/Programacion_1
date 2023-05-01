@@ -9,7 +9,7 @@ class Usuario(db.Model):
     nombre = db.Column(db.String(50), nullable=False, default=lambda: str(Usuario.dni))
     apellido = db.Column(db.String(50), nullable=False, default=lambda: str(Usuario.dni))
     email = db.Column(db.String(50), nullable=False, unique=True)
-    fecha_nacimiento = db.Column(db.String(50), nullable=True)
+    fecha_nacimiento = db.Column(db.Date, nullable=True)
     estado = db.Column(db.Boolean, nullable=False, default=False)
     # Recordar que para crear la contraseña necesitamos llamar al método crear_contraseña para que compute el hash y lo almacene
     rol = db.Column(db.String(10), nullable=False)
@@ -18,12 +18,19 @@ class Usuario(db.Model):
     peso = db.Column(Float, nullable=True)
 
     #   ** RELACIONES de Usuario
+<<<<<<< HEAD
 
     profesor = db.relationship('Profesor', uselist=False, back_populates='usuario', cascade='all, delete-orphan', single_parent=True)  # noqa: E501
     alumno = db.relationship('Alumno', uselist=False, back_populates='usuario', cascade='all, delete-orphan', single_parent=True)  # noqa: E501
     pagos = db.relationship('Pago', back_populates='dni', cascade='all, delete-orphan', single_parent=True)
     usuario_contrasegna = db.relationship('usuario_contrasegna', uselist=False, back_populates='usuario', cascade='all, delete-orphan', single_parent=True)  # noqa: E501
 
+=======
+    usuario_alumno = db.relationship('Alumno', uselist=False, back_populates='alumno_usuario', cascade='all, delete-orphan')
+    usuario_profesor = db.relationship('Profesor', uselist=False, back_populates='profesor_usuario', cascade='all, delete-orphan')
+    usuario_usuario_contrasegna = db.relationship('Usuario_Contrasegna', uselist=False, back_populates='usuario_contrasegna_usuario', cascade='all, delete-orphan')
+    usuario_pagos = db.relationship('Pagos', uselist=False, back_populates='pagos_usuario')
+>>>>>>> 887990db93a2a1af80deefb7ea9cf908b77f4940
     # Valor por defecto alumno
 
     def __init__(self, **kwargs):

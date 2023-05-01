@@ -18,13 +18,21 @@ class Usuarios(Resource):
             usuarios_json = [usuario.to_json() for usuario in usuarios]
             return jsonify(usuarios_json)
 
+<<<<<<< HEAD
         # except Exception:
         #     abort(404, 'Query no encontrado')
         # finally:
         #     db.session.close()
+=======
+        except Exception:
+            print('Fallo')
+            abort(404, 'Query no encontrado')
+        finally:
+            db.session.close()
+>>>>>>> 887990db93a2a1af80deefb7ea9cf908b77f4940
 
     def post(self):
-        # Crear un usuario
+        # Crear un usuariopwd
         try:
             usuario_nuevo = UsuarioModelo.from_json(request.get_json())
             db.session.add(usuario_nuevo)
