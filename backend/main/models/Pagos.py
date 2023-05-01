@@ -12,7 +12,7 @@ class Pagos(db.Model):
     dni = db.Column(db.Integer, db.ForeignKey('usuario.dni'), nullable=False)
 
     # Relacion Pagos
-    usuario = db.relationship('Usuario', uselist=False, back_populates='pagos', cascade='all, delete-orphan')
+    pagos_usuario = db.relationship('Usuario', uselist=False, back_populates='usuario_pagos', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<Pagos idPago:{self.idPago} - monto: {self.monto} - fecha_pago: {self.fecha_pago}  - estado: {self.estado} >'

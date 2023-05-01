@@ -9,7 +9,7 @@ class ClaseProfesor(db.Model):
 
 #   ** RELACIONES de Clases_Profesor
     clases = db.relationship('Clases', back_populates='clases_profesor', cascade='all, delete-orphan', single_parent=True)
-    profesor = db.relationship('Profesor', back_populates='clases_profesor', cascade='all, delete-orphan', single_parent=True)
+    ClaseProfesor_profesor = db.relationship('Profesor', back_populates='profesor_clases', cascade='all, delete-orphan', single_parent=True)
 
     def __repr__(self):
         return f'<Clase Profesor: idProfesor: {self.idProfesor} - idClases: {self.idClases}>'
