@@ -10,19 +10,21 @@ class Usuarios(Resource):
     # Como aplicar roles
     # Devolver listado de alumnos
     def get(self):
+        
 
-        try:
+        #try:
             usuarios = db.session.query(UsuarioModelo).all()
             usuarios_json = [usuario.to_json() for usuario in usuarios]
             return jsonify(usuarios_json)
 
-        except Exception:
-            abort(404, 'Query no encontrado')
-        finally:
-            db.session.close()
+        # except Exception:
+        #     print('Fallo')
+        #     abort(404, 'Query no encontrado')
+        # finally:
+        #     db.session.close()
 
     def post(self):
-        # Crear un usuario
+        # Crear un usuariopwd
         try:
             usuario_nuevo = UsuarioModelo.from_json(request.get_json())
             db.session.add(usuario_nuevo)

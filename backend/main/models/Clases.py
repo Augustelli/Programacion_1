@@ -1,8 +1,17 @@
 from .. import db
 from datetime import time
 
+# clase_profesor = db.Table(
+#     "profesores_clases",
+#     db.Column("id_clase", db.Integer, db.ForeignKey("clases.idClases")),
+#     db.Column("id_profesor", db.Integer, db.ForeignKey("profesor.idProfesor"))
 
+clase_profesor = db.Table('clase_profesor',
+    db.Column('profesor_id', db.Integer, db.ForeignKey('profesor.idProfesor'), primary_key=True),
+    db.Column('clase_id', db.Integer, db.ForeignKey('clases.idClases'), primary_key=True)
+)
 class Clases(db.Model):
+
 
     __tablename__ = 'clases'
 
@@ -12,8 +21,13 @@ class Clases(db.Model):
     dias = db.Column(db.String(50), nullable=False, default='Lunes-Miercoles-Viernes')
 
     # Relaciones Clases
-    clasesProfesor = db.relationship('ClaseProfesor', back_populates='clases', cascade='all, delete-orphan')
-    planificaciones = db.relationship('Planificaciones', back_populates='clases', cascade='all, delete-orphan')
+
+    #clases_planificiacion = db.relationship('Planificacion', uselist=False)
+    profesores = db.relationship('Profesor', secondary=clase_profesor, back_populates='clases')
+    planificaciones = db.relationship('Planificacion', back_populates='clase',cascade='all, delete-orphan', single_parent=True)
+    #clases_planificaciones = db.relationship('Planificacion', backref='clase')
+
+
 
     def __repr__(self):
         return f'<Clases idClases: {self.idClases}> - Nombre: {self.nombre} - Horario: {self.horario} - Dias: {self.dias}'

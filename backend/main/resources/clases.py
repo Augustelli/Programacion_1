@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 # from flask import request, abort
 # from .. import db
 # from main.models import ClasesModelo
 
 
 # class Clases_R(db.Model):
+=======
+from flask import request, abort
+from .. import db
+from main.models import ClasesModelo
+from flask_restful import Resource
+
+class Clases_R(Resource):
+>>>>>>> Augusto
 
 #     def get(self):
 #         try:
@@ -27,7 +36,11 @@
 #             db.session.close()
 
 
+<<<<<<< HEAD
 # class Clase_R(db.Model):
+=======
+class Clase_R(Resource):
+>>>>>>> Augusto
 
 #     def delete(self, idclase):
 #         try:

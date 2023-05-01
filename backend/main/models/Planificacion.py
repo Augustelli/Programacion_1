@@ -11,10 +11,14 @@ class Planificacion(db.Model):
     id_Alumno = db.Column(db.Integer, db.ForeignKey('alumno.idAlumno'))
     id_Clase = db.Column(db.Integer, db.ForeignKey('clases.idClases'))
     idProfesor = db.Column(db.Integer, db.ForeignKey('profesor.idProfesor'))
-# RELACIONES de Usuario
-    profesor = db.relationship('Profesor', back_populates='planificacion', cascade='all, delete-orphan')
-    alumno = db.relationship('Alumno', back_populates='planificacion', cascade='all, delete-orphan', single_parent=True)
-    clase = db.relationship('Clases', back_populates='planificacion', cascade='all, delete-orphan', single_parent=True)
+# RELACIONES de Planificacion
+
+    alumno = db.relationship('Alumno', back_populates='planificaciones')
+    #planificacion_alumno = db.relationship('Alumno', uselist=False)
+    planificaciones_profesor = db.relationship('Profesor', cascade="all, delete-orphan")
+    planificacion_clases = db.relationship('Clases', cascade="all, delete-orphan")
+    profesor = db.relationship('Profesor', back_populates='planificaciones')
+    clase = db.relationship('Clases', back_populates='planificaciones')
 
     def __repr__(self):
         return f'<Planificaicion - idPlanificacion: {self.idPlanificacion} - planificacion: {self.planificacion} - frecuencia: {self.frecuencia} - idUsuario: {self.idUsuario} - id_Clase: {self.id_Clase}>'  # noqa: E501

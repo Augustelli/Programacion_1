@@ -10,7 +10,9 @@ class Login_usuario(db.Model):
     nombre_usuario = db.Column(db.String(50), db.ForeignKey('usuario_contrasegna.nombre_usuario'))
     fecha_login = db.Column(DateTime, nullable=False, default=datetime.now())
 # RELACIONES de login_usuario
-    usuario_contrasegna = db.relationship('usuario_contrasegna', uselist=False, back_populates='login_usuario', cascade='all, delete-orphan', single_parent=True)
+    #login_usuario_contrasegna = db.relationship('Usuario_Contrasegna', back_populates='usuario_contrasegna-login', cascade='all, delete-orphan', single_parent=True)
+    login_usuario_contrasegna = db.relationship('Usuario_contrasegna', back_populates='login', uselist=False)
+    
 
     def __repr__(self):
         return f'<Login_usuario - nombre_usuario: {self.nombre_usuario} - fecha_login: {self.fecha_login}>'

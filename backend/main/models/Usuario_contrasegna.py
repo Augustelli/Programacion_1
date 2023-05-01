@@ -8,8 +8,10 @@ class Usuario_Contrasegna(db.Model):
     nombre_usuario = db.Column(db.String, primary_key=True)
     contrasegna_hash = db.Column(db.String(64), nullable=False)
 # RELACIONES Usuario_Contrasegna
-    usuario = db.relationship('Usuario', back_populates='Usuario_contrasegna', cascade='all, delete-orphan', single_parent=True)
-    login = db.relationship('Login_usuario', back_populates='Usuario_contrasegna', cascade='all, delete-orphan', single_parent=True)
+   # usuario_contrasegna_usuario = db.relationship('Usuario', back_populates='usuario_usuario_contrasegna', uselist=False, cascade='all, delete-orphan')
+    #usuario_contrasegna_login = db.relationship('Loging_Usuario', back_populates='login_usuario_contrasegna', cascade='all, delete-orphan', single_parent=True)
+    usuario= db.relationship('Usuario', back_populates='usuario_usuario_contrasegna', uselist=False, cascade='all, delete-orphan')
+    login=db.relationship('Loging_Usuario', back_populates='login_usuario_contrasegna',uselist=False,cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<Usuario Contrasegna - nombre_usuario:{self.nombre_usuario} - contrasegna_hash: {self.contrasegna_hash}>'

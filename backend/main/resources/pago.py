@@ -32,7 +32,7 @@ class Pago(Resource):
             db.session.close()
 
 
-class Pagos(db.Model):
+class Pagos(Resource):
 
     def post(self):
         try:
