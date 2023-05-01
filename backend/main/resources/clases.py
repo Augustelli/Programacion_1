@@ -1,9 +1,9 @@
 from flask import request, abort
 from .. import db
 from main.models import ClasesModelo
+from flask_restful import Resource
 
-
-class Clases_R(db.Model):
+class Clases_R(Resource):
 
     def get(self):
         try:
@@ -27,7 +27,7 @@ class Clases_R(db.Model):
             db.session.close()
 
 
-class Clase_R(db.Model):
+class Clase_R(Resource):
 
     def delete(self, idclase):
         try:

@@ -19,9 +19,9 @@ class Usuario(db.Model):
 
     #   ** RELACIONES de Usuario
 
-    profesor = db.relationship('Profesor', uselist=False, back_populates='usuario', cascade='all, delete-orphan', single_parent=True)
-    alumno = db.relationship('Alumno', uselist=False, back_populates='usuario', cascade='all, delete-orphan', single_parent=True)
-    pagos = db.relationship('Pago', back_populates='usuario', cascade='all, delete-orphan', single_parent=True)
+    profesor = db.relationship('Profesor', uselist=False, back_populates='usuario', cascade='all, delete-orphan', single_parent=True)  # noqa: E501
+    alumno = db.relationship('Alumno', uselist=False, back_populates='usuario', cascade='all, delete-orphan', single_parent=True)  # noqa: E501
+    pagos = db.relationship('Pago', back_populates='dni', cascade='all, delete-orphan', single_parent=True)
     usuario_contrasegna = db.relationship('usuario_contrasegna', uselist=False, back_populates='usuario', cascade='all, delete-orphan', single_parent=True)  # noqa: E501
 
     # Valor por defecto alumno

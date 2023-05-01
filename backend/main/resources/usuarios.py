@@ -11,15 +11,17 @@ class Usuarios(Resource):
     # Devolver listado de alumnos
     def get(self):
 
-        try:
+        #try:
             usuarios = db.session.query(UsuarioModelo).all()
+            print('Hola')
+            print('Usuarios: ', usuarios)
             usuarios_json = [usuario.to_json() for usuario in usuarios]
             return jsonify(usuarios_json)
 
-        except Exception:
-            abort(404, 'Query no encontrado')
-        finally:
-            db.session.close()
+        # except Exception:
+        #     abort(404, 'Query no encontrado')
+        # finally:
+        #     db.session.close()
 
     def post(self):
         # Crear un usuario

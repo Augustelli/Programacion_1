@@ -7,8 +7,8 @@ class Alumno(db.Model):
 
     idAlumno = db.Column(db.Integer, primary_key=True)
     alumno_dni = db.Column(db.Integer, db.ForeignKey('usuario.dni'))
-    usuario = db.relationship('Usuario', uselist=False, back_populates='alumno', cascade='all, delete-orphan')
-    planificacion = db.relationship('Planificacion', back_populates='alumno', cascade='all, delete-orphan', single_parent=True)
+    usuario = db.relationship('Usuario', uselist=False, back_populates='alumno')
+    planificacion = db.relationship('Planificacion', back_populates='alumno')
 
     def __repr__(self):
         return f'<Alumno - ID:{self.idAlumno} - alumno_dni: {self.alumno_dni} >'
