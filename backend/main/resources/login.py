@@ -6,7 +6,40 @@ import hashlib
 
 
 class Login(Resource):
-    pass
+
+#   def post(self):
+#       #  Crear un usuariopwd
+#         try:
+#             usuario_nuevo = UsuarioModelo.from_json(request.get_json())
+#             db.session.add(usuario_nuevo)
+#             db.session.commit()
+#             return usuario_nuevo.to_json(), 201
+#         except BaseException:
+#             abort(404, 'Error al crear el usuario')
+#         finally:
+#             db.session.close()
+
+    def post(self):
+        # try:
+            info=request.get_json()
+            print(info)
+            usuario = info['nombre_usuario']
+            
+            contrasegna=info['contrasegna']
+            
+            query= db.session.query(UsuarioModelo).filter(UsuarioModelo.nombre_usuario == usuario).first()
+            if query.contrasegna== contrasegna:
+                return 201
+            else:
+                return 403
+        # except BaseException:
+        #     abort(404, 'Error al crear el usuario')
+        # finally:
+        #     db.session.close()
+
+            
+
+   
 
     # def post(self):
     #     try:

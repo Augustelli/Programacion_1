@@ -94,6 +94,7 @@ class UsuariosAlumnos(Resource):
             return datos
         except Exception:
             abort(404)
+
         
 class UsuarioAlumno(Resource):
 
@@ -220,5 +221,25 @@ class UsuarioProfesor(Resource):
         finally:
             db.session.close()
 
+class UsuariosProfesores(Resource):
+
+    def get(self):
+        try:
+            profesores = db.session.query(ProfesorModelo).all()
+            profesores_json = [profesor.to_json() for profesor in profesores]
+            return jsonify(profesores_json)
+        except BaseException:
+             abort(404, 'Profesores no encontrados.')
+        finally:
+             db.session.close()
+
+    def post(post):
+        try:
+            datos = request.get_json()
+            return datos
+        except Exception:
+            abort(404)
+
         
 
+        

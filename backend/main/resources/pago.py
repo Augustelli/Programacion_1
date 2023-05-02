@@ -9,8 +9,9 @@ class Pago(Resource):
     def get(self, user_id):
         #try:
             rescate_pago = db.session.query(PagosModelo).filter(
-                PagosModelo.dni == user_id
+                PagosModelo.idPago == user_id
             ).first()
+
             return rescate_pago.to_json(), 201
 
         # except BaseException:
@@ -39,6 +40,7 @@ class Pago(Resource):
             usuario = db.session.query(UsuarioModelo).filter_by(UsuarioModelo.dni == user_id).first()
             usuario.estado = pago.estado
             db.session.commit()
+            return pago.to_json(), 201
         except Exception:
             abort(404, f'No se pudo realizar la actualización del estado. Usuario id {user_id}')
         finally:
@@ -73,14 +75,14 @@ class Pagos(Resource):
 
 
     def get(self):
-        try:
-            pagos = db.session.query(PagosModelo).all
+        #try:
+            pagos = db.session.query(PagosModelo).all()
             pagos_json = [pago.to_json() for pago in pagos]
             return jsonify(pagos_json)
-        except Exception:
-            abort(404, 'No se ha podido realizar la consulta')
-        finally:
-            db.session.close()
+        # except Exception:
+        #     abort(404, 'No se ha podido realizar la consulta')
+        # finally:
+        #     db.session.close()
 
 
 

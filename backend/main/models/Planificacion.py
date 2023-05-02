@@ -5,7 +5,7 @@ class Planificacion(db.Model):
 
     __tablename__ = 'planificacion'
 
-    idPlanificacion = db.Column(db.Integer, primary_key=True, index=True, nullable=False)
+    idPlanificacion = db.Column(db.Integer, primary_key=True)
     rutina = db.Column(db.String(50), nullable=False)
     frecuencia = db.Column(db.String)
     id_Alumno = db.Column(db.Integer, db.ForeignKey('alumno.idAlumno'))
@@ -21,7 +21,7 @@ class Planificacion(db.Model):
     clase = db.relationship('Clases', back_populates='planificaciones',single_parent=True)
 
     def __repr__(self):
-        return f'<Planificaicion - idPlanificacion: {self.idPlanificacion} - planificacion: {self.planificacion} - frecuencia: {self.frecuencia} - idUsuario: {self.idUsuario} - id_Clase: {self.id_Clase}>'  # noqa: E501
+        return f'<Planificaicion - idPlanificacion: {self.idPlanificacion}  - frecuencia: {self.frecuencia} - id_Clase: {self.id_Clase}>'  # noqa: E501
 
     def to_json(self):
         planificacion_json = {
@@ -29,7 +29,8 @@ class Planificacion(db.Model):
             'rutina': self.rutina,
             'frecuencia': self.frecuencia,
             'id_Alumno': self.id_Alumno,
-            'id_Clase': self.id_Clase
+            'id_Clase': self.id_Clase,
+            'idProfesor': self.idProfesor
         }
         return planificacion_json
 
@@ -38,14 +39,16 @@ class Planificacion(db.Model):
         idPlanificacion = planificacion_json.get('idPlanificacion')
         rutina = planificacion_json.get('rutina')
         frecuencia = planificacion_json.get('frecuencia')
-        idUsuario = planificacion_json.get('idUsuario')
+        id_Alumno = planificacion_json.get('id_Alumno')
         id_Clase = planificacion_json.get('id_Clase')
+        idProfesor = planificacion_json.get('idProfesor')
 
         return Planificacion(
             idPlanificacion=idPlanificacion,
             rutina=rutina,
             frecuencia=frecuencia,
-            idUsuario=idUsuario,
-            id_Clase=id_Clase
+            id_Alumno=id_Alumno,
+            id_Clase=id_Clase,
+            idProfesor=idProfesor
         )
 #   ** RELACIONES de Planificacion

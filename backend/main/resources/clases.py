@@ -7,7 +7,7 @@ from flask_restful import Resource
 class Clases_R(Resource):
 
     def get(self):
-        try:
+        # try:
             clases = db.session.query(ClasesModelo).all()
             print(clases)
             clases_lista = list()
@@ -18,11 +18,11 @@ class Clases_R(Resource):
                 clase_dict['dias'] = clase.dias
                 clases_lista.append(clase_dict)
             print(jsonify(clases_lista))
-            return jsonify(clases_lista), 201
-        except BaseException:
-            abort(404, 'No se ha encontrado la Clase')
-        finally:
-            db.session.close()
+        #     return jsonify(clases_lista), 201
+        # except BaseException:
+        #     abort(404, 'No se ha encontrado la Clase')
+        # finally:
+        #     db.session.close()
         
     def post(self):
 #         try:
