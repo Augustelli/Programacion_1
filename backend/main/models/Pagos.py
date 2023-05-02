@@ -16,13 +16,13 @@ class Pagos(db.Model):
     
 
     def __repr__(self):
-        return f'<Pagos idPago:{self.idPago} - monto: {self.monto} - fecha_pago: {self.fecha_pago}  - estado: {self.estado} >'
+        return f'<Pagos idPago:{self.idPago} - monto: {self.monto} - fecha_de_pago: {self.fecha_de_pago}  - estado: {self.estado} >'
 
     def to_json(self):
         pago_json = {
             'idPago': self.idPago,
             'monto': self.monto,
-            'fecha_pago': self.fecha_pago,
+            'fecha_de_pago': self.fecha_de_pago,
             'estado': self.estado,
             'dni': self.dni
         }
@@ -32,13 +32,13 @@ class Pagos(db.Model):
     def from_json(pago_json):
         idPago = pago_json.get('idPago')
         monto = pago_json.get('monto')
-        fecha_pago = pago_json.get('fecha_pago')
+        fecha_de_pago = pago_json.get('fecha_de_pago')
         estado = pago_json.get('estado')
         dni = pago_json.get('dni')
         return Pagos(
             idPago=idPago,
             monto=monto,
-            fecha_pago=fecha_pago,
+            fecha_de_pago=fecha_de_pago,
             estado=estado,
             dni=dni
         )
