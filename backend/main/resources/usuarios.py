@@ -24,16 +24,16 @@ class Usuarios(Resource):
             db.session.close()
 
     def post(self):
-        # Crear un usuariopwd
-        #try:
+      #  Crear un usuariopwd
+        try:
             usuario_nuevo = UsuarioModelo.from_json(request.get_json())
             db.session.add(usuario_nuevo)
             db.session.commit()
             return usuario_nuevo.to_json(), 201
-        # except BaseException:
-        #     abort(404, 'Error al crear el usuario')
-        # finally:
-        #     db.session.close()
+        except BaseException:
+            abort(404, 'Error al crear el usuario')
+        finally:
+            db.session.close()
 
 
 class Usuario(Resource):
@@ -159,7 +159,6 @@ class UsuarioAlumno(Resource):
         finally:
             db.session.close()
 
-#NO FUNCIONA @Agustelli
 
     def get(self, user_id):
 

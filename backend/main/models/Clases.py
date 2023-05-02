@@ -29,14 +29,15 @@ class Clases(db.Model):
 
 
 
+    # def __repr__(self):
+    #     return f'<Clases idClases: {self.idClases}> - Nombre: {self.nombre} - Horario: {self.horario} - Dias: {self.dias}'
     def __repr__(self):
-        return f'<Clases idClases: {self.idClases}> - Nombre: {self.nombre} - Horario: {self.horario} - Dias: {self.dias}'
+        return f'<Clases idClases: {self.idClases}> - Nombre: {self.nombre} -  Dias: {self.dias}'
 
     def to_json(self):
         clases_json = {
             'idClases': self.idClases,
             'nombre': self.nombre,
-            'horario': self.horario,
             'dias': self.dias
         }
         return clases_json
@@ -45,11 +46,9 @@ class Clases(db.Model):
     def from_json(clases_json):
         idClases = clases_json.get('idClases')
         nombre = clases_json.get('nombre')
-        horario = clases_json.get('horario')
         dias = clases_json.get('dias')
         return Clases(
             idClases=idClases,
             nombre=nombre,
-            horario=horario,
             dias=dias
         )

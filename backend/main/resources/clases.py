@@ -9,67 +9,79 @@ class Clases_R(Resource):
     ###NO FUNCIONAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
     def get(self):
-        try:
-            clase = db.session.query(ClasesModelo).filter().all()
-            lista_clases = [clase.to_json() for clase in clase]
-            return jsonify(lista_clases),201
-        except BaseException:
-            abort(404, 'No se ha encontrado la Clase')
-        finally:
-            db.session.close()
+        # try:
+            clases = db.session.query(ClasesModelo).all()
+            clases_json = [clase.to_json() for clase in clases]
+            return jsonify(clases_json), 201
+        # except BaseException:
+        #     abort(404, 'No se ha encontrado la Clase')
+        # finally:
+        #     db.session.close()
 
-#     def post(self):
+
+
+        
+    def post(self):
 #         try:
-#             datos = request.get_json()
-#             clase_nueva = ClasesModelo.from_json(datos)
-#             db.session.add()
-#             db.session.commit()
-#             return clase_nueva.to_json(), 201
+            clase_nueva= ClasesModelo.from_json(request.get_json())
+            db.session.add(clase_nueva)
+            db.session.commit()
+            return clase_nueva.to_json(), 201
 #         except BaseException:
 #             abort(404, 'Error al crear la clase')
 #         finally:
 #             db.session.close()
 
+# usuario_nuevo = UsuarioModelo.from_json(request.get_json())
+#             db.session.add(usuario_nuevo)
+#             db.session.commit()
+#             return usuario_nuevo.to_json(), 201
+
 
 class Clase_R(Resource):
 
     def delete(self, user_id):
-        #try:
+        try:
             clase_eliminar = db.session.query(ClasesModelo).filter(
                 ClasesModelo.idClases == user_id).first()
             db.session.delete(clase_eliminar)
             db.session.commit()
             return 204
-        # except BaseException:
-        #     abort(404, 'No se ha encontrado la clase {}'.format(user_id))
-        # finally:
-        #     db.session.close()
-
-             
-
-    # def delete(self, user_id):
-    #     '''DELETE -> Rol Admin, Profesor'''
-    #     try:
-    #         profe_eliminar = db.session.query(ProfesorModelo).filter(or_(
-    #                 ProfesorModelo.profesor_dni == user_id,
-    #                 ProfesorModelo.idProfesor == user_id
-    #             )).first()
-    #         db.session.delete(profe_eliminar)
-    #         db.session.commit()
-    #         return 204
-    #     except BaseException:
-    #         abort(404, 'No se ha encontrado el alumno de id {}'.format(user_id))
-    #     finally:
-    #         db.session.close()
+    
 
 
-#     def get(self, idclase):
-#         try:
-#             clase = db.session.query(ClasesModelo).filter(
-#                 ClasesModelo.idClases == idclase
-#             ).first()
-#             return clase.to_json(), 201
-#         except BaseException:
-#             abort(404, 'No se ha encontrado la Clase')
-#         finally:
-#             db.session.close()
+        except BaseException:
+            abort(404, 'No se ha encontrado la clase {}'.format(user_id))
+        finally:
+            db.session.close()
+
+        
+    
+    def get(self,user_id):
+        try:
+            clase= db.session.query(ClasesModelo).filter(
+                   ClasesModelo.idClases == user_id).first()
+            return clase.to_json(), 201
+        except BaseException:
+            abort(404, 'No se ha encontrado la Clase')
+        finally:
+            db.session.close()
+
+    def put(self, user_id):
+        try:
+            clase_modificar = db.session.query(ClasesModelo).filter(
+                ClasesModelo.idClases == user_id).first()
+            informacion = request.get_json().items()
+            for campo, valor in informacion:
+                setattr(clase_modificar, campo, valor)
+            db.session.add(clase_modificar)
+            db.session.commit()
+
+            return clase_modificar.to_json(), 201
+        except BaseException:
+            abort(404, 'No se ha encontrado la Clase')
+        finally:
+            db.session.close()
+
+
+
