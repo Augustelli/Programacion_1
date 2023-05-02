@@ -12,28 +12,28 @@ class Usuarios(Resource):
     def get(self):
         
 
-        #try:
+        try:
             usuarios = db.session.query(UsuarioModelo).all()
             usuarios_json = [usuario.to_json() for usuario in usuarios]
             return jsonify(usuarios_json)
 
-        # except Exception:
-        #     print('Fallo')
-        #     abort(404, 'Query no encontrado')
-        # finally:
-        #     db.session.close()
+        except Exception:
+            print('Fallo')
+            abort(404, 'Query no encontrado')
+        finally:
+            db.session.close()
 
     def post(self):
         # Crear un usuariopwd
-        try:
+        #try:
             usuario_nuevo = UsuarioModelo.from_json(request.get_json())
             db.session.add(usuario_nuevo)
             db.session.commit()
             return usuario_nuevo.to_json(), 201
-        except BaseException:
-            abort(404, 'Error al crear el usuario')
-        finally:
-            db.session.close()
+        # except BaseException:
+        #     abort(404, 'Error al crear el usuario')
+        # finally:
+        #     db.session.close()
 
 
 class Usuario(Resource):
@@ -41,7 +41,7 @@ class Usuario(Resource):
     def get(self, user_id):
         try:
             usuario_rescatado = db.session.query(UsuarioModelo).filter(
-                UsuarioModelo.dni == user_id,).first()
+                UsuarioModelo.dni == user_id).first()
             return usuario_rescatado.to_json(), 201
         except Exception:
             abort(404, f'No se ha encontrado del usuario de id: {user_id}')
@@ -81,22 +81,43 @@ class UsuariosAlumnos(Resource):
     def get(self):
         try:
             alumnos = db.session.query(AlumnoModel).all()
-            return alumnos.to_json()
+            alumnos_json = [alumno.to_json() for alumno in alumnos]
+            return jsonify(alumnos_json)
         except BaseException:
-            abort(404, 'Alumnos no encontrados.')
+             abort(404, 'Alumnos no encontrados.')
         finally:
-            db.session.close()
+             db.session.close()
 
-    def post(self):
+
+
+
+
+
+class UsuarioAlumno(Resource):
+
+
+    # def post(self,user_id):
+    #     try:
+    #         datos = request.get_json()
+
+    #         usuario_nuevo = UsuarioModelo.from_json(datos)
+    #         db.session.add(usuario_nuevo)
+    #         dni_usuario = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == user_id).first()
+    #         if datos['rol'] != 'alumno':
+    #             datos['rol'] = 'alumno'
+    #         alumno_nuevo = AlumnoModel(dni=dni_usuario)
+    #         db.session.commit()
+    #         return alumno_nuevo.to_json(), 201
+    def post(self, user_id):
         try:
             datos = request.get_json()
-            if datos['rol'] != 'alumno':
-                datos['rol'] = 'alumno'
-
+            dni_usuario = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == user_id).first()
             usuario_nuevo = UsuarioModelo.from_json(datos)
             db.session.add(usuario_nuevo)
-            dni_usuario = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == usuario_nuevo.dni).first()
+            if datos['rol'] != 'alumno':
+                datos['rol'] = 'alumno'
             alumno_nuevo = AlumnoModel(dni=dni_usuario)
+            db.session.add(alumno_nuevo)
             db.session.commit()
             return alumno_nuevo.to_json(), 201
 
@@ -105,14 +126,11 @@ class UsuariosAlumnos(Resource):
         finally:
             db.session.close()
 
-
-class UsuarioAlumno(Resource):
-
     def delete(self, user_id):
         '''DELETE -> Rol Admin, Profesor'''
         try:
             alumno_eliminar = db.session.query(AlumnoModel).filter(or_(
-                AlumnoModel.dni == user_id,
+                AlumnoModel.alumno_dni == user_id,
                 AlumnoModel.idAlumno == user_id
             )).first()
             db.session.delete(alumno_eliminar)
@@ -141,6 +159,8 @@ class UsuarioAlumno(Resource):
         finally:
             db.session.close()
 
+#NO FUNCIONA @Agustelli
+
     def get(self, user_id):
 
         try:
@@ -155,6 +175,7 @@ class UsuarioAlumno(Resource):
 
 class UsuarioProfesor(Resource):
 
+#NO FUNCIONA @Agustelli
     def get(self, user_id):
 
         try:
@@ -181,3 +202,22 @@ class UsuarioProfesor(Resource):
         except BaseException:
 
             abort(404, 'No se ha podido actualizar el usuario de id {}'.format(user_id))
+        
+
+    def delete(self, user_id):
+        '''DELETE -> Rol Admin, Profesor'''
+        try:
+            profe_eliminar = db.session.query(ProfesorModelo).filter(or_(
+                    ProfesorModelo.profesor_dni == user_id,
+                    ProfesorModelo.idProfesor == user_id
+                )).first()
+            db.session.delete(profe_eliminar)
+            db.session.commit()
+            return 204
+        except BaseException:
+            abort(404, 'No se ha encontrado el alumno de id {}'.format(user_id))
+        finally:
+            db.session.close()
+
+        
+

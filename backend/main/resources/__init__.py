@@ -10,5 +10,5 @@ from .profesor import ProfesorClases as ProfesorClasesRec
 from .pago import Pago as PagoRec
 from .pago import Pagos as PagosRec
 from .login import Login as LoginRec
-# from .clases import Clase_R as ClaseRec
-# from .clases import Clases_R as ClasesRec
+from .clases import Clase_R as ClaseRec
+from .clases import Clases_R as ClasesRec

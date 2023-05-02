@@ -11,17 +11,17 @@ class Usuario(db.Model):
     fecha_nacimiento = db.Column(db.Date, nullable=True)
     estado = db.Column(db.Boolean, nullable=False, default=False)
     rol = db.Column(db.String(10), nullable=False)
-    nombre_usuario = db.Column(db.String(50), db.ForeignKey('usuario_contrasegna.nombre_usuario'))
+    nombre_usuario = db.Column(db.String(50))
+    contrasegna= db.Column(db.String(50), nullable=False)
     altura = db.Column(Float, nullable=True)
     peso = db.Column(Float, nullable=True)
-    contrasegna= db.Column(db.String(50), nullable=False)
 
     # Definimos la relación uno a uno con la tabla Alumno
     alumno = db.relationship('Alumno', back_populates='usuario', uselist=False)
     profesor = db.relationship('Profesor', back_populates='usuario', uselist=False)
     #usuario_contrasegna = db.relationship('Usuario_Contrasegna', back_populates='usuario', uselist=False)
     usuario_pagos = db.relationship('Pagos', back_populates='pagos_usuario',cascade='all, delete-orphan', single_parent=True)
-    login1= db.relationship('Login_usuario', back_populates='login_usuario_contrasegna',uselist=False)
+    login1= db.relationship('Login_usuario', back_populates='usuario',uselist=False)
    
 
 
@@ -73,6 +73,7 @@ class Usuario(db.Model):
             'estado': self.estado,
             'rol': self.rol,
             'nombre_usuario': self.nombre_usuario,
+            'contrasegna': self.contrasegna,
             'altura': self.altura,
             'peso': self.peso
         }
@@ -88,6 +89,7 @@ class Usuario(db.Model):
         estado = usuario_json.get('estado')
         rol = usuario_json.get('rol')
         nombre_usuario = usuario_json.get('nombre_usuario')
+        contrasegna = usuario_json.get('contrasegna')
         altura = usuario_json.get('altura')
         peso = usuario_json.get('peso')
 
@@ -100,6 +102,7 @@ class Usuario(db.Model):
             estado=estado,
             rol=rol,
             nombre_usuario=nombre_usuario,
+            contrasegna=contrasegna,
             altura=altura,
             peso=peso,
         )

@@ -48,7 +48,8 @@ def create_app():
 
     # api.add_resource(resources.ClaseRec, '/clase/<idclase>')
 
-    # api.add_resource(resources.ClasesRec, '/clases')
+    api.add_resource(resources.ClasesRec, '/clases')
+    api.add_resource(resources.ClaseRec, '/clase/<user_id>')
 
     api.init_app(app)
     return app

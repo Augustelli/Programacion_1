@@ -17,7 +17,7 @@ class Clases(db.Model):
 
     idClases = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, index=True)
     nombre = db.Column(db.String(50), nullable=False, default='Rutina personal.')
-    horario = db.Column(db.Time, default=time(0, 0))
+    #horario = db.Column(db.Time, default=time(0, 0))
     dias = db.Column(db.String(50), nullable=False, default='Lunes-Miercoles-Viernes')
 
     # Relaciones Clases
