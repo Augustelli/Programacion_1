@@ -3,6 +3,7 @@ from .. import db
 from main.models import ClasesModelo
 from flask_restful import Resource
 
+
 class Clases_R(Resource):
 
     def get(self):
