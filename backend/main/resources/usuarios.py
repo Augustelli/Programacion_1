@@ -88,6 +88,13 @@ class UsuariosAlumnos(Resource):
         finally:
              db.session.close()
 
+    def post(post):
+        try:
+            datos = request.get_json()
+            return datos
+        except Exception:
+            abort(404)
+        
 class UsuarioAlumno(Resource):
 
 

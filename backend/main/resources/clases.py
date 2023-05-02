@@ -6,20 +6,23 @@ from flask_restful import Resource
 
 class Clases_R(Resource):
 
-    ###NO FUNCIONAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-
     def get(self):
-        # try:
+        try:
             clases = db.session.query(ClasesModelo).all()
-            clases_json = [clase.to_json() for clase in clases]
-            return jsonify(clases_json), 201
-        # except BaseException:
-        #     abort(404, 'No se ha encontrado la Clase')
-        # finally:
-        #     db.session.close()
-
-
-
+            print(clases)
+            clases_lista = list()
+            for clase in clases:
+                clase_dict = {}
+                clase_dict['idClase'] = clase.idClase
+                clase_dict['nombre'] = clase.nombre
+                clase_dict['dias'] = clase.dias
+                clases_lista.append(clase_dict)
+            print(jsonify(clases_lista))
+            return jsonify(clases_lista), 201
+        except BaseException:
+            abort(404, 'No se ha encontrado la Clase')
+        finally:
+            db.session.close()
         
     def post(self):
 #         try:
