@@ -2,13 +2,26 @@ from .. import db
 
 
 class Alumno(db.Model):
-
     __tablename__ = 'alumno'
 
     idAlumno = db.Column(db.Integer, primary_key=True)
     alumno_dni = db.Column(db.Integer, db.ForeignKey('usuario.dni'))
-    usuario = db.relationship('Usuario', uselist=False, back_populates='alumno', cascade='all, delete-orphan')
-    planificacion = db.relationship('Planificacion', back_populates='alumno', cascade='all, delete-orphan', single_parent=True)
+    usuario = db.relationship('Usuario', back_populates='alumno', uselist=False)
+    #planificaciones = db.relationship('Planificacion', back_populates='alumno')
+    planificaciones = db.relationship('Planificacion', back_populates='alumno',cascade='all, delete-orphan', single_parent=True)
+
+
+
+#     __tablename__ = 'alumno'
+
+#     idAlumno = db.Column(db.Integer, primary_key=True)
+#     alumno_dni = db.Column(db.Integer, db.ForeignKey('usuario.dni'))
+#    # usuario = db.relationship('Usuario', uselist=False, back_populates='alumno', cascade='all, delete-orphan')
+#     planificacion = db.relationship('Planificacion', back_populates='alumno', cascade='all, delete-orphan', single_parent=True)
+# # RELACIONES ALumnos
+
+#     alumno_usuario = db.relationship('Usuario', back_populates='usuario_alumno', single_parent=True,uselist=False, cascade='all, delete-orphan')
+#     alumno_planificacion = db.relationship('Planificacion', back_populates='planificacion_alumno', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<Alumno - ID:{self.idAlumno} - alumno_dni: {self.alumno_dni} >'

@@ -1,7 +1,6 @@
 from .. import db
 from sqlalchemy import Float
 
-
 class Usuario(db.Model):
     __tablename__ = 'usuario'
 
@@ -9,22 +8,46 @@ class Usuario(db.Model):
     nombre = db.Column(db.String(50), nullable=False, default=lambda: str(Usuario.dni))
     apellido = db.Column(db.String(50), nullable=False, default=lambda: str(Usuario.dni))
     email = db.Column(db.String(50), nullable=False, unique=True)
-    fecha_nacimiento = db.Column(db.String(50), nullable=True)
+    fecha_nacimiento = db.Column(db.Date, nullable=True)
     estado = db.Column(db.Boolean, nullable=False, default=False)
-    # Recordar que para crear la contraseña necesitamos llamar al método crear_contraseña para que compute el hash y lo almacene
     rol = db.Column(db.String(10), nullable=False)
-    nombre_usuario = db.Column(db.String(50), db.ForeignKey('usuario_contrasegna.nombre_usuario'))
+    nombre_usuario = db.Column(db.String(50))
+    contrasegna= db.Column(db.String(50), nullable=False)
     altura = db.Column(Float, nullable=True)
     peso = db.Column(Float, nullable=True)
 
-    #   ** RELACIONES de Usuario
+    # Definimos la relación uno a uno con la tabla Alumno
+    alumno = db.relationship('Alumno', back_populates='usuario', uselist=False)
+    profesor = db.relationship('Profesor', back_populates='usuario', uselist=False)
+    #usuario_contrasegna = db.relationship('Usuario_Contrasegna', back_populates='usuario', uselist=False)
+    usuario_pagos = db.relationship('Pagos', back_populates='pagos_usuario',cascade='all, delete-orphan', single_parent=True)
+    login1= db.relationship('Login_usuario', back_populates='usuario',uselist=False)
+   
 
-    profesor = db.relationship('Profesor', uselist=False, back_populates='usuario', cascade='all, delete-orphan', single_parent=True)
-    alumno = db.relationship('Alumno', uselist=False, back_populates='usuario', cascade='all, delete-orphan', single_parent=True)
-    pagos = db.relationship('Pago', back_populates='usuario', cascade='all, delete-orphan', single_parent=True)
-    usuario_contrasegna = db.relationship('usuario_contrasegna', uselist=False, back_populates='usuario', cascade='all, delete-orphan', single_parent=True)  # noqa: E501
 
-    # Valor por defecto alumno
+
+
+# class Usuario(db.Model):
+#     __tablename__ = 'usuario'
+
+#     dni = db.Column(db.Integer, primary_key=True, autoincrement=False)
+#     nombre = db.Column(db.String(50), nullable=False, default=lambda: str(Usuario.dni))
+#     apellido = db.Column(db.String(50), nullable=False, default=lambda: str(Usuario.dni))
+#     email = db.Column(db.String(50), nullable=False, unique=True)
+#     fecha_nacimiento = db.Column(db.Date, nullable=True)
+#     estado = db.Column(db.Boolean, nullable=False, default=False)
+#     # Recordar que para crear la contraseña necesitamos llamar al método crear_contraseña para que compute el hash y lo almacene
+#     rol = db.Column(db.String(10), nullable=False)
+#     nombre_usuario = db.Column(db.String(50), db.ForeignKey('usuario_contrasegna.nombre_usuario'))
+#     altura = db.Column(Float, nullable=True)
+#     peso = db.Column(Float, nullable=True)
+
+#     #   ** RELACIONES de Usuario
+#     usuario_alumno = db.relationship('Alumno', uselist=False, back_populates='alumno_usuario', single_parent=True)
+#     usuario_profesor = db.relationship('Profesor', uselist=False, back_populates='profesor_usuario',  single_parent=True)
+#     usuario_usuario_contrasegna = db.relationship('Usuario_Contrasegna', uselist=False, back_populates='usuario_contrasegna_usuario')
+#     usuario_pagos = db.relationship('Pagos', uselist=False, back_populates='pagos_usuario')
+#     # Valor por defecto alumno
 
     def __init__(self, **kwargs):
         super(Usuario, self).__init__(**kwargs)
@@ -50,6 +73,7 @@ class Usuario(db.Model):
             'estado': self.estado,
             'rol': self.rol,
             'nombre_usuario': self.nombre_usuario,
+            'contrasegna': self.contrasegna,
             'altura': self.altura,
             'peso': self.peso
         }
@@ -65,6 +89,7 @@ class Usuario(db.Model):
         estado = usuario_json.get('estado')
         rol = usuario_json.get('rol')
         nombre_usuario = usuario_json.get('nombre_usuario')
+        contrasegna = usuario_json.get('contrasegna')
         altura = usuario_json.get('altura')
         peso = usuario_json.get('peso')
 
@@ -77,6 +102,7 @@ class Usuario(db.Model):
             estado=estado,
             rol=rol,
             nombre_usuario=nombre_usuario,
+            contrasegna=contrasegna,
             altura=altura,
             peso=peso,
         )

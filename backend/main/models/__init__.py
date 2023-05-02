@@ -1,9 +1,9 @@
 from .Alumno import Alumno as AlumnoModel
-from .ClaseProfesor import ClaseProfesor as ClaseProfesorModelo
+#from .ClaseProfesor import ClaseProfesor as ClaseProfesorModelo
 from .Clases import Clases as ClasesModelo
 from .Pagos import Pagos as PagosModelo
 from .Planificacion import Planificacion as PlanificacionModelo
 from .Profesor import Profesor as ProfesorModelo
 from .Usuario import Usuario as UsuarioModelo
-from .Usuario_contrasegna import Usuario_Contrasegna as Usuario_contrasegnaModelo
+#from .Usuario_contrasegna import Usuario_Contrasegna as Usuario_contrasegnaModelo
 from .Login_usuario import Login_usuario as Login_usuarioModelo
