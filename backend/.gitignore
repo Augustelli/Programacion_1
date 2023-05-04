@@ -4,6 +4,7 @@
 /lib
 /lib64
 /share
-**_/pycache
+**_/__pycache__
+/_pycache__
 pyvenv.cfg
 .env

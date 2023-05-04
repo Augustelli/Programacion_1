@@ -10,15 +10,28 @@ class Usuarios(Resource):
     # Como aplicar roles
     # Devolver listado de alumnos
     def get(self):
-        
-
         try:
-            usuarios = db.session.query(UsuarioModelo).all()
+            usuarios = db.session.query(UsuarioModelo)
+            page=1
+            per_page=10
+            if request.args.get('page'):
+                page = int(request.args.get('page'))
+            if request.args.get('per_page'):
+                per_page = int(request.args.get('per_page'))
+
+        
+            usuarios = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
+
+
             usuarios_json = [usuario.to_json() for usuario in usuarios]
-            return jsonify(usuarios_json)
+            return jsonify({'Usuario':usuarios_json,
+                            'Pagina':page,
+                            'Por pagina':per_page,
+                            'Total':usuarios.total,
+                            })
 
         except Exception:
-            print('Fallo')
+            
             abort(404, 'Query no encontrado')
         finally:
             db.session.close()

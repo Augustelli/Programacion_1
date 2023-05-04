@@ -7,38 +7,50 @@ from flask_restful import Resource
 class Clases_R(Resource):
 
     def get(self):
-        # try:
-            clases = db.session.query(ClasesModelo).all()
-            print(clases)
+        try:
+            clases = db.session.query(ClasesModelo)
+            page=1
+            per_page=10
+            if request.args.get('page'):
+                page = int(request.args.get('page'))
+            if request.args.get('per_page'):
+                per_page = int(request.args.get('per_page'))
+            clases1 = clases.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30) 
             clases_lista = list()
             for clase in clases:
                 clase_dict = {}
-                clase_dict['idClase'] = clase.idClase
+                clase_dict['idClases'] = clase.idClases
                 clase_dict['nombre'] = clase.nombre
                 clase_dict['dias'] = clase.dias
                 clases_lista.append(clase_dict)
-            print(jsonify(clases_lista))
-        #     return jsonify(clases_lista), 201
-        # except BaseException:
-        #     abort(404, 'No se ha encontrado la Clase')
-        # finally:
-        #     db.session.close()
+            
+            return jsonify({'Clases':clases_lista,
+                           'Pagina':page,
+                            'Por pagina':per_page,
+                            'Total':clases1.total
+                            })
+        except BaseException:
+            abort(404, 'No se ha encontrado la Clase')
+        finally:
+            db.session.close()
+
+
+       
         
     def post(self):
-#         try:
+        try:
             clase_nueva= ClasesModelo.from_json(request.get_json())
             db.session.add(clase_nueva)
             db.session.commit()
             return clase_nueva.to_json(), 201
-#         except BaseException:
-#             abort(404, 'Error al crear la clase')
-#         finally:
-#             db.session.close()
+        except BaseException:
+            abort(404, 'Error al crear la clase')
+        finally:
+            db.session.close()
 
-# usuario_nuevo = UsuarioModelo.from_json(request.get_json())
-#             db.session.add(usuario_nuevo)
-#             db.session.commit()
-#             return usuario_nuevo.to_json(), 201
+
+# 
+
 
 
 class Clase_R(Resource):
@@ -69,6 +81,9 @@ class Clase_R(Resource):
             abort(404, 'No se ha encontrado la Clase')
         finally:
             db.session.close()
+
+
+
 
     def put(self, user_id):
         try:

@@ -8,14 +8,29 @@ class PlanificacionAlumno(Resource):
 
     def get(self, user_id):
         try:
-            planificacion = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.id_Alumno == user_id).all()
+            planificacion = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.id_Alumno == user_id)
+            
+            page=1
+            per_page=10
+            if request.args.get('page'):
+                page = int(request.args.get('page'))
+            if request.args.get('per_page'):
+                per_page = int(request.args.get('per_page'))
+            
+            planificacion = planificacion.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             planificacion_json = [planificacion.to_json() for planificacion in planificacion]
-            return jsonify(planificacion_json)
+            return jsonify({'Usuario':planificacion_json,
+                            'Pagina':page,
+                            'Por pagina':per_page,
+                            'Total':planificacion.total,
+                            })
 
         except BaseException:
             abort(404, f'Planificaciones del usuario {user_id} no encontradas')
         finally:
             db.session.close()
+
+      
 
  
 
@@ -23,14 +38,32 @@ class PlanificacionProfesor(Resource):
 
     def get(self, user_id):
         try:
-            planificacion = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.idProfesor == user_id).all()
+            planificacion = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.idProfesor == user_id)
+            page=1
+            per_page=10
+            if request.args.get('page'):
+                page = int(request.args.get('page'))
+            if request.args.get('per_page'):
+                per_page = int(request.args.get('per_page'))
+            
+            planificacion = planificacion.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             planificacion_json = [planificacion.to_json() for planificacion in planificacion]
-            return jsonify(planificacion_json)
+            #return jsonify(planificacion_json)
+            return jsonify({'Usuario':planificacion_json,
+                            'Pagina':page,
+                            'Por pagina':per_page,
+                            'Total':planificacion.total,
+                            })
 
         except BaseException:
             abort(404, f'Planificaciones del usuario {user_id} no encontradas')
         finally:
             db.session.close()
+
+
+
+
+    
    
 
      
@@ -51,7 +84,7 @@ class PlanificacionProfesor(Resource):
 
     def put(self, user_id):
 
-        #try:
+        try:
             planificacion_editar = db.session.query(PlanificacionModelo).filter(
                 PlanificacionModelo.idPlanificacion == user_id,
             ).first()
@@ -61,26 +94,39 @@ class PlanificacionProfesor(Resource):
             db.session.add(planificacion_editar)
             db.session.commit()
             return planificacion_editar.to_json(), 201
-        # except BaseException:
-        #     abort(422, 'No se ha podido realizar el cambio.')
-        # finally:
-        #     db.session.close()
+        except BaseException:
+            abort(422, 'No se ha podido realizar el cambio.')
+        finally:
+            db.session.close()
 
 
 class PlanificacionesProfesores(Resource):
 
     def get(self):
         try:
-            planificaciones = db.session.query(PlanificacionModelo).all()
+            planificaciones = db.session.query(PlanificacionModelo)
+            page=1
+            per_page=10
+            if request.args.get('page'):
+                page = int(request.args.get('page'))
+            if request.args.get('per_page'):
+                per_page = int(request.args.get('per_page'))
+            planificaciones = planificaciones.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
+
             planificaciones_json = [planificacion.to_json() for planificacion in planificaciones]
-            return jsonify(planificaciones_json)
+           # return jsonify(planificaciones_json)
+            return jsonify({'Planificaciones':planificaciones_json,
+                            'Pagina':page,
+                            'Por pagina':per_page,
+                            'Total':planificaciones.total,
+                            })
+    
            
         except Exception:
             abort(404, 'No se han encontrado las planificaciones.')
         finally:
             db.session.commit()
-
-    
+ 
 
     def post(self):
         try:
