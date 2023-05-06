@@ -1,20 +1,31 @@
 from flask_restful import Resource
 from flask import request, abort, jsonify
 from .. import db
-from main.models import PlanificacionModelo, ProfesorModelo 
+from main.models import PlanificacionModelo, AlumnoModel
 
 
 class PlanificacionAlumno(Resource):
 
-    def get(self, user_id):
+    def get(self):
         try:
-            planificacion = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.id_Alumno == user_id)
             page = 1
             per_page = 10
             if request.args.get('page'):
                 page = int(request.args.get('page'))
             if request.args.get('per_page'):
                 per_page = int(request.args.get('per_page'))
+
+            if request.args.get('nrIdAlumno'):
+                planificacion = db.session.query(PlanificacionModelo).filter(
+                    PlanificacionModelo.id_Alumno == int(request.args.get('nrIdAlumno'))
+                    ).order_by(PlanificacionModelo.fecha.desc()).all()
+            elif request.args.get('nrDniAlumno'):
+                planificacion = db.session.query(PlanificacionModelo).join().filter(
+                    AlumnoModel.alumno_dni == int(request.args.get('nrDniAlumno'))
+                ).order_by(PlanificacionModelo.fecha.desc()).all()
+            else:
+                raise Exception('Se debe indicar el Id del alumno o su DNI.')
+
             planificacion = planificacion.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             planificacion_json = [planificacion.to_json() for planificacion in planificacion]
             return jsonify({'Usuario': planificacion_json,
@@ -22,25 +33,38 @@ class PlanificacionAlumno(Resource):
                             'Por pagina': per_page,
                             'Total': planificacion.total,
                             })
-        except BaseException:
-            abort(404, f'Planificaciones del usuario {user_id} no encontradas')
+        except Exception:
+            abort(404, f"Planificaciones del usuario {request.args.get('nrIdAlumno'),request.args.get('nrDniAlumno') } no encontradas")
         finally:
             db.session.close()
 
 
-class PlanificacionProfesor(Resource):
+class PlanificacionesProfesores(Resource):
 
-    def get(self, user_id):
+    def get(self):
         try:
-            planificacion = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.idProfesor == user_id)
             page = 1
             per_page = 10
             if request.args.get('page'):
                 page = int(request.args.get('page'))
             if request.args.get('per_page'):
                 per_page = int(request.args.get('per_page'))
-            
-
+            # Si manda DNI, le va a mostrar Todas , si manda id Planificacion 1 y si manda idAlumno la más reciente
+            # Si no hay argumentos, listará todas las planificaciones
+            if request.args.get('nrDni'):
+                planificacion = db.session.query(PlanificacionModelo).join().filter(
+                    AlumnoModel.alumno_dni == int(request.args.get('nrDniAlumno'))
+                ).order_by(PlanificacionModelo.fecha.desc()).all()
+            elif request.args.get('nrIdPlanificacion'):
+                planificacion = db.session.query(PlanificacionModelo).filter(
+                    PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion'))
+                ).order_by(PlanificacionModelo.fecha.desc())
+            elif request.args.get('nrIdAlumno'):
+                planificacion = db.session.query(PlanificacionModelo).filter(
+                    PlanificacionModelo.id_Alumno == int(request.args.get('nrIdAlumno'))
+                    ).order_by(PlanificacionModelo.fecha.desc()).first()
+            else:
+                planificacion = db.session.query(PlanificacionModelo).all()
 
             planificacion = planificacion.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             planificacion_json = [planificacion.to_json() for planificacion in planificacion]
@@ -50,83 +74,78 @@ class PlanificacionProfesor(Resource):
                             'Por pagina': per_page,
                             'Total': planificacion.total,
                             })
-        except BaseException:
-            abort(404, f'Planificaciones del usuario {user_id} no encontradas')
+        except Exception as e:
+            return {'error': str(e)}, 400
         finally:
             db.session.close()
 
-    def delete(self, user_id):
+    def delete(self):
         try:
-            planificacion_eliminar = db.session.query(PlanificacionModelo).filter(
-                PlanificacionModelo.idPlanificacion == user_id).first()
-            db.session.delete(planificacion_eliminar)
-            db.session.commit()
-            return 204
-        except BaseException:
-            abort(404, f'No se ha encontrado la planificación  de id {user_id}')
+            if request.args.get('nrIdPlanificacion'):
+                usuario_id = int(request.args.get('nrIdAlumno'))
+                # Verifica si la planificación pertenece al alumno
+                planificacion = db.session.query(PlanificacionModelo).filter(
+                    PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion')),
+                    PlanificacionModelo.id_Alumno == usuario_id).first()
+                if planificacion:
+                    db.session.delete(planificacion)
+                    db.session.commit()
+                    return 204
+                else:
+                    raise Exception('La planificación no coincide con una asociada al Alumno.')
+            else:
+                raise Exception('Se debe proveer con el identenficador de la Planificación para eliminarla ')
+        except Exception:
+            abort(404, f"No se ha encontrado la planificación  de id {request.args.get('nrIdPlanificacion')}")
         finally:
             db.session.close()
 
-    def put(self, user_id):
+    def put(self):
 
         try:
-            planificacion_editar = db.session.query(PlanificacionModelo).filter(
-                PlanificacionModelo.idPlanificacion == user_id,
-            ).first()
-            informacion = request.get_json().items()
-            for campo, valor in informacion:
-                setattr(planificacion_editar, campo, valor)
-            db.session.add(planificacion_editar)
-            db.session.commit()
-            return planificacion_editar.to_json(), 201
+            if request.args.get('nrIdPlanificacion'):
+                usuario_id = int(request.args.get('nrIdAlumno'))
+                # Verifica si la planificación pertenece al alumno
+                planificacion = db.session.query(PlanificacionModelo).filter(
+                   PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion')),
+                   PlanificacionModelo.id_Alumno == usuario_id).first()
+                if planificacion:
+                    informacion = request.get_json().items()
+                    for campo, valor in informacion:
+                        setattr(planificacion, campo, valor)
+                    db.session.add(planificacion)
+                    db.session.commit()
+                    return planificacion.to_json(), 201
+                else:
+                    raise Exception('La planificación a editar no pertenece al usuario')
+            else:
+                raise Exception('Debe brindarse el identificador de la planificaicion')
         except BaseException:
             abort(422, 'No se ha podido realizar el cambio.')
         finally:
             db.session.close()
 
-
-class PlanificacionesProfesores(Resource):
-
-    def get(self):
-        # try:
-            planificaciones=db.session.query(PlanificacionModelo)
-            if request.args.get('nrProfe'):
-                planificaciones=planificaciones.outerjoin(ProfesorModelo.idProfesor).group_by(ProfesorModelo.idProfesor).having(ProfesorModelo.idProfesor == request.args.get('nrProfe'))
-
-            if request.args.get('nrRutina'):
-                planificaciones=planificaciones.filter(PlanificacionModelo.rutina.like("%"+request.args.get('nrRutina')+"%"))
-
-            if request.args.get('nrRutinas'):
-                planificaciones=planificaciones.filter(PlanificacionModelo.rutina)
-            #if request.args.get('')
-            #planificaciones = db.session.query(PlanificacionModelo)
-            page = 1
-            per_page = 10
-            if request.args.get('page'):
-                page = int(request.args.get('page'))
-            if request.args.get('per_page'):
-                per_page = int(request.args.get('per_page'))
-            planificaciones = planificaciones.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
-            planificaciones_json = [planificacion.to_json() for planificacion in planificaciones]
-            # return jsonify(planificaciones_json)
-            return jsonify({'Planificaciones': planificaciones_json,
-                            'Pagina': page,
-                            'Por pagina': per_page,
-                            'Total': planificaciones.total,
-                            })
-
-        # except Exception:
-        #     abort(404, 'No se han encontrado las planificaciones.')
-        # finally:
-        #     db.session.commit()
-
     def post(self):
         try:
-            planificacion_nueva = PlanificacionModelo.from_json(request.get_json())
+            # Se supone que puede haber rutinas que no pertenezcan a ninguna clase
+            campos_obligatorios = {'rutina', 'id_Alumno', 'idProfesor'}
+            datos = request.get_json()
+            campos_recibidos = set(datos.keys())
+
+            campos_faltantes = campos_obligatorios - campos_recibidos
+            if campos_faltantes:
+                raise Exception(f'Error al crear la rutina. Faltan campos obligatorios: {campos_faltantes}. Por favor, incluya estos campos y vuelva a intentarlo.')  # noqa
+
+            for campo in campos_obligatorios:
+                if datos[campo] is None:
+                    raise Exception(f'Error al crear rutina. El campo {campo} no puede ser nulo. Por favor, proporcione un valor válido para {campo} y vuelva a intentarlo.')  # noqa:
+            planificacion_nueva = PlanificacionModelo.from_json(datos)
             db.session.add(planificacion_nueva)
             db.session.commit()
-            return planificacion_nueva.to_json()
-        except BaseException:
-            abort(404, 'Error al crear la planificación')
+            return planificacion_nueva.to_json(), 201
+        except Exception as e:
+            return {'error': str(e)}, 400
         finally:
             db.session.close()
+
+# Este recurso se tiene que ir (SOLO QUEDA EL RECURSO DE PLANIFICACIONESPROFESORES Y PLANIFICACIONESALUMNO)
