@@ -1,31 +1,34 @@
 from .. import db
 from sqlalchemy import Float
 
+
+def same_as(column_name):
+    def default_function(context):
+        return str(context.current_parameters.get(column_name))
+    return default_function
+
+
 class Usuario(db.Model):
+
     __tablename__ = 'usuario'
 
     dni = db.Column(db.Integer, primary_key=True, autoincrement=False)
-    nombre = db.Column(db.String(50), nullable=False, default=lambda: str(Usuario.dni))
-    apellido = db.Column(db.String(50), nullable=False, default=lambda: str(Usuario.dni))
-    email = db.Column(db.String(50), nullable=False, unique=True)
-    fecha_nacimiento = db.Column(db.Date, nullable=True)
-    estado = db.Column(db.Boolean, nullable=False, default=False)
-    rol = db.Column(db.String(10), nullable=False)
-    nombre_usuario = db.Column(db.String(50))
-    contrasegna= db.Column(db.String(50), nullable=False)
+    nombre = db.Column(db.String(50))
+    apellido = db.Column(db.String(50))
+    email = db.Column(db.String(50), unique=True)
+    fecha_nacimiento = db.Column(db.Date)
+    estado = db.Column(db.Boolean, default=False)
+    rol = db.Column(db.String(10), default="alumno")
+    nombre_usuario = db.Column(db.String(12), default=same_as('dni'))
+    contrasegna = db.Column(db.String(50), nullable=False)
     altura = db.Column(Float, nullable=True)
     peso = db.Column(Float, nullable=True)
-
     # Definimos la relación uno a uno con la tabla Alumno
     alumno = db.relationship('Alumno', back_populates='usuario', uselist=False)
     profesor = db.relationship('Profesor', back_populates='usuario', uselist=False)
-    #usuario_contrasegna = db.relationship('Usuario_Contrasegna', back_populates='usuario', uselist=False)
-    usuario_pagos = db.relationship('Pagos', back_populates='pagos_usuario',cascade='all, delete-orphan', single_parent=True)
-    login1= db.relationship('Login_usuario', back_populates='usuario',uselist=False)
-   
-
-
-
+    # usuario_contrasegna = db.relationship('Usuario_Contrasegna', back_populates='usuario', uselist=False)
+    usuario_pagos = db.relationship('Pagos', back_populates='pagos_usuario', cascade='all, delete-orphan', single_parent=True)
+    login1 = db.relationship('Login_usuario', back_populates='usuario', uselist=False)
 
 # class Usuario(db.Model):
 #     __tablename__ = 'usuario'
@@ -54,13 +57,12 @@ class Usuario(db.Model):
         if self.rol is None:
             self.rol = 'alumno'
 
-    def establecer_rol(self, rol):
-        if rol not in ['alumno', 'profesor', 'admin']:
-            raise ValueError('Rol inválido')
-        self.rol = rol
-
     def __repr__(self):
         return f'<Usuario: {self.nombre} {self.apellido} {self.estado}>'
+
+    @classmethod
+    def nombre_aleatorio():
+        return fake.name()
 
     def to_json(self):
 

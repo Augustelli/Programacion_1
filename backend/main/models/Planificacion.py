@@ -13,12 +13,12 @@ class Planificacion(db.Model):
     idProfesor = db.Column(db.Integer, db.ForeignKey('profesor.idProfesor'))
 # RELACIONES de Planificacion
 
-    alumno = db.relationship('Alumno', back_populates='planificaciones',single_parent=True)
-    #planificacion_alumno = db.relationship('Alumno', uselist=False)
-    #planificaciones_profesor = db.relationship('Profesor', cascade="all, delete-orphan")
-    #planificacion_clases = db.relationship('Clases', cascade="all, delete-orphan")
-    profesor = db.relationship('Profesor', back_populates='planificaciones',single_parent=True)
-    clase = db.relationship('Clases', back_populates='planificaciones',single_parent=True)
+    alumno = db.relationship('Alumno', back_populates='planificaciones', single_parent=True)
+    # planificacion_alumno = db.relationship('Alumno', uselist=False)
+    # planificaciones_profesor = db.relationship('Profesor', cascade="all, delete-orphan")
+    # planificacion_clases = db.relationship('Clases', cascade="all, delete-orphan")
+    profesor = db.relationship('Profesor', back_populates='planificaciones', single_parent=True)
+    clase = db.relationship('Clases', back_populates='planificaciones', single_parent=True)
 
     def __repr__(self):
         return f'<Planificaicion - idPlanificacion: {self.idPlanificacion}  - frecuencia: {self.frecuencia} - id_Clase: {self.id_Clase}>'  # noqa: E501

@@ -13,7 +13,6 @@ class Pagos(db.Model):
 
     # Relacion Pagos
     pagos_usuario = db.relationship('Usuario', back_populates='usuario_pagos')
-    
 
     def __repr__(self):
         return f'<Pagos idPago:{self.idPago} - monto: {self.monto} - fecha_de_pago: {self.fecha_de_pago}  - estado: {self.estado} >'
@@ -22,9 +21,8 @@ class Pagos(db.Model):
         pago_json = {
             'idPago': self.idPago,
             'monto': self.monto,
-            #CHECKEAR ESTO
             'fecha_de_pago': str(self.fecha_de_pago.strftime("%d/%m/%Y")),
-            #'fecha_de_pago': self.fecha_de_pago,
+            # 'fecha_de_pago': self.fecha_de_pago,
             'estado': self.estado,
             'dni': self.dni
         }
@@ -44,4 +42,3 @@ class Pagos(db.Model):
             estado=estado,
             dni=dni
         )
-

@@ -6,7 +6,6 @@ import os
 from flask_migrate import Migrate
 
 
-
 api = Api()
 db = SQLAlchemy()
 migrate = Migrate()
@@ -38,7 +37,6 @@ def create_app():
     api.add_resource(resources.UsrProfesoresRec, '/profesores')
 
     api.add_resource(resources.PlanAlumnoRec, '/planificacion/<user_id>')
-
 
     api.add_resource(resources.PlanProfesorRec, '/planificacion_profesor/<user_id>')
 
