@@ -31,8 +31,9 @@ class Usuarios(Resource):
 
             if request.args.get('nrDni'):
                 usuarios = usuarios.filter(UsuarioModelo.dni == int(request.args.get('nrDni')))
+                
             usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
-            usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items()]
+            usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items]
 
             return {
                 'Usuario': usuarios_json,
@@ -79,7 +80,7 @@ class Usuarios(Resource):
                 db.session.add(profesor)
 
             db.session.commit()
-            return (usuario_nuevo + profesor).to_json(), 201
+            return usuario_nuevo.to_json(), 201
         except Exception as e:
             return {'error': str(e)}, 400
         finally:
@@ -97,6 +98,9 @@ class Usuarios(Resource):
                 usuario_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == int(request.args.get('nrDni'))).first()
                 informacion = request.get_json().items()
                 for campo, valor in informacion:
+                    if campo == 'rol':
+                        raise Exception('El rol del usuario no puede ser modificado.')
+                    
                     setattr(usuario_editar, campo, valor)
                 db.session.add(usuario_editar)
                 db.session.commit()

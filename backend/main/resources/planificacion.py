@@ -2,6 +2,7 @@ from flask_restful import Resource
 from flask import request, abort, jsonify
 from .. import db
 from main.models import PlanificacionModelo, AlumnoModel
+import pdb
 
 
 class PlanificacionAlumno(Resource):
@@ -43,8 +44,10 @@ class PlanificacionesProfesores(Resource):
 
     def get(self):
         try:
+            planificacion = db.session.query(PlanificacionModelo)
             page = 1
             per_page = 10
+
             if request.args.get('page'):
                 page = int(request.args.get('page'))
             if request.args.get('per_page'):
@@ -52,27 +55,28 @@ class PlanificacionesProfesores(Resource):
             # Si manda DNI, le va a mostrar Todas , si manda id Planificacion 1 y si manda idAlumno la más reciente
             # Si no hay argumentos, listará todas las planificaciones
             if request.args.get('nrDni'):
-                planificacion = db.session.query(PlanificacionModelo).join().filter(
-                    AlumnoModel.alumno_dni == int(request.args.get('nrDniAlumno'))
-                ).order_by(PlanificacionModelo.fecha.desc()).all()
+                planificacion = planificacion.outerjoin(
+                    AlumnoModel, AlumnoModel.idAlumno == PlanificacionModelo.id_Alumno).filter(
+                    AlumnoModel.alumno_dni == int(request.args.get('nrDni'))
+                ).order_by(PlanificacionModelo.fecha.desc())
+            
             elif request.args.get('nrIdPlanificacion'):
-                planificacion = db.session.query(PlanificacionModelo).filter(
+                planificacion = planificacion.filter(
                     PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion'))
                 ).order_by(PlanificacionModelo.fecha.desc())
+            
             elif request.args.get('nrIdAlumno'):
                 planificacion = db.session.query(PlanificacionModelo).filter(
                     PlanificacionModelo.id_Alumno == int(request.args.get('nrIdAlumno'))
-                    ).order_by(PlanificacionModelo.fecha.desc()).first()
-            else:
-                planificacion = db.session.query(PlanificacionModelo).all()
-
-            planificacion = planificacion.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
-            planificacion_json = [planificacion.to_json() for planificacion in planificacion]
+                    ).order_by(PlanificacionModelo.fecha.desc())
+            
+            planificacion_paginados = planificacion.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
+            planificacion_json = [planificacion.to_json() for planificacion in planificacion_paginados.items]
             # return jsonify(planificacion_json)
             return jsonify({'Usuario': planificacion_json,
                             'Pagina': page,
                             'Por pagina': per_page,
-                            'Total': planificacion.total,
+                            'Total': planificacion_paginados.total
                             })
         except Exception as e:
             return {'error': str(e)}, 400
@@ -81,16 +85,22 @@ class PlanificacionesProfesores(Resource):
 
     def delete(self):
         try:
+            planificacion = db.session.query(PlanificacionModelo)
+
             if request.args.get('nrIdPlanificacion'):
-                usuario_id = int(request.args.get('nrIdAlumno'))
+                #usuario_id = int(request.args.get('nrIdAlumno'))
+                if request.args.get('nrIdAlumno'):
                 # Verifica si la planificación pertenece al alumno
-                planificacion = db.session.query(PlanificacionModelo).filter(
-                    PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion')),
-                    PlanificacionModelo.id_Alumno == usuario_id).first()
-                if planificacion:
-                    db.session.delete(planificacion)
-                    db.session.commit()
-                    return 204
+                    
+                    planificacion = planificacion.filter(
+                        planificacion.idPlanificacion == int(request.args.get('nrIdPlanificacion')),
+                        planificacion.id_Alumno == int(request.args.get('nrIdAlumno')))
+                    
+                    if planificacion:
+                        pdb.set_trace()
+                        db.session.delete(planificacion)
+                        db.session.commit()
+                        return 204
                 else:
                     raise Exception('La planificación no coincide con una asociada al Alumno.')
             else:

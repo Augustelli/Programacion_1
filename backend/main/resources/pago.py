@@ -6,19 +6,19 @@ from .. import db
 
 class Pago(Resource):
 
-    def get(self, user_id):
-        try:
-            rescate_pago = db.session.query(PagosModelo).filter(
-                PagosModelo.idPago == user_id
-            ).first()
+    # def get(self, user_id):
+    #     try:
+    #         rescate_pago = db.session.query(PagosModelo).filter(
+    #             PagosModelo.idPago == user_id
+    #         ).first()
 
-            return rescate_pago.to_json(), 201
+    #         return rescate_pago.to_json(), 201
 
-        except BaseException:
-            abort(404, 'No se ha encontrado pagos del alumnmo')
+    #     except BaseException:
+    #         abort(404, 'No se ha encontrado pagos del alumnmo')
 
-        finally:
-            db.session.close()
+    #     finally:
+    #         db.session.close()
 
         #   def get(self, user_id):
         # try:
@@ -69,7 +69,12 @@ class Pagos(Resource):
 
     def get(self):
         try:
+
             pagos = db.session.query(PagosModelo)
+
+            if request.args.get('nrDni'):
+                
+                pagos = pagos.filter(PagosModelo.dni == request.args.get('nrDni')).order_by(PagosModelo.fecha_de_pago.desc())
             page = 1
             per_page = 10
             if request.args.get('page'):

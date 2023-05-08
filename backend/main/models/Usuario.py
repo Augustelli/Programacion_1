@@ -1,6 +1,7 @@
 from .. import db
 from sqlalchemy import Float
 from datetime import datetime
+#from sqlalchemy.orm import validates
 
 
 
@@ -62,6 +63,16 @@ class Usuario(db.Model):
     def __repr__(self):
         return f'<Usuario: {self.nombre} {self.apellido} {self.estado}>'
 
+
+    # @validates('rol')
+    # def validate_rol(self,key,rol):
+
+    #     if self.rol != rol:
+    #         raise ValueError(f'El rol del usuario debe ser {rol}')
+    #     return rol
+    
+    
+
     def to_json(self):
 
         usuario_json = {
@@ -106,3 +117,8 @@ class Usuario(db.Model):
             altura=altura,
             peso=peso,
         )
+
+# @event.listens_for(Usuario, 'before_update')
+# def prevent_rol_change(mapper, connection, target):
+#     if target.rol != db.session.dirty.get.rol:
+#         raise Exception('No se puede cambiar el rol de un usuario.')

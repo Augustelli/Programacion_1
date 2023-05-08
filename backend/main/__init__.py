@@ -36,7 +36,7 @@ def create_app():
     # api.add_resource(resources.UsrProfesorRec, '/profesor/<user_id>')
     # api.add_resource(resources.UsrProfesoresRec, '/profesores')
 
-    api.add_resource(resources.PlanAlumnoRec, '/planificacion/<user_id>')
+    api.add_resource(resources.PlanAlumnoRec, '/planificacion')
 
 #    api.add_resource(resources.PlanProfesorRec, '/planificacion_profesor/<user_id>')
 
