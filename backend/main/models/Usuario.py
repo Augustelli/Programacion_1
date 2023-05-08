@@ -62,10 +62,6 @@ class Usuario(db.Model):
     def __repr__(self):
         return f'<Usuario: {self.nombre} {self.apellido} {self.estado}>'
 
-    @classmethod
-    def nombre_aleatorio():
-        return fake.name()
-
     def to_json(self):
 
         usuario_json = {

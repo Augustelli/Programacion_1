@@ -23,8 +23,8 @@ class Alumno(db.Model):
 
     def to_json(self):
         alumno_json = {
-            'idAlumno': self.idAlumno,
-            'alumno_dni': self.alumno_dni
+            'idAlumno': str(self.idAlumno),
+            'alumno_dni': str(self.alumno_dni)
         }
         return alumno_json
 

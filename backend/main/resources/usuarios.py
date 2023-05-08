@@ -31,9 +31,8 @@ class Usuarios(Resource):
 
             if request.args.get('nrDni'):
                 usuarios = usuarios.filter(UsuarioModelo.dni == int(request.args.get('nrDni')))
-
             usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
-            usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items]
+            usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items()]
 
             return {
                 'Usuario': usuarios_json,
@@ -62,8 +61,25 @@ class Usuarios(Resource):
 
             usuario_nuevo = UsuarioModelo.from_json(datos)
             db.session.add(usuario_nuevo)
+            if usuario_nuevo.rol == "alumno":
+                alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni)
+                db.session.add(alumno)
+            if usuario_nuevo.rol == "profesor":
+                if "salario" in datos:
+                    salario = datos["salario"]
+                else:
+                    salario = None
+
+                if "especialidad" in datos:
+                    especialidad = datos["especialidad"]
+                else:
+                    especialidad = None
+
+                profesor = ProfesorModelo(profesor_dni=usuario_nuevo.dni, especialidad=especialidad, salario=salario)
+                db.session.add(profesor)
+
             db.session.commit()
-            return usuario_nuevo.to_json(), 201
+            return (usuario_nuevo + profesor).to_json(), 201
         except Exception as e:
             return {'error': str(e)}, 400
         finally:
