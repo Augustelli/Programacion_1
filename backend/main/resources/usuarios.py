@@ -4,10 +4,13 @@ from .. import db
 from main.models import UsuarioModelo, AlumnoModel, ProfesorModelo
 from sqlalchemy import or_
 import pdb
-
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from main.auth.decorators import role_required
 
 class Usuarios(Resource):
+    @jwt_required(optional=True)
     def get(self):
+
         try:
             usuarios = db.session.query(UsuarioModelo)
             page = 1
@@ -31,7 +34,7 @@ class Usuarios(Resource):
 
             if request.args.get('nrDni'):
                 usuarios = usuarios.filter(UsuarioModelo.dni == int(request.args.get('nrDni')))
-                
+
             usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items]
 
@@ -45,7 +48,7 @@ class Usuarios(Resource):
             return {'error': str(e)}, 404
         finally:
             db.session.close()
-
+    @role_required(roles="admin")
     def post(self):
         try:
             campos_obligatorios = {'dni', 'nombre', 'apellido', 'email', 'contrasegna'}
@@ -85,7 +88,7 @@ class Usuarios(Resource):
             return {'error': str(e)}, 400
         finally:
             db.session.close()
-
+    @role_required(roles=["admin","profesor"])
     def put(self):
 
         try:
@@ -111,7 +114,7 @@ class Usuarios(Resource):
             return {'error': str(e)}, 400
         finally:
             db.session.close()
-
+    @role_required(roles="admin")
     def delete(self):
         try:
             if request.args.get('nrDni'):

@@ -4,11 +4,13 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_migrate import Migrate
-
+#Importar Flask JWT
+from flask_jwt_extended import JWTManager
 
 api = Api()
 db = SQLAlchemy()
 migrate = Migrate()
+jwt = JWTManager()
 
 
 def create_app():
@@ -23,7 +25,10 @@ def create_app():
         os.mknod(str(os.getenv('DATABASE_PATH'))+str(os.getenv('DATABASE_NAME')))
 
     db.init_app(app)
+
+        
     migrate.init_app(app, db)
+
     import main.resources as resources
     api.add_resource(resources.UsuariosRec, '/usuarios')
 
@@ -56,4 +61,15 @@ def create_app():
     api.add_resource(resources.ClaseRec, '/clase/<user_id>')
 
     api.init_app(app)
+
+    #Cargar clave secreta
+    app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
+    #Cargar tiempo de expiración de los tokens
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
+    jwt.init_app(app)
+
+    from main.auth import routes
+    #Importar blueprint
+    app.register_blueprint(routes.auth)
+
     return app
