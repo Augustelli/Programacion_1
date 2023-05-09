@@ -9,13 +9,13 @@ class Clases_R(Resource):
     def get(self):
         try:
             clases = db.session.query(ClasesModelo)
-            page=1
-            per_page=10
+            page = 1
+            per_page = 10
             if request.args.get('page'):
                 page = int(request.args.get('page'))
             if request.args.get('per_page'):
                 per_page = int(request.args.get('per_page'))
-            clases1 = clases.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30) 
+            clases1 = clases.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             clases_lista = list()
             for clase in clases:
                 clase_dict = {}
@@ -23,23 +23,20 @@ class Clases_R(Resource):
                 clase_dict['nombre'] = clase.nombre
                 clase_dict['dias'] = clase.dias
                 clases_lista.append(clase_dict)
-            
-            return jsonify({'Clases':clases_lista,
-                           'Pagina':page,
-                            'Por pagina':per_page,
-                            'Total':clases1.total
+
+            return jsonify({'Clases': clases_lista,
+                           'Pagina': page,
+                            'Por pagina': per_page,
+                            'Total': clases1.total
                             })
         except BaseException:
             abort(404, 'No se ha encontrado la Clase')
         finally:
             db.session.close()
 
-
-       
-        
     def post(self):
         try:
-            clase_nueva= ClasesModelo.from_json(request.get_json())
+            clase_nueva = ClasesModelo.from_json(request.get_json())
             db.session.add(clase_nueva)
             db.session.commit()
             return clase_nueva.to_json(), 201
@@ -47,10 +44,6 @@ class Clases_R(Resource):
             abort(404, 'Error al crear la clase')
         finally:
             db.session.close()
-
-
-# 
-
 
 
 class Clase_R(Resource):
@@ -62,28 +55,20 @@ class Clase_R(Resource):
             db.session.delete(clase_eliminar)
             db.session.commit()
             return 204
-    
-
-
         except BaseException:
             abort(404, 'No se ha encontrado la clase {}'.format(user_id))
         finally:
             db.session.close()
 
-        
-    
-    def get(self,user_id):
+    def get(self, user_id):
         try:
-            clase= db.session.query(ClasesModelo).filter(
+            clase = db.session.query(ClasesModelo).filter(
                    ClasesModelo.idClases == user_id).first()
             return clase.to_json(), 201
         except BaseException:
             abort(404, 'No se ha encontrado la Clase')
         finally:
             db.session.close()
-
-
-
 
     def put(self, user_id):
         try:
@@ -100,6 +85,3 @@ class Clase_R(Resource):
             abort(404, 'No se ha encontrado la Clase')
         finally:
             db.session.close()
-
-
-

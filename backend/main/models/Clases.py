@@ -1,5 +1,5 @@
 from .. import db
-from datetime import time
+
 
 # clase_profesor = db.Table(
 #     "profesores_clases",
@@ -23,13 +23,10 @@ class Clases(db.Model):
 
     # Relaciones Clases
 
-    #clases_planificiacion = db.relationship('Planificacion', uselist=False)
+    # clases_planificiacion = db.relationship('Planificacion', uselist=False)
     profesores = db.relationship('Profesor', secondary=clase_profesor, back_populates='clases')
-    planificaciones = db.relationship('Planificacion', back_populates='clase',cascade='all, delete-orphan', single_parent=True)
-    #clases_planificaciones = db.relationship('Planificacion', backref='clase')
-
-
-
+    planificaciones = db.relationship('Planificacion', back_populates='clase', cascade='all, delete-orphan', single_parent=True)
+    # clases_planificaciones = db.relationship('Planificacion', backref='clase')
     # def __repr__(self):
     #     return f'<Clases idClases: {self.idClases}> - Nombre: {self.nombre} - Horario: {self.horario} - Dias: {self.dias}'
 

@@ -6,21 +6,20 @@ from .. import db
 
 class Pago(Resource):
 
-    def get(self, user_id):
-        try:
-            rescate_pago = db.session.query(PagosModelo).filter(
-                PagosModelo.idPago == user_id
-            ).first()
+    # def get(self, user_id):
+    #     try:
+    #         rescate_pago = db.session.query(PagosModelo).filter(
+    #             PagosModelo.idPago == user_id
+    #         ).first()
 
-            return rescate_pago.to_json(), 201
+    #         return rescate_pago.to_json(), 201
 
-        except BaseException:
-            abort(404, 'No se ha encontrado pagos del alumnmo')
+    #     except BaseException:
+    #         abort(404, 'No se ha encontrado pagos del alumnmo')
 
-        finally:
-            db.session.close()
+    #     finally:
+    #         db.session.close()
 
-        
         #   def get(self, user_id):
         # try:
         #     usuario_rescatado = db.session.query(UsuarioModelo).filter(
@@ -29,9 +28,6 @@ class Pago(Resource):
         # except Exception:
         #     abort(404, f'No se ha encontrado del usuario de id: {user_id}')
         # finally:
-
-
-
 
     def put(self, user_id):
         try:
@@ -60,48 +56,38 @@ class Pago(Resource):
 
 class Pagos(Resource):
 
-
-
     def post(self):
-        #try:
-            dato_nuevo=PagosModelo.from_json(request.get_json())
+        try:
+            dato_nuevo = PagosModelo.from_json(request.get_json())
             db.session.add(dato_nuevo)
             db.session.commit()
             return dato_nuevo.to_json(), 201
-        # except BaseException:
-        #     abort(404, 'Error al crear el Pago')
-        # finally:
-        #     db.session.close()
-
+        except BaseException:
+            abort(404, 'Error al crear el Pago')
+        finally:
+            db.session.close()
 
     def get(self):
         try:
+
             pagos = db.session.query(PagosModelo)
-            page=1
-            per_page=10
+
+            if request.args.get('nrDni'):
+                
+                pagos = pagos.filter(PagosModelo.dni == request.args.get('nrDni')).order_by(PagosModelo.fecha_de_pago.desc())
+            page = 1
+            per_page = 10
             if request.args.get('page'):
                 page = int(request.args.get('page'))
             if request.args.get('per_page'):
                 per_page = int(request.args.get('per_page'))
-
-        
             pagos = pagos.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
-
-
             pagos_json = [pago.to_json() for pago in pagos]
-            return jsonify({'Pagos':pagos_json,
-                            'Pagina':page,
-                            'Por pagina':per_page,
-                            'Total':pagos.total})
+            return jsonify({'Pagos': pagos_json,
+                            'Pagina': page,
+                            'Por pagina': per_page,
+                            'Total': pagos.total})
         except Exception:
             abort(404, 'No se ha podido realizar la consulta')
         finally:
             db.session.close()
-
-
-
-    
-
-
-
-            

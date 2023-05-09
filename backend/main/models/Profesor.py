@@ -2,18 +2,16 @@ from .. import db
 from .Clases import clase_profesor
 
 
-
-
 class Profesor(db.Model):
     __tablename__ = 'profesor'
 
     idProfesor = db.Column(db.Integer, nullable=False, primary_key=True, index=True)
     profesor_dni = db.Column(db.Integer, db.ForeignKey('usuario.dni'), nullable=False, unique=True)
     especialidad = db.Column(db.String(50), default='No posee.')
-    salario = db.Column(db.Float, nullable=False)
-    usuario= db.relationship('Usuario', back_populates='profesor', uselist=False)
-    
-    planificaciones = db.relationship('Planificacion', back_populates='profesor',cascade='all, delete-orphan', single_parent=True)
+    salario = db.Column(db.Float, default=55000.00)
+    usuario = db.relationship('Usuario', back_populates='profesor', uselist=False)
+
+    planificaciones = db.relationship('Planificacion', back_populates='profesor', cascade='all, delete-orphan', single_parent=True)
     clases = db.relationship('Clases', secondary=clase_profesor, back_populates='profesores')
 
 # class Profesor(db.Model):

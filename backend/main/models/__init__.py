@@ -1,9 +1,9 @@
-from .Alumno import Alumno as AlumnoModel
-#from .ClaseProfesor import ClaseProfesor as ClaseProfesorModelo
-from .Clases import Clases as ClasesModelo
-from .Pagos import Pagos as PagosModelo
-from .Planificacion import Planificacion as PlanificacionModelo
-from .Profesor import Profesor as ProfesorModelo
-from .Usuario import Usuario as UsuarioModelo
-#from .Usuario_contrasegna import Usuario_Contrasegna as Usuario_contrasegnaModelo
-from .Login_usuario import Login_usuario as Login_usuarioModelo
+from .Alumno import Alumno as AlumnoModel  # noqa
+# from .ClaseProfesor import ClaseProfesor as ClaseProfesorModelo
+from .Clases import Clases as ClasesModelo  # noqa
+from .Pagos import Pagos as PagosModelo  # noqa
+from .Planificacion import Planificacion as PlanificacionModelo  # noqa
+from .Profesor import Profesor as ProfesorModelo  # noqa
+from .Usuario import Usuario as UsuarioModelo  # noqa
+# from .Usuario_contrasegna import Usuario_Contrasegna as Usuario_contrasegnaModelo
+from .Login_usuario import Login_usuario as Login_usuarioModelo  # noqa
