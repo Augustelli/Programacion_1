@@ -32,7 +32,7 @@ class Usuarios(Resource):
             if request.args.get('nrDni'):
                 usuarios = usuarios.filter(UsuarioModelo.dni == int(request.args.get('nrDni')))
             usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
-            usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items()]
+            usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items]
 
             return {
                 'Usuario': usuarios_json,
