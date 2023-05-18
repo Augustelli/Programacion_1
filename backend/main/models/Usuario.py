@@ -89,6 +89,27 @@ class Usuario(db.Model):
             'peso': self.peso
         }
         return usuario_json
+    
+
+    # def to_json_complete(self):
+    #     usuario_json = {
+    #         'dni': self.dni,
+    #         'nombre': self.nombre,
+    #         'apellido': self.apellido,
+    #         'email': self.email,
+    #         'fecha_nacimiento': str(self.fecha_nacimiento.strftime("%d-%m-%Y")),
+    #         'estado': self.estado,
+    #         'rol': self.rol,
+    #         'nombre_usuario': self.nombre_usuario,
+    #         'contrasegna': self.contrasegna,
+    #         'altura': self.altura,
+    #         'peso': self.peso,
+    #         'idProfesor': self.idProfesor,
+    #         'profesor_dni': self.profesor_dni,
+    #         'especialidad': self.especialidad,
+    #         'salario': self.salario
+    #     }
+    #     return usuario_json
 
     @staticmethod
     def from_json(usuario_json):
