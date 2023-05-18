@@ -1,9 +1,20 @@
-import os
 from flask import Flask
 from dotenv import load_dotenv
+from flask_restful import Api
+from flask_sqlalchemy import SQLAlchemy
+import os
+from flask_migrate import Migrate
+
+
+api = Api()
+db = SQLAlchemy()
+migrate = Migrate()
+
 
 def create_app():
     app = Flask(__name__)
+
+    # variables de entono
     load_dotenv()
     app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.getenv('DATABASE_PATH')}{os.getenv('DATABASE_NAME')}"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
