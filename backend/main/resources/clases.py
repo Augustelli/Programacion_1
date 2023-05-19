@@ -6,35 +6,81 @@ from flask_restful import Resource
 
 class Clase_Profesor_R(Resource):
     def get(self):
-        try:
+        #try:
             clase_profesor = db.session.query(clase_profesorModelo)
-            page = 1
-            per_page = 10
-            if request.args.get('page'):
-                page = int(request.args.get('page'))
-            if request.args.get('per_page'):
-                per_page = int(request.args.get('per_page'))
-            clase_profesor = clase_profesor.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
-            clase_profesor_lista = [clase.to_json() for clase in clase_profesor.items]
-            
+            # page = 1
+            # per_page = 10
+            # if request.args.get('page'):
+            #     page = int(request.args.get('page'))
+            # if request.args.get('per_page'):
+            #     per_page = int(request.args.get('per_page'))
+            # clase_profesor = clase_profesor.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
+            # clase_profesor_lista = [clase.to_json() for clase in clase_profesor.items]
+          
+            if request.args.get('idClase'):
+                    clase = db.session.query(ClasesModelo)
+                    profesor = db.session.query(ProfesorModelo)
+                    clase_profesor = clase.outerjoin(clase_profesor).filter(request.args.get('idClase')==clase_profesor.clase_id)
+                    clase_profesor = clase_profesor.outerjoin(profesor).filter(clase_profesor.profesor_id==profesor.idProfesor)
+                    
+                    resultados = clase_profesor.all()
 
-            return {
-                'Clase_Profesor': clase_profesor_lista,
-                'Pagina': page,
-                'Por pagina': per_page,
-                'Total': clase_profesor.total
-            }
-        except Exception as e:
-            return {'error': str(e)}, 404
-        finally:
-            db.session.close()
+                    profesor_data = []
+
+                    for resultado in resultados:
+                        data = {
+
+                            'idClases': resultado.idClases,
+                            'nombre': resultado.nombre,
+                            'dias': resultado.dias,
+                            'idProfesor': resultado.profesor.idProfesor,
+                            'profesor_dni': resultado.profesor.profesor_dni,
+                            'especialidad': self.profesor.especialidad,                           
+                         
+                        }
+                        profesor_data.append(data)
+
+                    # Imprimir la información
+                    return jsonify(profesor_data)
+                              
+                
+
+        #     return {
+        #         'Clase_Profesor': clase_profesor_lista,
+        #         'Pagina': page,
+        #         'Por pagina': per_page,
+        #         'Total': clase_profesor.total
+        #     }
+        # except Exception as e:
+        #     return {'error': str(e)}, 404
+        # finally:
+        #     db.session.close()
         
+
+
+    # def post(self):
+        # # try:
+        #     data=request.get_json()
+        #     clase=db.session.query(ClasesModelo).filter_by(idClases=data['clase_id']).first()
+        #     profesor=db.session.query(ProfesorModelo).filter_by(idProfesor=data['profesor_id']).first()
+            
+        #     clase.profesores_p.append(profesor)
+        #     db.session.add(clase)
+        #     db.session.add(profesor)
+        #     db.session.commit()
+        #     return profesor.to_json(),201
+        
+
+        # # except Exception as e:
+        # #     return {'error': str(e)}, 400
+        # # finally:
+        # #     db.session.close()
  
 
     def post(self):
 
         
-        try:
+        # try:
             campos_obligatorios = {'profesor_id','clase_id'}
             datos = request.get_json()
             campos_recibidos = set(datos.keys())
@@ -55,10 +101,10 @@ class Clase_Profesor_R(Resource):
 
             db.session.commit()
             return usuario_nuevo.to_json(), 201
-        except Exception as e:
-            return {'error': str(e)}, 400
-        finally:
-            db.session.close()
+        # except Exception as e:
+        #     return {'error': str(e)}, 400
+        # finally:
+        #     db.session.close()
 
        
 class Clases_R(Resource):
