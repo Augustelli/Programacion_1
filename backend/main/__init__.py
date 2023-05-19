@@ -32,6 +32,9 @@ def create_app():
     import main.resources as resources
     api.add_resource(resources.UsuariosRec, '/usuarios')
 
+
+    api.add_resource(resources.Clase_ProfesorRec, '/clase_profesor')
+
     # api.add_resource(resources.UsuarioRec, '/usuario/<user_id>')
 
     # api.add_resource(resources.UsrsAlumnosRec, '/alumnos')
@@ -47,7 +50,7 @@ def create_app():
 
     api.add_resource(resources.PlansProfesoresRec, '/planificaciones_profesores')
 
-    api.add_resource(resources.ProfesorClasesRec, '/profesor_clases/<user_id>')
+    #api.add_resource(resources.ProfesorClasesRec, '/profesor_clases')
 
     api.add_resource(resources.PagoRec, '/pago/<user_id>')
 
@@ -58,7 +61,9 @@ def create_app():
     # api.add_resource(resources.ClaseRec, '/clase/<idclase>')
 
     api.add_resource(resources.ClasesRec, '/clases')
-    api.add_resource(resources.ClaseRec, '/clase/<user_id>')
+    #api.add_resource(resources.ClaseRec, '/clase/<user_id>')
+
+    api.add_resource(resources.ProfesorClasesRec, '/profesor_clases')
 
     api.init_app(app)
 

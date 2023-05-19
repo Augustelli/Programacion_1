@@ -91,3 +91,28 @@ class Pagos(Resource):
             abort(404, 'No se ha podido realizar la consulta')
         finally:
             db.session.close()
+        
+
+    def put(self):
+
+        try:
+            if request.args.get('idPago'):
+                registro = db.session.query(PagosModelo).get(request.args.get('idPago'))
+                if registro:
+                    pass
+                else:
+                    raise Exception(f"No se ha encontrado usuario con DNI: {(request.args.get('idPago'))}")
+                usuario_editar = db.session.query(PagosModelo).filter(PagosModelo.idPago == int(request.args.get('idPago'))).first()
+                informacion = request.get_json().items()
+                for campo, valor in informacion:
+                    
+                    setattr(usuario_editar, campo, valor)
+                db.session.add(usuario_editar)
+                db.session.commit()
+                return usuario_editar.to_json(), 201
+            else:
+                raise Exception('El DNI del usuario es necesario para poder modificarlo.')
+        except Exception as e:
+            return {'error': str(e)}, 400
+        finally:
+            db.session.close()

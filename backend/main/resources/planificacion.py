@@ -69,11 +69,26 @@ class PlanificacionesProfesores(Resource):
                 planificacion = db.session.query(PlanificacionModelo).filter(
                     PlanificacionModelo.id_Alumno == int(request.args.get('nrIdAlumno'))
                     ).order_by(PlanificacionModelo.fecha.desc())
+                planificacion_alumno = db.session.query(AlumnoModel).outerjoin(
+                    db.session.query(PlanificacionModelo).filter(
+                        AlumnoModel.idAlumno==PlanificacionModelo.id_Alumno))
+                planificacion_completa = {
+                'idPlanificacion': planificacion.idPlanificacion,
+                'rutina': planificacion.rutina,
+                'fecha': str(planificacion.fecha.strftime("%d-%m-%Y")),
+                'frecuencia': planificacion.frecuencia,
+                'id_Alumno': planificacion.id_Alumno,
+                'id_Clase': planificacion.id_Clase,
+                'idProfesor': planificacion.idProfesor,
+                'alumno_dni': planificacion_alumno.alumno_dni
+                }
+                return jsonify (planificacion_completa)
             
             planificacion_paginados = planificacion.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             planificacion_json = [planificacion.to_json() for planificacion in planificacion_paginados.items]
+            
             # return jsonify(planificacion_json)
-            return jsonify({'Usuario': planificacion_json,
+            return jsonify({'Planificacion': planificacion_json,
                             'Pagina': page,
                             'Por pagina': per_page,
                             'Total': planificacion_paginados.total
@@ -83,57 +98,33 @@ class PlanificacionesProfesores(Resource):
         finally:
             db.session.close()
 
-    def delete(self):
-        try:
-            planificacion = db.session.query(PlanificacionModelo)
 
-            if request.args.get('nrIdPlanificacion'):
-                #usuario_id = int(request.args.get('nrIdAlumno'))
-                if request.args.get('nrIdAlumno'):
-                # Verifica si la planificación pertenece al alumno
-                    
-                    planificacion = planificacion.filter(
-                        planificacion.idPlanificacion == int(request.args.get('nrIdPlanificacion')),
-                        planificacion.id_Alumno == int(request.args.get('nrIdAlumno')))
-                    
-                    if planificacion:
-                        pdb.set_trace()
-                        db.session.delete(planificacion)
-                        db.session.commit()
-                        return 204
-                else:
-                    raise Exception('La planificación no coincide con una asociada al Alumno.')
-            else:
-                raise Exception('Se debe proveer con el identenficador de la Planificación para eliminarla ')
-        except Exception:
-            abort(404, f"No se ha encontrado la planificación  de id {request.args.get('nrIdPlanificacion')}")
-        finally:
-            db.session.close()
 
     def put(self):
 
         try:
             if request.args.get('nrIdPlanificacion'):
-                usuario_id = int(request.args.get('nrIdAlumno'))
-                # Verifica si la planificación pertenece al alumno
-                planificacion = db.session.query(PlanificacionModelo).filter(
-                   PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion')),
-                   PlanificacionModelo.id_Alumno == usuario_id).first()
-                if planificacion:
-                    informacion = request.get_json().items()
-                    for campo, valor in informacion:
-                        setattr(planificacion, campo, valor)
-                    db.session.add(planificacion)
-                    db.session.commit()
-                    return planificacion.to_json(), 201
+                registro = db.session.query(PlanificacionModelo).get(request.args.get('nrIdPlanificacion'))
+                if registro:
+                    pass
                 else:
-                    raise Exception('La planificación a editar no pertenece al usuario')
+                    raise Exception(f"No se ha encontrado planificacion con esa ID: {(request.args.get('nrIdPlanificacion'))}")
+                usuario_editar = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion'))).first()
+                informacion = request.get_json().items()
+                for campo, valor in informacion:
+                   
+                    
+                    setattr(usuario_editar, campo, valor)
+                db.session.add(usuario_editar)
+                db.session.commit()
+                return usuario_editar.to_json(), 201
             else:
-                raise Exception('Debe brindarse el identificador de la planificaicion')
-        except BaseException:
-            abort(422, 'No se ha podido realizar el cambio.')
+                raise Exception('Es necesario el ID de la planificacion para modificar.')
+        except Exception as e:
+            return {'error': str(e)}, 400
         finally:
             db.session.close()
+
 
     def post(self):
         try:
@@ -158,4 +149,27 @@ class PlanificacionesProfesores(Resource):
         finally:
             db.session.close()
 
-# Este recurso se tiene que ir (SOLO QUEDA EL RECURSO DE PLANIFICACIONESPROFESORES Y PLANIFICACIONESALUMNO)
+# # Este recurso se tiene que ir (SOLO QUEDA EL RECURSO DE PLANIFICACIONESPROFESORES Y PLANIFICACIONESALUMNO)
+    def delete(self):
+        try:
+            if request.args.get('nrIdPlanificacion'):
+                registro = db.session.query(PlanificacionModelo).get(request.args.get('nrIdPlanificacion'))
+                if registro:
+                    pass
+                else:
+                    raise Exception(f"No se ha encontrado la planificacion por su ID: ID {(request.args.get('nrIdPlanificacion'))}")
+                
+                usuario_eliminar = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.idPlanificacion == request.args.get('nrIdPlanificacion')).first()
+                db.session.delete(usuario_eliminar)
+                db.session.commit()
+                return 204, f"Planificacion con ID  {request.args.get('nrIdPlanificacion')} eliminado"
+            else:
+                raise Exception("El ID de la planificacion debe ser especificado para eliminarlo")
+        except Exception:
+            return {
+                'error': str(Exception())
+            }, 400
+        finally:
+            db.session.close()
+
+

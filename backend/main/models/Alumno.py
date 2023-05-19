@@ -6,6 +6,8 @@ class Alumno(db.Model):
 
     idAlumno = db.Column(db.Integer, primary_key=True)
     alumno_dni = db.Column(db.Integer, db.ForeignKey('usuario.dni'))
+    # altura = db.Column(Float, nullable=True)
+    # peso = db.Column(Float, nullable=True)
     usuario = db.relationship('Usuario', back_populates='alumno', uselist=False)
     # planificaciones = db.relationship('Planificacion', back_populates='alumno')
     planificaciones = db.relationship('Planificacion', back_populates='alumno', cascade='all, delete-orphan', single_parent=True)

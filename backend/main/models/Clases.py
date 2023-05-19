@@ -1,16 +1,24 @@
 from .. import db
 
 
-# clase_profesor = db.Table(
-#     "profesores_clases",
-#     db.Column("id_clase", db.Integer, db.ForeignKey("clases.idClases")),
-#     db.Column("id_profesor", db.Integer, db.ForeignKey("profesor.idProfesor"))
 
 clase_profesor = db.Table(
     'clase_profesor',
     db.Column('profesor_id', db.Integer, db.ForeignKey('profesor.idProfesor'), primary_key=True),
     db.Column('clase_id', db.Integer, db.ForeignKey('clases.idClases'), primary_key=True)
 )
+@staticmethod
+def from_json(clases_json):
+    clase_id = clases_json.get('clase_id')
+    profesor_id = clases_json.get('profesor_id')
+    
+    return clase_profesor(
+        clase_id=clase_id,
+        profesor_id=profesor_id
+    )
+
+
+
 
 
 class Clases(db.Model):
@@ -23,7 +31,6 @@ class Clases(db.Model):
 
     # Relaciones Clases
 
-    # clases_planificiacion = db.relationship('Planificacion', uselist=False)
     profesores = db.relationship('Profesor', secondary=clase_profesor, back_populates='clases')
     planificaciones = db.relationship('Planificacion', back_populates='clase', cascade='all, delete-orphan', single_parent=True)
     # clases_planificaciones = db.relationship('Planificacion', backref='clase')
