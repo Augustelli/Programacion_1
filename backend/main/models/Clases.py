@@ -1,10 +1,6 @@
 from .. import db
 
 
-# clase_profesor = db.Table(
-#     "profesores_clases",
-#     db.Column("id_clase", db.Integer, db.ForeignKey("clases.idClases")),
-#     db.Column("id_profesor", db.Integer, db.ForeignKey("profesor.idProfesor"))
 
 clase_profesor = db.Table(
     'clase_profesor',
@@ -23,7 +19,6 @@ class Clases(db.Model):
 
     # Relaciones Clases
 
-    # clases_planificiacion = db.relationship('Planificacion', uselist=False)
     profesores = db.relationship('Profesor', secondary=clase_profesor, back_populates='clases')
     planificaciones = db.relationship('Planificacion', back_populates='clase', cascade='all, delete-orphan', single_parent=True)
     # clases_planificaciones = db.relationship('Planificacion', backref='clase')

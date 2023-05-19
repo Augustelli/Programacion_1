@@ -71,6 +71,8 @@ class Usuarios(Resource):
                             "altura": resultado.altura,
                             "peso": resultado.peso,
                             "idAlumno": resultado.alumno.idAlumno
+                            #"peso": resultado.alumno.peso,
+                            #"altura": resultado.alumno.altura,
                         }
                         profesor_data.append(data)
 

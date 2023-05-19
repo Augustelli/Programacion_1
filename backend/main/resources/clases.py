@@ -29,62 +29,38 @@ class Clase_Profesor_R(Resource):
         finally:
             db.session.close()
         
-    # def post(self):
-    #     # try:
-
-    #         if request.args.get('profesor_id'):
-    #             profesor_id = int(request.args.get('profesor_id'))
-    #             # if profesor_id not in db.session.query(ProfesorModelo.idProfesor).all():
-    #             #     abort(404, 'No se ha encontrado el Profesor')
-            
-    #         if request.args.get('clase_id'):
-    #             clase_id = int(request.args.get('clase_id'))
-    #             # if clase_id not in db.session.query(ClasesModelo.idClases).all():
-    #             #     abort(404, 'No se ha encontrado la Clase')
-            
-    #         # clase_profesor_dic={}
-    #         # clase_profesor_dic['profesor_id']=profesor_id
-    #         # clase_profesor_dic['clase_id']=clase_id
-
-
-    #         #     page = int(request.args.get('page'))
-    #         # if request.args.get('per_page'):
-    #         #     per_page = int(request.args.get('per_page'))
-    #         # clase_profesor1 = clase_profesor.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
-    #         # clase_profesor_nueva = clase_profesorModelo.from_json(request.get_json())
-    #         # clase_profesor_nueva = profesor_id,clase_id
-    #         #clase_profesor_nueva=clase_profesorModelo(profesor_id=profesor_id,clase_id=clase_id)
-    #         clase_profesor_nueva=clase_profesorModelo(profesor_id=profesor_id,clase_id=clase_id)
-    #         db.session.add(clase_profesor_nueva)
-    #         db.session.commit()
-    #         return clase_profesor_nueva.to_json(), 201
-    #     # except BaseException:
-    #     #     abort(404, 'Error al crear la Relacion: Clase_Profesor')
-    #     # finally:
-    #     #     db.session.close()
+ 
 
     def post(self):
-        # try:
-            campos_obligatorios = { 'profesor_id','clase_id'}
+
+        
+        try:
+            campos_obligatorios = {'profesor_id','clase_id'}
             datos = request.get_json()
             campos_recibidos = set(datos.keys())
 
             campos_faltantes = campos_obligatorios - campos_recibidos
             if campos_faltantes:
-                raise Exception(f'Error al crear la rutina. Faltan campos obligatorios: {campos_faltantes}. Por favor, incluya estos campos y vuelva a intentarlo.')  # noqa
+                raise Exception(f'Error al crear usuario. Faltan campos obligatorios: {campos_faltantes}. Por favor, incluya estos campos y vuelva a intentarlo.')
 
             for campo in campos_obligatorios:
                 if datos[campo] is None:
-                    raise Exception(f'Error al crear rutina. El campo {campo} no puede ser nulo. Por favor, proporcione un valor válido para {campo} y vuelva a intentarlo.')  # noqa:
-            dato_nuevo = clase_profesorModelo.from_json(datos)
-            db.session.add(dato_nuevo)
-            db.session.commit()
-            return dato_nuevo.to_json(), 201
-        # except BaseException:
-        #     abort(404, 'Error al crear la Relacion: Clase_Profesor')
-        # finally:
-        #     db.session.close()
+                    raise Exception(f'Error al crear usuario. El campo {campo} no puede ser nulo. Por favor, proporcione un valor válido para {campo} y vuelva a intentarlo.')
 
+            usuario_nuevo = clase_profesorModelo.from_json(datos)
+            db.session.add(usuario_nuevo)
+            
+
+            
+
+            db.session.commit()
+            return usuario_nuevo.to_json(), 201
+        except Exception as e:
+            return {'error': str(e)}, 400
+        finally:
+            db.session.close()
+
+       
 class Clases_R(Resource):
 
     def get(self):
