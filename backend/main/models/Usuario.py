@@ -1,5 +1,8 @@
 from .. import db
 from sqlalchemy import Float
+from datetime import datetime
+#from sqlalchemy.orm import validates
+
 
 
 def same_as(column_name):
@@ -16,7 +19,7 @@ class Usuario(db.Model):
     nombre = db.Column(db.String(50))
     apellido = db.Column(db.String(50))
     email = db.Column(db.String(50), unique=True)
-    fecha_nacimiento = db.Column(db.Date)
+    fecha_nacimiento = db.Column(db.DateTime, nullable=True)
     estado = db.Column(db.Boolean, default=False)
     rol = db.Column(db.String(10), default="alumno")
     nombre_usuario = db.Column(db.String(12), default=same_as('dni'))
@@ -60,6 +63,16 @@ class Usuario(db.Model):
     def __repr__(self):
         return f'<Usuario: {self.nombre} {self.apellido} {self.estado}>'
 
+
+    # @validates('rol')
+    # def validate_rol(self,key,rol):
+
+    #     if self.rol != rol:
+    #         raise ValueError(f'El rol del usuario debe ser {rol}')
+    #     return rol
+    
+    
+
     def to_json(self):
 
         usuario_json = {
@@ -67,7 +80,7 @@ class Usuario(db.Model):
             'nombre': self.nombre,
             'apellido': self.apellido,
             'email': self.email,
-            'fecha_nacimiento': self.fecha_nacimiento,
+            'fecha_nacimiento': str(self.fecha_nacimiento.strftime("%d-%m-%Y")),
             'estado': self.estado,
             'rol': self.rol,
             'nombre_usuario': self.nombre_usuario,
@@ -76,6 +89,27 @@ class Usuario(db.Model):
             'peso': self.peso
         }
         return usuario_json
+    
+
+    # def to_json_complete(self):
+    #     usuario_json = {
+    #         'dni': self.dni,
+    #         'nombre': self.nombre,
+    #         'apellido': self.apellido,
+    #         'email': self.email,
+    #         'fecha_nacimiento': str(self.fecha_nacimiento.strftime("%d-%m-%Y")),
+    #         'estado': self.estado,
+    #         'rol': self.rol,
+    #         'nombre_usuario': self.nombre_usuario,
+    #         'contrasegna': self.contrasegna,
+    #         'altura': self.altura,
+    #         'peso': self.peso,
+    #         'idProfesor': self.idProfesor,
+    #         'profesor_dni': self.profesor_dni,
+    #         'especialidad': self.especialidad,
+    #         'salario': self.salario
+    #     }
+    #     return usuario_json
 
     @staticmethod
     def from_json(usuario_json):
@@ -83,7 +117,7 @@ class Usuario(db.Model):
         nombre = usuario_json.get('nombre')
         apellido = usuario_json.get('apellido')
         email = usuario_json.get('email')
-        fecha_nacimiento = usuario_json.get('fecha_nacimiento')
+        fecha_nacimiento = datetime.strptime(usuario_json.get('fecha_nacimiento'),'%d-%m-%Y')
         estado = usuario_json.get('estado')
         rol = usuario_json.get('rol')
         nombre_usuario = usuario_json.get('nombre_usuario')
@@ -104,3 +138,8 @@ class Usuario(db.Model):
             altura=altura,
             peso=peso,
         )
+
+# @event.listens_for(Usuario, 'before_update')
+# def prevent_rol_change(mapper, connection, target):
+#     if target.rol != db.session.dirty.get.rol:
+#         raise Exception('No se puede cambiar el rol de un usuario.')

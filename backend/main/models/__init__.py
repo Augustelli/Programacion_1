@@ -1,5 +1,6 @@
 from .Alumno import Alumno as AlumnoModel  # noqa
 # from .ClaseProfesor import ClaseProfesor as ClaseProfesorModelo
+from .Clases import clase_profesor as clase_profesorModelo  # noqa
 from .Clases import Clases as ClasesModelo  # noqa
 from .Pagos import Pagos as PagosModelo  # noqa
 from .Planificacion import Planificacion as PlanificacionModelo  # noqa

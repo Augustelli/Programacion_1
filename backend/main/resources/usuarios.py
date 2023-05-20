@@ -19,7 +19,68 @@ class Usuarios(Resource):
                 per_page = int(request.args.get('per_page'))
 
             if request.args.get('nrRol'):
-                usuarios = usuarios.filter(UsuarioModelo.rol.like("%"+request.args.get('nrRol')+"%"))
+                
+                if request.args.get('nrRol') == 'profesor':
+                   # query=usuarios.filter(UsuarioModelo.rol.like("%"+request.args.get('nrRol')+"%"))
+
+                    usuarios = usuarios.join(UsuarioModelo.profesor).filter( UsuarioModelo.dni==ProfesorModelo.profesor_dni)
+                    resultados = usuarios.all()
+
+                    profesor_data = []
+
+                    for resultado in resultados:
+                        data = {
+                            "dni": resultado.dni,
+                            "nombre": resultado.nombre,
+                            "apellido": resultado.apellido,
+                            "email": resultado.email,
+                            "fecha_nacimiento": resultado.fecha_nacimiento,
+                            "estado": resultado.estado,
+                            "rol": resultado.rol,
+                            "nombre_usuario": resultado.nombre_usuario,
+                            "contrasegna": resultado.contrasegna,
+                            "altura": resultado.altura,
+                            "peso": resultado.peso,
+                            "especialidad": resultado.profesor.especialidad,
+                            "salario": resultado.profesor.salario
+                        }
+                        profesor_data.append(data)
+
+                    # Imprimir la información
+                    return jsonify(profesor_data)
+                              
+                elif request.args.get('nrRol') == 'alumno':
+                   # query=usuarios.filter(UsuarioModelo.rol.like("%"+request.args.get('nrRol')+"%"))   
+                   # usuarios = usuarios.filter(UsuarioModelo.rol.like("%"+request.args.get('nrRol')+"%"))
+                    usuarios = usuarios.join(UsuarioModelo.alumno).filter( UsuarioModelo.dni==AlumnoModel.alumno_dni)
+                    resultados = usuarios.all()
+
+                    profesor_data = []
+
+                    for resultado in resultados:
+                        data = {
+                            "dni": resultado.dni,
+                            "nombre": resultado.nombre,
+                            "apellido": resultado.apellido,
+                            "email": resultado.email,
+                            "fecha_nacimiento": resultado.fecha_nacimiento,
+                            "estado": resultado.estado,
+                            "rol": resultado.rol,
+                            "nombre_usuario": resultado.nombre_usuario,
+                            "contrasegna": resultado.contrasegna,
+                            "altura": resultado.altura,
+                            "peso": resultado.peso,
+                            "idAlumno": resultado.alumno.idAlumno
+                            #"peso": resultado.alumno.peso,
+                            #"altura": resultado.alumno.altura,
+                        }
+                        profesor_data.append(data)
+
+                    # Imprimir la información
+                    return jsonify(profesor_data)
+
+
+                
 
             if request.args.get('nrProfesor'):
                 query = usuarios.outerjoin(ProfesorModelo, UsuarioModelo.dni == ProfesorModelo.profesor_dni)
@@ -31,6 +92,7 @@ class Usuarios(Resource):
 
             if request.args.get('nrDni'):
                 usuarios = usuarios.filter(UsuarioModelo.dni == int(request.args.get('nrDni')))
+                
             usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items]
 
@@ -79,7 +141,7 @@ class Usuarios(Resource):
                 db.session.add(profesor)
 
             db.session.commit()
-            return (usuario_nuevo + profesor).to_json(), 201
+            return usuario_nuevo.to_json(), 201
         except Exception as e:
             return {'error': str(e)}, 400
         finally:
@@ -97,6 +159,9 @@ class Usuarios(Resource):
                 usuario_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == int(request.args.get('nrDni'))).first()
                 informacion = request.get_json().items()
                 for campo, valor in informacion:
+                    if campo == 'rol':
+                        raise Exception('El rol del usuario no puede ser modificado.')
+                    
                     setattr(usuario_editar, campo, valor)
                 db.session.add(usuario_editar)
                 db.session.commit()
