@@ -2,6 +2,7 @@ from .. import db
 from datetime import datetime
 from sqlalchemy import func
 
+
 class Planificacion(db.Model):
 
     __tablename__ = 'planificacion'

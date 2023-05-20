@@ -59,17 +59,17 @@ class PlanificacionesProfesores(Resource):
                     AlumnoModel, AlumnoModel.idAlumno == PlanificacionModelo.id_Alumno).filter(
                     AlumnoModel.alumno_dni == int(request.args.get('nrDni'))
                 ).order_by(PlanificacionModelo.fecha.desc())
-            
+
             elif request.args.get('nrIdPlanificacion'):
                 planificacion = planificacion.filter(
                     PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion'))
                 ).order_by(PlanificacionModelo.fecha.desc())
-            
+
             elif request.args.get('nrIdAlumno'):
                 planificacion = db.session.query(PlanificacionModelo).filter(
                     PlanificacionModelo.id_Alumno == int(request.args.get('nrIdAlumno'))
                     ).order_by(PlanificacionModelo.fecha.desc())
-            
+
             planificacion_paginados = planificacion.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             planificacion_json = [planificacion.to_json() for planificacion in planificacion_paginados.items]
             # return jsonify(planificacion_json)
