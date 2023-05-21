@@ -1,7 +1,7 @@
-from flask import request, jsonify, Blueprint
+from flask import request, Blueprint
 from .. import db
-from main.models import UsuarioModelo
-from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
+from main.models import UsuarioModelo, AlumnoModel
+from flask_jwt_extended import create_access_token
 
 # Blueprint para acceder a los métodos de autenticación
 auth = Blueprint('auth', __name__, url_prefix='/auth')
@@ -39,9 +39,27 @@ def register():
         return 'Duplicated mail', 409
     else:
         try:
+            campos_obligatorios = {'dni', 'nombre', 'apellido', 'email', 'contrasegna'}
+            datos = request.get_json()
+            campos_recibidos = set(datos.keys())
+
+            campos_faltantes = campos_obligatorios - campos_recibidos
+            if campos_faltantes:
+                raise Exception(
+                    f'Error al crear usuario. Faltan campos obligatorios: {campos_faltantes}. Por favor, incluya estos campos y vuelva a intentarlo.')
+
+            for campo in campos_obligatorios:
+                if datos[campo] is None:
+                    raise Exception(f'Error al crear usuario. El campo {campo} no puede ser nulo. Por favor, proporcione un valor válido para {campo} y vuelva a intentarlo.')  # noqa
+
+            usuario_nuevo = UsuarioModelo.from_json(datos)
             db.session.add(usuario_nuevo)
+            alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni)
+            db.session.add(alumno)
             db.session.commit()
-        except Exception as error:
+            return usuario_nuevo.to_json(), 201
+        except Exception as e:
             db.session.rollback()
-            return str(error), 409
-        return usuario_nuevo.to_json(), 201
+            return {'error': str(e)}, 400
+        finally:
+            db.session.close()
