@@ -12,7 +12,7 @@ import pdb
 class Usuarios(Resource):
 
     # Rol : Admin
-    @jwt_required(roles=['admin'])
+    @role_required(roles=['admin'])
     def get(self):
         try:
             page = 1
@@ -40,7 +40,7 @@ class Usuarios(Resource):
             db.session.close()
 
     # Rol: Admin
-    @jwt_required(roles=['admin'])
+    @role_required(roles=['admin'])
     def post(self):
         try:
             campos_obligatorios = {'dni', 'nombre', 'apellido', 'email', 'contrasegna'}
@@ -86,7 +86,7 @@ class Usuarios(Resource):
 class Usuario(Resource):
 
     # Rol: Admin
-    @jwt_required(roles=['admin'])
+    @role_required(roles=['admin'])
     def get(self):
         try:
             page = 1
@@ -117,7 +117,7 @@ class Usuario(Resource):
             db.session.close()
 
     # Rol: Admin
-    @jwt_required(roles=['admin'])
+    @role_required(roles=['admin'])
     def put(self):
         try:
             if request.args.get('nrDni'):
@@ -143,7 +143,7 @@ class Usuario(Resource):
         finally:
             db.session.close()
 
-    @jwt_required(roles=['admin'])
+    @role_required(roles=['admin'])
     def delete(self):
         try:
             if request.args.get('nrDni'):
@@ -169,7 +169,7 @@ class Usuario(Resource):
 class UsuarioAlumnos(Resource):
 
     # Rol Admin, profesor
-    @jwt_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor'])
     def get(self):
         page = 1
         per_page = 10
@@ -193,7 +193,7 @@ class UsuarioAlumnos(Resource):
                 'Total': usuarios_paginados.total
                 }
 
-    @jwt_required(roles=['admin'])
+    @role_required(roles=['admin'])
     def post(self):
         try:
             campos_obligatorios = {'dni', 'nombre', 'apellido', 'email', 'contrasegna'}
@@ -225,7 +225,7 @@ class UsuarioAlumnos(Resource):
 class UsuarioProfesor(Resource):
 
     # Rol admin, Profesor
-    @jwt_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
             usuarios = db.session.query(UsuarioModelo)
@@ -251,7 +251,7 @@ class UsuarioProfesor(Resource):
         finally:
             db.session.close()
 
-    @jwt_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor'])
     def put(self):
         try:
             if request.args.get('nrDni'):
@@ -281,7 +281,7 @@ class UsuarioProfesor(Resource):
 class UsuarioAlumno(Resource):
 
     # Rol Admin, Profesor
-    @jwt_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
             usuarios = db.session.query(UsuarioModelo)
@@ -312,7 +312,7 @@ class UsuarioAlumno(Resource):
         finally:
             db.session.close()
 
-    @jwt_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor'])
     def put(self):
         try:
             if request.args.get('nrDni'):
@@ -338,7 +338,7 @@ class UsuarioAlumno(Resource):
         finally:
             db.session.close()
 
-    @jwt_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor'])
     def delete(self):
         try:
             if request.args.get('nrDni'):

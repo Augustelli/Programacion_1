@@ -43,7 +43,7 @@ class PlanificacionAlumno(Resource):
 
 
 class PlanificacionesProfesores(Resource):
-    @jwt_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
             planificacion = db.session.query(PlanificacionModelo)
@@ -100,7 +100,7 @@ class PlanificacionesProfesores(Resource):
         finally:
             db.session.close()
 
-    @jwt_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor'])
     def post(self):
         try:
             # Se supone que puede haber rutinas que no pertenezcan a ninguna clase
@@ -126,7 +126,7 @@ class PlanificacionesProfesores(Resource):
 
 
 class PlanificacionProfesor(Resource):
-    @jwt_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
             planificacion = db.session.query(PlanificacionModelo)
@@ -182,7 +182,7 @@ class PlanificacionProfesor(Resource):
         finally:
             db.session.close()
 
-    @jwt_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor'])
     def put(self):
         try:
             if request.args.get('nrIdPlanificacion'):
@@ -205,7 +205,7 @@ class PlanificacionProfesor(Resource):
         finally:
             db.session.close()
 
-    @jwt_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor'])
     def delete(self):
         try:
             if request.args.get('nrIdPlanificacion'):
