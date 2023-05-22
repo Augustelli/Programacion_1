@@ -2,6 +2,8 @@ from flask_restful import Resource
 from flask import request, abort, jsonify
 from .. import db
 from main.models import PlanificacionModelo, AlumnoModel
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from main.auth.decorators import role_required
 import pdb
 
 
@@ -11,10 +13,10 @@ class PlanificacionAlumno(Resource):
         try:
             page = 1
             per_page = 10
-            if request.args.get('page'):
-                page = int(request.args.get('page'))
-            if request.args.get('per_page'):
-                per_page = int(request.args.get('per_page'))
+            # if request.args.get('page'):
+            #     page = int(request.args.get('page'))
+            # if request.args.get('per_page'):
+            #     per_page = int(request.args.get('per_page'))
 
             if request.args.get('nrIdAlumno'):
                 planificacion = db.session.query(PlanificacionModelo).filter(
@@ -41,7 +43,7 @@ class PlanificacionAlumno(Resource):
 
 
 class PlanificacionesProfesores(Resource):
-
+    @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
             planificacion = db.session.query(PlanificacionModelo)
@@ -59,34 +61,34 @@ class PlanificacionesProfesores(Resource):
                     AlumnoModel, AlumnoModel.idAlumno == PlanificacionModelo.id_Alumno).filter(
                     AlumnoModel.alumno_dni == int(request.args.get('nrDni'))
                 ).order_by(PlanificacionModelo.fecha.desc())
-            
+
             elif request.args.get('nrIdPlanificacion'):
                 planificacion = planificacion.filter(
                     PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion'))
                 ).order_by(PlanificacionModelo.fecha.desc())
-            
+
             elif request.args.get('nrIdAlumno'):
                 planificacion = db.session.query(PlanificacionModelo).filter(
                     PlanificacionModelo.id_Alumno == int(request.args.get('nrIdAlumno'))
                     ).order_by(PlanificacionModelo.fecha.desc())
                 planificacion_alumno = db.session.query(AlumnoModel).outerjoin(
                     db.session.query(PlanificacionModelo).filter(
-                        AlumnoModel.idAlumno==PlanificacionModelo.id_Alumno))
+                        AlumnoModel.idAlumno == PlanificacionModelo.id_Alumno))
                 planificacion_completa = {
-                'idPlanificacion': planificacion.idPlanificacion,
-                'rutina': planificacion.rutina,
-                'fecha': str(planificacion.fecha.strftime("%d-%m-%Y")),
-                'frecuencia': planificacion.frecuencia,
-                'id_Alumno': planificacion.id_Alumno,
-                'id_Clase': planificacion.id_Clase,
-                'idProfesor': planificacion.idProfesor,
-                'alumno_dni': planificacion_alumno.alumno_dni
+                    'idPlanificacion': planificacion.idPlanificacion,
+                    'rutina': planificacion.rutina,
+                    'fecha': str(planificacion.fecha.strftime("%d-%m-%Y")),
+                    'frecuencia': planificacion.frecuencia,
+                    'id_Alumno': planificacion.id_Alumno,
+                    'id_Clase': planificacion.id_Clase,
+                    'idProfesor': planificacion.idProfesor,
+                    'alumno_dni': planificacion_alumno.alumno_dni
                 }
-                return jsonify (planificacion_completa)
-            
+                return jsonify(planificacion_completa)
+
             planificacion_paginados = planificacion.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             planificacion_json = [planificacion.to_json() for planificacion in planificacion_paginados.items]
-            
+
             # return jsonify(planificacion_json)
             return jsonify({'Planificacion': planificacion_json,
                             'Pagina': page,
@@ -98,34 +100,7 @@ class PlanificacionesProfesores(Resource):
         finally:
             db.session.close()
 
-
-
-    def put(self):
-
-        try:
-            if request.args.get('nrIdPlanificacion'):
-                registro = db.session.query(PlanificacionModelo).get(request.args.get('nrIdPlanificacion'))
-                if registro:
-                    pass
-                else:
-                    raise Exception(f"No se ha encontrado planificacion con esa ID: {(request.args.get('nrIdPlanificacion'))}")
-                usuario_editar = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion'))).first()
-                informacion = request.get_json().items()
-                for campo, valor in informacion:
-                   
-                    
-                    setattr(usuario_editar, campo, valor)
-                db.session.add(usuario_editar)
-                db.session.commit()
-                return usuario_editar.to_json(), 201
-            else:
-                raise Exception('Es necesario el ID de la planificacion para modificar.')
-        except Exception as e:
-            return {'error': str(e)}, 400
-        finally:
-            db.session.close()
-
-
+    @role_required(roles=['admin', 'profesor'])
     def post(self):
         try:
             # Se supone que puede haber rutinas que no pertenezcan a ninguna clase
@@ -149,7 +124,88 @@ class PlanificacionesProfesores(Resource):
         finally:
             db.session.close()
 
-# # Este recurso se tiene que ir (SOLO QUEDA EL RECURSO DE PLANIFICACIONESPROFESORES Y PLANIFICACIONESALUMNO)
+
+class PlanificacionProfesor(Resource):
+    @role_required(roles=['admin', 'profesor'])
+    def get(self):
+        try:
+            planificacion = db.session.query(PlanificacionModelo)
+            page = 1
+            per_page = 10
+
+            # if request.args.get('page'):
+            #     page = int(request.args.get('page'))
+            # if request.args.get('per_page'):
+            #     per_page = int(request.args.get('per_page'))
+            # Si manda DNI, le va a mostrar Todas , si manda id Planificacion 1 y si manda idAlumno la más reciente
+            # Si no hay argumentos, listará todas las planificaciones
+            if request.args.get('nrDni'):
+                planificacion = planificacion.outerjoin(
+                    AlumnoModel, AlumnoModel.idAlumno == PlanificacionModelo.id_Alumno).filter(
+                    AlumnoModel.alumno_dni == int(request.args.get('nrDni'))
+                ).order_by(PlanificacionModelo.fecha.desc())
+
+            elif request.args.get('nrIdPlanificacion'):
+                planificacion = planificacion.filter(
+                    PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion'))
+                ).order_by(PlanificacionModelo.fecha.desc())
+
+            elif request.args.get('nrIdAlumno'):
+                planificacion = db.session.query(PlanificacionModelo).filter(
+                    PlanificacionModelo.id_Alumno == int(request.args.get('nrIdAlumno'))
+                    ).order_by(PlanificacionModelo.fecha.desc())
+                planificacion_alumno = db.session.query(AlumnoModel).outerjoin(
+                    db.session.query(PlanificacionModelo).filter(
+                        AlumnoModel.idAlumno == PlanificacionModelo.id_Alumno))
+                planificacion_completa = {
+                    'idPlanificacion': planificacion.idPlanificacion,
+                    'rutina': planificacion.rutina,
+                    'fecha': str(planificacion.fecha.strftime("%d-%m-%Y")),
+                    'frecuencia': planificacion.frecuencia,
+                    'id_Alumno': planificacion.id_Alumno,
+                    'id_Clase': planificacion.id_Clase,
+                    'idProfesor': planificacion.idProfesor,
+                    'alumno_dni': planificacion_alumno.alumno_dni
+                }
+                return jsonify(planificacion_completa)
+            planificacion_paginados = planificacion.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
+            planificacion_json = [planificacion.to_json() for planificacion in planificacion_paginados.items]
+
+            # return jsonify(planificacion_json)
+            return jsonify({'Planificacion': planificacion_json,
+                            'Pagina': page,
+                            'Por pagina': per_page,
+                            'Total': planificacion_paginados.total
+                            })
+        except Exception as e:
+            return {'error': str(e)}, 400
+        finally:
+            db.session.close()
+
+    @role_required(roles=['admin', 'profesor'])
+    def put(self):
+        try:
+            if request.args.get('nrIdPlanificacion'):
+                registro = db.session.query(PlanificacionModelo).get(request.args.get('nrIdPlanificacion'))
+                if registro:
+                    pass
+                else:
+                    raise Exception(f"No se ha encontrado planificacion con esa ID: {(request.args.get('nrIdPlanificacion'))}")
+                usuario_editar = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion'))).first()  # noqa
+                informacion = request.get_json().items()
+                for campo, valor in informacion:
+                    setattr(usuario_editar, campo, valor)
+                db.session.add(usuario_editar)
+                db.session.commit()
+                return usuario_editar.to_json(), 201
+            else:
+                raise Exception('Es necesario el ID de la planificacion para modificar.')
+        except Exception as e:
+            return {'error': str(e)}, 400
+        finally:
+            db.session.close()
+
+    @role_required(roles=['admin', 'profesor'])
     def delete(self):
         try:
             if request.args.get('nrIdPlanificacion'):
@@ -158,8 +214,8 @@ class PlanificacionesProfesores(Resource):
                     pass
                 else:
                     raise Exception(f"No se ha encontrado la planificacion por su ID: ID {(request.args.get('nrIdPlanificacion'))}")
-                
-                usuario_eliminar = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.idPlanificacion == request.args.get('nrIdPlanificacion')).first()
+
+                usuario_eliminar = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.idPlanificacion == request.args.get('nrIdPlanificacion')).first()  # noqa
                 db.session.delete(usuario_eliminar)
                 db.session.commit()
                 return 204, f"Planificacion con ID  {request.args.get('nrIdPlanificacion')} eliminado"
@@ -171,5 +227,3 @@ class PlanificacionesProfesores(Resource):
             }, 400
         finally:
             db.session.close()
-
-

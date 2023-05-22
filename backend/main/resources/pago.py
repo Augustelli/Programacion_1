@@ -20,14 +20,14 @@ class Pago(Resource):
     #     finally:
     #         db.session.close()
 
-        #   def get(self, user_id):
-        # try:
-        #     usuario_rescatado = db.session.query(UsuarioModelo).filter(
-        #         UsuarioModelo.dni == user_id).first()
-        #     return usuario_rescatado.to_json(), 201
-        # except Exception:
-        #     abort(404, f'No se ha encontrado del usuario de id: {user_id}')
-        # finally:
+    #   def get(self, user_id):
+    # try:
+    #     usuario_rescatado = db.session.query(UsuarioModelo).filter(
+    #         UsuarioModelo.dni == user_id).first()
+    #     return usuario_rescatado.to_json(), 201
+    # except Exception:
+    #     abort(404, f'No se ha encontrado del usuario de id: {user_id}')
+    # finally:
 
     def put(self, user_id):
         try:
@@ -73,7 +73,7 @@ class Pagos(Resource):
             pagos = db.session.query(PagosModelo)
 
             if request.args.get('nrDni'):
-                
+
                 pagos = pagos.filter(PagosModelo.dni == request.args.get('nrDni')).order_by(PagosModelo.fecha_de_pago.desc())
             page = 1
             per_page = 10
@@ -91,7 +91,6 @@ class Pagos(Resource):
             abort(404, 'No se ha podido realizar la consulta')
         finally:
             db.session.close()
-        
 
     def put(self):
 
@@ -105,7 +104,7 @@ class Pagos(Resource):
                 usuario_editar = db.session.query(PagosModelo).filter(PagosModelo.idPago == int(request.args.get('idPago'))).first()
                 informacion = request.get_json().items()
                 for campo, valor in informacion:
-                    
+
                     setattr(usuario_editar, campo, valor)
                 db.session.add(usuario_editar)
                 db.session.commit()
