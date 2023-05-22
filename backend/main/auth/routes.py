@@ -2,7 +2,7 @@ from flask import request, Blueprint
 from .. import db
 from main.models import UsuarioModelo, AlumnoModel
 from flask_jwt_extended import create_access_token
-
+import pdb
 # Blueprint para acceder a los métodos de autenticación
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -19,7 +19,7 @@ def login():
         access_token = create_access_token(identity=usuario)
         # Devolver valores y token
         data = {
-            'id': str(usuario.id),
+            'dni': str(usuario.dni),
             'email': usuario.email,
             'access_token': access_token
         }
@@ -32,10 +32,14 @@ def login():
 # Método de registro
 @auth.route('/register', methods=['POST'])
 def register():
+
     usuario_nuevo = UsuarioModelo.from_json(request.get_json())
-    # Verificar si el mail ya existe en la db
-    exists = db.session.query(UsuarioModelo).filter(UsuarioModelo.email == usuario_nuevo.email).scalar() is not None
-    if exists:
+    # Verificar si el mail ya existe en la db}
+    email_nuevo = request.get_json()['email']  # noqa
+
+    correo_existente = True
+    # correo_existente = db.session.query(UsuarioModelo).filter(UsuarioModelo.email == email_nuevo).first()
+    if not correo_existente:
         return 'Duplicated mail', 409
     else:
         try:
@@ -56,6 +60,7 @@ def register():
             db.session.add(usuario_nuevo)
             alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni)
             db.session.add(alumno)
+            pdb.set_trace()
             db.session.commit()
             return usuario_nuevo.to_json(), 201
         except Exception as e:

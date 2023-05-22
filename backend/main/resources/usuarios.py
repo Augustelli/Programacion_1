@@ -1,12 +1,10 @@
 from flask_restful import Resource
-from flask import request, abort, jsonify
+from flask import request
 from .. import db
 from main.models import UsuarioModelo, AlumnoModel, ProfesorModelo
-from sqlalchemy import or_
-from sqlalchemy import func, desc
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity  # noqa
 from main.auth.decorators import role_required
-import pdb
+import pdb  # noqa
 
 
 class Usuarios(Resource):
