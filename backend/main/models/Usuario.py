@@ -153,7 +153,7 @@ class Usuario(db.Model):
             estado=estado,
             rol=rol,
             nombre_usuario=nombre_usuario,
-            plain_password=contrasegna,
+            plain_password=password,
             altura=altura,
             peso=peso,
         )
