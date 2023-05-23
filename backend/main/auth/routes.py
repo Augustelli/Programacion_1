@@ -27,16 +27,6 @@ def login():
             'email': usuario.email,
             'access_token': access_token
         }
-        #usuario2=db.session.query(UsuarioModelo).filter(UsuarioModelo.email == request.get_json().get("email")).first_or_404()
-        # data2={
-        #     "nombre_usuario":usuario.nombre_usuario,
-        #     "contrasegna":usuario.contrasegna
-        # }
-        # db.session.add(data2)
-        # db.session.commit()
-        # contenido=Login_usuarioModelo((usuario.nombre_usuario,usuario.contrasegna))
-        # db.session.add(contenido)
-        # db.session.commit()
         return data, 200
     else:
         return 'Incorrect password', 401
@@ -51,7 +41,7 @@ def register():
     email_nuevo = request.get_json()['email']  # noqa
 
     correo_existente = True
-    #correo_existente = db.session.query(UsuarioModelo).filter(UsuarioModelo.email == email_nuevo).first()
+    # correo_existente = db.session.query(UsuarioModelo).filter(UsuarioModelo.email == email_nuevo).first()
     if not correo_existente:
         return 'Duplicated mail', 409
     else:
