@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from .. import db
-from main.models import ClasesModelo,ProfesorModelo
-from flask import abort,request,jsonify
+from main.models import ProfesorModelo
+from flask import abort,request,jsonify  # noqa
 
 
 class ProfesorClases(Resource):
@@ -13,8 +13,3 @@ class ProfesorClases(Resource):
             abort(404, 'No se ha encontrado los profesores')
         finally:
             db.session.close()
-
-        
-
-
-

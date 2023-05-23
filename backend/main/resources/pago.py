@@ -2,14 +2,16 @@ from flask_restful import Resource
 from flask import abort, request, jsonify
 from main.models import PagosModelo, UsuarioModelo
 from .. import db
+from flask_jwt_extended import jwt_required, get_jwt_identity  # noqa
+from main.auth.decorators import role_required
 
 
 class Pago(Resource):
 
-    # def get(self, user_id):
+    # def get(self, (request.args.get('nrDni'))):
     #     try:
     #         rescate_pago = db.session.query(PagosModelo).filter(
-    #             PagosModelo.idPago == user_id
+    #             PagosModelo.idPago == (request.args.get('nrDni'))
     #         ).first()
 
     #         return rescate_pago.to_json(), 201
@@ -20,42 +22,46 @@ class Pago(Resource):
     #     finally:
     #         db.session.close()
 
-    #   def get(self, user_id):
+    #   def get(self, (request.args.get('nrDni'))):
     # try:
     #     usuario_rescatado = db.session.query(UsuarioModelo).filter(
-    #         UsuarioModelo.dni == user_id).first()
+    #         UsuarioModelo.dni == (request.args.get('nrDni'))).first()
     #     return usuario_rescatado.to_json(), 201
     # except Exception:
-    #     abort(404, f'No se ha encontrado del usuario de id: {user_id}')
+    #     abort(404, f'No se ha encontrado del usuario de id: {(request.args.get('nrDni'))}')
     # finally:
-
-    def put(self, user_id):
+    @role_required(roles=['admin', 'profesor'])
+    def put(self):
         try:
-            pago = db.session.query(PagosModelo).filter(PagosModelo.dni == user_id).order_by(PagosModelo.estado.asc()).all()
-            pago.estado = "No pagado" if pago.estado == "Pagado" else "Pagado"
-            usuario = db.session.query(UsuarioModelo).filter_by(UsuarioModelo.dni == user_id).first()
-            usuario.estado = pago.estado
-            db.session.commit()
-            return pago.to_json(), 201
+            if request.args.get('nrDni'):
+                pago = db.session.query(PagosModelo).filter(PagosModelo.dni == (request.args.get('nrDni'))).order_by(PagosModelo.estado.asc()).all()  # noqa
+                pago.estado = "No pagado" if pago.estado == "Pagado" else "Pagado"
+                usuario = db.session.query(UsuarioModelo).filter_by(UsuarioModelo.dni == (request.args.get('nrDni'))).first()
+                usuario.estado = pago.estado
+                db.session.commit()
+                return pago.to_json(), 201
+            else:
+                raise Exception('Debe indicarse número de DNI para poder modificar el pago.')
         except Exception:
-            abort(404, f'No se pudo realizar la actualización del estado. Usuario id {user_id}')
+            abort(404, f"No se pudo realizar la actualización del estado. Usuario id {(request.args.get('nrDni'))}")
         finally:
             db.session.close()
 
-    def delete(self, user_id):
+    @role_required(roles=['admin', 'profesor'])
+    def delete(self):
         try:
-            pago_eliminar = db.session.query(PagosModelo).filter(PagosModelo.dni == user_id).first()
+            pago_eliminar = db.session.query(PagosModelo).filter(PagosModelo.dni == (request.args.get('nrDni'))).first()
             db.session.delete(pago_eliminar)
             db.session.commit()
             return 204
         except BaseException:
-            abort(404, 'No se ha encontrado el pago del alumno de id {}'.format(user_id))
+            abort(404, 'No se ha encontrado el pago del alumno de id {}'.format((request.args.get('nrDni'))))
         finally:
             db.session.close()
 
 
 class Pagos(Resource):
-
+    @role_required(roles=['admin', 'profesor'])
     def post(self):
         try:
             dato_nuevo = PagosModelo.from_json(request.get_json())
@@ -66,7 +72,7 @@ class Pagos(Resource):
             abort(404, 'Error al crear el Pago')
         finally:
             db.session.close()
-
+    @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
 
@@ -78,9 +84,9 @@ class Pagos(Resource):
             page = 1
             per_page = 10
             if request.args.get('page'):
-                page = int(request.args.get('page'))
+                page = (request.args.get('page'))
             if request.args.get('per_page'):
-                per_page = int(request.args.get('per_page'))
+                per_page = (request.args.get('per_page'))
             pagos = pagos.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             pagos_json = [pago.to_json() for pago in pagos]
             return jsonify({'Pagos': pagos_json,
@@ -101,7 +107,7 @@ class Pagos(Resource):
                     pass
                 else:
                     raise Exception(f"No se ha encontrado usuario con DNI: {(request.args.get('idPago'))}")
-                usuario_editar = db.session.query(PagosModelo).filter(PagosModelo.idPago == int(request.args.get('idPago'))).first()
+                usuario_editar = db.session.query(PagosModelo).filter(PagosModelo.idPago == (request.args.get('idPago'))).first()
                 informacion = request.get_json().items()
                 for campo, valor in informacion:
 

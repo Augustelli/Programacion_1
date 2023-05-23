@@ -178,8 +178,8 @@ class UsuarioAlumnos(Resource):
             per_page = int(request.args.get('per_page'))
 
         usuarios = db.session.query(UsuarioModelo)
-        query = usuarios.outerjoin(AlumnoModel, UsuarioModelo.dni == AlumnoModel.alumno_dni)
-        usuarios = query.filter(UsuarioModelo.dni == request.args.get('nrAlumno'))
+        usuarios = usuarios.outerjoin(AlumnoModel, UsuarioModelo.dni == AlumnoModel.alumno_dni)
+        # usuarios = query.filter(UsuarioModelo.dni == request.args.get('nrAlumno'))
 
         usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
         usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items]
@@ -226,14 +226,16 @@ class UsuarioProfesor(Resource):
     @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
+            page = 1
+            per_page = 10
             usuarios = db.session.query(UsuarioModelo)
             if request.args.get('page'):
                 page = int(request.args.get('page'))
             if request.args.get('per_page'):
                 per_page = int(request.args.get('per_page'))
-            if request.args.get('nrProfesor'):
+            if request.args.get('nrDni'):
                 query = usuarios.outerjoin(ProfesorModelo, UsuarioModelo.dni == ProfesorModelo.profesor_dni)
-                usuarios = query.filter(UsuarioModelo.dni == request.args.get('nrProfesor'))
+                usuarios = query.filter(UsuarioModelo.dni == request.args.get('nrDni'))
                 usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
                 usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items]
                 return {
@@ -292,9 +294,9 @@ class UsuarioAlumno(Resource):
             if request.args.get('per_page'):
                 per_page = int(request.args.get('per_page'))
 
-            if request.args.get('nrAlumno'):
+            if request.args.get('nrDni'):
                 query = usuarios.outerjoin(AlumnoModel, UsuarioModelo.dni == AlumnoModel.alumno_dni)
-                usuarios = query.filter(UsuarioModelo.dni == request.args.get('nrAlumno'))
+                usuarios = query.filter(UsuarioModelo.dni == request.args.get('nrDni'))
 
             usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items]
