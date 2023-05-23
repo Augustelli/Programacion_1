@@ -10,7 +10,7 @@ class Planificacion(db.Model):
     idPlanificacion = db.Column(db.Integer, primary_key=True)
     rutina = db.Column(db.String(50), nullable=False)
     frecuencia = db.Column(db.String)
-    fecha = db.Column(db.Date) # default=lambda: func.current_timestamp().strftime('%d-%m-%Y'))
+    fecha = db.Column(db.Date)  # default=lambda: func.current_timestamp().strftime('%d-%m-%Y'))
 
     id_Alumno = db.Column(db.Integer, db.ForeignKey('alumno.idAlumno'))
     id_Clase = db.Column(db.Integer, db.ForeignKey('clases.idClases'))
