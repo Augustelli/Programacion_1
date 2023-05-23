@@ -38,7 +38,7 @@ def register():
     email_nuevo = request.get_json()['email']  # noqa
 
     correo_existente = True
-    # correo_existente = db.session.query(UsuarioModelo).filter(UsuarioModelo.email == email_nuevo).first()
+    #correo_existente = db.session.query(UsuarioModelo).filter(UsuarioModelo.email == email_nuevo).first()
     if not correo_existente:
         return 'Duplicated mail', 409
     else:
@@ -60,7 +60,6 @@ def register():
             db.session.add(usuario_nuevo)
             alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni)
             db.session.add(alumno)
-            pdb.set_trace()
             db.session.commit()
             return usuario_nuevo.to_json(), 201
         except Exception as e:
