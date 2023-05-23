@@ -133,10 +133,10 @@ class PlanificacionProfesor(Resource):
             page = 1
             per_page = 10
 
-            # if request.args.get('page'):
-            #     page = int(request.args.get('page'))
-            # if request.args.get('per_page'):
-            #     per_page = int(request.args.get('per_page'))
+            if request.args.get('page'):
+                page = int(request.args.get('page'))
+            if request.args.get('per_page'):
+                per_page = int(request.args.get('per_page'))
             # Si manda DNI, le va a mostrar Todas , si manda id Planificacion 1 y si manda idAlumno la más reciente
             # Si no hay argumentos, listará todas las planificaciones
             if request.args.get('nrDni'):
@@ -150,24 +150,24 @@ class PlanificacionProfesor(Resource):
                     PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion'))
                 ).order_by(PlanificacionModelo.fecha.desc())
 
-            elif request.args.get('nrIdAlumno'):
-                planificacion = db.session.query(PlanificacionModelo).filter(
-                    PlanificacionModelo.id_Alumno == int(request.args.get('nrIdAlumno'))
-                    ).order_by(PlanificacionModelo.fecha.desc())
-                planificacion_alumno = db.session.query(AlumnoModel).outerjoin(
-                    db.session.query(PlanificacionModelo).filter(
-                        AlumnoModel.idAlumno == PlanificacionModelo.id_Alumno))
-                planificacion_completa = {
-                    'idPlanificacion': planificacion.idPlanificacion,
-                    'rutina': planificacion.rutina,
-                    'fecha': str(planificacion.fecha.strftime("%d-%m-%Y")),
-                    'frecuencia': planificacion.frecuencia,
-                    'id_Alumno': planificacion.id_Alumno,
-                    'id_Clase': planificacion.id_Clase,
-                    'idProfesor': planificacion.idProfesor,
-                    'alumno_dni': planificacion_alumno.alumno_dni
-                }
-                return jsonify(planificacion_completa)
+            # elif request.args.get('nrIdAlumno'):
+            #     planificacion = db.session.query(PlanificacionModelo).filter(
+            #         PlanificacionModelo.id_Alumno == int(request.args.get('nrIdAlumno'))
+            #         ).order_by(PlanificacionModelo.fecha.desc())
+            #     planificacion_alumno = db.session.query(AlumnoModel).outerjoin(
+            #         db.session.query(PlanificacionModelo).filter(
+            #             AlumnoModel.idAlumno == PlanificacionModelo.id_Alumno))
+            #     planificacion_completa = { planificacion , planificacion_alumno}
+            #     #     'idPlanificacion': planificacion.idPlanificacion,
+            #     #     'rutina': planificacion.rutina,
+            #     #     'fecha': str(planificacion.fecha.strftime("%d-%m-%Y")),
+            #     #     'frecuencia': planificacion.frecuencia,
+            #     #     'id_Alumno': planificacion.id_Alumno,
+            #     #     'id_Clase': planificacion.id_Clase,
+            #     #     'idProfesor': planificacion.idProfesor,
+            #     #     'alumno_dni': planificacion_alumno.alumno_dni
+            #     # }
+            #     return jsonify(planificacion_completa)
             planificacion_paginados = planificacion.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             planificacion_json = [planificacion.to_json() for planificacion in planificacion_paginados.items]
 

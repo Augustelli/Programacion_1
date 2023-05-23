@@ -2,6 +2,7 @@ from flask import request, abort, jsonify
 from .. import db
 from main.models import ClasesModelo,clase_profesorModelo,ProfesorModelo
 from flask_restful import Resource
+from main.auth.decorators import role_required
 
 
 class Clase_Profesor_R(Resource):
@@ -108,7 +109,7 @@ class Clase_Profesor_R(Resource):
 
        
 class Clases_R(Resource):
-
+    @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
             clases = db.session.query(ClasesModelo)
@@ -141,7 +142,7 @@ class Clases_R(Resource):
             abort(404, 'No se ha encontrado la Clase')
         finally:
             db.session.close()
-
+    @role_required(roles=['admin', 'profesor'])
     def post(self):
         try:
             clase_nueva = ClasesModelo.from_json(request.get_json())
@@ -153,7 +154,7 @@ class Clases_R(Resource):
         finally:
             db.session.close()
 
-    
+    @role_required(roles=['admin', 'profesor'])
     def delete(self):
         try:
             if request.args.get('idClases'):
@@ -175,7 +176,7 @@ class Clases_R(Resource):
         finally:
             db.session.close()
 
-
+    @role_required(roles=['admin', 'profesor'])
     def put(self):
 
         try:

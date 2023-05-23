@@ -1,8 +1,10 @@
 from flask import request, Blueprint
 from .. import db
-from main.models import UsuarioModelo, AlumnoModel
+from main.models import UsuarioModelo, AlumnoModel,Login_usuarioModelo
 from flask_jwt_extended import create_access_token
 import pdb
+
+
 # Blueprint para acceder a los métodos de autenticación
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -12,18 +14,29 @@ auth = Blueprint('auth', __name__, url_prefix='/auth')
 def login():
     # Busca al animal en la db por mail
     usuario = db.session.query(UsuarioModelo).filter(UsuarioModelo.email == request.get_json().get("email")).first_or_404()
+    
     # Valida la contraseña
     if usuario.validate_pass(request.get_json().get("contrasegna")):
         # Genera un nuevo token
         # Pasa el objeto usuario como identidad
         access_token = create_access_token(identity=usuario)
+
         # Devolver valores y token
         data = {
             'dni': str(usuario.dni),
             'email': usuario.email,
             'access_token': access_token
         }
-
+        #usuario2=db.session.query(UsuarioModelo).filter(UsuarioModelo.email == request.get_json().get("email")).first_or_404()
+        # data2={
+        #     "nombre_usuario":usuario.nombre_usuario,
+        #     "contrasegna":usuario.contrasegna
+        # }
+        # db.session.add(data2)
+        # db.session.commit()
+        # contenido=Login_usuarioModelo((usuario.nombre_usuario,usuario.contrasegna))
+        # db.session.add(contenido)
+        # db.session.commit()
         return data, 200
     else:
         return 'Incorrect password', 401
