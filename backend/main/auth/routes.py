@@ -3,7 +3,7 @@ from .. import db
 from main.models import UsuarioModelo, AlumnoModel,Login_usuarioModelo
 from flask_jwt_extended import create_access_token
 import pdb
-
+from main.mail.functions import sendMail
 
 # Blueprint para acceder a los métodos de autenticación
 auth = Blueprint('auth', __name__, url_prefix='/auth')
@@ -64,6 +64,8 @@ def register():
             alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni)
             db.session.add(alumno)
             db.session.commit()
+            #Enviar mail de Bienvenida
+            #sent=sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D", "register", usuario=usuario_nuevo)
             return usuario_nuevo.to_json(), 201
         except Exception as e:
             db.session.rollback()
