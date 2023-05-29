@@ -75,6 +75,7 @@ class Usuarios(Resource):
                 db.session.add(profesor)
 
             db.session.commit()
+          #  sent=sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D, hay una nueva planificación disponible", "register", )
             return usuario_nuevo.to_json(), 201
         except Exception as e:
             return {'error': str(e)}, 400
@@ -213,6 +214,7 @@ class UsuarioAlumnos(Resource):
             alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni)
             db.session.add(alumno)
             db.session.commit()
+            #sent=
             return usuario_nuevo.to_json(), 201
         except Exception as e:
             return {'error': str(e)}, 400
