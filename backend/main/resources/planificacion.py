@@ -235,4 +235,4 @@ class PlanificacionProfesor(Resource):
             }, 400
         finally:
             db.session.close()
-####
+
