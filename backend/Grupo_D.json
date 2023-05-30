@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "0c438eeb-f086-4083-bd61-cc1510af8367",
-		"name": "Grupo_D_v.4.0",
+		"_postman_id": "7c02a0bc-9dfe-4dd6-88d9-145560fc6ce9",
+		"name": "Grupo_D",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26654361"
 	},
@@ -99,13 +99,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NTM5NDU5MCwianRpIjoiOWVmOTA4ZWEtOWUzMS00NzE1LTkxNDItNTRmODBlMTIyZDc2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ODg4ODg4ODgsIm5iZiI6MTY4NTM5NDU5MCwiZXhwIjoxNjg1Mzk4MTkwLCJyb2wiOiJhZG1pbiIsImlkIjo4ODg4ODg4OCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSJ9.v29_pkwUS2hpra5cjiBLlwr-E2WIrPz_zb1Dc8XhJpc",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"dni\": 123456781,\n    \"nombre\": \"Augusto\",\n    \"apellido\": \"Kark\",\n    \"email\": \"lakarkneta@example.com\",\n    \"fecha_nacimiento\": \"15-03-1995\",\n    \"estado\": true,\n    \"rol\": \"alumno\",\n    \"nombre_usuario\":\"LaMosca\",\n    \"contrasegna\":\"cr7hijo\",\n    \"altura\":170,\n    \"peso\":55 \n}\n    ",
+							"raw": "{\n    \"dni\": 123456781,\n    \"nombre\": \"Augusto\",\n    \"apellido\": \"Kark\",\n    \"email\": \"av.kark@alumno.um.edu.com\",\n    \"fecha_nacimiento\": \"15-03-1995\",\n    \"estado\": true,\n    \"rol\": \"alumno\",\n    \"nombre_usuario\":\"Av.kark\",\n    \"contrasegna\":\"contra\",\n    \"altura\":170,\n    \"peso\":55 \n}\n    ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -170,12 +170,12 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NTQxNDQ5NSwianRpIjoiYmQyMjJiMmQtZDAyYi00ZGY4LWI0OTItY2Y2NzNjNWQ2YWViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ODg4ODg4ODgsIm5iZiI6MTY4NTQxNDQ5NSwiZXhwIjoxNjg1NDE4MDk1LCJyb2wiOiJhZG1pbiIsImlkIjo4ODg4ODg4OCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSJ9.YHkKyCaCUaHVcAmIjRmfqX46H4r7itu66vOLCLJdaDc",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5050/usuario?nrDni=123456789",
+							"raw": "http://127.0.0.1:5002/usuario?nrDni=123456781",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -183,14 +183,14 @@
 								"0",
 								"1"
 							],
-							"port": "5050",
+							"port": "5002",
 							"path": [
 								"usuario"
 							],
 							"query": [
 								{
 									"key": "nrDni",
-									"value": "123456789"
+									"value": "123456781"
 								}
 							]
 						}
@@ -247,7 +247,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"dni\": 987654321 ,\n    \"nombre\": \"Franco\",\n    \"apellido\": \"Narvaez\",\n    \"email\": \"narvalinxd@example.com\",\n    \"fecha_nacimiento\": \"15-03-1995\",\n    \"estado\": true,\n    \"rol\": \"profesor\",\n    \"nombre_usuario\":\"NarvaPared\",\n    \"contrasegna\":\"narva_12345\",\n    \"altura\":190,\n    \"peso\":81\n}\n    ",
+							"raw": "{\n    \"dni\": 123456781 ,\n    \"nombre\": \"Augusto\",\n    \"apellido\": \"kark\",\n    \"email\": \"av.kark@alumno.um.edu.ar\",\n    \"fecha_nacimiento\": \"15-03-1995\",\n    \"estado\": true,\n    \"rol\": \"alumno\",\n    \"nombre_usuario\":\"Avkar\",\n    \"contrasegna\":\"hola123\",\n    \"altura\":190,\n    \"peso\":81\n}\n    ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -279,7 +279,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"contrasegna\":\"admin\"\n}",
+							"raw": "   {\n\n    \"email\": \"admin@example.com\",\n   \n    \"contrasegna\":\"admin\"\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1004,13 +1004,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NTQxNDQ5NSwianRpIjoiYmQyMjJiMmQtZDAyYi00ZGY4LWI0OTItY2Y2NzNjNWQ2YWViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ODg4ODg4ODgsIm5iZiI6MTY4NTQxNDQ5NSwiZXhwIjoxNjg1NDE4MDk1LCJyb2wiOiJhZG1pbiIsImlkIjo4ODg4ODg4OCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSJ9.YHkKyCaCUaHVcAmIjRmfqX46H4r7itu66vOLCLJdaDc",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"rutina\": \"Entrenamiento de biceps\",\n    \"frecuencia\": \"Lunes\",\n    \"id_Alumno\": 1002,\n    \"id_Clase\": 2,\n    \"idProfesor\": 3,\n    \"fecha\":\"10-05-2023\"\n}\n",
+							"raw": "{\n    \"rutina\": \"Entrenamiento de biceps\",\n    \"frecuencia\": \"Lunes y Jueves\",\n    \"id_Alumno\": 1,\n    \"id_Clase\": 3,\n    \"idProfesor\": 3,\n    \"fecha\":\"10-05-2023\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
