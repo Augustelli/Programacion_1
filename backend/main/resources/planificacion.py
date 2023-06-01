@@ -114,18 +114,18 @@ class PlanificacionesProfesores(Resource):
                 raise Exception(f'Error al crear la rutina. Faltan campos obligatorios: {campos_faltantes}. Por favor, incluya estos campos y vuelva a intentarlo.')  # noqa
 
             for campo in campos_obligatorios:
+
                 if datos[campo] is None:
                     raise Exception(f'Error al crear rutina. El campo {campo} no puede ser nulo. Por favor, proporcione un valor válido para {campo} y vuelva a intentarlo.')  # noqa:
                 if campo == 'id_Alumno':
-                    #alumno = db.session.query(AlumnoModel).filter(AlumnoModel.idAlumno == datos[campo]).first()
-                    usuario= db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == 123456781).first()  #alumno.dni
+                    alumno = db.session.query(AlumnoModel).filter(AlumnoModel.idAlumno == datos[campo]).first()
+                    usuario = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == alumno.alumno_dni).first()  # alumno.dni
 
-                   
             planificacion_nueva = PlanificacionModelo.from_json(datos)
             db.session.add(planificacion_nueva)
             db.session.commit()
-            sent=sendMail([usuario.email], "Bienvenido a la plataforma del gimnasio del Grupo D, hay una nueva planificación disponible", "plani", planificacion=planificacion_nueva)
-            #sent=sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D", "register", usuario=usuario_nuevo)
+            sent = sendMail([usuario.email], "Bienvenido a la plataforma del gimnasio del Grupo D, hay una nueva planificación disponible", "plani", planificacion=planificacion_nueva)  # noqa
+            # sent=sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D", "register", usuario=usuario_nuevo)
             return planificacion_nueva.to_json(), 201
         except Exception as e:
             return {'error': str(e)}, 400
@@ -235,3 +235,4 @@ class PlanificacionProfesor(Resource):
             }, 400
         finally:
             db.session.close()
+
