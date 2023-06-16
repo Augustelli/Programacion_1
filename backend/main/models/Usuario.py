@@ -24,8 +24,8 @@ class Usuario(db.Model):
     rol = db.Column(db.String(10), default="alumno")
     nombre_usuario = db.Column(db.String(12), default=same_as('dni'))
     contrasegna = db.Column(db.String(128), nullable=False)
-    altura = db.Column(Float, nullable=True)
-    peso = db.Column(Float, nullable=True)
+    # altura = db.Column(Float, nullable=True)
+    # peso = db.Column(Float, nullable=True)
     
     # Definimos la relación uno a uno con la tabla Alumno
     alumno = db.relationship('Alumno', back_populates='usuario', uselist=False)
@@ -102,10 +102,10 @@ class Usuario(db.Model):
             'fecha_nacimiento': str(self.fecha_nacimiento.strftime("%d-%m-%Y")),
             'estado': self.estado,
             'rol': self.rol,
-            'nombre_usuario': self.nombre_usuario,
+            'nombre_usuario': self.nombre_usuario
             #'contrasegna': self.contrasegna,
-            'altura': self.altura,
-            'peso': self.peso
+            # 'altura': self.altura,
+            # 'peso': self.peso
         }
         return usuario_json
 
@@ -141,8 +141,8 @@ class Usuario(db.Model):
         nombre_usuario = usuario_json.get('nombre_usuario')
         contrasegna = usuario_json.get('contrasegna')
         #contrasegna = usuario_json.get('contrasegna')
-        altura = usuario_json.get('altura')
-        peso = usuario_json.get('peso')
+        # altura = usuario_json.get('altura')
+        # peso = usuario_json.get('peso')
 
         return Usuario(
             dni=dni,
@@ -154,8 +154,8 @@ class Usuario(db.Model):
             rol=rol,
             nombre_usuario=nombre_usuario,
             plain_password=contrasegna,
-            altura=altura,
-            peso=peso,
+            # altura=altura,
+            # peso=peso,
         )
 
 # @event.listens_for(Usuario, 'before_update')

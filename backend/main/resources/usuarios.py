@@ -58,7 +58,16 @@ class Usuarios(Resource):
             usuario_nuevo = UsuarioModelo.from_json(datos)
             db.session.add(usuario_nuevo)
             if usuario_nuevo.rol == "alumno":
-                alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni)
+                if "altura" in datos:
+                    altura = datos["altura"]
+                else:
+                    altura = None
+                if "peso" in datos:
+                    peso = datos["peso"]
+                else:
+                    peso = None
+
+                alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni, altura=altura, peso=peso)
                 db.session.add(alumno)
             if usuario_nuevo.rol == "profesor":
                 if "salario" in datos:
