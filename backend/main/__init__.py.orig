@@ -5,8 +5,11 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
+<<<<<<< Updated upstream
+=======
 from flask_mail import Mail
 import psycopg2
+>>>>>>> Stashed changes
 
 
 api = Api()
