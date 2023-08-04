@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "a9902f5e-4fc9-4dad-81a0-410fdcb0821c",
-		"name": "Grupo_D_v.4.0",
+		"_postman_id": "7c02a0bc-9dfe-4dd6-88d9-145560fc6ce9",
+		"name": "Grupo_D",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26654694"
+		"_exporter_id": "26654361"
 	},
 	"item": [
 		{
@@ -19,13 +19,13 @@
 							"type": "jwt",
 							"jwt": [
 								{
-									"key": "addTokenTo",
-									"value": "queryParam",
+									"key": "payload",
+									"value": "{\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMTI2MCwianRpIjoiOWEyYTc4YzgtM2U3MC00Mjc2LWFiZDEtNjAwMzM2ZmVhMTg3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMjIzMzI1NywibmJmIjoxNjg0ODAxMjYwLCJleHAiOjE2ODQ4MDQ4NjAsInJvbCI6ImFsdW1ubyIsImlkIjoxMTEyMjMzMjU3LCJlbWFpbCI6Im1hbmN1c29fYXVndXN0b190b21hc0BleGFtcGxlLmNvbSJ9.MffUzDDp9e_r7cgDrQ-9RmJlmK5KINmZg4GC3K5DEO4\"}",
 									"type": "string"
 								},
 								{
-									"key": "payload",
-									"value": "{\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMTI2MCwianRpIjoiOWEyYTc4YzgtM2U3MC00Mjc2LWFiZDEtNjAwMzM2ZmVhMTg3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMjIzMzI1NywibmJmIjoxNjg0ODAxMjYwLCJleHAiOjE2ODQ4MDQ4NjAsInJvbCI6ImFsdW1ubyIsImlkIjoxMTEyMjMzMjU3LCJlbWFpbCI6Im1hbmN1c29fYXVndXN0b190b21hc0BleGFtcGxlLmNvbSJ9.MffUzDDp9e_r7cgDrQ-9RmJlmK5KINmZg4GC3K5DEO4\"}",
+									"key": "addTokenTo",
+									"value": "queryParam",
 									"type": "string"
 								},
 								{
@@ -64,7 +64,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
 								"type": "text"
 							}
 						],
@@ -99,13 +99,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NTM5NDU5MCwianRpIjoiOWVmOTA4ZWEtOWUzMS00NzE1LTkxNDItNTRmODBlMTIyZDc2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ODg4ODg4ODgsIm5iZiI6MTY4NTM5NDU5MCwiZXhwIjoxNjg1Mzk4MTkwLCJyb2wiOiJhZG1pbiIsImlkIjo4ODg4ODg4OCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSJ9.v29_pkwUS2hpra5cjiBLlwr-E2WIrPz_zb1Dc8XhJpc",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"dni\": 123456781,\n    \"nombre\": \"Augusto\",\n    \"apellido\": \"Kark\",\n    \"email\": \"lakarkneta@example.com\",\n    \"fecha_nacimiento\": \"15-03-1995\",\n    \"estado\": true,\n    \"rol\": \"alumno\",\n    \"nombre_usuario\":\"LaMosca\",\n    \"contrasegna\":\"cr7hijo\",\n    \"altura\":170,\n    \"peso\":55 \n}\n    ",
+							"raw": "{\n    \"dni\": 123456781,\n    \"nombre\": \"Augusto\",\n    \"apellido\": \"Kark\",\n    \"email\": \"av.kark@alumno.um.edu.com\",\n    \"fecha_nacimiento\": \"15-03-1995\",\n    \"estado\": true,\n    \"rol\": \"alumno\",\n    \"nombre_usuario\":\"Av.kark\",\n    \"contrasegna\":\"contra\",\n    \"altura\":170,\n    \"peso\":55 \n}\n    ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -170,12 +170,12 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NTQxNDQ5NSwianRpIjoiYmQyMjJiMmQtZDAyYi00ZGY4LWI0OTItY2Y2NzNjNWQ2YWViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ODg4ODg4ODgsIm5iZiI6MTY4NTQxNDQ5NSwiZXhwIjoxNjg1NDE4MDk1LCJyb2wiOiJhZG1pbiIsImlkIjo4ODg4ODg4OCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSJ9.YHkKyCaCUaHVcAmIjRmfqX46H4r7itu66vOLCLJdaDc",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5050/usuario?nrDni=123456789",
+							"raw": "http://127.0.0.1:5002/usuario?nrDni=123456781",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -183,14 +183,14 @@
 								"0",
 								"1"
 							],
-							"port": "5050",
+							"port": "5002",
 							"path": [
 								"usuario"
 							],
 							"query": [
 								{
 									"key": "nrDni",
-									"value": "123456789"
+									"value": "123456781"
 								}
 							]
 						}
@@ -247,7 +247,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"dni\": 987654321 ,\n    \"nombre\": \"Franco\",\n    \"apellido\": \"Narvaez\",\n    \"email\": \"narvalinxd@example.com\",\n    \"fecha_nacimiento\": \"15-03-1995\",\n    \"estado\": true,\n    \"rol\": \"profesor\",\n    \"nombre_usuario\":\"NarvaPared\",\n    \"contrasegna\":\"narva_12345\",\n    \"altura\":190,\n    \"peso\":\n}\n    ",
+							"raw": "{\n    \"dni\": 123456781 ,\n    \"nombre\": \"Augusto\",\n    \"apellido\": \"kark\",\n    \"email\": \"av.kark@alumno.um.edu.ar\",\n    \"fecha_nacimiento\": \"15-03-1995\",\n    \"estado\": true,\n    \"rol\": \"alumno\",\n    \"nombre_usuario\":\"Avkar\",\n    \"contrasegna\":\"hola123\",\n    \"altura\":190,\n    \"peso\":81\n}\n    ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -279,7 +279,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"contrasegna\":\"admin\"\n}",
+							"raw": "   {\n\n    \"email\": \"admin@example.com\",\n   \n    \"contrasegna\":\"admin\"\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -597,9 +597,15 @@
 					"name": "Devolver lista Pagos",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://127.0.0.1:5050/pagos",
+							"raw": "http://127.0.0.1:5002/pagos",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -607,7 +613,7 @@
 								"0",
 								"1"
 							],
-							"port": "5050",
+							"port": "5002",
 							"path": [
 								"pagos"
 							]
@@ -619,10 +625,16 @@
 					"name": "Crear Pago",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"monto\": 500,\n  \"fecha_de_pago\": \"07/11/1999\",\n  \"estado\": \"Pagado\",\n  \"dni\": 9999999\n}\n",
+							"raw": "{\n  \"monto\": 990,\n  \"fecha_de_pago\": \"07/11/1999\",\n  \"estado\": \"Pagado\",\n  \"dni\": 123456780\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -630,7 +642,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5050/pagos",
+							"raw": "http://127.0.0.1:5002/pagos",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -638,7 +650,7 @@
 								"0",
 								"1"
 							],
-							"port": "5050",
+							"port": "5002",
 							"path": [
 								"pagos"
 							]
@@ -685,7 +697,13 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -696,7 +714,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5050/pagos?nrDni=9999999",
+							"raw": "http://127.0.0.1:5002/pagos?nrDni=123456780",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -704,14 +722,14 @@
 								"0",
 								"1"
 							],
-							"port": "5050",
+							"port": "5002",
 							"path": [
 								"pagos"
 							],
 							"query": [
 								{
 									"key": "nrDni",
-									"value": "9999999"
+									"value": "123456780"
 								}
 							]
 						}
@@ -725,12 +743,21 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwNjgzMywianRpIjoiZWQwMTE1NTYtMmQ1My00NzA0LWIxYjYtODlhOGEwMTFjMGM4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDY4MzMsImV4cCI6MTY4NDgxMDQzMywicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.3a7IzD0_lHeEpz7wQ21Hq5UlPmVuNISvXh_aHPmP8K4",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"monto\":790\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://127.0.0.1:5002/pago",
+							"raw": "http://127.0.0.1:5002/pagos?idPago=6",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -740,7 +767,13 @@
 							],
 							"port": "5002",
 							"path": [
-								"pago"
+								"pagos"
+							],
+							"query": [
+								{
+									"key": "idPago",
+									"value": "6"
+								}
 							]
 						}
 					},
@@ -755,7 +788,72 @@
 					"name": "Devolver lista de todas las Clases",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							},
+							{
+								"key": "page",
+								"value": "3",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "per_page",
+								"value": "2",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5002/clases?page=2&per_page=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"clases"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "per_page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clase",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"nombre\": \"Rutina de Yoga\",\n\"dias\": \"Martes-Jueves\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://127.0.0.1:5002/clases",
 							"protocol": "http",
@@ -774,44 +872,19 @@
 					"response": []
 				},
 				{
-					"name": "Crear Clase",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\"nombre\": \"Rutina de Yoga\",\n\"dias\": \"Martes-Jueves\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:5050/clases",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5050",
-							"path": [
-								"clases"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Devolver Clase por ID",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -822,7 +895,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5050/clase/1",
+							"raw": "http://127.0.0.1:5002/clases?idClases=7",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -830,10 +903,15 @@
 								"0",
 								"1"
 							],
-							"port": "5050",
+							"port": "5002",
 							"path": [
-								"clase",
-								"1"
+								"clases"
+							],
+							"query": [
+								{
+									"key": "idClases",
+									"value": "7"
+								}
 							]
 						}
 					},
@@ -875,7 +953,13 @@
 					"name": "Editar Clase por ID",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"nombre\":\"Yogaa\"\n}",
@@ -886,7 +970,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5050/clase/2",
+							"raw": "http://127.0.0.1:5002/clases?idClases=7",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -894,46 +978,15 @@
 								"0",
 								"1"
 							],
-							"port": "5050",
+							"port": "5002",
 							"path": [
-								"clase",
-								"2"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Login",
-			"item": [
-				{
-					"name": "Crear Login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"nombre_usuario\":\"Messiteamo10\",\n    \"contrasegna\":\"cr7hijo\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
+								"clases"
+							],
+							"query": [
+								{
+									"key": "idClases",
+									"value": "7"
 								}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:5050/login",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5050",
-							"path": [
-								"login"
 							]
 						}
 					},
@@ -951,13 +1004,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwNjgzMywianRpIjoiZWQwMTE1NTYtMmQ1My00NzA0LWIxYjYtODlhOGEwMTFjMGM4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDY4MzMsImV4cCI6MTY4NDgxMDQzMywicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.3a7IzD0_lHeEpz7wQ21Hq5UlPmVuNISvXh_aHPmP8K4",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NTQxNDQ5NSwianRpIjoiYmQyMjJiMmQtZDAyYi00ZGY4LWI0OTItY2Y2NzNjNWQ2YWViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ODg4ODg4ODgsIm5iZiI6MTY4NTQxNDQ5NSwiZXhwIjoxNjg1NDE4MDk1LCJyb2wiOiJhZG1pbiIsImlkIjo4ODg4ODg4OCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSJ9.YHkKyCaCUaHVcAmIjRmfqX46H4r7itu66vOLCLJdaDc",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"rutina\": \"Entrenamiento de biceps\",\n    \"frecuencia\": \"Lunes\",\n    \"id_Alumno\": 1002,\n    \"id_Clase\": 2,\n    \"idProfesor\": 3,\n    \"fecha\":\"10-05-2023\"\n}\n",
+							"raw": "{\n    \"rutina\": \"Entrenamiento de biceps\",\n    \"frecuencia\": \"Lunes y Jueves\",\n    \"id_Alumno\": 1,\n    \"id_Clase\": 3,\n    \"idProfesor\": 3,\n    \"fecha\":\"10-05-2023\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -988,7 +1041,13 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"rutina\": \"Entrenamiento de piernas\",\n  \"frecuencia\": \"3 veces por semana\",\n  \"id_Alumno\": 1,\n  \"id_Clase\": 2,\n  \"idProfesor\": 3\n}\n",
@@ -999,7 +1058,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5050/planificaciones_profesores?nrIdPlanificacion=5&nrIdAlumno=1002",
+							"raw": "http://127.0.0.1:5002/planificaciones_profesores",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1007,7 +1066,7 @@
 								"0",
 								"1"
 							],
-							"port": "5050",
+							"port": "5002",
 							"path": [
 								"planificaciones_profesores"
 							],
@@ -1019,11 +1078,13 @@
 								},
 								{
 									"key": "nrIdPlanificacion",
-									"value": "5"
+									"value": "5",
+									"disabled": true
 								},
 								{
 									"key": "nrIdAlumno",
-									"value": "1002"
+									"value": "1002",
+									"disabled": true
 								}
 							]
 						}
@@ -1040,7 +1101,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwNjgzMywianRpIjoiZWQwMTE1NTYtMmQ1My00NzA0LWIxYjYtODlhOGEwMTFjMGM4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDY4MzMsImV4cCI6MTY4NDgxMDQzMywicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.3a7IzD0_lHeEpz7wQ21Hq5UlPmVuNISvXh_aHPmP8K4",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
 								"type": "text"
 							}
 						],
@@ -1077,8 +1138,8 @@
 									"disabled": true
 								},
 								{
-									"key": "nrIdAlumno",
-									"value": "1002",
+									"key": "",
+									"value": "1",
 									"disabled": true
 								}
 							]
@@ -1093,7 +1154,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwNjgzMywianRpIjoiZWQwMTE1NTYtMmQ1My00NzA0LWIxYjYtODlhOGEwMTFjMGM4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDY4MzMsImV4cCI6MTY4NDgxMDQzMywicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.3a7IzD0_lHeEpz7wQ21Hq5UlPmVuNISvXh_aHPmP8K4",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
 								"type": "text"
 							}
 						],
@@ -1107,7 +1168,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5002/planificacion_profesor?nrIdPlanificacion=1",
+							"raw": "http://127.0.0.1:5002/planificacion_profesor?nrIdPlanificacion=9",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1122,7 +1183,7 @@
 							"query": [
 								{
 									"key": "nrIdPlanificacion",
-									"value": "1"
+									"value": "9"
 								},
 								{
 									"key": "",
@@ -1141,7 +1202,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwNjgzMywianRpIjoiZWQwMTE1NTYtMmQ1My00NzA0LWIxYjYtODlhOGEwMTFjMGM4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDY4MzMsImV4cCI6MTY4NDgxMDQzMywicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.3a7IzD0_lHeEpz7wQ21Hq5UlPmVuNISvXh_aHPmP8K4",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
 								"type": "text"
 							}
 						],
@@ -1184,12 +1245,12 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwNjgzMywianRpIjoiZWQwMTE1NTYtMmQ1My00NzA0LWIxYjYtODlhOGEwMTFjMGM4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDY4MzMsImV4cCI6MTY4NDgxMDQzMywicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.3a7IzD0_lHeEpz7wQ21Hq5UlPmVuNISvXh_aHPmP8K4",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5002/planificaciones_profesores?nrIdPlanificacion=1",
+							"raw": "http://127.0.0.1:5002/planificaciones_profesores?nrDni=111111111",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1199,18 +1260,17 @@
 							],
 							"port": "5002",
 							"path": [
-								"",
 								"planificaciones_profesores"
 							],
 							"query": [
 								{
 									"key": "nrDni",
-									"value": "987654321",
-									"disabled": true
+									"value": "111111111"
 								},
 								{
 									"key": "nrIdPlanificacion",
-									"value": "1"
+									"value": "1",
+									"disabled": true
 								}
 							]
 						}

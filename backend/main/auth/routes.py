@@ -2,7 +2,9 @@ from flask import request, Blueprint
 from .. import db
 from main.models import UsuarioModelo, AlumnoModel
 from flask_jwt_extended import create_access_token
-import pdb
+import pdb  # noqa
+from main.mail.functions import sendMail
+
 # Blueprint para acceder a los métodos de autenticación
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -12,18 +14,19 @@ auth = Blueprint('auth', __name__, url_prefix='/auth')
 def login():
     # Busca al animal en la db por mail
     usuario = db.session.query(UsuarioModelo).filter(UsuarioModelo.email == request.get_json().get("email")).first_or_404()
+
     # Valida la contraseña
     if usuario.validate_pass(request.get_json().get("contrasegna")):
         # Genera un nuevo token
         # Pasa el objeto usuario como identidad
         access_token = create_access_token(identity=usuario)
+
         # Devolver valores y token
         data = {
             'dni': str(usuario.dni),
             'email': usuario.email,
             'access_token': access_token
         }
-
         return data, 200
     else:
         return 'Incorrect password', 401
@@ -38,7 +41,7 @@ def register():
     email_nuevo = request.get_json()['email']  # noqa
 
     correo_existente = True
-    #correo_existente = db.session.query(UsuarioModelo).filter(UsuarioModelo.email == email_nuevo).first()
+    # correo_existente = db.session.query(UsuarioModelo).filter(UsuarioModelo.email == email_nuevo).first()
     if not correo_existente:
         return 'Duplicated mail', 409
     else:
@@ -61,6 +64,8 @@ def register():
             alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni)
             db.session.add(alumno)
             db.session.commit()
+            # Enviar mail de Bienvenida
+            sent = sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D", "register", usuario=usuario_nuevo)  # noqa
             return usuario_nuevo.to_json(), 201
         except Exception as e:
             db.session.rollback()

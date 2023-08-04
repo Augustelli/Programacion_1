@@ -12,6 +12,7 @@ class Usuarios(Resource):
     # Rol : Admin
     @role_required(roles=['admin'])
     def get(self):
+
         try:
             page = 1
             per_page = 10
@@ -57,7 +58,16 @@ class Usuarios(Resource):
             usuario_nuevo = UsuarioModelo.from_json(datos)
             db.session.add(usuario_nuevo)
             if usuario_nuevo.rol == "alumno":
-                alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni)
+                if "altura" in datos:
+                    altura = datos["altura"]
+                else:
+                    altura = None
+                if "peso" in datos:
+                    peso = datos["peso"]
+                else:
+                    peso = None
+
+                alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni, altura=altura, peso=peso)
                 db.session.add(alumno)
             if usuario_nuevo.rol == "profesor":
                 if "salario" in datos:
@@ -74,12 +84,12 @@ class Usuarios(Resource):
                 db.session.add(profesor)
 
             db.session.commit()
+          #  sent=sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D, hay una nueva planificación disponible", "register", )
             return usuario_nuevo.to_json(), 201
         except Exception as e:
             return {'error': str(e)}, 400
         finally:
             db.session.close()
-
 
 class Usuario(Resource):
 
@@ -213,6 +223,7 @@ class UsuarioAlumnos(Resource):
             alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni)
             db.session.add(alumno)
             db.session.commit()
+            #sent=
             return usuario_nuevo.to_json(), 201
         except Exception as e:
             return {'error': str(e)}, 400

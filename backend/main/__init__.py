@@ -13,18 +13,20 @@ api = Api()
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
+mailsender = Mail()
 
 
 def create_app():
     app = Flask(__name__)
     load_dotenv()
-    
+
     app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # Ya no se necesita el archivo .db. Sino se usará el contenedor.
+    # En caso de querer volver a usar el archivo .db, descomentar las siguientes líneas:
     # if not os.path.exists(str(os.getenv('DATABASE_PATH'))+str(os.getenv('DATABASE_NAME'))):
-        # os.mknod(str(os.getenv('DATABASE_PATH'))+str(os.getenv('DATABASE_NAME')))
+    #   os.mknod(str(os.getenv('DATABASE_PATH'))+str(os.getenv('DATABASE_NAME')))
 
     db.init_app(app)
     migrate.init_app(app, db)
@@ -55,5 +57,16 @@ def create_app():
 
     from main.auth import routes
     app.register_blueprint(routes.auth)
+
+    # Configuración de mail
+    app.config['MAIL_HOSTNAME'] = os.getenv('MAIL_HOSTNAME')
+    app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
+    app.config['MAIL_PORT'] = os.getenv('MAIL_PORT')
+    app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS')
+    app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+    app.config['FLASKY_MAIL_SENDER'] = os.getenv('FLASKY_MAIL_SENDER')
+    # Inicializar en app
+    mailsender.init_app(app)
 
     return app

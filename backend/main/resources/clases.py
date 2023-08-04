@@ -1,7 +1,8 @@
 from flask import request, abort, jsonify
 from .. import db
-from main.models import ClasesModelo,clase_profesorModelo,ProfesorModelo
+from main.models import ClasesModelo, clase_profesorModelo, ProfesorModelo
 from flask_restful import Resource
+from main.auth.decorators import role_required
 
 
 class Clase_Profesor_R(Resource):
@@ -16,13 +17,12 @@ class Clase_Profesor_R(Resource):
             #     per_page = int(request.args.get('per_page'))
             # clase_profesor = clase_profesor.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             # clase_profesor_lista = [clase.to_json() for clase in clase_profesor.items]
-          
+
             if request.args.get('idClase'):
                     clase = db.session.query(ClasesModelo)
                     profesor = db.session.query(ProfesorModelo)
-                    clase_profesor = clase.outerjoin(clase_profesor).filter(request.args.get('idClase')==clase_profesor.clase_id)
-                    clase_profesor = clase_profesor.outerjoin(profesor).filter(clase_profesor.profesor_id==profesor.idProfesor)
-                    
+                    clase_profesor = clase.outerjoin(clase_profesor).filter(request.args.get('idClase') == clase_profesor.clase_id)
+                    clase_profesor = clase_profesor.outerjoin(profesor).filter(clase_profesor.profesor_id == profesor.idProfesor)
                     resultados = clase_profesor.all()
 
                     profesor_data = []
@@ -35,16 +35,12 @@ class Clase_Profesor_R(Resource):
                             'dias': resultado.dias,
                             'idProfesor': resultado.profesor.idProfesor,
                             'profesor_dni': resultado.profesor.profesor_dni,
-                            'especialidad': self.profesor.especialidad,                           
-                         
+                            'especialidad': self.profesor.especialidad
                         }
                         profesor_data.append(data)
 
                     # Imprimir la información
                     return jsonify(profesor_data)
-                              
-                
-
         #     return {
         #         'Clase_Profesor': clase_profesor_lista,
         #         'Pagina': page,
@@ -55,31 +51,23 @@ class Clase_Profesor_R(Resource):
         #     return {'error': str(e)}, 404
         # finally:
         #     db.session.close()
-        
-
 
     # def post(self):
         # # try:
         #     data=request.get_json()
         #     clase=db.session.query(ClasesModelo).filter_by(idClases=data['clase_id']).first()
         #     profesor=db.session.query(ProfesorModelo).filter_by(idProfesor=data['profesor_id']).first()
-            
         #     clase.profesores_p.append(profesor)
         #     db.session.add(clase)
         #     db.session.add(profesor)
         #     db.session.commit()
         #     return profesor.to_json(),201
-        
 
         # # except Exception as e:
         # #     return {'error': str(e)}, 400
         # # finally:
         # #     db.session.close()
- 
-
     def post(self):
-
-        
         # try:
             campos_obligatorios = {'profesor_id','clase_id'}
             datos = request.get_json()
@@ -87,7 +75,7 @@ class Clase_Profesor_R(Resource):
 
             campos_faltantes = campos_obligatorios - campos_recibidos
             if campos_faltantes:
-                raise Exception(f'Error al crear usuario. Faltan campos obligatorios: {campos_faltantes}. Por favor, incluya estos campos y vuelva a intentarlo.')
+                raise Exception(f'Error al crear usuario. Faltan campos obligatorios: {campos_faltantes}. Por favor, incluya estos campos y vuelva a intentarlo.')  # noqa
 
             for campo in campos_obligatorios:
                 if datos[campo] is None:
@@ -95,10 +83,6 @@ class Clase_Profesor_R(Resource):
 
             usuario_nuevo = clase_profesorModelo.from_json(datos)
             db.session.add(usuario_nuevo)
-            
-
-            
-
             db.session.commit()
             return usuario_nuevo.to_json(), 201
         # except Exception as e:
@@ -106,9 +90,9 @@ class Clase_Profesor_R(Resource):
         # finally:
         #     db.session.close()
 
-       
-class Clases_R(Resource):
 
+class Clases_R(Resource):
+    @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
             clases = db.session.query(ClasesModelo)
@@ -142,6 +126,7 @@ class Clases_R(Resource):
         finally:
             db.session.close()
 
+    @role_required(roles=['admin', 'profesor'])
     def post(self):
         try:
             clase_nueva = ClasesModelo.from_json(request.get_json())
@@ -153,7 +138,7 @@ class Clases_R(Resource):
         finally:
             db.session.close()
 
-    
+    @role_required(roles=['admin', 'profesor'])
     def delete(self):
         try:
             if request.args.get('idClases'):
@@ -175,7 +160,7 @@ class Clases_R(Resource):
         finally:
             db.session.close()
 
-
+    @role_required(roles=['admin', 'profesor'])
     def put(self):
 
         try:
@@ -187,7 +172,7 @@ class Clases_R(Resource):
                     raise Exception(f"No se ha encontrado la Clase con ID: {(request.args.get('idClases'))}")
                 usuario_editar = db.session.query(ClasesModelo).filter(ClasesModelo.idClases == int(request.args.get('idClases'))).first()
                 informacion = request.get_json().items()
-                for campo, valor in informacion:                    
+                for campo, valor in informacion:          
                     setattr(usuario_editar, campo, valor)
                 db.session.add(usuario_editar)
                 db.session.commit()
@@ -198,6 +183,7 @@ class Clases_R(Resource):
             return {'error': str(e)}, 400
         finally:
             db.session.close()
+
 
 class Clase_R(Resource):
     pass

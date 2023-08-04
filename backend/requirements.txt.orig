@@ -3,10 +3,10 @@ python-dotenv
 flask-restful
 flask_sqlalchemy
 flask_migrate
-<<<<<<< Updated upstream
 flask_jwt_extended
-=======
-flask_jwt_extended
+<<<<<<< HEAD
 flask_mail
 psycopg2-binary
->>>>>>> Stashed changes
+=======
+flask_mail
+>>>>>>> KarkLen2.0

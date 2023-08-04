@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Planificación de Gimnasio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border: 1px solid #dddddd;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+    }
+    h1 {
+      color: #001d62;
+      font-size: 24px;
+      margin-top: 0;
+    }
+    h2 {
+      color: #001d62;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    p {
+      margin-bottom: 15px;
+      color: #333333;
+      font-size: 16px;
+    }
+    .highlight {
+      font-weight: bold;
+    }
+    .footer {
+      font-size: 12px;
+      color: #999999;
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Planificación de Gimnasio</h1>
+    <p>Estimado(a) usuario,</p>
+    <p>¡Nos complace presentarte la planificación semanal de actividades en nuestro gimnasio!</p>
+    <p>A continuación, se detallan las clases y horarios disponibles para esta semana:</p>
+    
+    <h2>Clases: {{planificacion.rutina}}</h2>
+    <ul>
+      <li>Dias: {{planificacion.frecuencia}}</li>
+      <li>A partir de {{planificacion.fecha}}</li>
+      <li>Profesor: Juan Carlos</li>
+      <li>Planificación correspondiente a la clase: {{planificacion.id_Clase}}</li>
+
+    </ul>
+    
+    <p>No dudes en unirte a las clases que más te interesen. Recuerda llevar ropa cómoda y traer una toalla y una botella de agua.</p>
+    
+    <p>¡Esperamos verte pronto y que disfrutes de nuestras instalaciones y actividades!</p>
+    
+    <p>Saludos cordiales,</p>
+    <p>El equipo del GYM grupo D</p>
+  
+    <div class="footer">
+      <p>Este correo electrónico es generado automáticamente, por favor no respondas este mensaje.</p>
+    </div>
+  </div>
+</body>
+</html>
