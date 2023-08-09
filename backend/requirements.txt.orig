@@ -4,9 +4,4 @@ flask-restful
 flask_sqlalchemy
 flask_migrate
 flask_jwt_extended
-<<<<<<< HEAD
 flask_mail
-psycopg2-binary
-=======
-flask_mail
->>>>>>> KarkLen2.0
