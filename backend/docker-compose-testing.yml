@@ -4,7 +4,7 @@ services:
     build: .
     container_name: gym_app
     ports:
-      - "5002:5000"
+      - "5002:5002"
 
     environment:
       FLASK_ENV: development
@@ -31,6 +31,8 @@ services:
 
   db:
     image: postgres:13.3-alpine
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
