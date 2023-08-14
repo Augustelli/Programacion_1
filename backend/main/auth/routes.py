@@ -37,12 +37,11 @@ def login():
 def register():
 
     usuario_nuevo = UsuarioModelo.from_json(request.get_json())
-    # Verificar si el mail ya existe en la db}
+    # Verificar si el mail ya existe en la db
     email_nuevo = request.get_json()['email']  # noqa
 
-    correo_existente = True
-    # correo_existente = db.session.query(UsuarioModelo).filter(UsuarioModelo.email == email_nuevo).first()
-    if not correo_existente:
+    correo_existente = db.session.query(UsuarioModelo).filter(UsuarioModelo.email == email_nuevo).first()
+    if correo_existente:
         return 'Duplicated mail', 409
     else:
         try:
@@ -59,6 +58,7 @@ def register():
                 if datos[campo] is None:
                     raise Exception(f'Error al crear usuario. El campo {campo} no puede ser nulo. Por favor, proporcione un valor válido para {campo} y vuelva a intentarlo.')  # noqa
 
+            datos['rol'] = "alumno"
             usuario_nuevo = UsuarioModelo.from_json(datos)
             db.session.add(usuario_nuevo)
             alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni)

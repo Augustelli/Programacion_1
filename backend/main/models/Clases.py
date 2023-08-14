@@ -1,7 +1,6 @@
 from .. import db
 
 
-
 clase_profesor = db.Table(
     'clase_profesor',
     db.Column('profesor_id', db.Integer, db.ForeignKey('profesor.idProfesor'), primary_key=True),
@@ -18,22 +17,18 @@ def from_json(clases_json):
     )
 
 
-
-
-
 class Clases(db.Model):
     __tablename__ = 'clases'
 
     idClases = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, index=True)
     nombre = db.Column(db.String(50), nullable=False, default='Rutina personal.')
-    # horario = db.Column(db.Time, default=time(0, 0))
+    # horario = db.Column(db.Time, default=time(0, 0))  # TODO :Ver como agregar horario
     dias = db.Column(db.String(50), nullable=False, default='Lunes-Miercoles-Viernes')
 
     # Relaciones Clases
 
-    profesores = db.relationship('Profesor', secondary=clase_profesor, back_populates='clases')
-    planificaciones = db.relationship('Planificacion', back_populates='clase', cascade='all, delete-orphan', single_parent=True)
-    # clases_planificaciones = db.relationship('Planificacion', backref='clase')
+    profesores = db.relationship('Profesor', secondary=clase_profesor, back_populates='clases', cascade='all, delete-orphan',  single_parent=True )
+    planificaciones = db.relationship('Planificacion', back_populates='clase', cascade='all', single_parent=True)
     # def __repr__(self):
     #     return f'<Clases idClases: {self.idClases}> - Nombre: {self.nombre} - Horario: {self.horario} - Dias: {self.dias}'
 

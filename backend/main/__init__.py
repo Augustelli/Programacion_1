@@ -6,6 +6,7 @@ import os
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_mail import Mail
+import requests
 
 
 api = Api()
@@ -18,14 +19,16 @@ mailsender = Mail()
 def create_app():
     app = Flask(__name__)
     load_dotenv()
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    
+    #si quiero usar a traves de un contenedor, descomentar las siguientes lineas y comentar las siguientes
+    # app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # Ya no se necesita el archivo .db. Sino se usará el contenedor.
     # En caso de querer volver a usar el archivo .db, descomentar las siguientes líneas y crear las variables de entorno correspondientes en el archivo .env:
-    # if not os.path.exists(str(os.getenv('DATABASE_PATH'))+str(os.getenv('DATABASE_NAME'))):
-    #   os.mknod(str(os.getenv('DATABASE_PATH'))+str(os.getenv('DATABASE_NAME')))
+    app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.getenv('DATABASE_PATH')}{os.getenv('DATABASE_NAME')}"
+    if not os.path.exists(str(os.getenv('DATABASE_PATH'))+str(os.getenv('DATABASE_NAME'))):
+      os.mknod(str(os.getenv('DATABASE_PATH'))+str(os.getenv('DATABASE_NAME')))
 
     db.init_app(app)
     migrate.init_app(app, db)
@@ -66,6 +69,7 @@ def create_app():
     app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
     app.config['FLASKY_MAIL_SENDER'] = os.getenv('FLASKY_MAIL_SENDER')
     # Inicializar en app
+    
     mailsender.init_app(app)
-
+    
     return app

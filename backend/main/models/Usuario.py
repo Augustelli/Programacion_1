@@ -25,8 +25,8 @@ class Usuario(db.Model):
     contrasegna = db.Column(db.String(128), nullable=False)
 
     # Definimos la relación uno a uno con la tabla Alumno
-    alumno = db.relationship('Alumno', back_populates='usuario', uselist=False)
-    profesor = db.relationship('Profesor', back_populates='usuario', uselist=False)
+    alumno = db.relationship('Alumno', back_populates='usuario', uselist=False,cascade='all, delete-orphan')
+    profesor = db.relationship('Profesor', back_populates='usuario', uselist=False,cascade='all, delete-orphan')
     usuario_pagos = db.relationship('Pagos', back_populates='pagos_usuario', cascade='all, delete-orphan', single_parent=True)
     login1 = db.relationship('Login_usuario', back_populates='usuario', uselist=False)
 
