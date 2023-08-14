@@ -6,7 +6,6 @@ import os
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_mail import Mail
-import psycopg2
 
 
 api = Api()
@@ -24,7 +23,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # Ya no se necesita el archivo .db. Sino se usará el contenedor.
-    # En caso de querer volver a usar el archivo .db, descomentar las siguientes líneas:
+    # En caso de querer volver a usar el archivo .db, descomentar las siguientes líneas y crear las variables de entorno correspondientes en el archivo .env:
     # if not os.path.exists(str(os.getenv('DATABASE_PATH'))+str(os.getenv('DATABASE_NAME'))):
     #   os.mknod(str(os.getenv('DATABASE_PATH'))+str(os.getenv('DATABASE_NAME')))
 
