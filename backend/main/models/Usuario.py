@@ -51,13 +51,15 @@ class Usuario(db.Model):
         raise AttributeError('Password cant be read')
     # Setter de la contraseña toma un valor en texto plano
     # calcula el hash y lo guarda en el atributo password
+
     @plain_password.setter
     def plain_password(self, password):
         self.contrasegna = generate_password_hash(password)
 
     # Método que compara una contraseña en texto plano con el hash guardado en la db
+
     def validate_pass(self, password):
-        return check_password_hash(self.contrasegna, password)       
+        return check_password_hash(self.contrasegna, password)
 
     def __repr__(self):
         return f'<Usuario: {self.nombre} {self.apellido} {self.estado}>'
@@ -73,7 +75,7 @@ class Usuario(db.Model):
             'estado': self.estado,
             'rol': self.rol,
             'nombre_usuario': self.nombre_usuario
-            #'contrasegna': self.contrasegna,
+            # 'contrasegna': self.contrasegna,
             # 'altura': self.altura,
             # 'peso': self.peso
         }
@@ -110,7 +112,7 @@ class Usuario(db.Model):
         rol = usuario_json.get('rol')
         nombre_usuario = usuario_json.get('nombre_usuario')
         contrasegna = usuario_json.get('contrasegna')
-        #contrasegna = usuario_json.get('contrasegna')
+        # contrasegna = usuario_json.get('contrasegna')
         # altura = usuario_json.get('altura')
         # peso = usuario_json.get('peso')
 

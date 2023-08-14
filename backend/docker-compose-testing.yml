@@ -2,18 +2,16 @@ version: "3.9"
 services:
   app:
     build: .
-    container_name: Gym_App
+    container_name: gym_app
     ports:
       - "5002:5000"
 
     environment:
       FLASK_ENV: development
       FLASK_APP: app.py
-      JWT_SECRET_KEY': 'gym_app'
+      JWT_SECRET_KEY: 'gym_app'
       PORT: 5002
-      NAME_APP: Gym_App'
-      DATABASE_PATH: 'http://db:3306/'
-      DATABASE_NAME: 'gym.db'
+      NAME_APP: 'Gym_App'
       JWT_ACCESS_TOKEN_EXPIRES: 3600
       MAIL_SERVER: 'smtp.gmail.com'
       MAIL_PORT: '587'
@@ -28,18 +26,22 @@ services:
       DB_NAME: gym_app 
 
     depends_on:
-      - db
+      db:
+        condition: "service_healthy"
 
   db:
     image: postgres:13.3-alpine
-    ports:
-      - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: gym_app
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
 
 volumes:
   postgres_data:
