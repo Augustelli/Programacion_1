@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from .. import db
 from main.models import ProfesorModelo
-from flask import abort,request,jsonify  # noqa
+from flask import abort, request, jsonify  # noqa
 
 
 class ProfesorClases(Resource):

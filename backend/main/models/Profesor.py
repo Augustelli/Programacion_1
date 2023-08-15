@@ -3,30 +3,18 @@ from .Clases import clase_profesor
 
 
 class Profesor(db.Model):
+
     __tablename__ = 'profesor'
 
     idProfesor = db.Column(db.Integer, nullable=False, primary_key=True, index=True)
     profesor_dni = db.Column(db.Integer, db.ForeignKey('usuario.dni'), nullable=False, unique=True)
     especialidad = db.Column(db.String(50), default='No posee.')
-    salario = db.Column(db.Float, default=55000.00)
+    salario = db.Column(db.Float, default=0.0)
+    #Relaciones
     usuario = db.relationship('Usuario', back_populates='profesor', uselist=False)
 
     planificaciones = db.relationship('Planificacion', back_populates='profesor', cascade='all, delete-orphan', single_parent=True)
     clases = db.relationship('Clases', secondary=clase_profesor, back_populates='profesores')
-
-# class Profesor(db.Model):
-
-#     __tablename__ = 'profesor'
-
-#     idProfesor = db.Column(db.Integer, nullable=False, primary_key=True, index=True)
-#     profesor_dni = db.Column(db.Integer, db.ForeignKey('usuario.dni'), nullable=False)
-#     especialidad = db.Column(db.String(50), default='No posee.')
-#     salario = db.Column(db.Float, nullable=False)
-
-# #   ** RELACIONES de Profesor
-#     profesor_usuario = db.relationship('Usuario', back_populates='usuario_profesor',uselist=False,cascade='all, delete-orphan', single_parent=True)
-#     profesor_planificaciones = db.relationship('Planificaciones', uselist=False, back_populates='planificaciones_profesor')
-#     profesor_clases = db.relationship('Clase', uselist=False, back_populates='clases_profesores', cascade='all, delete-orphan', single_parent=True)
 
     def __repr__(self):
         profesor_json = {
@@ -50,4 +38,3 @@ class Profesor(db.Model):
             especialidad=especialidad,
             salario=salario
         )
-#   ** RELACIONES de Profesor

@@ -11,7 +11,7 @@ from .planificacion import PlanificacionesProfesores as PlansProfesoresRec  # no
 from .profesor import ProfesorClases as ProfesorClasesRec  # noqa
 from .pago import Pago as PagoRec  # noqa
 from .pago import Pagos as PagosRec  # noqa
-from .login import Login as LoginRec  # noqa
+# from .login import Login as LoginRec  # noqa
 from .clases import Clase_R as ClaseRec  # noqa
 from .clases import Clases_R as ClasesRec  # noqa
 from .clases import Clase_Profesor_R as Clase_ProfesorRec  # noqa
