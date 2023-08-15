@@ -25,7 +25,7 @@ class Alumno(db.Model):
 
     def to_json(self):
         alumno_json = {
-            'idAlumno': str(self.idAlumno),
+            'idAlumno': int(self.idAlumno),
             'alumno_dni': str(self.alumno_dni),
             'peso': str(self.peso),
             'altura': str(self.altura)
