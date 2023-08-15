@@ -43,7 +43,7 @@ def login():
             db.session.commit()
             return data, 200
         else:
-            return 'Incorrect password', 401
+            return 'Contraseña incorrecta', 401
     except Exception as e:
         return e
     finally:
@@ -77,7 +77,11 @@ def register():
             datos['rol'] = "alumno"
             usuario_nuevo = UsuarioModelo.from_json(datos)
             db.session.add(usuario_nuevo)
-            alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni)
+            alumno = AlumnoModel(
+                alumno_dni=usuario_nuevo.dni,
+                altura=datos['altura'] if 'altura' in datos else None,
+                peso=datos['peso'] if 'peso' in datos else None
+                )
             db.session.add(alumno)
             db.session.commit()
             # Enviar mail de Bienvenida
@@ -85,6 +89,6 @@ def register():
             return usuario_nuevo.to_json(), 201
         except Exception as e:
             db.session.rollback()
-            return {'error': str(e)}, 400
+            return {'Error': str(e)}, 400
         finally:
             db.session.close()

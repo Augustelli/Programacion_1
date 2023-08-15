@@ -5,7 +5,7 @@ from main.models import UsuarioModelo, AlumnoModel, ProfesorModelo
 from flask_jwt_extended import jwt_required, get_jwt_identity  # noqa
 from main.auth.decorators import role_required
 import pdb  # noqa
-
+# from ..mail import sendMail
 
 class Usuarios(Resource):
 
@@ -59,12 +59,24 @@ class Usuarios(Resource):
             # db.session.add(usuario_nuevo)
             if usuario_nuevo.rol == "alumno":
 
+                alumno_usuario = UsuarioModelo(
+                    dni=usuario_nuevo.dni,
+                    nombre=usuario_nuevo.nombre,
+                    apellido=usuario_nuevo.apellido, 
+                    email=usuario_nuevo.email, 
+                    fecha_nacimiento=usuario_nuevo.fecha_nacimiento,
+                    estado = usuario_nuevo.estado,
+                    contrasegna=usuario_nuevo.contrasegna,
+                    nombre_usuario=usuario_nuevo.nombre_usuario,
+                    rol=usuario_nuevo.rol)
                 altura = datos["altura"] if "altura" in datos else None
                 peso = datos["peso"] if "peso" in datos else None
-                alumno_usuario = UsuarioModelo(dni=usuario_nuevo.dni, nombre=usuario_nuevo.nombre, apellido=usuario_nuevo.apellido, email=usuario_nuevo.email, contrasegna=usuario_nuevo.contrasegna, rol=usuario_nuevo.rol)
                 db.session.add(alumno_usuario)
 
-                alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni, altura=altura, peso=peso)
+                alumno = AlumnoModel(
+                    alumno_dni=usuario_nuevo.dni, 
+                    altura=altura, 
+                    peso=peso)
                 db.session.add(alumno)
             if usuario_nuevo.rol == "profesor":
 
@@ -72,15 +84,27 @@ class Usuarios(Resource):
                 especialidad = datos['especialidad'] if 'especialidad' in datos else None
                 profesor_usuario = UsuarioModelo(dni=usuario_nuevo.dni, nombre=usuario_nuevo.nombre, apellido=usuario_nuevo.apellido, email=usuario_nuevo.email, contrasegna=usuario_nuevo.contrasegna, rol=usuario_nuevo.rol)
                 db.session.add(profesor_usuario)
-                profesor = ProfesorModelo(profesor_dni=usuario_nuevo.dni, especialidad=especialidad, salario=salario)
+                profesor = ProfesorModelo(
+                    profesor_dni=usuario_nuevo.dni, 
+                    especialidad=especialidad, 
+                    salario=salario)
                 db.session.add(profesor)
 
             if usuario_nuevo.rol == "admin":
-                usuario=UsuarioModelo(dni=usuario_nuevo.dni, nombre=usuario_nuevo.nombre, apellido=usuario_nuevo.apellido, email=usuario_nuevo.email, contrasegna=usuario_nuevo.contrasegna, rol=usuario_nuevo.rol)
+                usuario=UsuarioModelo(
+                    dni=usuario_nuevo.dni,
+                    nombre=usuario_nuevo.nombre,
+                    apellido=usuario_nuevo.apellido, 
+                    email=usuario_nuevo.email, 
+                    fecha_nacimiento=usuario_nuevo.fecha_nacimiento,
+                    estado = usuario_nuevo.estado,
+                    contrasegna=usuario_nuevo.contrasegna,
+                    nombre_usuario=usuario_nuevo.nombre_usuario,
+                    rol=usuario_nuevo.rol)
                 db.session.add(usuario)
 
             db.session.commit()
-          #  sent=sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D, hay una nueva planificación disponible", "register", )
+            # sent = sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D, hay una nueva planificación disponible", "register", )
             return usuario_nuevo.to_json(), 201
         except Exception as e:
             return {'error': str(e)}, 400

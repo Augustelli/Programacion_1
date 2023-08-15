@@ -6,7 +6,7 @@ import os
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_mail import Mail
-import requests
+# import requests
 
 
 api = Api()
