@@ -3,8 +3,10 @@ from .. import db
 
 clase_profesor = db.Table(
     'clase_profesor',
-    db.Column('profesor_id', db.Integer, db.ForeignKey('profesor.idProfesor'), primary_key=True),
-    db.Column('clase_id', db.Integer, db.ForeignKey('clases.idClases'), primary_key=True)
+    db.Column('id_profesor_clase', db.Integer, primary_key=True),
+
+    db.Column('profesor_id', db.Integer, db.ForeignKey('profesor.idProfesor')),
+    db.Column('clase_id', db.Integer, db.ForeignKey('clases.idClases'))
 )
 @staticmethod
 def from_json(clases_json):
