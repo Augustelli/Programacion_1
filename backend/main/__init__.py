@@ -41,14 +41,12 @@ def create_app():
     api.add_resource(resources.UsrsAlumnosRec, '/alumnos')
     api.add_resource(resources.UsrAlumnoRec, '/alumno')
     api.add_resource(resources.UsrProfesorRec, '/profesor')
-    # api.add_resource(resources.UsrProfesoresRec, '/profesores')
     api.add_resource(resources.PlanAlumnoRec, '/planificacion')
     api.add_resource(resources.PlanProfesorRec, '/planificacion_profesor')
     api.add_resource(resources.PlansProfesoresRec, '/planificaciones_profesores')
     api.add_resource(resources.ProfesorClasesRec, '/profesor_clases')
     api.add_resource(resources.PagoRec, '/pago')
     api.add_resource(resources.PagosRec, '/pagos')
-    api.add_resource(resources.LoginRec, '/login')
     api.add_resource(resources.ClasesRec, '/clases')
     api.add_resource(resources.ClaseRec, '/clase')
 
@@ -73,3 +71,5 @@ def create_app():
     mailsender.init_app(app)
     
     return app
+
+  
