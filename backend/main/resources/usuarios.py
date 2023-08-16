@@ -82,7 +82,7 @@ class Usuarios(Resource):
 
                 salario = datos['salario'] if "salario" in datos else None
                 especialidad = datos['especialidad'] if 'especialidad' in datos else None
-                profesor_usuario = UsuarioModelo(dni=usuario_nuevo.dni, nombre=usuario_nuevo.nombre, apellido=usuario_nuevo.apellido, email=usuario_nuevo.email, contrasegna=usuario_nuevo.contrasegna, rol=usuario_nuevo.rol)
+                profesor_usuario = UsuarioModelo(dni=usuario_nuevo.dni, nombre=usuario_nuevo.nombre, apellido=usuario_nuevo.apellido, email=usuario_nuevo.email, contrasegna=usuario_nuevo.contrasegna, rol=usuario_nuevo.rol,fecha_nacimiento=usuario_nuevo.fecha_nacimiento, estado=usuario_nuevo.estado, nombre_usuario=usuario_nuevo.nombre_usuario)
                 db.session.add(profesor_usuario)
                 profesor = ProfesorModelo(
                     profesor_dni=usuario_nuevo.dni, 
@@ -212,8 +212,9 @@ class UsuarioAlumnos(Resource):
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
 
-        usuarios = db.session.query(UsuarioModelo)
+        usuarios = db.session.query(UsuarioModelo )
         usuarios = usuarios.outerjoin(AlumnoModel, UsuarioModelo.dni == AlumnoModel.alumno_dni)
+        usuarios = usuarios.filter(UsuarioModelo.rol == 'alumno')
         # usuarios = query.filter(UsuarioModelo.dni == request.args.get('nrAlumno'))
 
         usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
