@@ -50,12 +50,13 @@ class Pago(Resource):
     @role_required(roles=['admin', 'profesor'])
     def delete(self):
         try:
-            pago_eliminar = db.session.query(PagosModelo).filter(PagosModelo.dni == (request.args.get('nrDni'))).first()
-            db.session.delete(pago_eliminar)
-            db.session.commit()
-            return 204
+            if request.args.get('idPago'):
+                pago_eliminar = db.session.query(PagosModelo).filter(PagosModelo.idPago == (request.args.get('idPago'))).first()
+                db.session.delete(pago_eliminar)
+                db.session.commit()
+                return 204
         except BaseException:
-            abort(404, 'No se ha encontrado el pago del alumno de id {}'.format((request.args.get('nrDni'))))
+            abort(404, 'No se ha encontrado el pago  {}'.format((request.args.get('idPago'))))
         finally:
             db.session.close()
 

@@ -298,12 +298,22 @@ class UsuarioProfesor(Resource):
                 else:
                     raise Exception(f"No se ha encontrado usuario con DNI: {(request.args.get('nrDni'))}")
                 usuario_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == int(request.args.get('nrDni'))).first()
+                usuario_editar1 = db.session.query(ProfesorModelo).filter(ProfesorModelo.profesor_dni == int(request.args.get('nrDni'))).first()
                 informacion = request.get_json().items()
                 for campo, valor in informacion:
                     if campo == 'rol':
                         raise Exception('El rol del usuario no puede ser modificado.')
 
                     setattr(usuario_editar, campo, valor)
+                    if campo == 'salario' :
+                        usuario_editar1.salario = float(valor)
+                        db.session.add(usuario_editar1)
+                    
+                    if campo == 'especialidad':
+                        usuario_editar1.especialidad = valor
+                        db.session.add(usuario_editar1)
+
+
                 db.session.add(usuario_editar)
                 db.session.commit()
                 return usuario_editar.to_json(), 201
@@ -354,17 +364,27 @@ class UsuarioAlumno(Resource):
         try:
             if request.args.get('nrDni'):
                 registro = db.session.query(UsuarioModelo).get(request.args.get('nrDni'))
+                
                 if registro:
                     pass
                 else:
                     raise Exception(f"No se ha encontrado alumno con DNI: {(request.args.get('nrDni'))}")
                 usuario_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == int(request.args.get('nrDni'))).first()
+                usuario_editar1 = db.session.query(AlumnoModel).filter(AlumnoModel.alumno_dni == int(request.args.get('nrDni'))).first()
                 informacion = request.get_json().items()
                 for campo, valor in informacion:
                     if campo == 'rol':
                         raise Exception('El rol del usuario no puede ser modificado.')
-
+                    
                     setattr(usuario_editar, campo, valor)
+                    if campo == "peso":
+                        usuario_editar1.peso = float(valor)
+                        db.session.add(usuario_editar1)
+                    if campo == "altura":
+                        usuario_editar1.altura = float(valor)
+                        db.session.add(usuario_editar1)
+
+
                 db.session.add(usuario_editar)
                 db.session.commit()
                 return usuario_editar.to_json(), 201
