@@ -3,8 +3,6 @@ from .. import db
 
 clase_profesor = db.Table(
     'clase_profesor',
-    db.Column('id_profesor_clase', db.Integer, primary_key=True),
-
     db.Column('profesor_id', db.Integer, db.ForeignKey('profesor.idProfesor')),
     db.Column('clase_id', db.Integer, db.ForeignKey('clases.idClases'))
 )
@@ -28,8 +26,8 @@ class Clases(db.Model):
     dias = db.Column(db.String(50), nullable=False, default='Lunes-Miercoles-Viernes')
 
     # Relaciones Clases
-
-    profesores = db.relationship('Profesor', secondary=clase_profesor, back_populates='clases', cascade='all, delete-orphan',  single_parent=True )
+    profesores = db.relationship('Profesor', secondary=clase_profesor, backref='clases')
+    # profesores = db.relationship('Profesor', secondary=clase_profesor, back_populates='clases', cascade='all, delete-orphan',  single_parent=True )
     planificaciones = db.relationship('Planificacion', back_populates='clase', cascade='all', single_parent=True)
     # def __repr__(self):
     #     return f'<Clases idClases: {self.idClases}> - Nombre: {self.nombre} - Horario: {self.horario} - Dias: {self.dias}'

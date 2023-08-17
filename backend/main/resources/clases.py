@@ -68,23 +68,28 @@ class Clase_Profesor_R(Resource):
         # # finally:
         # #     db.session.close()
     def post(self):
-        # try:
-            campos_obligatorios = {'profesor_id','clase_id'}
-            datos = request.get_json()
-            campos_recibidos = set(datos.keys())
+        try:
+            if request.args.get('idClase') and request.args.get('idProfesor'):
+                id_clase = int(request.args.get('idClase'))
+                id_profesor = int(request.args.get('idProfesor'))
 
-            campos_faltantes = campos_obligatorios - campos_recibidos
-            if campos_faltantes:
-                raise Exception(f'Error al crear usuario. Faltan campos obligatorios: {campos_faltantes}. Por favor, incluya estos campos y vuelva a intentarlo.')  # noqa
+                clase = db.session.query(ClasesModelo).filter_by(idClases=id_clase).first()
+                profesor = db.session.query(ProfesorModelo).filter_by(idProfesor=id_profesor).first()
 
-            for campo in campos_obligatorios:
-                if datos[campo] is None:
-                    raise Exception(f'Error al crear usuario. El campo {campo} no puede ser nulo. Por favor, proporcione un valor válido para {campo} y vuelva a intentarlo.')
+                if clase is not None and profesor is not None:
+                    clase.profesores.append(profesor)
+                    db.session.commit()
 
-            usuario_nuevo = clase_profesorModelo.from_json(datos)
-            db.session.add(usuario_nuevo)
-            db.session.commit()
-            return usuario_nuevo.to_json(), 201
+                    return {'message': 'Profesor agregado a la clase exitosamente.'}, 201
+                else:
+                    return {'error': 'Clase o profesor no encontrado.'}, 404
+            else:
+                return {'error': 'Falta el ID de la clase o del profesor.'}, 400
+        except Exception as e:
+            db.session.rollback()
+            return {'error': str(e)}, 500
+                
+
         # except Exception as e:
         #     return {'error': str(e)}, 400
         # finally:
@@ -187,6 +192,17 @@ class Clases_R(Resource):
 
 class Clase_R(Resource):
     pass
+
+        #     ef post(self):
+        # try:
+        #     clase_nueva = ClasesModelo.from_json(request.get_json())
+        #     db.session.add(clase_nueva)
+        #     db.session.commit()
+        #     return clase_nueva.to_json(), 201
+        # except BaseException:
+        #     abort(404, 'Error al crear la clase')
+        # finally:
+        #     db.session.close()
 
 # #     # def delete(self, user_id):
 # #     #     try:
