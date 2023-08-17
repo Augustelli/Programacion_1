@@ -74,6 +74,29 @@ class Clase_Profesor_R(Resource):
         except Exception as e:
             db.session.rollback()
             return {'error': str(e)}, 500
+    
+    def delete(self):
+        
+        try:
+            if request.args.get('idClase') and request.args.get('idProfesor'):
+                id_clase = int(request.args.get('idClase'))
+                id_profesor = int(request.args.get('idProfesor'))
+
+                clase = db.session.query(ClasesModelo).filter_by(idClases=id_clase).first()
+                profesor = db.session.query(ProfesorModelo).filter_by(idProfesor=id_profesor).first()
+
+                if clase is not None and profesor is not None:
+                    clase.profesores.remove(profesor)
+                    db.session.commit()
+
+                    return {'message': 'Profesor eliminado a la clase exitosamente.'}, 201
+                else:
+                    return {'error': 'Clase o profesor no encontrado.'}, 404
+            else:
+                return {'error': 'Falta el ID de la clase o del profesor.'}, 400
+        except Exception as e:
+            db.session.rollback()
+            return {'error': str(e)}, 500
 
 
 class Clases_R(Resource):
