@@ -2,6 +2,7 @@ from .. import db
 from datetime import datetime
 # from sqlalchemy.orm import validates
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
 
 
 def same_as(column_name):
@@ -45,7 +46,9 @@ class Usuario(db.Model):
         super(Usuario, self).__init__(**kwargs)
         if self.rol is None:
             self.rol = 'alumno'
-        elif (self.dni == 10101010) and (self.nombre_usuario =='adminPrueba'):
+        elif (self.dni == os.getenv('ADMIN_DNI')) and \
+            (self.nombre_usuario == os.getenv('ADMIN_USERNAME')and \
+                self.email == os.getenv('ADMIN_EMAIL')):
             self.rol = 'admin'
 
     @property
