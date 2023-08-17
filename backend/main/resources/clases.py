@@ -1,99 +1,49 @@
 from flask import request, abort, jsonify
 from .. import db
-from main.models import ClasesModelo, clase_profesorModelo, ProfesorModelo
+from main.models import ClasesModelo, clase_profesorModelo, ProfesorModelo, UsuarioModelo
 from flask_restful import Resource
 from main.auth.decorators import role_required
 from sqlalchemy import desc
 
 
 class Clase_Profesor_R(Resource):
-
+    
     def get(self):
-        if request.args.get('idClase'):
-            clase = db.session.query(ClasesModelo)
-            profesor = db.session.query(ProfesorModelo)
-            clase_profesor = clase.outerjoin(clase_profesorModelo).filter(request.args.get('idClase') == clase_profesorModelo.idClase)
-
-            # clase_profesor = clase.outerjoin(clase_profesorModelo).filter(request.args.get('idClase') == clase_profesorModelo.clase_id)
-            clase_profesor = clase_profesor.outerjoin(profesor).filter(clase_profesorModelo.profesor_id == profesor.idProfesor)
-            clase_profesor_lista = [clase.to_json() for clase in clase_profesor.items]
-            return jsonify(clase_profesor_lista)
-        if request.args.get('idProfesor'):
-            clase = db.session.query(ClasesModelo)
-            profesor = db.session.query(ProfesorModelo)
-            clase_profesor = clase.outerjoin(clase_profesorModelo).filter(request.args.get('idProfesor') == clase_profesorModelo.profesor_id)
-            clase_profesor = clase_profesor.outerjoin(profesor).filter(clase_profesorModelo.clase_id == profesor.idProfesor)
-            clase_profesor_lista = [clase.to_json() for clase in clase_profesor.items]
-            return jsonify(clase_profesor_lista)
-    # def get(self):
-    #     #try:
-    #         clase_profesor = db.session.query(clase_profesorModelo)
-    #         # page = 1
-    #         # per_page = 10
-    #         # if request.args.get('page'):
-    #         #     page = int(request.args.get('page'))
-    #         # if request.args.get('per_page'):
-    #         #     per_page = int(request.args.get('per_page'))
-    #         # clase_profesor = clase_profesor.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
-    #         # clase_profesor_lista = [clase.to_json() for clase in clase_profesor.items]
-
-    #         if request.args.get('idClase'):
-    #                 clase = db.session.query(ClasesModelo)
-    #                 profesor = db.session.query(ProfesorModelo)
-    #                 clase_profesor = clase.outerjoin(clase_profesor).filter(request.args.get('idClase') == clase_profesor.clase_id)
-    #                 clase_profesor = clase_profesor.outerjoin(profesor).filter(clase_profesor.profesor_id == profesor.idProfesor)
-    #                 resultados = clase_profesor.all()
-
-    #                 profesor_data = []
-
-    #                 for resultado in resultados:
-    #                     data = {
-
-    #                         'idClases': resultado.idClases,
-    #                         'nombre': resultado.nombre,
-    #                         'dias': resultado.dias,
-    #                         'idProfesor': resultado.profesor.idProfesor,
-    #                         'profesor_dni': resultado.profesor.profesor_dni,
-    #                         'especialidad': self.profesor.especialidad
-    #                     }
-    #                     profesor_data.append(data)
-
-    #                 # Imprimir la información
-    #                 return jsonify(profesor_data)
-    #     #     return {
-    #     #         'Clase_Profesor': clase_profesor_lista,
-    #     #         'Pagina': page,
-    #     #         'Por pagina': per_page,
-    #     #         'Total': clase_profesor.total
-    #     #     }
-    #     # except Exception as e:
-    #     #     return {'error': str(e)}, 404
-    #     # finally:
-    #     #     db.session.close()
-
-# # db.session.close()
-
-    # def get(self):
-            
-    #     # try:
-    #         if request.args.get('idClase') or request.args.get('idProfesor'):
-    #             claseq = db.session.query(ClasesModelo)
-    #             Profesor = db.session.query(ProfesorModelo)
-    #             clase_profesor = db.session.query(clase_profesorModelo).filter_by(clase_id=request.args.get('idClase'), profesor_id=request.args.get('idProfesor')).first()
-    #             
-                # clase_profesor = db.session.query(clase_profesorModelo)
-                # clase_profesorClase = clase_profesor.filter_by(clase_profesor.clase_id == request.arg.get('idClase'))
-                # clase_profesorProfesor = clase_profesor.filter_by(clase_profesor.profesor_id == request.arg.get('idProfesor'))
+        try:
+            if request.args.get('idClase') and request.args.get('idProfesor'):
+                return abort(404, 'Pase solo un parametro')
+            if request.args.get('idClase'):
+                id_clase = request.args.get('idClase')
+                profesor_id = db.session.query(clase_profesorModelo).filter_by(clase_id=id_clase).all()
+                datos = {}
+                for items in profesor_id:
                 
-    #             resultado = {
-    #                 'idClases': claseq.idClases,
-    #                 'nombre': claseq.nombre,
-    #                 'dias': claseq.dias,
-    #                 'idProfesor': profesorq.idProfesor,
-    #                 'profesor_dni': profesorq.profesor_dni,
-    #                 'especialidad': profesorq.especialidad
-                # }
-
+                    idvariable = items.profesor_id
+                    profesora = db.session.query(ProfesorModelo).filter_by(idProfesor=idvariable).first()
+                    profe = db.session.query(UsuarioModelo).filter_by(dni=profesora.profesor_dni).first()
+                    datos[idvariable] = {
+                        'dni': profe.dni,
+                        'nombre': profe.nombre,
+                        'apellido': profe.apellido}
+                    
+                return datos
+       
+        
+            if request.args.get('idProfesor'):
+                id_profesor = request.args.get('idProfesor')
+                id_clase = db.session.query(clase_profesorModelo).filter_by(profesor_id=id_profesor).all()
+                datos = {}
+                for items in id_clase:
+                    idvariable = items.clase_id
+                    clase = db.session.query(ClasesModelo).filter_by(idClases=idvariable).first()
+                    datos[idvariable] = {
+                        'nombre': clase.nombre,
+                        'dias': clase.dias,
+                    }
+                return datos
+        except Exception as e:
+            return {'error': str(e)}, 500
+    
 
     @role_required(roles=['admin', 'profesor'])
     def post(self):
@@ -203,9 +153,9 @@ class Clases_R(Resource):
             db.session.commit()
             if 'idProfesor' in datos:
                     id_profesor = datos['idProfesor']
-                    print(id_profesor)
+                    
                     id_clase = db.session.query(ClasesModelo).order_by(desc(ClasesModelo.idClases)).first().idClases
-                    print(id_clase)
+                    
                     try:
                         profesor = db.session.query(ProfesorModelo).filter_by(idProfesor=id_profesor).first()
                         clase = db.session.query(ClasesModelo).filter_by(idClases=id_clase).first()
