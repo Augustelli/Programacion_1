@@ -14,7 +14,7 @@ class Profesor(db.Model):
     usuario = db.relationship('Usuario', back_populates='profesor', uselist=False)
 
     planificaciones = db.relationship('Planificacion', back_populates='profesor', cascade='all, delete-orphan', single_parent=True)
-    clases= db.relationship('Clases', secondary=clase_profesor, back_populates='profesores')
+    # clases= db.relationship('Clases', secondary=clase_profesor, back_populates='profesores')
 
     def __repr__(self):
         profesor_json = {
