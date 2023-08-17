@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request
 from .. import db
-from main.models import UsuarioModelo, AlumnoModel, ProfesorModelo
+from main.models import UsuarioModelo, AlumnoModel, ProfesorModelo,ClasesModelo
 from flask_jwt_extended import jwt_required, get_jwt_identity  # noqa
 from main.auth.decorators import role_required
 import pdb  # noqa
@@ -89,6 +89,18 @@ class Usuarios(Resource):
                     especialidad=especialidad, 
                     salario=salario)
                 db.session.add(profesor)
+                if 'idClase' in datos:
+                    id_clase = datos['idClase']
+                    id_profesor = db.session.query(ProfesorModelo).filter_by(profesor_dni=usuario_nuevo.dni).first().idProfesor
+                    try:
+                        clase = db.session.query(ClasesModelo).filter_by(idClases=id_clase).first()
+
+                        profesor = db.session.query(ProfesorModelo).filter_by(idProfesor=id_profesor).first()
+                        clase.profesores.append(profesor)
+                        db.session.commit()
+                    except Exception as e:
+                        return {'error': 'No existe esa clase'}, 400
+
 
             if usuario_nuevo.rol == "admin":
                 usuario=UsuarioModelo(
