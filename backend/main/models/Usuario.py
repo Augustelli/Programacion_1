@@ -74,7 +74,7 @@ class Usuario(db.Model):
             'apellido': self.apellido,
             'email': self.email,
             # 'fecha_nacimiento': str(datetime.strptime(self.fecha_nacimiento) , '%Y-%m-%d'),
-            'fecha_nacimiento': str(self.fecha_nacimiento.strftime( '%Y-%m-%d')),
+            # 'fecha_nacimiento': str(self.fecha_nacimiento.strftime( '%Y-%m-%d')),
             'fecha_nacimiento': str(self.fecha_nacimiento.strftime( '%d-%m-%Y')),
             'estado': self.estado,
             'rol': self.rol,
@@ -113,7 +113,7 @@ class Usuario(db.Model):
         apellido = usuario_json.get('apellido')
         email = usuario_json.get('email')
         # fecha_nacimiento = (datetime.strptime(usuario_json.get('fecha_nacimiento'), '%Y-%m-%d'))
-        fecha_nacimiento = (datetime.strptime(usuario_json.get('fecha_nacimiento'), '%Y-%m-%d'))
+        fecha_nacimiento = (datetime.strptime(usuario_json.get('fecha_nacimiento'), '%d-%m-%Y'))
         estado = usuario_json.get('estado')
         rol = usuario_json.get('rol')
         nombre_usuario = usuario_json.get('nombre_usuario')
