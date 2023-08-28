@@ -1,0 +1,53 @@
+.body{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+.planning{
+    color: var(--black, #000);
+font-family: Atkinson Hyperlegible;
+font-size: 1.25rem;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 0.0125rem;
+text-align: center;
+}
+.filterby{
+    color: var(--black, #000);
+font-family: Atkinson Hyperlegible;
+font-size: 0.875rem;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 0.00875rem;
+
+}
+.filterbygroup{
+    /* display: flex;
+    align-items: flex-start;
+    gap: 1.375rem;
+    color: var(--black, #000) */
+    display: flex;
+    justify-content: center;
+    padding: 0.3125rem 0.9375rem;
+    align-items: center;
+    gap: 0.625rem;
+    background-color: transparent;
+}
+
+.filterbybutton{
+    color: var(--black, #000);
+    font-family: Atkinson Hyperlegible;
+    background-color: transparent;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.00875rem;
+}
+.filterbybuttonstyle{
+    border-radius: 1.25rem;
+border: 1px solid #1976D2;
+}
