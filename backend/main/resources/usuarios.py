@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request
 from .. import db
-from main.models import UsuarioModelo, AlumnoModel, ProfesorModelo
+from main.models import UsuarioModelo, AlumnoModel, ProfesorModelo,ClasesModelo
 from flask_jwt_extended import jwt_required, get_jwt_identity  # noqa
 from main.auth.decorators import role_required
 import pdb  # noqa
@@ -82,13 +82,25 @@ class Usuarios(Resource):
 
                 salario = datos['salario'] if "salario" in datos else None
                 especialidad = datos['especialidad'] if 'especialidad' in datos else None
-                profesor_usuario = UsuarioModelo(dni=usuario_nuevo.dni, nombre=usuario_nuevo.nombre, apellido=usuario_nuevo.apellido, email=usuario_nuevo.email, contrasegna=usuario_nuevo.contrasegna, rol=usuario_nuevo.rol)
+                profesor_usuario = UsuarioModelo(dni=usuario_nuevo.dni, nombre=usuario_nuevo.nombre, apellido=usuario_nuevo.apellido, email=usuario_nuevo.email, contrasegna=usuario_nuevo.contrasegna, rol=usuario_nuevo.rol,fecha_nacimiento=usuario_nuevo.fecha_nacimiento, estado=usuario_nuevo.estado, nombre_usuario=usuario_nuevo.nombre_usuario)
                 db.session.add(profesor_usuario)
                 profesor = ProfesorModelo(
                     profesor_dni=usuario_nuevo.dni, 
                     especialidad=especialidad, 
                     salario=salario)
                 db.session.add(profesor)
+                if 'idClase' in datos:
+                    id_clase = datos['idClase']
+                    id_profesor = db.session.query(ProfesorModelo).filter_by(profesor_dni=usuario_nuevo.dni).first().idProfesor
+                    try:
+                        clase = db.session.query(ClasesModelo).filter_by(idClases=id_clase).first()
+
+                        profesor = db.session.query(ProfesorModelo).filter_by(idProfesor=id_profesor).first()
+                        clase.profesores.append(profesor)
+                        db.session.commit()
+                    except Exception as e:
+                        return {'error': 'No existe esa clase'}, 400
+
 
             if usuario_nuevo.rol == "admin":
                 usuario=UsuarioModelo(
@@ -212,8 +224,9 @@ class UsuarioAlumnos(Resource):
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
 
-        usuarios = db.session.query(UsuarioModelo)
+        usuarios = db.session.query(UsuarioModelo )
         usuarios = usuarios.outerjoin(AlumnoModel, UsuarioModelo.dni == AlumnoModel.alumno_dni)
+        usuarios = usuarios.filter(UsuarioModelo.rol == 'alumno')
         # usuarios = query.filter(UsuarioModelo.dni == request.args.get('nrAlumno'))
 
         usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
@@ -297,12 +310,22 @@ class UsuarioProfesor(Resource):
                 else:
                     raise Exception(f"No se ha encontrado usuario con DNI: {(request.args.get('nrDni'))}")
                 usuario_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == int(request.args.get('nrDni'))).first()
+                usuario_editar1 = db.session.query(ProfesorModelo).filter(ProfesorModelo.profesor_dni == int(request.args.get('nrDni'))).first()
                 informacion = request.get_json().items()
                 for campo, valor in informacion:
                     if campo == 'rol':
                         raise Exception('El rol del usuario no puede ser modificado.')
 
                     setattr(usuario_editar, campo, valor)
+                    if campo == 'salario' :
+                        usuario_editar1.salario = float(valor)
+                        db.session.add(usuario_editar1)
+                    
+                    if campo == 'especialidad':
+                        usuario_editar1.especialidad = valor
+                        db.session.add(usuario_editar1)
+
+
                 db.session.add(usuario_editar)
                 db.session.commit()
                 return usuario_editar.to_json(), 201
@@ -353,17 +376,27 @@ class UsuarioAlumno(Resource):
         try:
             if request.args.get('nrDni'):
                 registro = db.session.query(UsuarioModelo).get(request.args.get('nrDni'))
+                
                 if registro:
                     pass
                 else:
                     raise Exception(f"No se ha encontrado alumno con DNI: {(request.args.get('nrDni'))}")
                 usuario_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == int(request.args.get('nrDni'))).first()
+                usuario_editar1 = db.session.query(AlumnoModel).filter(AlumnoModel.alumno_dni == int(request.args.get('nrDni'))).first()
                 informacion = request.get_json().items()
                 for campo, valor in informacion:
                     if campo == 'rol':
                         raise Exception('El rol del usuario no puede ser modificado.')
-
+                    
                     setattr(usuario_editar, campo, valor)
+                    if campo == "peso":
+                        usuario_editar1.peso = float(valor)
+                        db.session.add(usuario_editar1)
+                    if campo == "altura":
+                        usuario_editar1.altura = float(valor)
+                        db.session.add(usuario_editar1)
+
+
                 db.session.add(usuario_editar)
                 db.session.commit()
                 return usuario_editar.to_json(), 201

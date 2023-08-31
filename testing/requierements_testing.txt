@@ -5,6 +5,9 @@ flask_sqlalchemy
 flask_migrate
 flask_jwt_extended
 flask_mail
+<<<<<<< HEAD:testing/requierements_testing.txt
 psycopg2-binary
 coverage
 requests
+=======
+>>>>>>> Kark:backend/requirements.txt.orig

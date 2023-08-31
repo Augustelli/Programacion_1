@@ -3,18 +3,24 @@ from .. import db
 
 clase_profesor = db.Table(
     'clase_profesor',
-    db.Column('profesor_id', db.Integer, db.ForeignKey('profesor.idProfesor'), primary_key=True),
-    db.Column('clase_id', db.Integer, db.ForeignKey('clases.idClases'), primary_key=True)
+    db.Column('profesor_id', db.Integer, db.ForeignKey('profesor.idProfesor')),
+    db.Column('clase_id', db.Integer, db.ForeignKey('clases.idClases'))
 )
-@staticmethod
-def from_json(clases_json):
-    clase_id = clases_json.get('clase_id')
-    profesor_id = clases_json.get('profesor_id')
+# @staticmethod
+# def from_json(clases_json):
+#     clase_id = clases_json.get('clase_id')
+#     profesor_id = clases_json.get('profesor_id')
     
-    return clase_profesor(
-        clase_id=clase_id,
-        profesor_id=profesor_id
-    )
+#     return clase_profesor(
+#         clase_id=clase_id,
+#         profesor_id=profesor_id
+#     )
+
+# def to_json(self):
+#     return {
+#         'clase_id': self.clase_id,
+#         'profesor_id': self.profesor_id
+#     }
 
 
 class Clases(db.Model):
@@ -27,7 +33,7 @@ class Clases(db.Model):
 
     # Relaciones Clases
 
-    profesores = db.relationship('Profesor', secondary=clase_profesor, back_populates='clases', cascade='all, delete-orphan',  single_parent=True )
+    profesores = db.relationship('Profesor', secondary=clase_profesor,backref='clases' )
     planificaciones = db.relationship('Planificacion', back_populates='clase', cascade='all', single_parent=True)
     # def __repr__(self):
     #     return f'<Clases idClases: {self.idClases}> - Nombre: {self.nombre} - Horario: {self.horario} - Dias: {self.dias}'

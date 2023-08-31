@@ -1,0 +1,8 @@
+<nav class="navbar bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-bran" href="Login.html" role="button">
+          <div>
+            <img src="../images/back.svg" alt="configuracion" width="30" height="24" class="d-inline-block align-text-top">
+          </div>
+          </a>
+        </nav>
