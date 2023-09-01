@@ -1,0 +1,1283 @@
+{
+	"info": {
+		"_postman_id": "7c02a0bc-9dfe-4dd6-88d9-145560fc6ce9",
+		"name": "Grupo_D",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26654361"
+	},
+	"item": [
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Devolver lista de los usuarios (Admin)",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": [
+								{
+									"key": "payload",
+									"value": "{\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMTI2MCwianRpIjoiOWEyYTc4YzgtM2U3MC00Mjc2LWFiZDEtNjAwMzM2ZmVhMTg3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMjIzMzI1NywibmJmIjoxNjg0ODAxMjYwLCJleHAiOjE2ODQ4MDQ4NjAsInJvbCI6ImFsdW1ubyIsImlkIjoxMTEyMjMzMjU3LCJlbWFpbCI6Im1hbmN1c29fYXVndXN0b190b21hc0BleGFtcGxlLmNvbSJ9.MffUzDDp9e_r7cgDrQ-9RmJlmK5KINmZg4GC3K5DEO4\"}",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParam",
+									"type": "string"
+								},
+								{
+									"key": "isSecretBase64Encoded",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "secret",
+									"value": "valor",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "HS256",
+									"type": "string"
+								},
+								{
+									"key": "headerPrefix",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "queryParamKey",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "header",
+									"value": "{}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5002/usuarios",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"usuarios"
+							],
+							"query": [
+								{
+									"key": "access_token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMTY2MSwianRpIjoiNWI1YzU1MjMtMmJmZS00YzRhLWJlYjEtMTc0MzVjNjU3YjU2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDE2NjEsImV4cCI6MTY4NDgwNTI2MSwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.Fe__Bhb2g861h-a8A2iBJnOcLW73f6V6K2uURuKQLOc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear un usuario (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NTM5NDU5MCwianRpIjoiOWVmOTA4ZWEtOWUzMS00NzE1LTkxNDItNTRmODBlMTIyZDc2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ODg4ODg4ODgsIm5iZiI6MTY4NTM5NDU5MCwiZXhwIjoxNjg1Mzk4MTkwLCJyb2wiOiJhZG1pbiIsImlkIjo4ODg4ODg4OCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSJ9.v29_pkwUS2hpra5cjiBLlwr-E2WIrPz_zb1Dc8XhJpc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dni\": 123456781,\n    \"nombre\": \"Augusto\",\n    \"apellido\": \"Kark\",\n    \"email\": \"av.kark@alumno.um.edu.com\",\n    \"fecha_nacimiento\": \"15-03-1995\",\n    \"estado\": true,\n    \"rol\": \"alumno\",\n    \"nombre_usuario\":\"Av.kark\",\n    \"contrasegna\":\"contra\",\n    \"altura\":170,\n    \"peso\":55 \n}\n    ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/usuarios",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener usuario por dni",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5002/usuario?nrDni=123456789",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"usuario"
+							],
+							"query": [
+								{
+									"key": "nrDni",
+									"value": "123456789"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar usuario por dni (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NTQxNDQ5NSwianRpIjoiYmQyMjJiMmQtZDAyYi00ZGY4LWI0OTItY2Y2NzNjNWQ2YWViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ODg4ODg4ODgsIm5iZiI6MTY4NTQxNDQ5NSwiZXhwIjoxNjg1NDE4MDk1LCJyb2wiOiJhZG1pbiIsImlkIjo4ODg4ODg4OCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSJ9.YHkKyCaCUaHVcAmIjRmfqX46H4r7itu66vOLCLJdaDc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5002/usuario?nrDni=123456781",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"usuario"
+							],
+							"query": [
+								{
+									"key": "nrDni",
+									"value": "123456781"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar usuario por DNI (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"peso\":60 \n}\n        \n\n       ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/usuario?nrDni=123456789",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"usuario"
+							],
+							"query": [
+								{
+									"key": "nrDni",
+									"value": "123456789"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar nuevo usuario alumno",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dni\": 123456781 ,\n    \"nombre\": \"Augusto\",\n    \"apellido\": \"kark\",\n    \"email\": \"av.kark@alumno.um.edu.ar\",\n    \"fecha_nacimiento\": \"15-03-1995\",\n    \"estado\": true,\n    \"rol\": \"alumno\",\n    \"nombre_usuario\":\"Avkar\",\n    \"contrasegna\":\"hola123\",\n    \"altura\":190,\n    \"peso\":81\n}\n    ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/auth/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in de usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\n\n    \"email\": \"admin@example.com\",\n   \n    \"contrasegna\":\"admin\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/auth/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Alumno",
+			"item": [
+				{
+					"name": "Devolver lista Alumnos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5002/alumnos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"alumnos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear usuario Alumno (Admin Profesor)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dni\": 123456782,\n    \"nombre\": \"Augusto\",\n    \"apellido\": \"Kark\",\n    \"email\": \"lakarknetovich@example.com\",\n    \"fecha_nacimiento\": \"15-03-1995\",\n    \"estado\": true,\n    \"rol\": \"alumno\",\n    \"nombre_usuario\":\"LaMoscaTezTez\",\n    \"contrasegna\":\"cr7hijo\",\n    \"altura\":170,\n    \"peso\":55 \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/alumnos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"alumnos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Devolver Alumno por ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/alumno?nrDni=123456789",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"alumno"
+							],
+							"query": [
+								{
+									"key": "nrDni",
+									"value": "123456789"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar alumno",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"peso\" : 122\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/alumno?nrDni=123456789",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"alumno"
+							],
+							"query": [
+								{
+									"key": "nrDni",
+									"value": "123456789"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar alumno",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"peso\" : 122\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/alumno?nrDni=123456789",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"alumno"
+							],
+							"query": [
+								{
+									"key": "nrDni",
+									"value": "123456789"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profesor",
+			"item": [
+				{
+					"name": "Devolver Profesor por DNI",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5002/profesor?nrDni=987654321",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"profesor"
+							],
+							"query": [
+								{
+									"key": "nrDni",
+									"value": "987654321"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Profesor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDgwMjI2NiwianRpIjoiNzM0NDgyZWMtYjZhMy00NmY4LWE2OWEtYzA0ZmY4OWJkN2ViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4MDIyNjYsImV4cCI6MTY4NDgwNTg2Niwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.-qLP10HSUT6BIMIB9VLOPpQZhvPbhNwPKG49cJfxEEo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"peso\" : 45\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/profesor?nrDni=987654321",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"profesor"
+							],
+							"query": [
+								{
+									"key": "nrDni",
+									"value": "987654321"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pagos",
+			"item": [
+				{
+					"name": "Devolver lista Pagos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5002/pagos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"pagos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Pago",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"monto\": 990,\n  \"fecha_de_pago\": \"07/11/1999\",\n  \"estado\": \"Pagado\",\n  \"dni\": 123456780\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/pagos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"pagos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ELiminar Pago",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5050/pago/45678901",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5050",
+							"path": [
+								"pago",
+								"45678901"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Devolver pago por ID usuario",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/pagos?nrDni=123456780",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"pagos"
+							],
+							"query": [
+								{
+									"key": "nrDni",
+									"value": "123456780"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"monto\":790\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/pagos?idPago=6",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"pagos"
+							],
+							"query": [
+								{
+									"key": "idPago",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clases",
+			"item": [
+				{
+					"name": "Devolver lista de todas las Clases",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							},
+							{
+								"key": "page",
+								"value": "3",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "per_page",
+								"value": "2",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5002/clases?page=2&per_page=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"clases"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "per_page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clase",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"nombre\": \"Rutina de Yoga\",\n\"dias\": \"Martes-Jueves\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/clases",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"clases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Devolver Clase por ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/clases?idClases=7",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"clases"
+							],
+							"query": [
+								{
+									"key": "idClases",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ELiminar Clase por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5050/clase/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5050",
+							"path": [
+								"clase",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Clase por ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\":\"Yogaa\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/clases?idClases=7",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"clases"
+							],
+							"query": [
+								{
+									"key": "idClases",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Planificaciones",
+			"item": [
+				{
+					"name": "Crear Planificacion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NTQxNDQ5NSwianRpIjoiYmQyMjJiMmQtZDAyYi00ZGY4LWI0OTItY2Y2NzNjNWQ2YWViIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ODg4ODg4ODgsIm5iZiI6MTY4NTQxNDQ5NSwiZXhwIjoxNjg1NDE4MDk1LCJyb2wiOiJhZG1pbiIsImlkIjo4ODg4ODg4OCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSJ9.YHkKyCaCUaHVcAmIjRmfqX46H4r7itu66vOLCLJdaDc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rutina\": \"Entrenamiento de biceps\",\n    \"frecuencia\": \"Lunes y Jueves\",\n    \"id_Alumno\": 1,\n    \"id_Clase\": 3,\n    \"idProfesor\": 3,\n    \"fecha\":\"10-05-2023\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/planificaciones_profesores",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"planificaciones_profesores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Planificaciones",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rutina\": \"Entrenamiento de piernas\",\n  \"frecuencia\": \"3 veces por semana\",\n  \"id_Alumno\": 1,\n  \"id_Clase\": 2,\n  \"idProfesor\": 3\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/planificaciones_profesores",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"planificaciones_profesores"
+							],
+							"query": [
+								{
+									"key": "nrDni",
+									"value": "12345678",
+									"disabled": true
+								},
+								{
+									"key": "nrIdPlanificacion",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "nrIdAlumno",
+									"value": "1002",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener planificaciones de alumno",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rutina\": \"Entrenamiento de piernas\",\n  \"frecuencia\": \"3 veces por semana\",\n  \"id_Alumno\": 1,\n  \"id_Clase\": 2,\n  \"idProfesor\": 3\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/planificacion_profesor?nrDni=123456789",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"planificacion_profesor"
+							],
+							"query": [
+								{
+									"key": "nrDni",
+									"value": "123456789"
+								},
+								{
+									"key": "nrIdPlanificacion",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar planificaciones por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rutina\": \"Entrenamiento de piernas\",\n  \"frecuencia\": \"3 veces por semana\",\n  \"id_Alumno\": 1,\n  \"id_Clase\": 2,\n  \"idProfesor\": 3\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/planificacion_profesor?nrIdPlanificacion=9",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"planificacion_profesor"
+							],
+							"query": [
+								{
+									"key": "nrIdPlanificacion",
+									"value": "9"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MOdificar planificaciones por ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rutina\": \"Entrenamiento de pectoral\",\n  \"frecuencia\": \"2 veces por semana\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/planificacion_profesor?nrIdPlanificacion=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"planificacion_profesor"
+							],
+							"query": [
+								{
+									"key": "nrIdPlanificacion",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Devolver planificación de alumno",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg1MTgxNiwianRpIjoiOWFjOGI1MTktZjc3NC00NmZlLThlYmMtMjkxNzI3M2Y4NDQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTExMTExMTExLCJuYmYiOjE2ODQ4NTE4MTYsImV4cCI6MTY4NDg1NTQxNiwicm9sIjoiYWRtaW4iLCJpZCI6MTExMTExMTExLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.0D6senn-o2wqTFOGAAagU0pRXk8f9Y1JZFTUzbh6sGo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5002/planificaciones_profesores?nrDni=111111111",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"planificaciones_profesores"
+							],
+							"query": [
+								{
+									"key": "nrDni",
+									"value": "111111111"
+								},
+								{
+									"key": "nrIdPlanificacion",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

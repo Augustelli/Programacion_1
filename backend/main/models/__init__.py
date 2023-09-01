@@ -8,3 +8,4 @@ from .Profesor import Profesor as ProfesorModelo  # noqa
 from .Usuario import Usuario as UsuarioModelo  # noqa
 # from .Usuario_contrasegna import Usuario_Contrasegna as Usuario_contrasegnaModelo
 from .Login_usuario import Login_usuario as Login_usuarioModelo  # noqa
+    

@@ -8,11 +8,9 @@ class Login_usuario(db.Model):
     __tablename__ = 'login_usuario'
     id_nombre_usuario = db.Column(db.Integer, primary_key=True, index=True)
     nombre_usuario = db.Column(db.String(50), db.ForeignKey('usuario.nombre_usuario'))
-    contrasegna = db.Column(db.String(50))
     fecha_login = db.Column(DateTime, nullable=False, default=datetime.now())
+    hash_datos = db.Column(db.String(128), nullable=False)
     # RELACIONES de login_usuario
-    # login_usuario_contrasegna = db.relationship('Usuario_Contrasegna', back_populates='usuario_contrasegna-login', cascade='all, delete-orphan', single_parent=True)  # noqa: E501
-    # login_usuario_contrasegna = db.relationship('Usuario_contrasegna', back_populates='login', uselist=False)
     usuario = db.relationship('Usuario', back_populates='login1', cascade='all, delete-orphan', single_parent=True)
 
     def __repr__(self):
