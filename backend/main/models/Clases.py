@@ -6,6 +6,12 @@ clase_profesor = db.Table(
     db.Column('profesor_id', db.Integer, db.ForeignKey('profesor.idProfesor')),
     db.Column('clase_id', db.Integer, db.ForeignKey('clases.idClases'))
 )
+<<<<<<< HEAD
+
+    
+
+
+=======
 # @staticmethod
 # def from_json(clases_json):
 #     clase_id = clases_json.get('clase_id')
@@ -15,6 +21,7 @@ clase_profesor = db.Table(
 #         clase_id=clase_id,
 #         profesor_id=profesor_id
 #     )
+>>>>>>> 71ea51022825f95c495f020a406dd4ef12a4eece
 
 # def to_json(self):
 #     return {
