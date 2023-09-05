@@ -5,112 +5,166 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <title>Edit Profile</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            background-color: #f5f5f5;
+        }
+
+        .navbar-brand img {
+            width: 30px;
+            height: 24px;
+            vertical-align: middle;
+        }
+
+        .container-fluid {
+            position: relative;
+        }
+
+        .page-title {
+            text-align: center;
+            color: #1976D2;
+            font-size: 24px;
+            font-family: Audiowide;
+            font-weight: 400;
+            letter-spacing: 0.24px;
+            margin-top: 75px;
+        }
+
+        .info-card {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .info-card img {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+
+        .info-card .text-secondary {
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .action-button {
+            background-color: #034AA6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 25rem;
+            padding: 10px 20px;
+            margin-top: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 100px;
+        }
+
+        .footer-link {
+            flex: 1;
+            text-align: center;
+            color: black;
+        }
+
+        .footer-link img {
+            width: 30px;
+            height: 24px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="Login.html" role="button">
-                    <div>
-                        <img src="../images/back.svg" alt="configuracion" width="30" height="24" class="d-inline-block align-text-top">
-                    </div>
-                </a>
-            </div>
-        </nav>
-    </div>
-    
-    <!-- Mueve el siguiente contenido debajo de <h1>Edit profile</h1> -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="Login.html">
+                <img src="../images/back.svg" alt="configuracion">
+            </a>
+        </div>
+    </nav>
+
     <div class="container-fluid">
-        <div class="d-flex justify-content-center align-items-start vh-100">
-            <div class="text-center mt-5">
-                <h1>Edit profile</h1>
-            </div>
-        </div>
+        <h1 class="page-title">Edit Profile</h1>
     </div>
-    
-    <div class="container-fluid" style="position: absolute;">  
+
+    <div class="container-fluid">  
         <div class="row">
-          <div class="col-md-6">
-              <div class="bg-light p-3 rounded d-flex align-items-center gap-2 mb-3">
-                  <div style="width: 7rem; height: 20px;"></div>
-                  <div class="text-secondary">Name</div>
-              </div>
-          </div>
-          <div class="col-md-6">
-              <div class="bg-light p-3 rounded d-flex align-items-center  gap-2 mb-3">
-                <div style="width: 7rem; height: 20px;"></div> 
-                <div class="text-secondary">Lastname</div>    
-              </div>
-          </div>
-    
-        <div class="col-md-6">
-            <div class="bg-light p-3 rounded d-flex align-items-center gap-2 mb-3">
-                <div style="width: 7rem; height: 20px;"></div>
-                <div class="text-secondary">Date of birth</div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="bg-light p-3 rounded d-flex justify-content-between align-items-center gap-2 mb-3">
-                <div class="d-flex align-items-center">
+            <div class="col-md-6">
+                <div class="info-card">
                     <div style="width: 7rem; height: 20px;"></div>
-                    <img src="../images/Login/email.svg" alt="email" >
-                    <div class="text-secondary">   Mail</div>
+                    <div class="text-secondary">Name</div>
                 </div>
             </div>
-        </div>
-  
-        <div class="col-md-6">
-            <div class="bg-light p-3 rounded d-flex align-items-center gap-2 mb-3">
-                <div style="width: 7rem; height: 20px;"></div>
-                <div class="text-secondary">Username</div>
+            <div class="col-md-6">
+                <div class="info-card">
+                    <div style="width: 7rem; height: 20px;"></div>
+                    <div class="text-secondary">Lastname</div>    
+                </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="bg-light p-3 rounded d-flex justify-content-between align-items-center gap-2 mb-3">
-                <div class="d-flex align-items-center">
+            <div class="col-md-6">
+                <div class="info-card">
+                    <div style="width: 7rem; height: 20px;"></div>
+                    <div class="text-secondary">Date of birth</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="info-card">
+                    <div style="width: 7rem; height: 20px;"></div>
+                    <img src="../images/Login/email.svg" alt="email">
+                    <div class="text-secondary">Mail</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="info-card">
+                    <div style="width: 7rem; height: 20px;"></div>
+                    <div class="text-secondary">Username</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="info-card">
                     <div style="width: 7rem; height: 20px;"></div>
                     <div class="text-secondary">DNI</div>
                 </div>
             </div>
-        </div>
-   
-        <div class="col-md-6">
-            <div class="bg-light p-3 rounded d-flex align-items-center gap-2 mb-3">
-                <div style="width: 7rem; height: 20px;"></div>
-                <div class="text-secondary">Gender</div>
+            <div class="col-md-6">
+                <div class="info-card">
+                    <div style="width: 7rem; height: 20px;"></div>
+                    <div class="text-secondary">Gender</div>
+                </div>
             </div>
         </div>
     </div>
 
-</div>
-
-    <!-- aca termina lo chido -->
-    
-    <div class="d-flex justify-content-center" style="margin-top: 75px;">
-        <div class="d-flex gap-3" style="align-items: flex-start">
-            <button class="btn btn-primary btn-lg rounded-pill" style="background: #034AA6; width: 25rem;">Upgrade</button>
-        </div>
+    <div class="d-flex justify-content-center">
+        <button class="action-button">Upgrade</button>
     </div>
 
-    <div class="container-fluid">
-        <div class="row">
-            <a class="col-6 text-center" href="Planificacion.html" alt="Link Planificacion">
-                <div>
-                    <img src="../images/planificacion.svg" alt="planificacion" width="30" height="24" class="d-inline-block align-text-top">
-                </div>
-                <div>
-                    Planificacion
-                </div>
-            </a>
-            <a class="col-6 text-center" href="Clases.html" alt="Link Cases">
-                <div>
-                    <img src="../images/clases.svg" alt="planificacion" width="30" height="24" class="d-inline-block align-text-top align-text-center">
-                </div>
-                <div style="color: black;">
-                    Clases
-                </div>
-            </a>
-        </div>
+    <div class="container-fluid footer-links">
+        <a class="footer-link" href="Planificacion.html" alt="Link Planificacion">
+            <div>
+                <img src="../images/planificacion.svg" alt="planificacion">
+            </div>
+            <div>
+                Planificacion
+            </div>
+        </a>
+        <a class="footer-link" href="Clases.html" alt="Link Cases">
+            <div>
+                <img src="../images/clases.svg" alt="planificacion">
+            </div>
+            <div style="color: black;">
+                Clases
+            </div>
+        </a>
     </div>
 </body>
 </html>
