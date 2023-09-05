@@ -35,7 +35,7 @@
             transition: color 0.3s;
         }
 
-        .active {
+        .value.active {
             color: #056cf2;
             font-size: 64px;
         }
@@ -45,7 +45,7 @@
             gap: 16px;
             margin-top: 16px;
         }
-
+        
         .button {
             padding: 10px 20px;
             background-color: #056cf2;
@@ -55,8 +55,16 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-
+        
         .button:hover {
+            background-color: #034aa6;
+        }
+        
+        .button:focus {
+            outline: none;
+        }
+        
+        .button:active {
             background-color: #034aa6;
         }
     </style>
@@ -66,7 +74,7 @@
         What's your height?
         <div style="width: 100%; text-align: center; color: black; font-size: 14px; font-family: Atkinson Hyperlegible; font-weight: 400; letter-spacing: 0.14px; word-wrap: break-word">Height in cm. Don’t worry, you can always change it later.</div>
         <br>
-        <span style="margin-top: 10px; display: inline-block;">Heigth</span>
+        <span style="margin-top: 10px; display: inline-block;">Height</span>
     </div>
     
     <div class="value-picker">
@@ -96,14 +104,14 @@
     </script>
     <div class="d-flex justify-content-center" style="margin-top: 75px;">
         <div class="d-flex gap-3" style="align-items: flex-start;">
-            <button class="btn btn-primary btn-lg rounded-pill" style="background: rgba(3, 74, 166, 0.75); width: 120px;">Back</button>
-            <button class="btn btn-primary btn-lg rounded-pill" style="background: #034AA6; width: 120px;">Continue</button>
+            <a href="./seleccion_peso.html">
+                <button class="btn btn-primary btn-lg rounded-pill active" style="background: rgba(3, 74, 166, 0.75); width: 120px;">Back</button>
+            </a>
+            <a href="../EditarPerfil/editprofile.html">
+                <button class="btn btn-primary btn-lg rounded-pill active" style="background: #034AA6; width: 120px;">Continue</button>
+            </a>
         </div>
     </div>
-    
-    
-    
-    
     
 </body>
 </html>
