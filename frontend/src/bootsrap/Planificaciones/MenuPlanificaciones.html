@@ -1,103 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gimnasio App</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gimnasio App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
 <body>
   <div>
     <div class="col-sm-12 text-center" style="background-color: #1976D2; height: 4rem;">
-    
-        <img src="../images/game-icons_muscle-up.svg" alt="logo" class="logo" style="height:40px; margin-top: 1rem;"  >
+
+      <img src="../images/game-icons_muscle-up.svg" alt="logo" class="logo" style="height:40px; margin-top: 1rem;">
+    </div>
+  </div>
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="Menu.html">
+        <div>
+          <img src="../images/game-icons_muscle-up.svg" alt="Logo" width="30" height="24"
+            class="d-inline-block align-text-top" style="background-color: #1976D2; border-radius: 6px;">
+        </div>
+        <div>
+          Fitnex
+
+        </div>
+      </a>
+      <div>
+        <a class="navbar-brand" href="configuracion.html">
+          <img src="../images/Vector.svg" alt="configuracion" width="30" height="24">
+        </a>
+        <p class="d-inline-flex gap-1">
+
+          <a href="../Login/Logout.html" class="btn btn-primary" role="button" data-bs-toggle="button">Log out</a>
+        </p>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <h1 class="col" style="margin-left: 8%;">
+        Planning
+      </h1>
+      <a class="col-2" href="Planificacion.html" style="text-decoration: none; margin-right: 1rem;">
+        See all
+      </a>
+    </div>
+  </div>
+
+
+
+  <div class="container-fluid mx-auto" style="margin-top: 2rem; margin-bottom: 5rem; margin-left: 5rem; margin-right: 5rem">
+    <div class=" row-cols-1 row-cols-md-3" style="max-width: 50%;">
+        <div class=" col-md-auto ml-3">
+            <div class="card">
+                <img src="../images/planificacion/chicaplanificacion.png" class="card-img-top" alt="..." >
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Profesor</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aquí aplicamos la clase ml-3 para agregar margen a la izquierda -->
+        <div class="col col-md-auto ml-3">
+            <div class="card">
+                <img src="../images/planificacion/chicaplanificacion.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Profesor .</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-md-auto">
+            <div class="card">
+                <img src="../images/planificacion/chicaplanificacion.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Profesor</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-md-auto">
+            <div class="card">
+                <img src="../images/planificacion/chicaplanificacion.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Profesor.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-    <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="Menu.html">
-            <div>
-              <img src="../images/game-icons_muscle-up.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" style="background-color: #1976D2; border-radius: 6px;">     
-            </div>
-            <div>
-              Fitnex
 
-            </div>
-          </a>
-          <div>
-          <a class="navbar-brand" href="configuracion.html">
-            <img src="../images/Vector.svg" alt="configuracion" width="30" height="24">
-          </a>
-          <p class="d-inline-flex gap-1">
-            <a href="../Login/Logout.html" class="btn btn-primary" role="button" data-bs-toggle="button">Log out</a>
-        </div>
-        </div>
-      </nav> 
-      <div>
-  <div class="container-fluid">
-    <div class="row">
-    <h1 class ="col" style="margin-left: 8%;">
-      Planning
-    </h1>
-  <a class="col-2" href="Planificacion.html" style="text-decoration: none; margin-right: 1rem;">
-    See all
-  </a>
-    </div>
-  </div>
 
+<div class="container-fluid" style="padding: 10px; text-align: center; position: fixed; bottom: 3rem; left: 0; right: 0; margin-top: 1rem; z-index: 2;">
   <div class="row">
-    <button class="col" type="button"  style="border-radius: 1.25rem; border: 1px solid #1976D2; padding: 1px; margin-bottom: 1%; margin-left:7rem; margin-right: 50px;">Filter by:</button>
-    <button class="col" type="button"  style="border-radius: 1.25rem; border: 1px solid #1976D2; padding: 1px; margin-bottom: 1%; margin-left:1rem; margin-right: 10px;">Date</button>
-    <button class="col" type="button" style="border-radius: 1.25rem; border: 1px solid #1976D2; padding: 1px; margin-bottom: 1%; margin-left: 0.5rem ;margin-right: 2rem;">Class</button>
-  </div>
-
-  <div class="card text-bg-dark" style="margin-top: 5%; margin-right: 5%; margin-left: 5%; width: 90%; height: 10rem; border-radius: 25px;">
-    <img src="#" class="card-img" alt="clase de fondo" style="height: 100%; width: 100%;">
-    <div class="card-img-overlay">
-      <h5 class="card-title text-center mb-3" style="margin-top: 4rem;">Nombre de Planificacion</h5>
-      <p class="card-text text-center">clase | horarios</p>
-    </div>
-  </div>
-
-  <div class="card text-bg-dark" style="margin-top: 5%;margin-right: 5%;margin-left: 5%;width: 90%; height: 100%;border-radius: 25px;">
-    <img src="#" class="card-img" alt="clase de fondo" style="height: 10rem; width: 15rem;">
-    <div class="card-img-overlay">
-      <h5 class="card-title text-center mb-3" style="margin-top: 4rem;">Nombre de Planificacion</h5>
-      <p class="card-text text-center">clase | horarios</p>
-    </div>
-  </div>
-
-  <div class="card text-bg-dark" style="margin-top: 5%;margin-right: 5%;margin-left: 5%;max-width: 90%; max-height: 4%;border-radius: 25px;">
-    <img src="#" class="card-img" alt="clase de fondo" style="height: 10rem; width: 15rem;">
-    <div class="card-img-overlay">
-      <h5 class="card-title text-center mb-3" style="margin-top: 4rem;">Nombre de Planificacion</h5>
-      <p class="card-text text-center">clase | horarios</p>
-    </div>
-  </div>
-  <div class="container-fluid">
-    <div class="row">
-        <a class="col-6 text-center" href="Planificacion.html" alt="Link Planificacion">
+      <a class="col-6 text-center" href="../Planificaciones/MenuPlanificaciones.html" alt="Link Planificacion">
           <div>
-            <img src="../images/planificacion.svg" alt="planificacion" width="30" height="24" class="d-inline-block align-text-top" >     
+              <img src="../images/planificacion.svg" alt="planificacion" width="30" height="24" class="d-inline-block align-text-top">
           </div>
           <div>
-            Planificacion
+              Planificacion
           </div>
-    </a>
-        <a class="col-6 text-center" href="../Clases/clases.html" alt="Link Cases">
+      </a>
+      <a class="col-6 text-center" href="../Clases/clases.html" alt="Link Cases">
           <div>
-          <img src="../images/clases.svg" alt="planificacion" width="30" height="24" class="d-inline-block align-text-top align-text-center" >     
-        </div>
-        <div style="color: black;">
-          Clases
-        </div>
-      </div>
+              <img src="../images/clases.svg" alt="planificacion" width="30" height="24" class="d-inline-block align-text-top align-text-center">
+          </div>
+          <div style="color: black;">
+              Clases
+          </div>
       </a>
   </div>
-  </div>
-  
-      
+</div>
 
-      
+<div class="col-xl" style="background-color: #1976D2; padding: 10px; text-align: center; position: fixed; bottom: 0; left: 0; right: 0; margin-top: 1rem; z-index: 1;">
+  <div style="color: #1976D2">·</div>
+</div>
+
 </body>
+
 </html>
+
+
+
+
