@@ -1,0 +1,10 @@
+<div class="value-picker">
+    <div class="values" (scroll)="onWheel($event)">
+      <div *ngFor="let value of values" 
+           class="value" 
+           [class.active]="activeIndex === value">
+        {{ value }}
+      </div>
+    </div>
+  </div>
+  
