@@ -1,0 +1,24 @@
+
+<button (click)="verClases()">Ver Clases</button>
+<button (click)="ocultarClases()">Ocultar Clases</button>
+
+<div *ngIf="varVerClases" class=" row-md-auto ml-3">
+<div *ngFor="let clases of arrayClases;index as i">
+<div class="col">
+    <div class="card card-sm">
+        <img src="{{clases.img}}" class="card-img-top w-100 h-auto" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{clases.nombreClase}}</h5>
+            <p class="card-text">{{clases.nombreProfesor}}</p>
+            <p class="card-text">{{clases.horario}}</p>
+            <p class="card-text">{{clases.duracion}}</p>
+            <p class="card-text">Cupos: {{clases.cupos}}</p>
+
+           
+          
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
