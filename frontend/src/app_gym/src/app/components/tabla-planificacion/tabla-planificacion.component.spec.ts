@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TablaPlanificacion } from './tabla-planificacion.component';
+import { TablaPlanificacionComponent } from './tabla-planificacion.component';
 
 describe('TablaPlanificacionComponent', () => {
-  let component: TablaPlanificacion;
-  let fixture: ComponentFixture<TablaPlanificacion>;
+  let component: TablaPlanificacionComponent;
+  let fixture: ComponentFixture<TablaPlanificacionComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TablaPlanificacion]
+      declarations: [TablaPlanificacionComponent]
     });
-    fixture = TestBed.createComponent(TablaPlanificacion);
+    fixture = TestBed.createComponent(TablaPlanificacionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
