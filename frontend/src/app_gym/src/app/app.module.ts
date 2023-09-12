@@ -14,6 +14,7 @@ import { Backvar2Component } from './components/backvar2/backvar2.component';
 import { VerPlanificacionesComponent } from './components/ver-planificaciones/ver-planificaciones.component';
 import { VerClasesComponent } from './components/ver-clases/ver-clases.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { InicioComponent } from './pages/inicio/inicio.component';
     Backvar2Component,
     VerPlanificacionesComponent,
     VerClasesComponent,
-    InicioComponent
+    InicioComponent,
+    EditarPerfilComponent
   ],
   imports: [
     BrowserModule,

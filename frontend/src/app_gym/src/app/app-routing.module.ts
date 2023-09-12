@@ -4,6 +4,7 @@ import { ClasesComponent } from './pages/clases/clases.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'clases',component:ClasesComponent},
   {path:'**',redirectTo:'error_page'},
-  {path:'inicio',component:InicioComponent}
+  {path:'inicio',component:InicioComponent},
+  {path:'editar_perfil',component:EditarPerfilComponent}
 
 ];
 
