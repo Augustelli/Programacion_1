@@ -9,7 +9,8 @@ import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.compo
 
 
 const routes: Routes = [
-  {path:'',redirectTo:'/home',pathMatch:'full'},
+  {path:'',redirectTo:'/inicio',pathMatch:'full'},
+  {path:'inicio',component:InicioComponent},
   {path:'home',component:HomeComponent},
   {path:'login',component:LoginComponent},
   {path:'clases',component:ClasesComponent},

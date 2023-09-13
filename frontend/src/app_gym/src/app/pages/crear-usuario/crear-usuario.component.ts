@@ -11,28 +11,33 @@ export class CrearUsuarioComponent {
   componentsArray = [
     {
       "numbers": [],
-      "title": "edad",
-      "description": "algo"
+      "title": "Tell Us About Yourself",
+      "description": "To give you a better experience and results We need to know your gender."
     },
     {
       "numbers": [],
-      "title": "dia",
-      "description": "algo"
+      "title": "How Old Are You?",
+      "description": "Day"
     },
     {
       "numbers": [],
-      "title": "anio",
-      "description": "algo"
+      "title": "How Old Are You?",
+      "description": "Month"
     },
     {
       "numbers": [],
-      "title": "altura",
-      "description": "algo"
+      "title": "How Old Are You?",
+      "description": "Year"
     },
     {
       "numbers": [],
-      "title": "mes",
-      "description": "algo"
+      "title": "What's your height?",
+      "description": "Height in cm. Don't worry, you can always change this later."
+    },
+    {
+      "numbers": [],
+      "title": "What's your weight?",
+      "description": "Weight in kg. Don't worry, you can always change this later."
     }
   ];
 
