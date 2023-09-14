@@ -1,20 +1,24 @@
-<button (click)="verPlanificaciones()">Ver Planificaciones</button>
-<button (click)="ocultarPlanificaciones()">Ocultar Planificaciones</button>
+<!-- <button (click)="verPlanificaciones()">Ver Planificaciones</button>
+<button (click)="ocultarPlanificaciones()">Ocultar Planificaciones</button> -->
 
 <div *ngIf="varVerPlanificaciones" class=" row-md-auto ml-3 margin-bottom:10rem">
     <div *ngFor="let planificacion of arrayPlanificaciones;index as i">
-        <div class="col-md-auto">
-        <div class="card">
-            <!-- <img src="'../../../assets/planificacion/chicaplanificacion'+(i+1)+'.png'" class="card-img-top" alt="..." > -->
+        <div class="col-lg" style="max-width: 700px; margin-left: 15%;margin-right: 15%">
+        <div class="card" style="background-color: lightblue; margin-bottom: 1rem; border-radius: 15px;">
+          
             <img src={{planificacion.img}} class="card-img-top" alt="..." >
-            <div class="card-body">
+            <div class="card-body" >
+                <div (click)="onPlanificacionClick()">
                 <h5 class="card-title">{{i}}-{{planificacion.nombreprofesor}}</h5>
                 <p class="card-text">{{planificacion.nombreclase}}</p>
+            </div>
             </div>
         </div>
         </div>
 </div>
 </div>
+
+  
 
 <!-- Aquí aplicamos la clase ml-3 para agregar margen a la izquierda -->
 <!-- <div class="col col-md-auto ml-3">

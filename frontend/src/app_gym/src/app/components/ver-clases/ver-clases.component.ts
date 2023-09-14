@@ -48,6 +48,14 @@ export class VerClasesComponent {
 
 
   ]
+  getClasesEnPares() {
+    const clasesEnPares = [];
+    for (let i = 0; i < this.arrayClases.length; i += 2) {
+      const par = [this.arrayClases[i], this.arrayClases[i + 1]];
+      clasesEnPares.push(par);
+    }
+    return clasesEnPares;
+  }
 
   constructor() { }
 

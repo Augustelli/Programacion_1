@@ -23,6 +23,7 @@ import { TablaPlanificacionComponent } from './components/tabla-planificacion/ta
 import { SexoComponent } from './components/sexo/sexo.component';
 // import { CrearUsuarioComponent } from './pages/crar-usuario-main/crar-usuario-main.component';
 // import MatInputModule from '@angular/material/input';
+import { TablaPlanificacionGrillaaComponent } from './components/tabla-planificacion-grillaa/tabla-planificacion-grillaa.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { SexoComponent } from './components/sexo/sexo.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    TablaPlanificacionGrillaaComponent
   
   ],
   providers: [],

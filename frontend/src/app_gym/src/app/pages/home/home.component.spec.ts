@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TablaPlanificacionGrillaaComponent } from 'src/app/components/tabla-planificacion-grillaa/tabla-planificacion-grillaa.component';
 import { HomeComponent } from './home.component';
 
 
@@ -20,3 +20,4 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+ 

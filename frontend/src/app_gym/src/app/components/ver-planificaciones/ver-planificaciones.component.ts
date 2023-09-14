@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-ver-planificaciones',
@@ -7,7 +8,10 @@ import { Component } from '@angular/core';
 })
 export class VerPlanificacionesComponent {
 
+  @Output() planificacionClickeada = new EventEmitter<void>();
+
   varVerPlanificaciones = true;
+
   
   arrayPlanificaciones=[
     {
@@ -28,7 +32,9 @@ export class VerPlanificacionesComponent {
       nombreclase: "Zumba",
     }
   ]
-
+  onPlanificacionClick() {
+    this.planificacionClickeada.emit();}
+    
   constructor() { }
 
   ngOnInit(): void {
