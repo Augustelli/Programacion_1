@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
         <div class="d-flex justify-content-center">
           <div class="d-flex gap-3" style="align-items: flex-start;">
             <button class="btn btn-primary btn-lg rounded-pill skip-button" (click)="skip()">Skip</button>
-            <button class="btn btn-primary btn-lg rounded-pill continue-button" (click)="continue()">Continue</button>
+            <button class="btn btn-primary btn-lg rounded-pill continue-button" >Continue</button>
           </div>
         </div>
       </div>
@@ -38,10 +38,10 @@ export class BotonesBkctComponent {
     this.router.navigate(['/home']);
   }
 
-  @Output() nextPage = new EventEmitter<void>();
+  // @Output() nextPage = new EventEmitter<void>();
 
-  continue() {
-    // Emit the countIncremented event to the parent component
-    this.nextPage.emit();
-  }
+  // continue() {
+  //   // Emit the countIncremented event to the parent component
+  //   this.nextPage.emit();
+  // }
 }

@@ -1,8 +1,8 @@
 <app-nav1></app-nav1>
 <!-- <app-flecha-atras></app-flecha-atras> -->
-<nav class="navbar bg-body-tertiary">
+<nav class="navbar bg-body-tertiary"  (click)="onBack()">
     <div class="container-fluid">
-      <a class="navbar-brand" href="javascript:void(0)"  role="button">
+      <a class="navbar-brand" href="javascript:void(0)"  role="button" >
         <div>
           <img src="../../assets/back.svg"  alt="configuracion" width="30" height="24" class="d-inline-block align-text-top">
         </div>
@@ -10,12 +10,16 @@
     </div>
   </nav>
 
-<div class="row-col-1" style="position: absolute 50%; margin-top: 3rem;">
+<div class="row-col-1"  style="position: absolute 50%; margin-top: 3rem;">
 <h1 title class="text-center">{{ componentsArray[selectedComponent].title }}</h1>
 <h5 description class="text-center" style="color:#1976D2">{{ componentsArray[selectedComponent].description }}</h5>
-<app-scroll-numbers></app-scroll-numbers>
+<app-scroll-numbers *ngIf="varNoSexo"></app-scroll-numbers>
+<app-sexo *ngIf="varSexo"></app-sexo>>
 </div>
 
-<app-botones-bkct (nextPage)="onContinue()"></app-botones-bkct>
+<!-- <app-botones-bkct (nextPage)="onContinue()"></app-botones-bkct> -->
+<div (click)="onContinue()">
+<app-botones-bkct ></app-botones-bkct>
+</div>
 <app-backvar2></app-backvar2>
 

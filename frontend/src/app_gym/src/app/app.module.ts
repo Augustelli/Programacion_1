@@ -15,11 +15,15 @@ import { VerPlanificacionesComponent } from './components/ver-planificaciones/ve
 import { VerClasesComponent } from './components/ver-clases/ver-clases.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.component';
-import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.component';
+import * as crearUsuarioComponent from './pages/crear-usuario/crear-usuario.component';
 import { FlechaAtrasComponent } from './components/flecha-atras/flecha-atras.component';
 import { BotonesBkctComponent } from './components/botones-bkct/botones-bkct.component';
 import { ScrollNumbersComponent } from './components/scroll-numbers/scroll-numbers.component';
 import { TablaPlanificacionComponent } from './components/tabla-planificacion/tabla-planificacion.component';
+import { SexoComponent } from './components/sexo/sexo.component';
+// import { CrearUsuarioComponent } from './pages/crar-usuario-main/crar-usuario-main.component';
+// import MatInputModule from '@angular/material/input';
+
 
 @NgModule({
   declarations: [
@@ -36,15 +40,18 @@ import { TablaPlanificacionComponent } from './components/tabla-planificacion/ta
     VerClasesComponent,
     InicioComponent,
     EditarPerfilComponent,
-    CrearUsuarioComponent,
+    crearUsuarioComponent.CrearUsuarioComponent,
     FlechaAtrasComponent,
     BotonesBkctComponent,
     ScrollNumbersComponent,
-    TablaPlanificacionComponent
+    TablaPlanificacionComponent,
+    SexoComponent,
+    // crearUsuarioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
+  
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./editar-perfil.component.css']
 })
 export class EditarPerfilComponent {
+  toHome() {
+    window.location.href = '/home';
+  }
 
 }
