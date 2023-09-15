@@ -7,6 +7,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.component';
 import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.component';
 // import { CrearUsuarioMainComponent } from './pages/crar-usuario-main/crar-usuario-main.component';
+import { LoginTwoComponent } from './pages/login-two/login-two.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path:'inicio',component:InicioComponent},
   {path:'editar_perfil',component:EditarPerfilComponent},
   {path:'crear_usuario',component:CrearUsuarioComponent},
+  {path:'login_two',component:LoginTwoComponent}
   // {path:'crear_usuario_main',component:CrearUsuarioMainComponent},
 
 ];

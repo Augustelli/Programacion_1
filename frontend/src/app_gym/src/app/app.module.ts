@@ -24,6 +24,8 @@ import { SexoComponent } from './components/sexo/sexo.component';
 // import { CrearUsuarioComponent } from './pages/crar-usuario-main/crar-usuario-main.component';
 // import MatInputModule from '@angular/material/input';
 import { TablaPlanificacionGrillaaComponent } from './components/tabla-planificacion-grillaa/tabla-planificacion-grillaa.component';
+import { LoginTwoComponent } from './pages/login-two/login-two.component';
+import { LoginThreeComponent } from './components/login-three/login-three.component';
 
 
 @NgModule({
@@ -47,12 +49,16 @@ import { TablaPlanificacionGrillaaComponent } from './components/tabla-planifica
     ScrollNumbersComponent,
     TablaPlanificacionComponent,
     SexoComponent,
+    LoginTwoComponent,
+    // TablaPlanificacionGrillaaComponent
     // crearUsuarioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    TablaPlanificacionGrillaaComponent
+    TablaPlanificacionGrillaaComponent,
+    LoginThreeComponent,
+
   
   ],
   providers: [],
