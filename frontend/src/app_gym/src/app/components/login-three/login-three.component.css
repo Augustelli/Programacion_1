@@ -1,0 +1,23 @@
+    .first-form {
+    margin-top: 50px; /* Ajusta este valor según sea necesario para evitar la superposición */
+  }
+
+    .example-container mat-form-field + mat-form-field {
+    margin-left: 8px;
+  }
+
+  .example-container mat-form-field + mat-form-field {
+    margin-left: 8px;
+  }
+  
+  .example-right-align {
+    text-align: right;
+  }
+  
+  input.example-right-align::-webkit-outer-spin-button,
+  input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+
+  

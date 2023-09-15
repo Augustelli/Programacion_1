@@ -50,6 +50,7 @@ import { LoginThreeComponent } from './components/login-three/login-three.compon
     TablaPlanificacionComponent,
     SexoComponent,
     LoginTwoComponent,
+    
     // TablaPlanificacionGrillaaComponent
     // crearUsuarioComponent
   ],

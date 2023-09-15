@@ -1,28 +1,109 @@
-<div class="container" style="text-align: center; margin-top: 2rem;margin-bottom: 10rem;">
-<form class="example-form">
-    <mat-form-field class="example-full-width">
+
+<!-- 
+<div style="text-align: center; margin-top: 5rem;">
+
+  <form class="example-form first-form" style="margin-top: 2rem;">
+
+    <mat-form-field class="example-full-width" style="margin-top: 2rem;">
       <mat-label>Username</mat-label>
-      <input matInput placeholder="Ex. Pizza" value="Sushi">
+      <input matInput placeholder="Ex. PepeHonguito123" value="Username">
     </mat-form-field>
 </form>
-
-<form class="example-form"> 
- 
-    <mat-form-field class="example-full-width">
-      <mat-label>Email</mat-label>
-      <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-             placeholder="Ex. pat@example.com">
-      <mat-hint>Errors appear instantly!</mat-hint>
-      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-        Please enter a valid email address
-      </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError('required')">
-        Email is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-  </form>
-
 </div>
+
+
+<div style="text-align: center; margin-top: 1rem">
+  <mat-form-field>
+    <mat-label>Enter your password</mat-label>
+    <input matInput [type]="hide ? 'password' : 'text'">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"> -->
+      <!-- <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+    <!-- </button>
+  </mat-form-field>
+</div>
+<div class="container"style="text-align: center; margin-top: 1rem">
+    <mat-form-field>
+      <mat-label>Enter your email</mat-label>
+      <input matInput placeholder="pat@example.com" [formControl]="email" required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div style="text-align: center; margin-top: 1rem">
+    <mat-form-field>
+      <mat-label>Confirm email</mat-label>
+      <input matInput placeholder="pat@example.com" [formControl]="email" required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div> -->
+  <div style="text-align: center; margin-top: 2rem;" >
+    <form  >
+      <mat-form-field >
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="Ex. PepeHonguito123" value="Username">
+      </mat-form-field>
+    </form>
+  </div>
+  
+  <div style="text-align: center; margin-top: 1rem;">
+    <mat-form-field>
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <!-- <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+      </button>
+    </mat-form-field>
+  </div>
+  
+  <div style="text-align: center; margin-top: 1rem;" *ngIf="varLogin">
+    <mat-form-field>
+      <mat-label>Enter your email</mat-label>
+      <input matInput placeholder="pat@example.com" [formControl]="email" required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+  
+  <div style="text-align: center; margin-top: 1rem;" *ngIf="varLogin">
+    <mat-form-field>
+      <mat-label>Confirm email</mat-label>
+      <input matInput placeholder="pat@example.com" [formControl]="confirmEmail" required>
+      <mat-error *ngIf="confirmEmail.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-sm-12 text-center" *ngIf="varLogin" routerLink="/crear_usuario">
+
+    <div class="row">
+        <a  style="text-decoration: none;" >
+            <div routerLink="/crear_usuario" >
+            <p> 
+                <button type="button" class="btn active," data-bs-toggle="button" aria-pressed="true" style="padding-left: 9.5%; padding-right: 9.5%; ; background-color: #1976D2; color: var(--white, #FFF);border-radius: 25px; ">
+                    Continue 
+                </button>
+            </p>
+        </div>
+    </a>
+    </div>
+</div>
+<div class="col-sm-12 text-center" *ngIf="!varLogin" routerLink="/home">
+
+  <div class="row">
+      <a  style="text-decoration: none;">
+          <div routerLink="/home" >
+          <p> 
+              <button type="button" class="btn active," data-bs-toggle="button" aria-pressed="true" style="padding-left: 9.5%; padding-right: 9.5%; ; background-color: #1976D2; color: var(--white, #FFF);border-radius: 25px; ">
+                  Continue
+              </button>
+          </p>
+      </div>
+  </a>
+  </div>
+</div>
+
+  
+
+  
+
+
   
 
   

@@ -54,12 +54,14 @@
         </a>
     </div>
     <div class="row">
-        <a href="SigIn.html"  style="text-decoration: none;">
-            <p>
+        <a  style="text-decoration: none;">
+            <div routerLink="/login_two" [queryParams]="{ varLogin: false }">
+            <p> 
                 <button type="button" class="btn active," data-bs-toggle="button" aria-pressed="true" style="padding-left: 9.5%; padding-right: 9.5%; ; background-color: #1976D2; color: var(--white, #FFF);border-radius: 25px; ">
                     Sign in with password  
                 </button>
-        </p>
+            </p>
+        </div>
     </a>
     </div>
 </div>
@@ -68,8 +70,8 @@
     <div class="row">
         <h5>Don't have an account?</h5>
     </div>
-    <div class="row" routerLink="/crear_usuario">
-        <a style="text-decoration: none;">
+    <div class="row" routerLink="/login_two" [queryParams]="{ varLogin: true }">
+        <a style="text-decoration: none;" >
             Create account
         </a>
     </div>
