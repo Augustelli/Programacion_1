@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav2',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav2.component.css']
 })
 export class Nav2Component {
+  constructor(private router: Router) {}
+
+  redirectLogout(){
+  this.router.navigate(['/logout']);
+}
+
 
 }

@@ -1,41 +1,13 @@
 
-<!-- 
-<div style="text-align: center; margin-top: 5rem;">
 
-  <form class="example-form first-form" style="margin-top: 2rem;">
-
-    <mat-form-field class="example-full-width" style="margin-top: 2rem;">
-      <mat-label>Username</mat-label>
-      <input matInput placeholder="Ex. PepeHonguito123" value="Username">
-    </mat-form-field>
-</form>
+<div class="row-col-1" style="position: absolute 50%; margin-top: 3rem;" *ngIf="!varLogin">    
+  <h1 class="text-center" >Sign in</h1>
 </div>
 
-
-<div style="text-align: center; margin-top: 1rem">
-  <mat-form-field>
-    <mat-label>Enter your password</mat-label>
-    <input matInput [type]="hide ? 'password' : 'text'">
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"> -->
-      <!-- <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
-    <!-- </button>
-  </mat-form-field>
+<div class="row-col-1" style="position: absolute 50%; margin-top: 3rem;" *ngIf="varLogin">    
+  <h1 class="text-center" >Create your account</h1>
 </div>
-<div class="container"style="text-align: center; margin-top: 1rem">
-    <mat-form-field>
-      <mat-label>Enter your email</mat-label>
-      <input matInput placeholder="pat@example.com" [formControl]="email" required>
-      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-    </mat-form-field>
-  </div>
 
-  <div style="text-align: center; margin-top: 1rem">
-    <mat-form-field>
-      <mat-label>Confirm email</mat-label>
-      <input matInput placeholder="pat@example.com" [formControl]="email" required>
-      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-    </mat-form-field>
-  </div> -->
   <div style="text-align: center; margin-top: 2rem;" >
     <form  >
       <mat-form-field >
@@ -55,7 +27,7 @@
     </mat-form-field>
   </div>
   
-  <div style="text-align: center; margin-top: 1rem;" *ngIf="varLogin">
+  <div style="text-align: center; margin-top: 1rem; margin-bottom: 2rem;" *ngIf="varLogin">
     <mat-form-field>
       <mat-label>Enter your email</mat-label>
       <input matInput placeholder="pat@example.com" [formControl]="email" required>

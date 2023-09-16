@@ -8,6 +8,8 @@ import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.compo
 import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.component';
 // import { CrearUsuarioMainComponent } from './pages/crar-usuario-main/crar-usuario-main.component';
 import { LoginTwoComponent } from './pages/login-two/login-two.component';
+import { LogoutComponent } from './pages/logout/logout.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 
 const routes: Routes = [
@@ -16,11 +18,13 @@ const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'login',component:LoginComponent},
   {path:'clases',component:ClasesComponent},
-  {path:'**',redirectTo:'error_page'},
+  // {path:'**',redirectTo:'error_page'},
   {path:'inicio',component:InicioComponent},
   {path:'editar_perfil',component:EditarPerfilComponent},
   {path:'crear_usuario',component:CrearUsuarioComponent},
-  {path:'login_two',component:LoginTwoComponent}
+  {path:'login_two',component:LoginTwoComponent},
+  {path:'logout',component:LogoutComponent},
+  {path:'error_page',component:ErrorPageComponent}
   // {path:'crear_usuario_main',component:CrearUsuarioMainComponent},
 
 ];

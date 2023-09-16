@@ -1,0 +1,35 @@
+<app-nav1></app-nav1>
+<app-nav2> </app-nav2>
+    
+   
+    <div class="row-col-1" style=" margin-top: 2rem;">    
+        <h1 class="text-center" style="color: #1976D2;">Logout</h1>
+        <h5 class="text-center">Are you sure you want to log out ?</h5>
+    </div>
+    
+    <div class="col-sm-12 text-center" style="margin-top:2rem">
+        <div class="row" (click)="Logout()">
+            <a   style="text-decoration: none;">
+                <p>
+                    <button type="button" class="btn active," data-bs-toggle="button" aria-pressed="true" style="padding-left: 9.5%; padding-right: 9.5%; ; background-color: #1976D2; color: var(--white, #FFF);border-radius: 25px; ">
+                        Yes, log out
+                    </button>
+                </p>
+            </a>
+        </div>
+        <div class="row" (click)="cancelLogout()" >
+            <a  style="text-decoration: none;">
+                <p>
+                    <button type="button" class="btn active" data-bs-toggle="button" aria-pressed="true" style="padding-left: 10%; padding-right: 10%;background-color: #849AAF;color: var(--white, #FFF); border-radius: 25px;">
+                        Cancel
+                    </button>
+                </p>
+            </a>
+        </div>
+    </div>
+
+    <app-backvar1></app-backvar1>
+    <app-backvar2></app-backvar2>
+    
+
+

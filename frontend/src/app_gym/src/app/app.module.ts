@@ -26,6 +26,7 @@ import { SexoComponent } from './components/sexo/sexo.component';
 import { TablaPlanificacionGrillaaComponent } from './components/tabla-planificacion-grillaa/tabla-planificacion-grillaa.component';
 import { LoginTwoComponent } from './pages/login-two/login-two.component';
 import { LoginThreeComponent } from './components/login-three/login-three.component';
+import { LogoutComponent } from './pages/logout/logout.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { LoginThreeComponent } from './components/login-three/login-three.compon
     TablaPlanificacionComponent,
     SexoComponent,
     LoginTwoComponent,
+    LogoutComponent,
     
     // TablaPlanificacionGrillaaComponent
     // crearUsuarioComponent
