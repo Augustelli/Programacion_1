@@ -27,6 +27,11 @@ import { TablaPlanificacionGrillaaComponent } from './components/tabla-planifica
 import { LoginTwoComponent } from './pages/login-two/login-two.component';
 import { LoginThreeComponent } from './components/login-three/login-three.component';
 import { LogoutComponent } from './pages/logout/logout.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { VerUsuariosComponent } from './components/ver-usuarios/ver-usuarios.component';
+import { PayComponent } from './pages/pay/pay.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { AbmComponent } from './components/abm/abm.component';
 
 
 @NgModule({
@@ -52,6 +57,11 @@ import { LogoutComponent } from './pages/logout/logout.component';
     SexoComponent,
     LoginTwoComponent,
     LogoutComponent,
+    UsuarioComponent,
+    VerUsuariosComponent,
+    PayComponent,
+    UsuariosComponent,
+    AbmComponent,
     
     // TablaPlanificacionGrillaaComponent
     // crearUsuarioComponent

@@ -10,6 +10,9 @@ import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.compo
 import { LoginTwoComponent } from './pages/login-two/login-two.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { PayComponent } from './pages/pay/pay.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 
 
 const routes: Routes = [
@@ -24,7 +27,11 @@ const routes: Routes = [
   {path:'crear_usuario',component:CrearUsuarioComponent},
   {path:'login_two',component:LoginTwoComponent},
   {path:'logout',component:LogoutComponent},
-  {path:'error_page',component:ErrorPageComponent}
+  {path:'error_page',component:ErrorPageComponent},
+  {path:'usuarios',component:UsuariosComponent},
+  {path:'pay',component:PayComponent},
+  { path: 'usuario/:id/:tipo_op', component: UsuarioComponent },
+  
   // {path:'crear_usuario_main',component:CrearUsuarioMainComponent},
 
 ];

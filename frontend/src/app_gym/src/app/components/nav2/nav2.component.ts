@@ -11,7 +11,12 @@ export class Nav2Component {
 
   redirectLogout(){
   this.router.navigate(['/logout']);
+
+
 }
+  redirectEditar(){
+  this.router.navigate(['/editar_perfil']);
 
 
+}
 }
