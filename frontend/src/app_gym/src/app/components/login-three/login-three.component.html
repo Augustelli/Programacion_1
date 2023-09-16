@@ -70,34 +70,34 @@
       <mat-error *ngIf="confirmEmail.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
   </div>
-  <div class="col-sm-12 text-center" *ngIf="varLogin" routerLink="/crear_usuario">
-
-    <div class="row">
+  <div class="col-sm-12 text-center" *ngIf="varLogin" (click)="redireccionarAcrearUsuario()" >
+     <!-- <div [routerLink]="['/crear_usuario']"> -->
         <a  style="text-decoration: none;" >
-            <div routerLink="/crear_usuario" >
+            <!-- <div routerLink="/crear_usuario" > -->
             <p> 
                 <button type="button" class="btn active," data-bs-toggle="button" aria-pressed="true" style="padding-left: 9.5%; padding-right: 9.5%; ; background-color: #1976D2; color: var(--white, #FFF);border-radius: 25px; ">
                     Continue 
                 </button>
             </p>
-        </div>
-    </a>
-    </div>
+          </a>
+        <!-- </div> -->
+    
 </div>
-<div class="col-sm-12 text-center" *ngIf="!varLogin" routerLink="/home">
+<div class="col-sm-12 text-center" *ngIf="!varLogin"  style="margin-top: 2rem;" (click)="redireccionarHome()" >
 
-  <div class="row">
-      <a  style="text-decoration: none;">
-          <div routerLink="/home" >
+  
+      <a  style="text-decoration: none;" >
+          <!-- <div routerLink="/home" > -->
           <p> 
-              <button type="button" class="btn active," data-bs-toggle="button" aria-pressed="true" style="padding-left: 9.5%; padding-right: 9.5%; ; background-color: #1976D2; color: var(--white, #FFF);border-radius: 25px; ">
-                  Continue
+              <button type="button" class="btn active,"  data-bs-toggle="button" aria-pressed="true" style="padding-left: 9.5%; padding-right: 9.5%; ; background-color: #1976D2; color: var(--white, #FFF);border-radius: 25px; ">
+                  Continueee
               </button>
           </p>
-      </div>
+      <!-- </div> -->
   </a>
-  </div>
+  
 </div>
+
 
   
 

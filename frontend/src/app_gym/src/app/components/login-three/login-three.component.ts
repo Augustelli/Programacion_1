@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 
+
 @Component({
   selector: 'app-login-three',
   templateUrl: './login-three.component.html',
@@ -44,11 +45,19 @@ export class LoginThreeComponent implements OnInit {
     });
 }
 
- 
 
+
+redireccionarAcrearUsuario() {
+  this.router.navigate(['/crear_usuario']);
+}
+
+redireccionarHome() {
+  this.router.navigate(['/home']);
+}
+}
 
   
-  }
+  
   
 
 
