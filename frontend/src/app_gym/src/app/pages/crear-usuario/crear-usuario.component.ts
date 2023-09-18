@@ -66,7 +66,7 @@ export class CrearUsuarioComponent {
     } 
   };
   onBack() {
-    if (this.selectedComponent > 0) {
+    if (this.selectedComponent >= 0) {
       this.selectedComponent--;}
       if (this.selectedComponent != 6){
         this.varSexo=false;

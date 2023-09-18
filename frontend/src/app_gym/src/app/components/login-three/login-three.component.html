@@ -12,7 +12,7 @@
     <form  >
       <mat-form-field >
         <mat-label>Username</mat-label>
-        <input matInput placeholder="Ex. PepeHonguito123" value="Username">
+        <input matInput placeholder="Ex. PepeHonguito123">
       </mat-form-field>
     </form>
   </div>
@@ -42,12 +42,12 @@
       <mat-error *ngIf="confirmEmail.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
   </div>
-  <div class="col-sm-12 text-center" *ngIf="varLogin" (click)="redireccionarAcrearUsuario()" >
+  <div class="col-sm-12 text-center" *ngIf="varLogin"  >
      <!-- <div [routerLink]="['/crear_usuario']"> -->
         <a  style="text-decoration: none;" >
             <!-- <div routerLink="/crear_usuario" > -->
             <p> 
-                <button type="button" class="btn active," data-bs-toggle="button" aria-pressed="true" style="padding-left: 9.5%; padding-right: 9.5%; ; background-color: #1976D2; color: var(--white, #FFF);border-radius: 25px; ">
+                <button type="button" (click)="redireccionarAcrearUsuario()" class="btn active," data-bs-toggle="button" aria-pressed="true" style="padding-left: 9.5%; padding-right: 9.5%; ; background-color: #1976D2; color: var(--white, #FFF);border-radius: 25px; ">
                     Continue 
                 </button>
             </p>
@@ -55,19 +55,12 @@
         <!-- </div> -->
     
 </div>
-<div class="col-sm-12 text-center" *ngIf="!varLogin"  style="margin-top: 2rem;" (click)="redireccionarHome()" >
-
-  
+<div class="col-sm-12 text-center" *ngIf="!varLogin"  style="margin-top: 2rem;"  >
       <a  style="text-decoration: none;" >
-          <!-- <div routerLink="/home" > -->
-          <p> 
-              <button type="button" class="btn active,"  data-bs-toggle="button" aria-pressed="true" style="padding-left: 9.5%; padding-right: 9.5%; ; background-color: #1976D2; color: var(--white, #FFF);border-radius: 25px; ">
+              <button type="button" class="btn active," (click)="redireccionarHome()" data-bs-toggle="button" aria-pressed="true" style="padding-left: 9.5%; padding-right: 9.5%; ; background-color: #1976D2; color: var(--white, #FFF);border-radius: 25px; ">
                   Continueee
               </button>
-          </p>
-      <!-- </div> -->
   </a>
-  
 </div>
 
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -10,4 +11,8 @@ export class EditarPerfilComponent {
     window.location.href = '/home';
   }
 
+  constructor(private router: Router) {}
+  routeToPay(){
+    this.router.navigate(['/pay']);
+  }
 }

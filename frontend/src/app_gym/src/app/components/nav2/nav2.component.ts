@@ -7,16 +7,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav2.component.css']
 })
 export class Nav2Component {
+  rolUsuario = 'admin';
+
   constructor(private router: Router) {}
 
-  redirectLogout(){
-  this.router.navigate(['/logout']);
+  redirectLogout() {
+    this.router.navigate(['/logout']);
+  }
 
+  redirectEditar() {
+    this.router.navigate(['/editar_perfil']);
+  }
 
-}
-  redirectEditar(){
-  this.router.navigate(['/editar_perfil']);
-
-
-}
+  routeTrouteToAlumnoProfesorListado() {
+    this.router.navigate(['/usuarios']);
+  }
 }
