@@ -1,0 +1,81 @@
+
+<!-- <button (click)="verClases()">Ver Clases</button>
+<button (click)="ocultarClases()">Ocultar Clases</button> -->
+<!-- <div class="container" style="margin-top: 2rem; margin-bottom: 5rem;"> -->
+    <!-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4"> -->
+
+        <!-- <div *ngIf="varVerClases" class=" row-md-auto ml-3">
+        <div *ngFor="let clases of arrayClases;index as i">
+        <div class="col">
+            <div class="card card-sm">
+                <img src="{{clases.img}}" class="card-img-top w-100 h-auto" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{clases.nombreClase}}</h5>
+                    <p class="card-text">{{clases.nombreProfesor}}</p>
+                    <p class="card-text">{{clases.horario}}</p>
+                    <p class="card-text">{{clases.duracion}}</p>
+                    <p class="card-text">Cupos: {{clases.cupos}}</p>
+                </div>
+            </div>
+
+</div>
+</div>
+    </div> -->
+
+
+    <!-- <div *ngIf="varVerClases">
+        <div class="row">
+            <div class="col-md-6">
+                
+            </div>
+
+
+        </div>
+
+    </div> -->
+    
+    
+    <!-- <div *ngIf="varVerClases" class="row-md-auto ml-3">
+        <div class="row">
+          <ng-container *ngFor="let clases of arrayClases; index as i">
+            <div class="col">
+              <div class="card card-sm">
+                <img src="{{ clases.img }}" class="card-img-top w-100 h-auto" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{ clases.nombreClase }}</h5>
+                  <p class="card-text">{{ clases.nombreProfesor }}</p>
+                  <p class="card-text">{{ clases.horario }}</p>
+                  <p class="card-text">{{ clases.duracion }}</p>
+                  <p class="card-text">Cupos: {{ clases.cupos }}</p>
+                </div>
+              </div>
+            </div> -->
+            <!-- Agregamos un salto de línea cada 2 clases -->
+            <!-- <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div> -->
+          <!-- </ng-container>
+        </div>
+      </div> -->
+      <div *ngIf="varVerClases" class="row-md-auto ml-3">
+        <div class="row">
+          <ng-container *ngFor="let clases of arrayClases; let i = index">
+            <div class="col-md-6" >
+              <div class="card card-sm" style="margin: 4rem; background-color: lightgray; border-radius: 15px;">
+                <img src="{{ clases.img }}" class="card-img-top mx-auto"style="width: 50%;" alt="...">
+                <div class="card-body" >
+                  <h5 class="card-title">{{ clases.nombreClase }}</h5>
+                  <p class="card-text">{{ clases.nombreProfesor }}</p>
+                  <p class="card-text">{{ clases.horario }}</p>
+                  <p class="card-text">{{ clases.duracion }}</p>
+                  <p class="card-text">Cupos: {{ clases.cupos }}</p>
+                </div>
+              </div>
+            </div>
+           <div class="w-100" *ngIf="(i + 1) % 2 === 0"></div>
+          </ng-container>
+        </div>
+      </div>
+      
+    
+      
+      
+

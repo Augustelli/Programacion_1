@@ -1,0 +1,36 @@
+<app-nav1></app-nav1>
+<app-nav2> </app-nav2>
+<div *ngIf="varNoVerPlanificaciones">
+  <nav class="navbar bg-body-tertiary" >
+    <div class="container-fluid">
+      <a class="navbar-brand" href="javascript:void(0)" (click)="back()" role="button">
+        <div>
+          <img src="../../assets/back.svg" alt="configuracion" width="30" height="24" class="d-inline-block align-text-top">
+        </div>
+      </a>
+    </div>
+  </nav>
+</div>
+
+
+
+<div *ngIf="varVerPlanificaciones">
+<div class="container-fluid">
+    <div class="row">
+      <h1 class="col" style="margin-left: 8%;">
+        Planificaciones
+      </h1>
+    </div>
+  </div>
+  <div style="margin-left: 8rem; margin-right: 8rem; margin-top: 1rem; margin-bottom: 8rem;">
+
+       <app-ver-planificaciones  (planificacionClickeada)="onPlanificacionClickeada()"></app-ver-planificaciones> 
+    
+</div> 
+</div>
+<div>
+
+<app-tabla-planificacion-grillaa *ngIf="varNoVerPlanificaciones"></app-tabla-planificacion-grillaa>
+</div>
+  <app-backvar1></app-backvar1>
+<app-backvar2></app-backvar2>

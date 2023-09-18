@@ -1,0 +1,75 @@
+body {
+    margin: 0;
+    background-color: #f5f5f5;
+}
+
+.navbar {
+    background-color: #f5f5f5;
+}
+
+.navbar-brand img {
+    width: 30px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.container-fluid {
+    position: relative;
+}
+
+.page-title {
+    text-align: center;
+    color: #1976D2;
+    font-size: 24px;
+    font-family: Audiowide;
+    font-weight: 400;
+    letter-spacing: 0.24px;
+    margin-top: 75px;
+}
+
+.info-card {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.info-card img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.info-card .text-secondary {
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.action-button {
+    background-color: #034AA6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 25rem;
+    padding: 10px 20px;
+    margin-top: 16px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.footer-link {
+    flex: 1;
+    text-align: center;
+    color: black;
+}
+
+.footer-link img {
+    width: 30px;
+    height: 24px;
+    vertical-align: middle;
+}

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profesores</title>
+    <!-- Bootstrap --->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+     <!-- font-awesome (iconos)-->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+        
+     <!-- Style propios -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div>
+        <div class="col-sm-12 text-center" style="background-color: #1976D2; height: 4rem;">
+        
+            <img src="../images/game-icons_muscle-up.svg" alt="logo" class="logo" style="height:40px; margin-top: 1rem;"  >
+        </div>
+    </div>
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="Menu.html">
+                <div>
+                  <img src="../images/game-icons_muscle-up.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" style="background-color: #1976D2; border-radius: 6px;">     
+                </div>
+                <div>
+                  Fitnex
+                </div>
+              </a>
+              <div>
+              <a class="navbar-brand" href="../EditarPerfil/editprofile.html">
+                <img src="../images/Vector.svg" alt="configuracion" width="30" height="24">
+              </a>
+              <p class="d-inline-flex gap-1">
+                <a href="../EditarPerfil/editprofile.html" class="btn btn-primary" role="button" data-bs-toggle="button">
+                <img src="../images/Perfil.svg" alt="perfil" width="30" height="24">
+            </a>
+              </p>
+            </div>
+            </div>
+        </nav> 
+          <div>
+            <div class="container-fluid" style="position: relative;">
+                <div class="row">
+                <h1 class ="col" style="margin-left: 8%;">
+                  Profesores
+                </h1>
+              <a class="col-2" href="Planificacion.html" style="text-decoration: none; margin-right: 1rem;">
+                See all
+              </a>
+                </div>
+            </div>
+            </div>
+    
+    <div class="container mt-12" style="margin-top: 2rem; margin-bottom: 8rem;">
+        <div class="row">
+            <div class="col-md-12 ">
+                <h2 class="text-center mb-4" style="color:#1976D2">Lista de Profeosres</h2>
+                <div class="d-flex mb-3">  
+                    <input type="text" class="form-control me-2 flex-grow-1" placeholder="Buscar Profesores...">
+                    <button class="btn btn-outline-secondary" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#nuevoAlumnoModal">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex  align-items-center justify-content-between" style="background-color:lightblue ; margin-top: 1rem;">
+                        <img src="../images/Profesor/Image.svg" alt="clase de fondo" style="height: 10%; width: 10%;">
+                        <h3 style="justify-content: start; text-align: center; margin-left: 2rem;">Profesor1</h3>
+                    
+                        <div >
+                                
+                            <!-- <indicador de pago></indicador> -->
+                            <button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex  align-items-center justify-content-between" style="background-color: lightblue; margin-top: 1rem;">
+                        <img src="../images/Profesor/Image.svg" alt="clase de fondo" style="height: 10%; width: 10%;">
+                        <h3 style="justify-content: start; text-align: center; margin-left: 2rem;">Profesor 1</h3>
+                    
+                        <div >
+                            <!-- <button type="button" class="btn btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                <div class="handle"></div></button> -->
+                                
+                                
+                            
+                            <!-- <indicador de pago></indicador> -->
+                            <button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex  align-items-center justify-content-between" style="background-color: lightblue; margin-top: 1rem;">
+                        <img src="../images/Profesor/Image.svg" alt="clase de fondo" style="height: 10%; width: 10%;">
+                        <h3 style="justify-content: start; text-align: center; margin-left: 2rem;">Profesor 1</h3>
+                    
+                        <div >
+                            <!-- <button type="button" class="btn btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                <div class="handle"></div></button> -->         
+                                
+                                
+                            
+                            <!-- <indicador de pago></indicador> -->
+                            <button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex  align-items-center justify-content-between" style="background-color: lightblue; margin-top: 1rem;">
+                        <img src="../images/Profesor/Image.svg" alt="clase de fondo" style="height: 10%; width: 10%;">
+                        <h3 style="justify-content: start; text-align: center; margin-left: 2rem;">Profesor 1</h3>
+                    
+                        <div >
+                            <!-- <button type="button" class="btn btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                <div class="handle"></div></button> -->
+                                
+                                
+                            
+                            <!-- <indicador de pago></indicador> -->
+                            <button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </li>
+
+                    <!-- Agrega más Planificacións aquí -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar nuevo Planificación -->
+    <div class="modal fade" id="nuevaPlanificacionModal" tabindex="-1" aria-labelledby="nuevaPlanificacionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="nuevaPlanificacionModalLabel">Agregar Nueva Planificación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulario para cargar un nuevo Planificación -->
+                    <form>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Día</label>
+                            <input type="text" class="form-control" id="nombre">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Tipo</label>
+                            <input type="email" class="form-control" id="email">
+                        </div>
+                        <!-- Agrega más campos del formulario aquí -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" style="padding: 10px;text-align: center;position: fixed;bottom: 3rem;left: 0;right: 0;margin-top: 1rem">
+        <div class="row">
+            <a class="col-6 text-center" href="../Planificaciones/MenuPlanificaciones.html" alt="Link Planificacion">
+              <div>
+                <img src="../images/planificacion.svg" alt="planificacion" width="30" height="24" class="d-inline-block align-text-top" >     
+              </div>
+              <div>
+                Planificacion
+              </div>
+        </a>
+            <a class="col-6 text-center" href="../Clases/clases.html" alt="Link Cases">
+              <div>
+              <img src="../images/clases.svg" alt="planificacion" width="30" height="24" class="d-inline-block align-text-top align-text-center" >     
+            </div>
+            <div style="color: black;">
+              Clases
+            </div>
+          </div>
+          </a>
+      </div>
+
+      <div class="col-xl" style=" background-color: #1976D2;padding: 10px;text-align: center;position: fixed;bottom: 0;left: 0;right: 0;margin-top: 1rem;">
+        <div class="color: #1976D2">·</div>
+    </div>
+  
+</body>
+</html>

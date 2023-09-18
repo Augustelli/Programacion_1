@@ -1,0 +1,52 @@
+<div class="container mt-5" style="margin-bottom: 9rem;">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <!-- <h2 class="text-center mb-4">ABM usuario</h2> -->
+            <h2 class="text-center mb-4">{{tipoOperacion}} usuario {{user_id === null ? '' : user_id}}</h2>
+            <div>
+                <!-- Formulario para cargar un nuevo usuario -->
+                <form>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre">
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="apellido">
+                    </div>
+                    <div class="mb-3">
+                        <label for="birth" class="form-label">Birth</label>
+                        <input type="birth" class="form-control" id="birth">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="DNI" class="form-label">DNI</label>
+                        <input type="TEXT" class="form-control" id="DNI">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="text" class="form-control" id="password">
+                    </div>
+                   
+
+                    <!-- Agrega más campos del formulario aquí -->
+                </form>
+            </div>
+            <div>
+                <button type="button" class="btn btn-secondary" style=" margin-right: 1rem;" data-bs-dismiss="modal" (click)="back()">Cancelar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  
+  
