@@ -1,0 +1,30 @@
+
+<!-- <div class="value-picker">
+    <div class="value" *ngFor="let value of values; let i = index" [class.active]="i === activeIndex" (click)="onValueClick(i)">{{ value }}</div>
+  </div> -->
+  <div class="day-selector">
+    <div
+      class="day"
+      *ngFor="let day of days"
+      [class.selected]="day.dayNumber === selectedNumber"
+      (click)="selectDay(day.dayNumber)"
+    >
+      <div class="day-number">{{ day.dayNumber }}</div>
+    </div>
+  </div> 
+  
+
+<script>
+    const values = document.querySelectorAll('.value');
+    const valuePicker = document.getElementById('valuePicker');
+
+    let activeIndex = 2; // Inicialmente el valor activo es 27
+
+    values.forEach((value, index) => {
+        value.addEventListener('click', () => {
+            values[activeIndex].classList.remove('active');
+            value.classList.add('active');
+            activeIndex = index;
+        });
+    });
+</script>

@@ -1,0 +1,53 @@
+<!-- <button (click)="verPlanificaciones()">Ver Planificaciones</button>
+<button (click)="ocultarPlanificaciones()">Ocultar Planificaciones</button> -->
+<div *ngIf="varVerPlanificaciones" class="row ml-3 margin-bottom:10rem">
+    <ng-container *ngFor="let planificacion of arrayPlanificaciones;index as i; let isLast = last">
+      <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 1rem;">
+        <div class="card" style="background-color: lightblue; border-radius: 15px;">
+          <img src={{planificacion.img}} class="card-img-top" alt="...">
+          <div class="card-body">
+            <div (click)="onPlanificacionClick()">
+              <h5 class="card-title">{{i}}-{{planificacion.nombreprofesor}}</h5>
+              <p class="card-text">{{planificacion.nombreclase}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix d-lg-none d-md-block" *ngIf="isLast"></div>
+      <div class="clearfix d-none d-lg-block" *ngIf="(i + 1) % 3 === 0 || isLast"></div>
+    </ng-container>
+  </div>
+  
+
+  
+
+<!-- Aquí aplicamos la clase ml-3 para agregar margen a la izquierda -->
+<!-- <div class="col col-md-auto ml-3">
+    <div class="card">
+        <img src="../../../assets/planificacion/chicaplanificacion.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Profesor .</p>
+        </div>
+    </div>
+</div>
+
+<div class="col col-md-auto">
+    <div class="card">
+        <img src="../../../assets/planificacion/chicaplanificacion.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Profesor</p>
+        </div>
+    </div>
+</div>
+
+<div class="col col-md-auto">
+    <div class="card">
+        <img src="../../../assets/planificacion/chicaplanificacion.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Profesor.</p>
+        </div>
+    </div>
+</div> -->

@@ -1,0 +1,27 @@
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/home">
+        <div>
+          <img src="../../../assets/game-icons_muscle-up.svg" alt="Logo" width="30" height="24"
+            class="d-inline-block align-text-top" style="background-color: #1976D2; border-radius: 6px;">
+        </div>
+        <div>
+          Fitnex
+
+        </div>
+      </a>
+      <div >
+        <a>
+          <button class="btn btn-primary" style="margin-right: 1rem;" *ngIf="rolUsuario === 'profesor' || rolUsuario === 'admin'" (click)="routeTrouteToAlumnoProfesorListado()">Listado de Alumnos/Profesores</button>
+          </a>
+        <a class="navbar-brand"  >
+          <img src="../../../assets/Vector.svg" (click)="redirectEditar()" role="button" alt="configuracion" width="30" height="24">
+        </a>
+        <p class="d-inline-flex gap-1">
+          
+          <a  class="btn btn-primary"  (click)="redirectLogout()"role="button" data-bs-toggle="button">Log out</a>
+        </p>
+      
+      </div>
+    </div>
+  </nav>
