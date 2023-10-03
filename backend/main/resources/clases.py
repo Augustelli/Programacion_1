@@ -108,53 +108,6 @@ class Clase_Profesor_R(Resource):
             return {'error': str(e)}, 500
  
 
-<<<<<<< HEAD
-    def post(self):
-            
-            if request.args.get('idClase') and request.args.get('idProfesor'):
-                clase_profesores=db.session.query(ClasesModelo.profesor).outerjoin(ProfesorModelo)
-                clases=db.session.query(ClasesModelo).filter(ClasesModelo.idClases==request.args.get('idClase')).first()
-                profesor=db.session.query(ProfesorModelo).filter(ProfesorModelo.idProfesor==request.args.get('idProfesor')).first()
-                clases.profesores.append(profesor)
-        
-
-            #  profesores = db.session.query(ProfesorModel.usuario, func.count(ClasesModel.id_clase)) \
-            #     .outerjoin(ProfesorModel.clases) \
-            #     .group_by(ProfesorModel.id_profesor) \
-            #     .order_by(desc(func.count(ClasesModel.id_clase))) \
-            #     .paginate(page=page, per_page=per_page, error_out=True)
-            
-
-
-        # try:
-            # campos_obligatorios = {'profesor_id','clase_id'}
-            # datos = request.get_json()
-            # campos_recibidos = set(datos.keys())
-
-            # campos_faltantes = campos_obligatorios - campos_recibidos
-            # if campos_faltantes:
-            #     raise Exception(f'Error al crear usuario. Faltan campos obligatorios: {campos_faltantes}. Por favor, incluya estos campos y vuelva a intentarlo.')
-
-            # for campo in campos_obligatorios:
-            #     if datos[campo] is None:
-            #         raise Exception(f'Error al crear usuario. El campo {campo} no puede ser nulo. Por favor, proporcione un valor válido para {campo} y vuelva a intentarlo.')
-
-            # usuario_nuevo = clase_profesorModelo.from_json(datos)
-            # db.session.add(usuario_nuevo)
-            
-
-            
-
-            # db.session.commit()
-            # return usuario_nuevo.to_json(), 201
-        # except Exception as e:
-        #     return {'error': str(e)}, 400
-        # finally:
-        #     db.session.close()
-
-       
-=======
->>>>>>> 71ea51022825f95c495f020a406dd4ef12a4eece
 class Clases_R(Resource):
     
     @role_required(roles=['admin', 'profesor'])
