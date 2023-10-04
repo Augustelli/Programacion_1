@@ -10,6 +10,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 
@@ -37,7 +38,24 @@ export class LoginThreeComponent implements OnInit {
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private route: ActivatedRoute, 
+    private router: Router,
+    private authService: AuthService
+    ) {}
+   
+  login(dataLogin: any) {
+      console.log('comprobando credenciales');
+      this.authService.login().subscribe({
+        next: (rta:any) => {
+          alert('Login correcto');
+          console.log('Respuesta Login:',rta);
+  
+        },
+        error: (err) => {},
+        complete: () => {
+          console.log('Login finalizado');
+        }});
+      }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {

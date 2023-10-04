@@ -33,6 +33,8 @@ import { PayComponent } from './pages/pay/pay.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { AbmComponent } from './components/abm/abm.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -73,6 +75,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TablaPlanificacionGrillaaComponent,
     LoginThreeComponent,
     BrowserAnimationsModule,
+    HttpClientModule,
 
   
   ],
