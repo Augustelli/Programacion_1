@@ -16,7 +16,7 @@ export class UsuarioComponent {
   ) { }
 
   ngOnInit(): void {
-    this.usuario_id = this.route.snapshot.paramMap.get('id') || '';
+    this.usuario_id = this.route.snapshot.paramMap.get('dni') || '';
     this.tipo_op = this.route.snapshot.paramMap.get('tipo_op') || '';
     
     
