@@ -143,9 +143,35 @@ export class ScrollNumbersComponent implements OnChanges {
     }
   }
 
+  // selectDay(dayNumber: number) {
+  //   // Emitir el número seleccionado cuando se hace clic en un día
+  //   this.daySelected.emit(dayNumber);
+  //   this.selectedNumber = dayNumber;
+  //   return dayNumber
+  //   // localStorage.setItem('day', this.selectedNumber.toString());
+  // }
+  // guardarFecha(){
+  //   localStorage.setItem('dia', this.selectedNumber.toString())
+  //   localStorage.setItem('mes', this.selectedNumber.toString())
+  //   localStorage.setItem('anio',this.selectedNumber.toString())
+  // }
+
+  
   selectDay(dayNumber: number) {
     // Emitir el número seleccionado cuando se hace clic en un día
     this.daySelected.emit(dayNumber);
     this.selectedNumber = dayNumber;
+  
+    if (!localStorage.getItem('dia')) {
+      localStorage.setItem('dia', this.selectedNumber.toString());
+    } else if (!localStorage.getItem('mes')) {
+      localStorage.setItem('mes', this.selectedNumber.toString());
+    } else if (!localStorage.getItem('anio')) {
+      localStorage.setItem('anio', this.selectedNumber.toString());
+    } else if (!localStorage.getItem('altura')) {
+      localStorage.setItem('altura', this.selectedNumber.toString());
+    } else if (!localStorage.getItem('peso')) {
+      localStorage.setItem('peso', this.selectedNumber.toString());
   }
+}
 }

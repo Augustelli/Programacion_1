@@ -35,8 +35,9 @@ export class VerUsuariosComponent {
 
   editarUsuario(usuario:any){
     console.log('Usuario a editar', usuario);
-    this.router.navigate(['/usuario/'+usuario.id+'/Editar']);
+    // this.router.navigate(['/usuario/'+usuario.id+'/Editar']);
   }
+
 ngOnInit(){
   this.usuariosService.getUsers().subscribe((data:any) => {
     console.log('JSON data:', data);

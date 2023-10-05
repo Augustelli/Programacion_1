@@ -28,6 +28,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export class LoginThreeComponent implements OnInit {
   loginForm!: FormGroup;
+  loginForm2!: FormGroup;
 
   varLogin = false;
   hide = true;
@@ -60,7 +61,6 @@ export class LoginThreeComponent implements OnInit {
         }, error: (error) => {
           alert('Login incorrecto');
           localStorage.removeItem('token');
-          this.router.navigate(['/home']);
         }, complete: () => {
           console.log('Login finalizado');
         }});
@@ -70,36 +70,96 @@ ngOnInit() {
   this.route.queryParams.subscribe(params => {
           this.varLogin = params['varLogin'] === 'true';
         });
+
+        const email = localStorage.getItem('email');
+        const contrasegna = localStorage.getItem('contrasegna');
+        const nombre = localStorage.getItem('nombre');
+        const apellido = localStorage.getItem('apellido');
+        const dni = localStorage.getItem('dni');
         
-  this.loginForm = this.formBuilder.group({
-    email: ['', [Validators.required, Validators.email]],
-    contrasegna: ['', [Validators.required, Validators.minLength(3)]],
-    // username: ['', [Validators.required, Validators.minLength(5)]],
+      this.loginForm = this.formBuilder.group({
+        email: ['', [Validators.required, Validators.email]],
+        contrasegna: ['', [Validators.required, Validators.minLength(3)]],
+    
+
+        
+      }); 
+      
+      this.loginForm2 = this.formBuilder.group({
+        email: ['', [Validators.required, Validators.email]],
+        contrasegna: ['', [Validators.required, Validators.minLength(3)]],
+        nombre: ['', [Validators.required, Validators.minLength(3)]],
+        apellido: ['', [Validators.required, Validators.minLength(3)]],
+        dni: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^\d{8}$/)]],
+      });
+
+
+    }
 
 
 
-  }); 
-}
 
-
-
-redireccionarAcrearUsuario() {
-  this.router.navigate(['/crear_usuario']);
-}
-
-redireccionarHome() {
-  this.router.navigate(['/home']);
-}
+    
 submit() {
   if (this.loginForm.valid) {
 
     console.log('Form login: ',this.loginForm.value);
-    // console.log('Valid!');
     this.login(this.loginForm.value);
+    
   }else{
     alert('Login incorrecto');
   }
 }
+
+
+submit2() {
+  if (this.loginForm2.valid) {
+    const email = this.loginForm2.get('email')?.value;
+    const contrasegna = this.loginForm2.get('contrasegna')?.value;
+    const nombre = this.loginForm2.get('nombre')?.value;
+    const apellido = this.loginForm2.get('apellido')?.value;
+    const dni = this.loginForm2.get('dni')?.value;
+
+    if (email && contrasegna && nombre && apellido && dni) {
+      // Todos los valores están disponibles y no son null
+      localStorage.setItem('email', email);
+      localStorage.setItem('contrasegna', contrasegna);
+      localStorage.setItem('nombre', nombre);
+      localStorage.setItem('apellido', apellido);
+      localStorage.setItem('dni', dni);
+
+  //     this.router.navigate(['/crear_usuario']);
+  //   } else {
+  //     alert('Algunos campos son nulos o inválidos');
+  //   }
+  // } else {
+  //   alert('Login incorrecto');
+  //   localStorage.removeItem('FormularioSinValidar');
+  // }
+
+// }
+
+    this.authService.signup().subscribe(
+      (response) => {
+        // La solicitud POST fue exitosa, redirige a la página deseada
+        this.router.navigate(['/home']);
+      },
+      (error) => {
+        console.error('Error en la solicitud POST:', error);
+        alert('Hubo un error en la solicitud POST');
+      }
+    );
+    } else {
+    alert('Algunos campos son nulos o inválidos');
+    }
+    } else {
+    alert('Login incorrecto');
+    localStorage.removeItem('FormularioSinValidar');
+}
+}
+
+
+
 }
 
 
@@ -108,16 +168,4 @@ submit() {
   
 
 
-
-//   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-
-//   matcher = new MyErrorStateMatcher();
-// }
- 
-// export class MyErrorStateMatcher implements ErrorStateMatcher {
-//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-//     const isSubmitted = form && form.submitted;
-//     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-//   }
-// }
 
