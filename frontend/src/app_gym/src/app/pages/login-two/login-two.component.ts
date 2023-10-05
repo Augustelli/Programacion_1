@@ -16,7 +16,7 @@ export class LoginTwoComponent {
   ) { }
   login(dataLogin: any) {
     console.log('comprobando credenciales');
-    this.authService.login().subscribe({
+    this.authService.login(dataLogin).subscribe({
       next: (rta:any) => {
         alert('Login correcto');
         console.log('Respuesta Login:',rta);

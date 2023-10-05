@@ -9,8 +9,16 @@ import { Router } from '@angular/router';
 export class Nav2Component {
   rolUsuario = 'admin';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router
+    ) {}
+  
+  get isToken() {
+    return !!localStorage.getItem('token');
+  }
 
+  
+    
   redirectLogout() {
     this.router.navigate(['/logout']);
   }

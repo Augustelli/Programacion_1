@@ -34,6 +34,7 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { AbmComponent } from './components/abm/abm.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 
@@ -76,6 +77,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginThreeComponent,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
 
   
   ],

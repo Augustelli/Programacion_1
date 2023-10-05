@@ -12,12 +12,17 @@
       </a>
       <div >
         <a>
-          <button class="btn btn-primary" style="margin-right: 1rem;" *ngIf="rolUsuario === 'profesor' || rolUsuario === 'admin'" (click)="routeTrouteToAlumnoProfesorListado()">Listado de Alumnos/Profesores</button>
+          <button class="btn btn-primary" style="margin-right: 1rem;" *ngIf="isToken" (click)="routeTrouteToAlumnoProfesorListado()">Listado de Alumnos/Profesores</button>
+          <!-- *ngIf="rolUsuario === 'profesor' || rolUsuario === 'admin'"  -->
           </a>
-        <a class="navbar-brand"  >
-          <img src="../../../assets/Vector.svg" (click)="redirectEditar()" role="button" alt="configuracion" width="30" height="24">
+        <a class="navbar-brand" *ngIf="isToken"  >
+          <img src="../../../assets/Vector.svg" (click)="redirectEditar()" role="button" alt="configuracion" width="30" height="24" >
         </a>
-        <p class="d-inline-flex gap-1">
+        <p *ngIf="!isToken" class="d-inline-flex gap-1">
+          
+          <a  class="btn btn-primary"  (click)="redirectLogout()"role="button" data-bs-toggle="button">Loguearse</a>
+        </p>
+        <p *ngIf="isToken" class="d-inline-flex gap-1">
           
           <a  class="btn btn-primary"  (click)="redirectLogout()"role="button" data-bs-toggle="button">Log out</a>
         </p>
