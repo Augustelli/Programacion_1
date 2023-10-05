@@ -37,7 +37,8 @@ class Usuario(db.Model):
 
     @plain_password.setter
     def plain_password(self, password):
-        self.contrasegna = generate_password_hash(password)
+        if password is not None and password.strip():
+            self.contrasegna = generate_password_hash(password)
 
     def validate_pass(self, password):
         return check_password_hash(self.contrasegna, password)

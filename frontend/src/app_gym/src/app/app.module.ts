@@ -32,6 +32,10 @@ import { VerUsuariosComponent } from './components/ver-usuarios/ver-usuarios.com
 import { PayComponent } from './pages/pay/pay.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { AbmComponent } from './components/abm/abm.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+
 
 
 @NgModule({
@@ -71,6 +75,10 @@ import { AbmComponent } from './components/abm/abm.component';
     AppRoutingModule,
     TablaPlanificacionGrillaaComponent,
     LoginThreeComponent,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
 
   
   ],

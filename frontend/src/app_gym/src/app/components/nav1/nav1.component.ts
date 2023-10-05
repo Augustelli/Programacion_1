@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class Nav1Component {
 
+  routeToHome() {
+    window.location.href = '/home';
+  }
 }
