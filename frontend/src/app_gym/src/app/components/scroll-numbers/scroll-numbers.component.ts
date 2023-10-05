@@ -74,12 +74,17 @@ import { OnChanges,SimpleChanges } from '@angular/core';
 @Component({
   selector: 'app-scroll-numbers',
   template: `
-    <div class="day-selector">
-      <div class="day" *ngFor="let day of days" (click)="selectDay(day.dayNumber)">
-        <div class="day-number">{{ day.dayNumber }}</div>
-      </div>
+  <div class="day-selector">
+    <div
+      class="day"
+      *ngFor="let day of days"
+      (click)="selectDay(day.dayNumber)"
+      [class.selected]="day.dayNumber === selectedNumber"
+    >
+      <div class="day-number">{{ day.dayNumber }}</div>
     </div>
-  `,
+  </div> `,
+
   styles: [
     `
       .day-selector {
@@ -89,7 +94,8 @@ import { OnChanges,SimpleChanges } from '@angular/core';
         height: 200px;
       }
       .selected {
-        color:#1976D2
+        color:#1976D2;
+        font-size: 36px;
       }
       .day {
         display: flex;
