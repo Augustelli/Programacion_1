@@ -14,6 +14,24 @@ export class CrearUsuarioComponent {
   onDaySelected(dayNumber: number) {
     console.log(`Selected day ${dayNumber}`);
   }
+  skip() {
+      
+    if (this.selectedComponent < 6) {
+      this.selectedComponent++;
+      if (this.selectedComponent == 5){
+        this.varSexo=true;
+        this.varNoSexo=false;
+        localStorage.setItem('dia', '1');
+        localStorage.setItem('mes', '1');
+        localStorage.setItem('anio', '1900');
+        localStorage.setItem('altura', '1');
+        localStorage.setItem('peso', '1');
+
+      }
+    }
+  }
+ 
+
 
   componentsArray = [
    
@@ -64,7 +82,8 @@ export class CrearUsuarioComponent {
   ];
   constructor(private router: Router) {}
 
-  
+   
+
 
   onContinue() {
     if (this.selectedComponent < 6) {
@@ -74,11 +93,23 @@ export class CrearUsuarioComponent {
         this.varNoSexo=false;
       }
     }
-    if (this.selectedComponent == 6){
-        this.router.navigate(['/editar_perfil']);
-    } 
+    // if (this.selectedComponent == 6){
+    //     this.router.navigate(['/editar_perfil']);
+    // } 
   };
   onBack() {
+    if (this.selectedComponent ==0) {
+      this.deleteadia();}
+    if (this.selectedComponent ==1) {
+      this.deleteames();}
+    if (this.selectedComponent ==2) {
+      this.deleteaanio();}
+    if (this.selectedComponent ==3) {
+      this.deleteaaltura();}
+    if (this.selectedComponent ==4) {
+      this.deleteapeso();}
+    
+
     if (this.selectedComponent >= 0) {
       this.selectedComponent--;}
       if (this.selectedComponent != 5){
@@ -86,5 +117,24 @@ export class CrearUsuarioComponent {
         this.varNoSexo=true;
   }
   }
+  deleteadia(){
+    localStorage.removeItem('dia');
+  }
+  deleteames(){
+    localStorage.removeItem('mes');
+  }
+  deleteaanio(){
+    localStorage.removeItem('anio');
+  }
+  deleteaaltura(){
+    localStorage.removeItem('altura');
+  }
+  deleteapeso(){
+    localStorage.removeItem('peso');
+  }
+  deleteasexo(){
+    localStorage.removeItem('sexo');
+  }
 
 }
+

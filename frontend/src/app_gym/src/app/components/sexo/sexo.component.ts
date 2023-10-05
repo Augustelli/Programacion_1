@@ -31,6 +31,7 @@ export class SexoComponent {
       (response) => {
         // Maneja la respuesta exitosa si es necesario
         console.log('Registro exitoso', response);
+        this.clearLocalStorage();
         this.router.navigate(['/home']);
 
       },
@@ -40,6 +41,25 @@ export class SexoComponent {
       }
     );
   }
+  
+  clearLocalStorage() {
+    localStorage.removeItem('email');
+    localStorage.removeItem('contrasegna');
+    localStorage.removeItem('nombre');
+    localStorage.removeItem('apellido');
+    localStorage.removeItem('dni');
+    localStorage.removeItem('day');
+    localStorage.removeItem('dia');
+    localStorage.removeItem('mes');
+    localStorage.removeItem('anio');
+    localStorage.removeItem('nombre_usuario');
+    localStorage.removeItem('altura');
+    localStorage.removeItem('peso');
+    localStorage.removeItem('sexo');
+
+    // Agrega cualquier otra variable local que desees eliminar aquí
+  }
+  
 }
 
 // login(dataLogin: any={}) {
