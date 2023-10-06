@@ -15,7 +15,7 @@ cancelLogout() {
 }
 logout() {
   localStorage.removeItem('token')
-  this.router.navigate(['/error_page']);
+  this.router.navigate(['/login']);
 
 }
 }

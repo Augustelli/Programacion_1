@@ -12,19 +12,19 @@
       </a>
       <div >
         <a>
-          <button class="btn btn-primary" style="margin-right: 1rem;" *ngIf="isToken" (click)="routeTrouteToAlumnoProfesorListado()">Listado de Alumnos/Profesores</button>
+          <button class="btn btn-primary" style="margin-right: 1rem;" *ngIf="userRol==='profesor' || userRol === 'admin'" (click)="routeTrouteToAlumnoProfesorListado()">Listado de Alumnos/Profesores</button>
           <!-- *ngIf="rolUsuario === 'profesor' || rolUsuario === 'admin'"  -->
           </a>
-        <a class="navbar-brand" *ngIf="isToken"  >
+        <a class="navbar-brand" *ngIf="userRol==='profesor' || userRol === 'admin' || userRol === 'alumno'"  >
           <img src="../../../assets/Vector.svg" (click)="redirectEditar()" role="button" alt="configuracion" width="30" height="24" >
         </a>
-        <p *ngIf="!isToken" class="d-inline-flex gap-1">
+        <p  class="d-inline-flex gap-1">
           
-          <a  class="btn btn-primary"  (click)="redirectLogout()"role="button" data-bs-toggle="button">Loguearse</a>
+          <a  class="btn btn-primary" *ngIf="!isToken"  (click)="redirectLogin()"role="button" data-bs-toggle="button">Loguearse</a>
         </p>
-        <p *ngIf="isToken" class="d-inline-flex gap-1">
+        <p  class="d-inline-flex gap-1">
           
-          <a  class="btn btn-primary"  (click)="redirectLogout()"role="button" data-bs-toggle="button">Log out</a>
+          <a  class="btn btn-primary" *ngIf="userRol==='profesor' || userRol === 'admin' || userRol === 'alumno' || userRol=== 'espera'"  (click)="redirectLogout()"role="button" data-bs-toggle="button">Log out</a>
         </p>
       
       </div>
