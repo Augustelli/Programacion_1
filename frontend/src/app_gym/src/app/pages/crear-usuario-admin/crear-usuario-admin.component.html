@@ -1,0 +1,76 @@
+
+
+<app-nav1></app-nav1>
+<app-nav2></app-nav2>
+<div class="container mt-5" style="margin-bottom: 9rem;">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <!-- <h2 class="text-center mb-4">ABM usuario</h2> -->
+            <h2 class="text-center mb-4">Crear Usuario</h2>
+            
+
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+   
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" [(ngModel)]="formData.nombre" name="nombre" >
+    </div>
+    <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" class="form-control" id="apellido" [(ngModel)]="formData.apellido" name="apellido" >
+    </div>
+    <!-- <div class="mb-3">
+        <label for="birth" class="form-label">Birth</label>
+        <input type="birth" class="form-control" id="birth" nged('fecha_nacimiento', userData.fecha_nacimiento)">
+    </div> -->
+
+    <div class="mb-3">
+        <label for="DNI" class="form-label">DNI</label>
+        <input type="TEXT" class="form-control" id="dni" [(ngModel)]="formData.dni" name="dni" >
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" [(ngModel)]="formData.email" name="email"  >
+    </div>
+    <div class="mb-3">
+              <label for="birth" class="form-label">Birth</label>
+        <input type="date" class="form-control" id="birth" [(ngModel)]="formData.fecha_nacimiento" name="fecha_nacimiento" >
+    </div>
+    <!-- <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username"  userData.username)">
+    </div> -->
+    <div class="mb-3">
+        <label for="nombre_usuario" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" [(ngModel)]="formData.nombre_usuario"  name="nombre_usuario">
+    </div>
+    
+    <div class="mb-3">
+        <label for="rol" class="form-label">Rol</label>
+        <input type="text" class="form-control" id="rol" [(ngModel)]="formData.rol" name="rol" >
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="text" class="form-control" id="password" [(ngModel)]="formData.contrasegna" name="contrasegna"  >
+    </div>
+
+
+    <button type="button" class="btn btn-secondary" (click)="goBack()">Cancelar</button>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    
+   
+
+</form>
+<!-- <div>
+    <button type="button" class="btn btn-secondary" style=" margin-right: 1rem;" data-bs-dismiss="modal" >Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="onSubmit()" >Guardar</button>
+</div> -->
+</div>
+</div>
+</div>
+
+
+<app-backvar1></app-backvar1>
+<app-backvar2></app-backvar2>
+

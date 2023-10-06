@@ -3,7 +3,8 @@
         <div class="col-md-8 offset-md-2">
             <h2 class="text-center mb-4">Lista de Usuarios</h2>
             <div class="d-flex mb-3">
-                <input type="text" class="form-control me-2 flex-grow-1" placeholder="Buscar usuario...">
+                <input  type="text"  class="form-control me-2 flex-grow-1"  placeholder="Buscar usuario..."  [(ngModel)]="searchTerm"  (input)="filtrarUsuariosNombre()">
+                <!-- <input type="text" class="form-control me-2 flex-grow-1" placeholder="Buscar usuario..." (click)="filtrarUsuariosNombre()"> -->
                 <button class="btn btn-outline-secondary" (click)="mostrarTodo()" type="button"><i class="fa-solid fa-magnifying-glass">Todos</i></button>
                 <!-- <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#nuevoUsuarioModal">
                     <i class="fa-solid fa-plus"></i>
@@ -16,7 +17,7 @@
                     <!-- routerLink="/usuario/null/Alta" -->
                   <i class="fa-solid fa-plus">Espera</i>
                 </a>
-                <a class="btn btn-secondary ms-2" (clik)="nuevoUsuario()"> 
+                <a class="btn btn-secondary ms-2" (click)="nuevoUsuario()"> 
                     <!-- routerLink="/usuario/null/Alta" -->
                   <i class="fa-solid fa-plus">+</i>
                 </a>
@@ -32,7 +33,7 @@
                     </div>
                     <div>
                         <a class="btn btn-primary btn-sm me-2" routerLink="/usuario/{{ usuario.dni }}/Editar">Editar<i class="fa-solid fa-pen-to-square"></i></a>
-                        <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>Eliminar</button>
+                        <button class="btn btn-danger btn-sm" (click)="deleteUsuario(usuario.dni)"><i class="fa-solid fa-trash"></i>Eliminar</button>
                     </div>
                 </li>
             </ul>

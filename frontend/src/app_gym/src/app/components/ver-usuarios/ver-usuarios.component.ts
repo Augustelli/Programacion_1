@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class VerUsuariosComponent {
   arrayUsuarios: any;
+  searchTerm: string = '';
+
   // arrayUsuarios = [
   //   {
   //     id: 1,
@@ -67,8 +69,45 @@ ngOnInit(){
   })
 }
 nuevoUsuario(){
-  this.router.navigate(['/crear_usuario']);
+  this.router.navigate(['/crear_usuario_admin']);
 
 }
+filtrarUsuariosNombre(){
+  if (!this.searchTerm) {
+    this.mostrarTodo();
+    return;
+  }
+  this.arrayUsuarios = this.arrayUsuarios.filter((usuario: any) => {
+    const nombreCompleto = `${usuario.nombre} ${usuario.apellido}`;
+    return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
+  });  
 }
+
+deleteUsuario(user_id: string) {
+  this.usuariosService.deleteUser(user_id)
+  .subscribe(
+    (response) => {
+      if (response.status === 0) {
+        // El código de estado es 0, considera que la eliminación se realizó correctamente
+        console.log('Eliminación exitosa (código de estado 0)');
+        // Puedes realizar acciones adicionales aquí si es necesario
+      } else if (response.status === 200) {
+        // La eliminación se realizó correctamente, código de estado 200
+        console.log('Eliminación exitosa (código de estado 200)');
+        // Puedes realizar acciones adicionales aquí si es necesario
+      } else {
+        // Otro código de estado inesperado
+        console.error('Error en la eliminación (código de estado ' + response.status + ')');
+        // Puedes manejar otros códigos de estado aquí si es necesario
+      }
+    },
+    (error) => {
+      // Manejar errores aquí
+      console.error('Error en la solicitud de eliminación', error);
+    }
+  );
+}
+}
+
+    
 

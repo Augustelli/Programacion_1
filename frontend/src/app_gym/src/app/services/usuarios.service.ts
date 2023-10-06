@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders , HttpResponse} from '@angular/common/http';
 import { Observable, take } from 'rxjs';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable({
@@ -55,6 +56,28 @@ export class UsuariosService {
       'Authorization': `Bearer ${auth_token}`
     });
     return this.httpClient.put(this.url + '/usuario?nrDni='+user_id, updatedUserData,{headers: headers});
+  }
+  //hacer delete de usuario
+  deleteUser(user_id: string): Observable<any> {
+
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+    return this.httpClient.delete(this.url + '/usuario?nrDni=' + user_id,{headers: headers});
+    
+  }
+
+  //hacer post de usuario POR QUE NO ANDAAAAAAAA
+  createUser(newUserData: any): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+    console.log('Datos del nuevo usuario', newUserData);
+    return this.httpClient.post(this.url + '/usuarios', {...newUserData},{headers: headers});
   }
 }
 

@@ -14,6 +14,7 @@ import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { PayComponent } from './pages/pay/pay.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { authsessionGuard } from './guards/authsession.guard';
+import { CrearUsuarioAdminComponent } from './pages/crear-usuario-admin/crear-usuario-admin.component';
 
 
 
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path:'usuarios',component:UsuariosComponent, canActivate:[authsessionGuard]},
   {path:'pay',component:PayComponent},
   { path: 'usuario/:id/:tipo_op', component: UsuarioComponent },
+  { path: 'crear_usuario_admin', component: CrearUsuarioAdminComponent },
   
   // {path:'crear_usuario_main',component:CrearUsuarioMainComponent},
 

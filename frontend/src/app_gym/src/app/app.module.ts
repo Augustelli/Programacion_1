@@ -36,6 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {JwtModule} from '@auth0/angular-jwt';
+import { CrearUsuarioAdminComponent } from './pages/crear-usuario-admin/crear-usuario-admin.component';
 
 
 
@@ -67,6 +68,7 @@ import {JwtModule} from '@auth0/angular-jwt';
     PayComponent,
     UsuariosComponent,
     AbmComponent,
+    CrearUsuarioAdminComponent,
     
     // TablaPlanificacionGrillaaComponent
     // crearUsuarioComponent

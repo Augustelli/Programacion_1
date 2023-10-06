@@ -197,7 +197,8 @@ class Usuario(Resource):
                         db.session.delete(alumno_eliminar)
 
                     db.session.commit()
-                    return 204, f"Usuario de DNI {dni} eliminado"
+                    return 'Usuario eliminado correctamente', 200
+
                 else:
                     raise Exception(f"No se ha encontrado usuario con DNI: {dni}")
             else:
