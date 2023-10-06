@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, take, switchMap } from 'rxjs';
+import { Observable, take, switchMap , tap} from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -16,10 +16,13 @@ export class AuthService {
   ) { }
 
   login (dataLogin:any):Observable<any>{
+    console.log('comprobando credenciales');
 
     // let dataLogin = {email:'admin@example.com', contrasegna:'admin'};
     return this.httpClient.post(this.url + '/auth/login',dataLogin).pipe(take(1));
   }
+
+
   signup(): Observable<any> {
     // Obtener los valores necesarios de localStorage o de donde sea que los tengas
     let dni = localStorage.getItem('dni');
@@ -46,7 +49,7 @@ export class AuthService {
       altura: altura,
       peso: peso
     };
-  
+      
     // Realizar la solicitud POST con los datos construidos
     // return this.httpClient.post(this.url + '/auth/register', dataSignup).pipe(take(1));
     return this.httpClient.post(this.url + '/auth/register', dataSignup).pipe(
@@ -54,15 +57,12 @@ export class AuthService {
       switchMap(() => {
         // Después del registro exitoso, realizar el inicio de sesión
         return this.login({ email: email, contrasegna: contrasegna });
+        
       })
     );
   }
 
-  
 
-  
-
-  
 
   logout(){
     localStorage.removeItem('token');
@@ -71,3 +71,17 @@ export class AuthService {
 }
 
 
+// this.authService.login(dataLogin).subscribe({
+//   next: (rta:any) => {
+//     alert('Login correcto');
+//     console.log('Respuesta Login:',rta.access_token);
+//     localStorage.setItem('token', rta.access_token);
+//     this.router.navigate(['/home']);
+
+//   }, error: (error) => {
+//     alert('Login incorrecto');
+//     localStorage.removeItem('token');
+//   }, complete: () => {
+//     console.log('Login finalizado');
+//   }});
+// }

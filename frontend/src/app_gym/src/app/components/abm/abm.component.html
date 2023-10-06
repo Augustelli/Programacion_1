@@ -12,25 +12,35 @@
                     </div>
                     <div class="mb-3">
                         <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="apellido" >
+                        <input type="text" class="form-control" id="apellido" [(ngModel)]="userData.apellido" name="apellido" (change)="fieldChanged('apellido', userData.apellido)" >
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="birth" class="form-label">Birth</label>
-                        <input type="birth" class="form-control" id="birth" >
-                    </div>
+                        <input type="birth" class="form-control" id="birth" [(ngModel)]="userData.fecha_nacimiento" name="fecha_nacimiento" (change)="fieldChanged('fecha_nacimiento', userData.fecha_nacimiento)">
+                    </div> -->
 
                     <div class="mb-3">
                         <label for="DNI" class="form-label">DNI</label>
-                        <input type="TEXT" class="form-control" id="DNI" >
+                        <input type="TEXT" class="form-control" id="dni" [(ngModel)]="userData.dni" name="dni"(change)="fieldChanged('dni', userData.dni)">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" >
+                        <input type="email" class="form-control" id="email" [(ngModel)]="userData.email" name="email" (change)="fieldChanged('email', userData.email)" >
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username">
+                        <input type="text" class="form-control" id="username" [(ngModel)]="userData.username" name="username" (change)="fieldChanged('username', userData.username)">
+                    </div> -->
+                    <div class="mb-3">
+                        <label for="nombre_usuario" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" [(ngModel)]="userData.nombre_usuario" name="nombre_usuario" (change)="fieldChanged('nombre_usuario', userData.nombre_usuario)">
                     </div>
+                    
+                    <div class="mb-3">
+                        <label for="rol" class="form-label">Rol</label>
+                        <input type="text" class="form-control" id="rol" [(ngModel)]="userData.rol" name="rol" (change)="fieldChanged('rol', userData.rol)">
+                    </div>
+
                     
                    
 
@@ -51,6 +61,10 @@
                 <button type="button" class="btn btn-secondary" style=" margin-right: 1rem;" data-bs-dismiss="modal" (click)="back()">Cancelar</button>
                 <button type="button" class="btn btn-primary" (click)="updateUser()" >Guardar</button>
             </div>
+            <div *ngIf="successMessage" class="alert alert-success mt-3">
+            {{ successMessage }}
+            </div>
+            
         </div>
     </div>
   </div>

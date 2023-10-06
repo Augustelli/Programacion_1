@@ -41,13 +41,14 @@ export class AbmComponent implements OnInit {
 
 fillFormFields() {
   // Llena los campos del formulario con los datos del usuario
-  const { nombre, apellido, fecha_nacimiento, dni, email, nombre_usuario } = this.userData;
+  const { nombre, apellido, fecha_nacimiento, dni, email, nombre_usuario,rol } = this.userData;
   document.getElementById('nombre')!.setAttribute('value', nombre);
   document.getElementById('apellido')!.setAttribute('value', apellido);
-  document.getElementById('birth')!.setAttribute('value', fecha_nacimiento);
-  document.getElementById('DNI')!.setAttribute('value', dni);
+  // document.getElementById('birth')!.setAttribute('value', fecha_nacimiento);
+  document.getElementById('dni')!.setAttribute('value', dni);
   document.getElementById('email')!.setAttribute('value', email);
   document.getElementById('username')!.setAttribute('value', nombre_usuario);
+  document.getElementById('rol')!.setAttribute('value', rol);
 }
 back() {
   this.router.navigate(['/usuarios']);
@@ -60,6 +61,7 @@ fieldChanged(fieldName: string, newValue: any) {
 
 
 
+
 updateUser() {
   // Realiza la solicitud PUT con this.updatedFields
   this.usuariosService.updateUserData(this.user_id, this.updatedFields).subscribe(
@@ -68,6 +70,7 @@ updateUser() {
       this.successMessage = 'Usuario actualizado con éxito';
       setTimeout(() => {
         this.successMessage = '';
+        this.router.navigate(['/usuarios']);
       }, 3000);
     },
     (error) => {

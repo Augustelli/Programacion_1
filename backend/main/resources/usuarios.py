@@ -169,8 +169,8 @@ class Usuario(Resource):
                 usuario_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == int(request.args.get('nrDni'))).first()
                 informacion = request.get_json().items()
                 for campo, valor in informacion:
-                    if campo == 'rol':
-                        raise Exception('El rol del usuario no puede ser modificado.')
+                    # if campo == 'rol':
+                    #     raise Exception('El rol del usuario no puede ser modificado.')
 
                     setattr(usuario_editar, campo, valor)
                 db.session.add(usuario_editar)

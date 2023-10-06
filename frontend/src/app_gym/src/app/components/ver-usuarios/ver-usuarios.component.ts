@@ -66,4 +66,9 @@ ngOnInit(){
     this.arrayUsuarios = data.Usuario;
   })
 }
+nuevoUsuario(){
+  this.router.navigate(['/crear_usuario']);
+
 }
+}
+
