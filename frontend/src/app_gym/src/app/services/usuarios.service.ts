@@ -36,6 +36,26 @@ export class UsuariosService {
     // Cambia la URL a tu endpoint específico para obtener usuarios con rol "alumno"
     return this.httpClient.get(this.url + '/alumnos',{headers: headers});
 }
-  
+  //mostar alumno por dni
 
+  getUserData(user_id: string): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+    return this.httpClient.get(this.url + '/usuario?nrDni='+user_id, {headers: headers});
+  }
+
+  //hacer put en alumno
+  updateUserData(user_id: string, updatedUserData: any): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+    return this.httpClient.put(this.url + '/usuario?nrDni='+user_id, updatedUserData,{headers: headers});
+  }
 }
+
+
