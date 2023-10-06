@@ -8,41 +8,48 @@
                 <form>
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre">
+                        <input type="text" class="form-control" id="nombre"  [(ngModel)]="userData.nombre" name="nombre" (change)="fieldChanged('nombre', userData.nombre)">
                     </div>
                     <div class="mb-3">
                         <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="apellido">
+                        <input type="text" class="form-control" id="apellido" >
                     </div>
                     <div class="mb-3">
                         <label for="birth" class="form-label">Birth</label>
-                        <input type="birth" class="form-control" id="birth">
+                        <input type="birth" class="form-control" id="birth" >
                     </div>
 
                     <div class="mb-3">
                         <label for="DNI" class="form-label">DNI</label>
-                        <input type="TEXT" class="form-control" id="DNI">
+                        <input type="TEXT" class="form-control" id="DNI" >
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email">
+                        <input type="email" class="form-control" id="email" >
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username">
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="text" class="form-control" id="password">
-                    </div>
+                    
                    
 
                     <!-- Agrega más campos del formulario aquí -->
                 </form>
             </div>
+            <!-- <div>
+                <h3>Información del Usuario</h3>
+                <p><strong>Nombre:</strong> {{ userData.nombre }}</p>
+                <p><strong>Apellido:</strong> {{ userData.apellido }}</p>
+                <p><strong>Fecha de Nacimiento:</strong> {{ userData.fecha_nacimiento }}</p>
+                <p><strong>DNI:</strong> {{ userData.dni }}</p>
+                <p><strong>Email:</strong> {{ userData.email }}</p>
+                <p><strong>Nombre de Usuario:</strong> {{ userData.nombre_usuario }}</p>
+                
+              </div> -->
             <div>
                 <button type="button" class="btn btn-secondary" style=" margin-right: 1rem;" data-bs-dismiss="modal" (click)="back()">Cancelar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" (click)="updateUser()" >Guardar</button>
             </div>
         </div>
     </div>

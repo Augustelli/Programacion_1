@@ -35,6 +35,7 @@ import { AbmComponent } from './components/abm/abm.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {JwtModule} from '@auth0/angular-jwt';
 
 
 
@@ -79,6 +80,14 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('tu_variable_token');
+        },
+        allowedDomains: ['example.com'],
+      },
+    }),
 
   
   ],

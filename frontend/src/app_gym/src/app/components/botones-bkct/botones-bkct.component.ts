@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { CrearUsuarioComponent } from '../../pages/crear-usuario/crear-usuario.component';
 
 @Component({
   selector: 'app-botones-bkct',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
       <div class="row">
         <div class="d-flex justify-content-center">
           <div class="d-flex gap-3" style="align-items: flex-start;">
-            <button class="btn btn-primary btn-lg rounded-pill skip-button" (click)="skip()">Skip</button>
+            <button class="btn btn-primary btn-lg rounded-pill skip-button" >Skip</button>
             <button class="btn btn-primary btn-lg rounded-pill continue-button" >Continue</button>
           </div>
         </div>
@@ -34,9 +35,7 @@ export class BotonesBkctComponent {
 
   constructor(private router: Router) {}
 
-  skip() {
-    this.router.navigate(['/home']);
-  }
+  
 
   // @Output() nextPage = new EventEmitter<void>();
 

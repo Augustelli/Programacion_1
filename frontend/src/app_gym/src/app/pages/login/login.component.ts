@@ -17,5 +17,8 @@ export class LoginComponent {
       }
     });
   }
+  goHomeGuest(){
+    this.router.navigate(['/home']);
+  }
 }
 

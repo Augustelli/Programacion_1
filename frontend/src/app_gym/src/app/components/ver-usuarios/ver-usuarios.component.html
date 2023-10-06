@@ -4,13 +4,17 @@
             <h2 class="text-center mb-4">Lista de Usuarios</h2>
             <div class="d-flex mb-3">
                 <input type="text" class="form-control me-2 flex-grow-1" placeholder="Buscar usuario...">
-                <button class="btn btn-outline-secondary" type="button"><i class="fa-solid fa-magnifying-glass">Profesores</i></button>
+                <button class="btn btn-outline-secondary" (click)="mostrarTodo()" type="button"><i class="fa-solid fa-magnifying-glass">Todos</i></button>
                 <!-- <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#nuevoUsuarioModal">
                     <i class="fa-solid fa-plus"></i>
                 </button> -->
-                <a class="btn btn-primary ms-2"> 
+                <a class="btn btn-primary ms-2" (click)="filtrarAlumnos()"> 
                     <!-- routerLink="/usuario/null/Alta" -->
                   <i class="fa-solid fa-plus">Alumno</i>
+                </a>
+                <a class="btn btn-primary ms-2" (click)="filtrarAlumnosEspera('espera')"> 
+                    <!-- routerLink="/usuario/null/Alta" -->
+                  <i class="fa-solid fa-plus">Espera</i>
                 </a>
             </div>
             <ul class="list-group">
@@ -23,7 +27,7 @@
                         </div>
                     </div>
                     <div>
-                        <a class="btn btn-primary btn-sm me-2" routerLink="/usuario/{{ usuario.id }}/Editar">Editar<i class="fa-solid fa-pen-to-square"></i></a>
+                        <a class="btn btn-primary btn-sm me-2" routerLink="/usuario/{{ usuario.dni }}/Editar">Editar<i class="fa-solid fa-pen-to-square"></i></a>
                         <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>Eliminar</button>
                     </div>
                 </li>

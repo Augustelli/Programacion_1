@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, take } from 'rxjs';
+import { Observable, take, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -48,8 +48,16 @@ export class AuthService {
     };
   
     // Realizar la solicitud POST con los datos construidos
-    return this.httpClient.post(this.url + '/auth/register', dataSignup).pipe(take(1));
+    // return this.httpClient.post(this.url + '/auth/register', dataSignup).pipe(take(1));
+    return this.httpClient.post(this.url + '/auth/register', dataSignup).pipe(
+      take(1),
+      switchMap(() => {
+        // Después del registro exitoso, realizar el inicio de sesión
+        return this.login({ email: email, contrasegna: contrasegna });
+      })
+    );
   }
+
   
 
   
@@ -61,6 +69,5 @@ export class AuthService {
     this.router.navigate(['/', 'home']);
   }
 }
-
 
 

@@ -74,7 +74,7 @@ def register():
                 if datos[campo] is None:
                     raise Exception(f'Error al crear usuario. El campo {campo} no puede ser nulo. Por favor, proporcione un valor válido para {campo} y vuelva a intentarlo.')  # noqa
 
-            datos['rol'] = "alumno"
+            datos['rol'] = "espera"
             usuario_nuevo = UsuarioModelo.from_json(datos)
             db.session.add(usuario_nuevo)
             alumno = AlumnoModel(

@@ -112,6 +112,44 @@ submit() {
 }
 
 
+// submit2() {
+//   if (this.loginForm2.valid) {
+//     const email = this.loginForm2.get('email')?.value;
+//     const contrasegna = this.loginForm2.get('contrasegna')?.value;
+//     const nombre = this.loginForm2.get('nombre')?.value;
+//     const apellido = this.loginForm2.get('apellido')?.value;
+//     const dni = this.loginForm2.get('dni')?.value;
+
+//     if (email && contrasegna && nombre && apellido && dni) {
+//       // Todos los valores están disponibles y no son null
+//       localStorage.setItem('email', email);
+//       localStorage.setItem('contrasegna', contrasegna);
+//       localStorage.setItem('nombre', nombre);
+//       localStorage.setItem('apellido', apellido);
+//       localStorage.setItem('dni', dni);
+
+  
+
+
+//     this.authService.signup().subscribe(
+//       (response) => {
+//         // La solicitud POST fue exitosa, redirige a la página deseada
+//         this.router.navigate(['/home']);
+//       },
+//       (error) => {
+//         console.error('Error en la solicitud POST:', error);
+//         alert('Hubo un error en la solicitud POST');
+//       }
+//     );
+//     } else {
+//     alert('Algunos campos son nulos o inválidos');
+//     }
+//     } else {
+//     alert('Login incorrecto');
+//     localStorage.removeItem('FormularioSinValidar');
+// }
+// }
+
 submit2() {
   if (this.loginForm2.valid) {
     const email = this.loginForm2.get('email')?.value;
@@ -128,44 +166,13 @@ submit2() {
       localStorage.setItem('apellido', apellido);
       localStorage.setItem('dni', dni);
 
-  //     this.router.navigate(['/crear_usuario']);
-  //   } else {
-  //     alert('Algunos campos son nulos o inválidos');
-  //   }
-  // } else {
-  //   alert('Login incorrecto');
-  //   localStorage.removeItem('FormularioSinValidar');
-  // }
-
-// }
-
-    this.authService.signup().subscribe(
-      (response) => {
-        // La solicitud POST fue exitosa, redirige a la página deseada
-        this.router.navigate(['/home']);
-      },
-      (error) => {
-        console.error('Error en la solicitud POST:', error);
-        alert('Hubo un error en la solicitud POST');
-      }
-    );
+      this.router.navigate(['/crear_usuario']);
     } else {
-    alert('Algunos campos son nulos o inválidos');
+      alert('Algunos campos son nulos o inválidos');
     }
-    } else {
+  } else {
     alert('Login incorrecto');
-    localStorage.removeItem('FormularioSinValidar');
+  }
 }
 }
-
-
-
-}
-
-
-  
-  
-  
-
-
 
