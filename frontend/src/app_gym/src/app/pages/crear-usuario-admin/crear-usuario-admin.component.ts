@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class CrearUsuarioAdminComponent {
   formData: any = {};
+  succesMessage: string = '';
 
   constructor(
     private usuariosService: UsuariosService,
@@ -27,6 +28,15 @@ export class CrearUsuarioAdminComponent {
       .subscribe(
         (response) => {
           console.log('Solicitud POST exitosa', response);
+          this.succesMessage = 'Usuario creado correctamente';
+          this.succesMessage = 'Usuario actualizado con éxito';
+        setTimeout(() => {
+        this.succesMessage = '';
+        this.router.navigate(['/usuarios']);
+      }, 3000);
+      
+
+
 
           // Realiza acciones adicionales si es necesario, como redirigir a otra página o mostrar un mensaje de éxito
         },

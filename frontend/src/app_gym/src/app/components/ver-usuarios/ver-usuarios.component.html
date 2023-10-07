@@ -5,7 +5,7 @@
             <div class="d-flex mb-3">
                 <input  type="text"  class="form-control me-2 flex-grow-1"  placeholder="Buscar usuario..."  [(ngModel)]="searchTerm"  (input)="filtrarUsuariosNombre()">
                 <!-- <input type="text" class="form-control me-2 flex-grow-1" placeholder="Buscar usuario..." (click)="filtrarUsuariosNombre()"> -->
-                <button class="btn btn-outline-secondary" (click)="mostrarTodo()" type="button"><i class="fa-solid fa-magnifying-glass">Todos</i></button>
+                <button class="btn btn-outline-secondary" (click)="mostrarTodo()" *ngIf="userRol ===  'admin'"type="button"><i class="fa-solid fa-magnifying-glass">Todos</i></button>
                 <!-- <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#nuevoUsuarioModal">
                     <i class="fa-solid fa-plus"></i>
                 </button> -->
@@ -13,11 +13,11 @@
                     <!-- routerLink="/usuario/null/Alta" -->
                   <i class="fa-solid fa-plus">Alumno</i>
                 </a>
-                <a class="btn btn-primary ms-2" (click)="filtrarAlumnosEspera('espera')"> 
+                <a class="btn btn-primary ms-2" *ngIf=" userRol === 'admin'" (click)="filtrarAlumnosEspera('espera')"> 
                     <!-- routerLink="/usuario/null/Alta" -->
                   <i class="fa-solid fa-plus">Espera</i>
                 </a>
-                <a class="btn btn-secondary ms-2" (click)="nuevoUsuario()"> 
+                <a class="btn btn-secondary ms-2" *ngIf=" userRol === 'admin' || userRol === 'profesor'" (click)="nuevoUsuario()"> 
                     <!-- routerLink="/usuario/null/Alta" -->
                   <i class="fa-solid fa-plus">+</i>
                 </a>

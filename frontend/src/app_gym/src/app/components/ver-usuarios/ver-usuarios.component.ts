@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-ver-usuarios',
   templateUrl: './ver-usuarios.component.html',
   styleUrls: ['./ver-usuarios.component.css']
 })
-export class VerUsuariosComponent {
+export class VerUsuariosComponent implements OnInit {
   arrayUsuarios: any;
   searchTerm: string = '';
+  userRol:string = '';
+
 
   // arrayUsuarios = [
   //   {
@@ -31,6 +34,7 @@ export class VerUsuariosComponent {
   
   constructor(
     private usuariosService: UsuariosService,
+    private jwtHelper: JwtHelperService,
     
     private router: Router
   ){}
@@ -67,6 +71,18 @@ ngOnInit(){
     console.log('JSON data:', data);
     this.arrayUsuarios = data.Usuario;
   })
+  const token = localStorage.getItem('token');
+  if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
+    const decodedToken = this.jwtHelper.decodeToken(token);
+    this.userRol = decodedToken.rol;
+}
+
+// ngOnInit() {
+//   const token = localStorage.getItem('token');
+//   if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
+//     const decodedToken = this.jwtHelper.decodeToken(token);
+//     this.userRol = decodedToken.rol;
+// }
 }
 nuevoUsuario(){
   this.router.navigate(['/crear_usuario_admin']);

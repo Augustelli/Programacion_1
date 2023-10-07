@@ -39,7 +39,7 @@ class Usuarios(Resource):
             db.session.close()
 
     # Rol: Admin
-    @role_required(roles=['admin'])
+    @role_required(roles=['admin', 'profesor'])
     def post(self):
         try:
             campos_obligatorios = {'dni', 'nombre', 'apellido', 'email', 'contrasegna'}
@@ -126,7 +126,7 @@ class Usuarios(Resource):
 class Usuario(Resource):
 
     # Rol: Admin
-    @role_required(roles=['admin'])
+    @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
             page = 1
@@ -157,7 +157,7 @@ class Usuario(Resource):
             db.session.close()
 
     # Rol: Admin
-    @role_required(roles=['admin'])
+    @role_required(roles=['admin', 'profesor'])
     def put(self):
         try:
             if request.args.get('nrDni'):
