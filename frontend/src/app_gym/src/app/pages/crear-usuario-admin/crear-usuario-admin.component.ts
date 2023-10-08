@@ -1,21 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-crear-usuario-admin',
   templateUrl: './crear-usuario-admin.component.html',
   styleUrls: ['./crear-usuario-admin.component.css']
 })
-export class CrearUsuarioAdminComponent {
+export class CrearUsuarioAdminComponent implements OnInit {
   formData: any = {};
   succesMessage: string = '';
+  userRol:string = '';
+
 
   constructor(
     private usuariosService: UsuariosService,
-    private router: Router
+    private router: Router,
+    private jwtHelper: JwtHelperService,
   ){}
   onSubmit(form: NgForm) { // Añade NgForm como argumento
     const fechaNacimiento = this.formatDate(this.formData.fecha_nacimiento);
@@ -29,7 +33,7 @@ export class CrearUsuarioAdminComponent {
         (response) => {
           console.log('Solicitud POST exitosa', response);
           this.succesMessage = 'Usuario creado correctamente';
-          this.succesMessage = 'Usuario actualizado con éxito';
+          // this.succesMessage = 'Usuario actualizado con éxito';
         setTimeout(() => {
         this.succesMessage = '';
         this.router.navigate(['/usuarios']);
@@ -57,5 +61,12 @@ export class CrearUsuarioAdminComponent {
   goBack() {
     this.router.navigate(['/usuarios']);
 }
+ngOnInit() {
+  const token = localStorage.getItem('token');
+  // this.succesMessage='Esperando validación de token por el ADMIN, mas tarde verá todas las funcionalidades...';
+  if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
+    const decodedToken = this.jwtHelper.decodeToken(token);
+    this.userRol = decodedToken.rol;
 }
-
+}
+}

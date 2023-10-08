@@ -9,13 +9,13 @@
             <h2 class="text-center mb-4">Crear Usuario</h2>
             
 
-<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+<form #form="ngForm" (ngSubmit)="onSubmit(form)" *ngIf="userRol==='admin' || userRol=== 'profesor'">
    
-    <div class="mb-3">
+    <div class="mb-3" >
         <label for="nombre" class="form-label">Nombre</label>
         <input type="text" class="form-control" id="nombre" [(ngModel)]="formData.nombre" name="nombre" >
     </div>
-    <div class="mb-3">
+    <div class="mb-3" >
         <label for="apellido" class="form-label">Apellido</label>
         <input type="text" class="form-control" id="apellido" [(ngModel)]="formData.apellido" name="apellido" >
     </div>
@@ -45,13 +45,17 @@
         <input type="text" class="form-control" id="username" [(ngModel)]="formData.nombre_usuario"  name="nombre_usuario">
     </div>
     
-    <div class="mb-3">
+    <div class="mb-3" *ngIf="userRol==='admin'" >
         <label for="rol" class="form-label">Rol</label>
         <input type="text" class="form-control" id="rol" [(ngModel)]="formData.rol" name="rol" >
     </div>
 
     <div class="mb-3">
         <label for="password" class="form-label">Password</label>
+        <input type="text" class="form-control" id="password" [(ngModel)]="formData.contrasegna" name="contrasegna"  >
+    </div>
+    <div class="mb-3" *ngIf="formData.rol === 'profesor'">
+        <label for="password" class="form-label">Especialidad</label>
         <input type="text" class="form-control" id="password" [(ngModel)]="formData.contrasegna" name="contrasegna"  >
     </div>
 
