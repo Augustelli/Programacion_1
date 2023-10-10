@@ -39,7 +39,7 @@ class Usuarios(Resource):
             db.session.close()
 
     # Rol: Admin
-    @role_required(roles=['admin'])
+    @role_required(roles=['admin', 'profesor'])
     def post(self):
         try:
             campos_obligatorios = {'dni', 'nombre', 'apellido', 'email', 'contrasegna'}
@@ -126,7 +126,7 @@ class Usuarios(Resource):
 class Usuario(Resource):
 
     # Rol: Admin
-    @role_required(roles=['admin'])
+    @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
             page = 1
@@ -157,7 +157,7 @@ class Usuario(Resource):
             db.session.close()
 
     # Rol: Admin
-    @role_required(roles=['admin'])
+    @role_required(roles=['admin', 'profesor'])
     def put(self):
         try:
             if request.args.get('nrDni'):
@@ -169,8 +169,8 @@ class Usuario(Resource):
                 usuario_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == int(request.args.get('nrDni'))).first()
                 informacion = request.get_json().items()
                 for campo, valor in informacion:
-                    if campo == 'rol':
-                        raise Exception('El rol del usuario no puede ser modificado.')
+                    # if campo == 'rol':
+                    #     raise Exception('El rol del usuario no puede ser modificado.')
 
                     setattr(usuario_editar, campo, valor)
                 db.session.add(usuario_editar)
@@ -197,7 +197,8 @@ class Usuario(Resource):
                         db.session.delete(alumno_eliminar)
 
                     db.session.commit()
-                    return 204, f"Usuario de DNI {dni} eliminado"
+                    return 'Usuario eliminado correctamente', 200
+
                 else:
                     raise Exception(f"No se ha encontrado usuario con DNI: {dni}")
             else:

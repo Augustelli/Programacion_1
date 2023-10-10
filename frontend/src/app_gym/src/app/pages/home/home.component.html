@@ -11,7 +11,11 @@
     </div>
   </nav>
 </div>
-
+<div *ngIf="userRol==='espera'">
+<div *ngIf="successMessage" class="alert alert-success mt-3">
+  {{ successMessage }}
+</div>
+</div>
 
 
 <div *ngIf="varVerPlanificaciones">

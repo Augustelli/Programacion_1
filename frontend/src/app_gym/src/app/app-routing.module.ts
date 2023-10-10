@@ -13,6 +13,9 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { PayComponent } from './pages/pay/pay.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { authsessionGuardToken, authsessionGuardTokenAdminProfe, authsessionGuardTokenAdminProfeAlum, authsessionGuardTokenAdminProfeAlumEspera, authsessionGuardTokenAdmin } from './guards/authsession.guard';
+import { CrearUsuarioAdminComponent } from './pages/crear-usuario-admin/crear-usuario-admin.component';
+
 
 
 const routes: Routes = [
@@ -22,15 +25,15 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'clases',component:ClasesComponent},
   // {path:'**',redirectTo:'error_page'},
-  {path:'inicio',component:InicioComponent},
-  {path:'editar_perfil',component:EditarPerfilComponent},
+  {path:'editar_perfil',component:EditarPerfilComponent, canActivate:[authsessionGuardTokenAdminProfeAlum]},
   {path:'crear_usuario',component:CrearUsuarioComponent},
   {path:'login_two',component:LoginTwoComponent},
-  {path:'logout',component:LogoutComponent},
+  {path:'logout',component:LogoutComponent, canActivate:[authsessionGuardTokenAdminProfeAlumEspera]},
   {path:'error_page',component:ErrorPageComponent},
-  {path:'usuarios',component:UsuariosComponent},
-  {path:'pay',component:PayComponent},
-  { path: 'usuario/:id/:tipo_op', component: UsuarioComponent },
+  {path:'usuarios',component:UsuariosComponent, canActivate:[authsessionGuardTokenAdminProfe]},
+  {path:'pay',component:PayComponent, canActivate:[authsessionGuardTokenAdminProfeAlum]},
+  { path: 'usuario/:id/:tipo_op', component: UsuarioComponent, canActivate:[authsessionGuardTokenAdminProfe]},
+  { path: 'crear_usuario_admin', component: CrearUsuarioAdminComponent , canActivate:[authsessionGuardTokenAdminProfe]},
   
   // {path:'crear_usuario_main',component:CrearUsuarioMainComponent},
 

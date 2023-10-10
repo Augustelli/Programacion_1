@@ -124,7 +124,7 @@ class PlanificacionesProfesores(Resource):
             planificacion_nueva = PlanificacionModelo.from_json(datos)
             db.session.add(planificacion_nueva)
             db.session.commit()
-            sent = sendMail([usuario.email], "Bienvenido a la plataforma del gimnasio del Grupo D, hay una nueva planificación disponible", "plani", planificacion=planificacion_nueva)  # noqa
+           # sent = sendMail([usuario.email], "Bienvenido a la plataforma del gimnasio del Grupo D, hay una nueva planificación disponible", "plani", planificacion=planificacion_nueva)  # noqa
             # sent=sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D", "register", usuario=usuario_nuevo)
             return planificacion_nueva.to_json(), 201
         except Exception as e:

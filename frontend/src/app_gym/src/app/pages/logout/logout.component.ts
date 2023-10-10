@@ -13,8 +13,9 @@ export class LogoutComponent {
 cancelLogout() {
   this.router.navigate(['/home']);
 }
-Logout() {
-  this.router.navigate(['/error_page']);
+logout() {
+  localStorage.removeItem('token')
+  this.router.navigate(['/login']);
 
 }
 }

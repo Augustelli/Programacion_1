@@ -33,6 +33,11 @@ import { PayComponent } from './pages/pay/pay.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { AbmComponent } from './components/abm/abm.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {JwtModule} from '@auth0/angular-jwt';
+import { CrearUsuarioAdminComponent } from './pages/crear-usuario-admin/crear-usuario-admin.component';
+
 
 
 @NgModule({
@@ -63,6 +68,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PayComponent,
     UsuariosComponent,
     AbmComponent,
+    CrearUsuarioAdminComponent,
     
     // TablaPlanificacionGrillaaComponent
     // crearUsuarioComponent
@@ -73,6 +79,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TablaPlanificacionGrillaaComponent,
     LoginThreeComponent,
     BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('tu_variable_token');
+        },
+        allowedDomains: ['example.com'],
+      },
+    }),
 
   
   ],
