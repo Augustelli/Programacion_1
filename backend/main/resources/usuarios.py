@@ -126,7 +126,7 @@ class Usuarios(Resource):
 class Usuario(Resource):
 
     # Rol: Admin
-    @role_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor','alumno'])
     def get(self):
         try:
             page = 1
