@@ -67,6 +67,9 @@ ngOnInit() {
   if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
     const decodedToken = this.jwtHelper.decodeToken(token);
     this.userRol = decodedToken.rol;
+    if (this.userRol === 'profesor'){
+      this.formData.rol = 'alumno';
+    }
 }
 }
 }

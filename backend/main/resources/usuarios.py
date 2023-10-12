@@ -429,3 +429,30 @@ class UsuarioAlumno(Resource):
             }, 400
         finally:
             db.session.close()
+
+
+class UsuariosLogin(Resource):
+
+    # Rol : Admin
+    def get(self):
+        try:
+            
+
+            usuarios = db.session.query(UsuarioModelo)
+            if request.args.get('nrDni'):
+                usuarios = usuarios.filter(UsuarioModelo.dni == int(request.args.get('nrDni')))
+            if request.args.get('email'):
+                usuarios = usuarios.filter(UsuarioModelo.email == request.args.get('email'))
+            
+            usuarios_json = [usuario.to_json() for usuario in usuarios.all()]
+
+
+           
+
+            return usuarios_json
+                                
+
+        except Exception as e:
+            return {'error': str(e)}, 404
+        finally:
+            db.session.close()

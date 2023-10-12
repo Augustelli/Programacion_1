@@ -36,7 +36,7 @@
                         <input type="text" class="form-control" id="username" [(ngModel)]="userData.nombre_usuario" name="nombre_usuario" (change)="fieldChanged('nombre_usuario', userData.nombre_usuario)">
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-3" *ngIf="userRol==='admin'">
                         <label for="rol" class="form-label">Rol</label>
                         <input type="text" class="form-control" id="rol" [(ngModel)]="userData.rol" name="rol" (change)="fieldChanged('rol', userData.rol)">
                     </div>

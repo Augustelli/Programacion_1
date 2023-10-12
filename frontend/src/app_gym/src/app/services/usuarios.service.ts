@@ -79,6 +79,12 @@ export class UsuariosService {
     console.log('Datos del nuevo usuario', newUserData);
     return this.httpClient.post(this.url + '/usuarios', {...newUserData},{headers: headers});
   }
+  checkEmailExists(email: string) {
+    return this.httpClient.get(this.url + '/usuarios_login?email=' + email);
+  }
+  checkDniExists(dni: string) {
+    return this.httpClient.get(this.url + '/usuarios_login?nrDni=' + dni);
+  }
 }
 
 

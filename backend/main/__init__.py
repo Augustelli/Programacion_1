@@ -49,6 +49,7 @@ def create_app():
     api.add_resource(resources.PagosRec, '/pagos')
     api.add_resource(resources.ClasesRec, '/clases')
     api.add_resource(resources.ClaseRec, '/clase')
+    api.add_resource(resources.UsuarioLoginRec, '/usuarios_login')
 
     api.init_app(app)
     app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')

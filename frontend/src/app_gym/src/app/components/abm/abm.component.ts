@@ -3,6 +3,8 @@ import { Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 @Component({
   selector: 'app-abm',
@@ -15,15 +17,24 @@ export class AbmComponent implements OnInit {
   userData: any = {};
   updatedFields: any = {};
   successMessage: string = '';
+  userRol:string = '';
 
 
   constructor(
     private router: Router,
-    private usuariosService: UsuariosService
+    private usuariosService: UsuariosService,
+    private http: HttpClient,
+    private jwtHelper: JwtHelperService
     ) {}
 
   
     ngOnInit() {
+      const token = localStorage.getItem('token');
+      
+      if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
+        const decodedToken = this.jwtHelper.decodeToken(token);
+        this.userRol = decodedToken.rol;
+      }
     if (this.user_id) {
       // Utiliza el servicio para obtener los datos del usuario
       this.usuariosService.getUserData(this.user_id).subscribe(
@@ -38,6 +49,20 @@ export class AbmComponent implements OnInit {
       );
     }
   }
+
+//   ngOnInit() {
+//     const token = localStorage.getItem('token');
+//     this.successMessage='Esperando validación de token por el ADMIN, mas tarde verá todas las funcionalidades...';
+//     if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
+//       const decodedToken = this.jwtHelper.decodeToken(token);
+//       this.userRol = decodedToken.rol;
+//       this.isToken = true;
+//   }else{
+//     this.isToken = false;
+    
+//     this.successMessage='Usted no se ha registrado, la visión sera reducidada...';
+//   }
+// }
 
 fillFormFields() {
   // Llena los campos del formulario con los datos del usuario

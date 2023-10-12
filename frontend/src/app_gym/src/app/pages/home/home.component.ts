@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit{
   varNoVerPlanificaciones = false;
   successMessage: string = '';
   userRol:string = '';
+  isToken: boolean = false;
 
   constructor(
     private jwtHelper: JwtHelperService
@@ -31,6 +32,11 @@ export class HomeComponent implements OnInit{
     if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
       const decodedToken = this.jwtHelper.decodeToken(token);
       this.userRol = decodedToken.rol;
+      this.isToken = true;
+  }else{
+    this.isToken = false;
+    
+    this.successMessage='Usted no se ha registrado, la visión sera reducidada...';
   }
 }
 

@@ -35,6 +35,7 @@ export class Nav2Component  implements OnInit{
     this.router.navigate(['/logout']);
   }
 
+
   redirectEditar() {
     this.router.navigate(['/editar_perfil']);
   }
@@ -44,6 +45,9 @@ export class Nav2Component  implements OnInit{
   }
   redirectLogin() {
     this.router.navigate(['/login_two'], { queryParams: { varLogin: true } });
+  }
+  redirectSignIn() {
+    this.router.navigate(['/login_two'], { queryParams: { varLogin: false } });
   }
   
 }

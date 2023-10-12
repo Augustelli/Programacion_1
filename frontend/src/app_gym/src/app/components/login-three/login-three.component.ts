@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
-import {  FormGroup ,FormBuilder ,FormControl,  FormGroupDirective,  NgForm,  Validators,  FormsModule,  ReactiveFormsModule,} from '@angular/forms';
+import {  FormGroup ,FormBuilder ,AbstractControl ,FormControl,  FormGroupDirective,  NgForm,  Validators,  FormsModule,  ReactiveFormsModule,} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {NgIf} from '@angular/common';
 
@@ -11,6 +11,8 @@ import {MatButtonModule} from '@angular/material/button';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+
 
 
 
@@ -30,6 +32,8 @@ export class LoginThreeComponent implements OnInit {
   loginForm!: FormGroup;
   loginForm2!: FormGroup;
 
+  
+
   varLogin = false;
   hide = true;
   confirmEmail = new FormControl('', [Validators.required, Validators.email]);
@@ -42,10 +46,20 @@ export class LoginThreeComponent implements OnInit {
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
+  getErrorMessage1() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+  
+
   constructor(private route: ActivatedRoute, 
     private router: Router,
     private authService: AuthService,
     private formBuilder: FormBuilder,
+    private usuariosService: UsuariosService,
     ) {}
    
   login(dataLogin: any={}) {
@@ -87,6 +101,7 @@ ngOnInit() {
       
       this.loginForm2 = this.formBuilder.group({
         email: ['', [Validators.required, Validators.email]],
+        confirmEmail: ['', [Validators.required, Validators.email]],
         contrasegna: ['', [Validators.required, Validators.minLength(3)]],
         nombre: ['', [Validators.required, Validators.minLength(3)]],
         apellido: ['', [Validators.required, Validators.minLength(3)]],
@@ -112,67 +127,54 @@ submit() {
 }
 
 
-// submit2() {
-//   if (this.loginForm2.valid) {
-//     const email = this.loginForm2.get('email')?.value;
-//     const contrasegna = this.loginForm2.get('contrasegna')?.value;
-//     const nombre = this.loginForm2.get('nombre')?.value;
-//     const apellido = this.loginForm2.get('apellido')?.value;
-//     const dni = this.loginForm2.get('dni')?.value;
-
-//     if (email && contrasegna && nombre && apellido && dni) {
-//       // Todos los valores están disponibles y no son null
-//       localStorage.setItem('email', email);
-//       localStorage.setItem('contrasegna', contrasegna);
-//       localStorage.setItem('nombre', nombre);
-//       localStorage.setItem('apellido', apellido);
-//       localStorage.setItem('dni', dni);
-
-  
-
-
-//     this.authService.signup().subscribe(
-//       (response) => {
-//         // La solicitud POST fue exitosa, redirige a la página deseada
-//         this.router.navigate(['/home']);
-//       },
-//       (error) => {
-//         console.error('Error en la solicitud POST:', error);
-//         alert('Hubo un error en la solicitud POST');
-//       }
-//     );
-//     } else {
-//     alert('Algunos campos son nulos o inválidos');
-//     }
-//     } else {
-//     alert('Login incorrecto');
-//     localStorage.removeItem('FormularioSinValidar');
-// }
-// }
 
 submit2() {
   if (this.loginForm2.valid) {
     const email = this.loginForm2.get('email')?.value;
+    const confirmEmail = this.loginForm2.get('confirmEmail')?.value;
     const contrasegna = this.loginForm2.get('contrasegna')?.value;
     const nombre = this.loginForm2.get('nombre')?.value;
     const apellido = this.loginForm2.get('apellido')?.value;
     const dni = this.loginForm2.get('dni')?.value;
 
-    if (email && contrasegna && nombre && apellido && dni) {
-      // Todos los valores están disponibles y no son null
-      localStorage.setItem('email', email);
-      localStorage.setItem('contrasegna', contrasegna);
-      localStorage.setItem('nombre', nombre);
-      localStorage.setItem('apellido', apellido);
-      localStorage.setItem('dni', dni);
-
-      this.router.navigate(['/crear_usuario']);
-    } else {
-      alert('Algunos campos son nulos o inválidos');
+    if (email !== confirmEmail) {
+      alert('Los correos no coinciden');
+      return;
     }
+
+    // Verificar si el correo ya existe en el backend
+    this.usuariosService.checkEmailExists(email).subscribe((response: any) => {
+      console.log('Respuesta checkEmailExists: ', response);
+      if (Array.isArray(response) && response.length > 0 && response[0].email === email) {
+        // Resto del código
+        alert('El correo electrónico ya está registrado. Por favor, elige otro correo.');
+      } else {
+        // Verificar si el DNI ya existe en el backend
+        this.usuariosService.checkDniExists(dni).subscribe((response:any) => {
+          console.log('Respuesta checkDniExists: ', response);
+          if (Array.isArray(response) && response.length > 0) {
+            alert('El número de DNI ya está registrado. Por favor, elige otro número de DNI.');
+          } else {
+            // Continuar con el registro si el correo y el DNI no existen
+            if (email && contrasegna && nombre && apellido && dni) {
+              localStorage.setItem('email', email);
+              localStorage.setItem('contrasegna', contrasegna);
+              localStorage.setItem('nombre', nombre);
+              localStorage.setItem('apellido', apellido);
+              localStorage.setItem('dni', dni);
+
+              this.router.navigate(['/crear_usuario']);
+            } else {
+              alert('Algunos campos son nulos o inválidos');
+            }
+          }
+        });
+      }
+    });
   } else {
     alert('Login incorrecto');
   }
 }
 }
+
 
