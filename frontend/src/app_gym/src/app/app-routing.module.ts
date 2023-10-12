@@ -13,7 +13,7 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { PayComponent } from './pages/pay/pay.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
-import { authsessionGuard } from './guards/authsession.guard';
+import { authsessionGuardToken, authsessionGuardTokenAdminUser } from './guards/authsession.guard';
 
 
 
@@ -30,7 +30,7 @@ const routes: Routes = [
   {path:'login_two',component:LoginTwoComponent},
   {path:'logout',component:LogoutComponent},
   {path:'error_page',component:ErrorPageComponent},
-  {path:'usuarios',component:UsuariosComponent, canActivate:[authsessionGuard]},
+  {path:'usuarios',component:UsuariosComponent, canActivate:[authsessionGuardToken]},
   {path:'pay',component:PayComponent},
   { path: 'usuario/:id/:tipo_op', component: UsuarioComponent },
   

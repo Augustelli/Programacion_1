@@ -66,7 +66,7 @@ export class VerPlanificacionesComponent {
   ngOnInit(): void {
       this.planificacionService.getPlanificaciones().subscribe((data: any) => {
           console.log('JSON data:', data);
-          this.arrayPlanificaciones = data;
+          this.arrayPlanificaciones = data.planificacion;
       });
     console.log('arrayPlanificaciones', this.arrayPlanificaciones);
   }
