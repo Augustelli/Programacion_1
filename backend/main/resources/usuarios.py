@@ -140,6 +140,7 @@ class Usuario(Resource):
             usuarios = db.session.query(UsuarioModelo)
             if request.args.get('nrDni'):
                 usuarios = usuarios.filter(UsuarioModelo.dni == int(request.args.get('nrDni')))
+                
 
             usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items]
@@ -162,17 +163,43 @@ class Usuario(Resource):
         try:
             if request.args.get('nrDni'):
                 registro = db.session.query(UsuarioModelo).get(request.args.get('nrDni'))
+                registro1 = db.session.query(AlumnoModel).get(request.args.get('nrDni'))
                 if registro:
                     pass
                 else:
                     raise Exception(f"No se ha encontrado usuario con DNI: {(request.args.get('nrDni'))}")
+                
                 usuario_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == int(request.args.get('nrDni'))).first()
+                
+                usuario_editar1 = db.session.query(AlumnoModel).filter(AlumnoModel.alumno_dni == int(request.args.get('nrDni'))).first()
+                usuario_editar2 = db.session.query(ProfesorModelo).filter(ProfesorModelo.profesor_dni == int(request.args.get('nrDni'))).first()
                 informacion = request.get_json().items()
                 for campo, valor in informacion:
+                    # if campo == 'dni':
+
                     # if campo == 'rol':
                     #     raise Exception('El rol del usuario no puede ser modificado.')
 
                     setattr(usuario_editar, campo, valor)
+                    if campo == 'peso':
+                        usuario_editar1.peso = float(valor)
+                        db.session.add(usuario_editar1)
+                    if campo == 'altura':
+                        usuario_editar1.altura = float(valor)
+                        db.session.add(usuario_editar1)
+                    if campo == 'dni' and usuario_editar.rol == 'alumno':
+                        usuario_editar1.alumno_dni = int(valor)
+                        db.session.add(usuario_editar1)
+                    if campo == 'salario':
+                        usuario_editar2.salario = float(valor)
+                        db.session.add(usuario_editar2)
+                    if campo == 'especialidad':
+                        usuario_editar2.especialidad = valor
+                        db.session.add(usuario_editar2)
+                    if campo == 'dni' and usuario_editar.rol == 'profesor':
+                        usuario_editar2.profesor_dni = int(valor)
+                        db.session.add(usuario_editar2)
+
                 db.session.add(usuario_editar)
                 db.session.commit()
                 return usuario_editar.to_json(), 201
@@ -276,36 +303,56 @@ class UsuarioProfesor(Resource):
     @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
+            profesores = db.session.query(UsuarioModelo, ProfesorModelo).\
+                join(ProfesorModelo, UsuarioModelo.dni == ProfesorModelo.profesor_dni)
+
             page = 1
             per_page = 10
-            usuarios = db.session.query(UsuarioModelo)
+
             if request.args.get('page'):
                 page = int(request.args.get('page'))
             if request.args.get('per_page'):
                 per_page = int(request.args.get('per_page'))
+
             if request.args.get('nrDni'):
-                query = usuarios.outerjoin(ProfesorModelo, UsuarioModelo.dni == ProfesorModelo.profesor_dni)
-                usuarios = query.filter(UsuarioModelo.dni == request.args.get('nrDni'))
-                usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
-                usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items]
-                return {
-                    'Usuario': usuarios_json,
-                    'Pagina': page,
-                    'Por pagina': per_page,
-                    'Total': usuarios_paginados.total
+                profesores = profesores.filter(UsuarioModelo.dni == request.args.get('nrDni'))
+
+
+            profesores_paginados = profesores.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
+
+            # Construir la respuesta
+            profesores_json = []
+            for usuario, profesor in profesores_paginados.items:
+                profesor_data = {
+                    'dni': usuario.dni,
+                    'rol': usuario.rol,
+                    'nombre': usuario.nombre,
+                    'apellido': usuario.apellido,
+                    'email': usuario.email,
+                    'idProfesor': profesor.idProfesor,
+                    'especialidad': profesor.especialidad,
+                    'salario': profesor.salario
                 }
-            else:
-                raise Exception('Se debe proporcionar el DNI de el profesor')
+                profesores_json.append(profesor_data)
+
+            return {
+                'Usuario': profesores_json,
+                'Pagina': page,
+                'Por pagina': per_page,
+                'Total': profesores_paginados.total
+            }
         except Exception as e:
-            return {'error': str(e)}, 400
+            return {'error': str(e)}, 404
         finally:
             db.session.close()
+
 
     @role_required(roles=['admin', 'profesor'])
     def put(self):
         try:
             if request.args.get('nrDni'):
                 registro = db.session.query(UsuarioModelo).get(request.args.get('nrDni'))
+                registro1 = db.session.query(ProfesorModelo).get(request.args.get('nrDni'))
                 if registro:
                     pass
                 else:
@@ -317,7 +364,6 @@ class UsuarioProfesor(Resource):
                     if campo == 'rol':
                         raise Exception('El rol del usuario no puede ser modificado.')
 
-                    setattr(usuario_editar, campo, valor)
                     if campo == 'salario' :
                         usuario_editar1.salario = float(valor)
                         db.session.add(usuario_editar1)
@@ -325,9 +371,14 @@ class UsuarioProfesor(Resource):
                     if campo == 'especialidad':
                         usuario_editar1.especialidad = valor
                         db.session.add(usuario_editar1)
+                    if campo == 'dni':
+                        usuario_editar1.profesor_dni = int(valor)
+                        db.session.add(usuario_editar1)
 
+                    setattr(usuario_editar, campo, valor)
 
                 db.session.add(usuario_editar)
+
                 db.session.commit()
                 return usuario_editar.to_json(), 201
             else:
@@ -337,6 +388,34 @@ class UsuarioProfesor(Resource):
         finally:
             db.session.close()
 
+    
+        #       
+        #         for campo, valor in informacion:
+        #             # if campo == 'dni':
+
+        #             # if campo == 'rol':
+        #             #     raise Exception('El rol del usuario no puede ser modificado.')
+
+        #             setattr(usuario_editar, campo, valor)
+        #             if campo == 'peso':
+        #                 usuario_editar1.peso = float(valor)
+        #                 db.session.add(usuario_editar1)
+        #             if campo == 'altura':
+        #                 usuario_editar1.altura = float(valor)
+        #                 db.session.add(usuario_editar1)
+        #             if campo == 'dni':
+        #                 usuario_editar1.alumno_dni = int(valor)
+        #                 db.session.add(usuario_editar1)
+        #         db.session.add(usuario_editar)
+        #         db.session.commit()
+        #         return usuario_editar.to_json(), 201
+        #     else:
+        #         raise Exception('El DNI del usuario es necesario para poder modificarlo.')
+        # except Exception as e:
+        #     return {'error': str(e)}, 400
+        # finally:
+        #     db.session.close()
+
 
 class UsuarioAlumno(Resource):
 
@@ -344,22 +423,34 @@ class UsuarioAlumno(Resource):
     @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
-            usuarios = db.session.query(UsuarioModelo)
+            usuarios = db.session.query(UsuarioModelo, AlumnoModel).join(AlumnoModel, UsuarioModelo.dni == AlumnoModel.alumno_dni)
             page = 1
             per_page = 10
 
-            # No seria neceario la paginacion pero dejo la opcion para futuros cambios
             if request.args.get('page'):
                 page = int(request.args.get('page'))
             if request.args.get('per_page'):
                 per_page = int(request.args.get('per_page'))
 
             if request.args.get('nrDni'):
-                query = usuarios.outerjoin(AlumnoModel, UsuarioModelo.dni == AlumnoModel.alumno_dni)
-                usuarios = query.filter(UsuarioModelo.dni == request.args.get('nrDni'))
+                usuarios = usuarios.filter(UsuarioModelo.dni == request.args.get('nrDni'))
 
             usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
-            usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items]
+
+            # Construir la respuesta
+            usuarios_json = []
+            for usuario, alumno in usuarios_paginados.items:
+                usuario_data = {
+                    'dni': usuario.dni,
+                    'id':alumno.idAlumno,
+                    'rol': usuario.rol,
+                    'nombre': usuario.nombre,
+                    'apellido': usuario.apellido,
+                    'email': usuario.email,
+                    'altura': alumno.altura,
+                    'peso': alumno.peso
+                }
+                usuarios_json.append(usuario_data)
 
             return {
                 'Usuario': usuarios_json,
@@ -371,6 +462,7 @@ class UsuarioAlumno(Resource):
             return {'error': str(e)}, 404
         finally:
             db.session.close()
+
 
     @role_required(roles=['admin', 'profesor'])
     def put(self):
@@ -395,6 +487,9 @@ class UsuarioAlumno(Resource):
                         db.session.add(usuario_editar1)
                     if campo == "altura":
                         usuario_editar1.altura = float(valor)
+                        db.session.add(usuario_editar1)
+                    if campo == "dni":
+                        usuario_editar1.alumno_dni = int(valor)
                         db.session.add(usuario_editar1)
 
 

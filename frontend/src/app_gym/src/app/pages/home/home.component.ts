@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TablaPlanificacionGrillaaComponent } from 'src/app/components/tabla-planificacion-grillaa/tabla-planificacion-grillaa.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { PlanificacionService } from 'src/app/services/planificacion.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ export class HomeComponent implements OnInit{
   isToken: boolean = false;
 
   constructor(
-    private jwtHelper: JwtHelperService
+    private jwtHelper: JwtHelperService,
+    private planificacionService: PlanificacionService
     ) {}
 
   onPlanificacionClickeada() {
@@ -36,8 +38,20 @@ export class HomeComponent implements OnInit{
   }else{
     this.isToken = false;
     
+    
     this.successMessage='Usted no se ha registrado, la visión sera reducidada...';
   }
-}
+  
+    // this.usuariosService.getUsers().subscribe((data:any) => {
+    //   console.log('JSON data:', data);
+    //   this.arrayUsuarios = data.Usuario;
+    // })
+    // const token = localStorage.getItem('token');
+    // if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
+    //   const decodedToken = this.jwtHelper.decodeToken(token);
+    //   this.userRol = decodedToken.rol;
+  }
+    
+    // this.successMessage='Bienvenido, usted esta registrado...';
+  }
 
-}

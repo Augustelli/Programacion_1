@@ -47,6 +47,24 @@ export class UsuariosService {
     });
     return this.httpClient.get(this.url + '/usuario?nrDni='+user_id, {headers: headers});
   }
+  getUserDataAlumno(user_id: string): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+    return this.httpClient.get(this.url + '/alumno?nrDni='+user_id, {headers: headers});
+  }
+  getUserDataProfesor(user_id:string): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.get(this.url + '/profesor?nrDni='+user_id, {headers: headers});
+  }
+
 
   //hacer put en alumno
   updateUserData(user_id: string, updatedUserData: any): Observable<any> {
@@ -85,6 +103,26 @@ export class UsuariosService {
   checkDniExists(dni: string) {
     return this.httpClient.get(this.url + '/usuarios_login?nrDni=' + dni);
   }
+
+  updateUserDataAlumno(user_id: string, updatedUserData: any): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.put(this.url + '/alumno?nrDni='+user_id, updatedUserData,{headers: headers});
+  }
+  updateUserDataProfesor(user_id: string, updatedUserData: any): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.put(this.url + '/profesor?nrDni='+user_id, updatedUserData,{headers: headers});
+  }
 }
+
 
 
