@@ -1,72 +1,83 @@
 
-<!-- <button (click)="verClases()">Ver Clases</button>
-<button (click)="ocultarClases()">Ocultar Clases</button> -->
-<!-- <div class="container" style="margin-top: 2rem; margin-bottom: 5rem;"> -->
-    <!-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4"> -->
 
-        <!-- <div *ngIf="varVerClases" class=" row-md-auto ml-3">
-        <div *ngFor="let clases of arrayClases;index as i">
-        <div class="col">
-            <div class="card card-sm">
-                <img src="{{clases.img}}" class="card-img-top w-100 h-auto" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{clases.nombreClase}}</h5>
-                    <p class="card-text">{{clases.nombreProfesor}}</p>
-                    <p class="card-text">{{clases.horario}}</p>
-                    <p class="card-text">{{clases.duracion}}</p>
-                    <p class="card-text">Cupos: {{clases.cupos}}</p>
-                </div>
-            </div>
-
+<div class="d-flex mb-3">
+  <input  type="text"  class="form-control me-2 flex-grow-1"  placeholder="Buscar clase..."  [(ngModel)]="searchTerm" (input)="filtrarUsuariosNombre()">
 </div>
+
+
+ <div class="d-flex justify-content-end" *ngIf="userRol=== 'admin' || userRol === 'profesor'">
+  <button class="btn btn-light btn-sm mr-3 justify-content-end" style="color: white; background: rgb(146, 146, 146); border-radius: 85px;" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion"  >New</button>
+            
+ </div>
+ <div *ngIf="mensajeExito" class="alert alert-success mt-3">
+  <p>{{ mensajeExito }}</p>
 </div>
-    </div> -->
 
 
-    <!-- <div *ngIf="varVerClases">
-        <div class="row">
-            <div class="col-md-6">
-                
-            </div>
+<!-- 
+<div *ngIf="varVerClases" class="row-md-auto ml-3">
+  <div class="row">
+    <ng-container *ngFor="let clases of arrayClases; let i = index">
+      <div class="col-md-6" >
+        <div class="card card-sm" style="margin: 4rem; background-color: lightgray; border-radius: 15px;">
+          <img src="../../../assets/clases/clases.png" class="card-img-top mx-auto"style="width: 50%;" alt="...">
+          <div class="card-body" >
 
-
+            
+          </div>
         </div>
+      </div>
+     <div class="w-100" *ngIf="(i + 1) % 2 === 0"></div>
+    </ng-container>
+  </div>
+</div> -->
 
-    </div> -->
-    
-    
-    <!-- <div *ngIf="varVerClases" class="row-md-auto ml-3">
-        <div class="row">
-          <ng-container *ngFor="let clases of arrayClases; index as i">
-            <div class="col">
-              <div class="card card-sm">
-                <img src="{{ clases.img }}" class="card-img-top w-100 h-auto" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">{{ clases.nombreClase }}</h5>
-                  <p class="card-text">{{ clases.nombreProfesor }}</p>
-                  <p class="card-text">{{ clases.horario }}</p>
-                  <p class="card-text">{{ clases.duracion }}</p>
-                  <p class="card-text">Cupos: {{ clases.cupos }}</p>
-                </div>
-              </div>
-            </div> -->
-            <!-- Agregamos un salto de línea cada 2 clases -->
-            <!-- <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div> -->
-          <!-- </ng-container>
-        </div>
-      </div> -->
-      <div *ngIf="varVerClases" class="row-md-auto ml-3">
+
+
+
+<div *ngIf="varVerClases" class="row-md-auto ml-3">
         <div class="row">
           <ng-container *ngFor="let clases of arrayClases; let i = index">
             <div class="col-md-6" >
               <div class="card card-sm" style="margin: 4rem; background-color: lightgray; border-radius: 15px;">
-                <img src="{{ clases.img }}" class="card-img-top mx-auto"style="width: 50%;" alt="...">
+                <img src="../../../assets/clases/clases.png" class="card-img-top mx-auto"style="width: 50%;" alt="...">
                 <div class="card-body" >
-                  <h5 class="card-title">{{ clases.nombreClase }}</h5>
-                  <p class="card-text">{{ clases.nombreProfesor }}</p>
-                  <p class="card-text">{{ clases.horario }}</p>
-                  <p class="card-text">{{ clases.duracion }}</p>
-                  <p class="card-text">Cupos: {{ clases.cupos }}</p>
+                  <h5 class="card-title">ID de la clase: {{ clases.idClases }}</h5>
+                  <p class="card-text">{{ clases.nombre }}</p>
+                  <p class="card-text">{{ clases.dias }}</p>
+                 
+                  <div class="d-flex justify-content-end">
+                    <!-- Solo muestra los botones de edición y eliminación si userRol es 'admin' -->
+        
+        
+                    <ng-container *ngIf="userRol === 'admin'; else elseBlock">
+                    <div class="d-flex justify-content-end" *ngIf="userRol === 'admin'">
+        
+                     
+                    
+                      <button class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" 
+                      (click)="editarClases(clases)">Editar</button>
+                      <button class="btn btn-light btn-sm" style="color: rgb(255, 0, 0); background: none; border: none;"
+                      (click)="deleteClase(clases.idClases)">Eliminar</button>
+                    </div>
+         
+                    </ng-container>
+                    <ng-template #elseBlock>
+                      <!-- Si userRol no es 'admin', puedes mostrar un mensaje o no mostrar nada -->
+                    </ng-template>
+                  </div>
+                  <div *ngIf="clases.editando== true">
+                    <!-- Agrega campos de entrada para editar los datos de la planificación -->
+                    <input [(ngModel)]="clases.nombre" placeholder="Nombre" class="form-control" />
+                    <input [(ngModel)]="clases.dias" placeholder="Dias" class="form-control" />
+                    <!-- <input [(ngModel)]="planificacion.rutina" placeholder="Rutina" class="form-control" />
+                    <input [(ngModel)]="planificacion.fecha" placeholder="Fecha" class="form-control" />
+                    <input [(ngModel)]="planificacion.frecuencia" placeholder="Frecuencia" class="form-control" /> -->
+                    
+                    <button class="btn btn-primary btn-sm" (click)="guardarCambios(clases)">
+                      Guardar cambios
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

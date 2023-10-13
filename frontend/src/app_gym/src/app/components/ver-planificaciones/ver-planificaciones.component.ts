@@ -30,10 +30,7 @@ export class VerPlanificacionesComponent implements OnInit {
     fecha: ''
   };
   mensajeExito: string = '';
-
-  
-
-  
+  searchTerm: string = '';  
   arrayPlanificacionesGuess=[
     {
       
@@ -127,6 +124,7 @@ export class VerPlanificacionesComponent implements OnInit {
       this.planificacionService.deletePlanificacion(idPlanificacion).subscribe(
         (data: any) => {
           console.log('Datos del usuario', data);
+          
         },
         (error) => {
           console.error('Error al obtener los datos del usuario', error);
@@ -213,6 +211,29 @@ export class VerPlanificacionesComponent implements OnInit {
       );
     }
     
+
+
+
+    
+
+filtrarUsuariosNombre(){
+    if (!this.searchTerm) {
+      this.mostrarTodo();
+      return;
+    }
+    this.arrayPlanificaciones = this.arrayPlanificaciones.filter((Planificacion: any) => {
+      const nombreCompleto = `${Planificacion.rutina} `;
+      return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
+    });  
+  }
+      
+mostrarTodo() {
+  this.planificacionService.getPlanificaciones().subscribe((data: any) => {
+      console.log('JSON data:', data);
+      this.arrayPlanificaciones = data.Planificacion;
+  });
+
+}
 
 }
 

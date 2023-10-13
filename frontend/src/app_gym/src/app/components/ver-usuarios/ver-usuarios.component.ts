@@ -94,7 +94,7 @@ filtrarUsuariosNombre(){
     return;
   }
   this.arrayUsuarios = this.arrayUsuarios.filter((usuario: any) => {
-    const nombreCompleto = `${usuario.nombre} ${usuario.apellido}`;
+    const nombreCompleto = `${usuario.nombre} ${usuario.apellido}${usuario.dni}`;
     return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
   });  
 }

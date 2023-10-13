@@ -1,4 +1,7 @@
 
+<div class="d-flex mb-3">
+  <input  type="text"  class="form-control me-2 flex-grow-1"  placeholder="Buscar clase..."  [(ngModel)]="searchTerm" (input)="filtrarUsuariosNombre()">
+</div>
 
  <div class="d-flex justify-content-end" *ngIf="userRol=== 'admin' || userRol === 'profesor'">
   <button class="btn btn-light btn-sm mr-3 justify-content-end" style="color: white; background: rgb(146, 146, 146); border-radius: 85px;" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion"  >New</button>

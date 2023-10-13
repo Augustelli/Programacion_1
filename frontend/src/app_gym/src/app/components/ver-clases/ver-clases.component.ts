@@ -1,5 +1,7 @@
 import { Component , OnInit} from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ClasesService } from 'src/app/services/clases.service';
 
 @Component({
   selector: 'app-ver-clases',
@@ -9,10 +11,18 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class VerClasesComponent implements OnInit{
 
   varVerClases = true;
+  mostrarFormularioCreacion = false;
+  mensajeExito: string = '';
+  
   isToken: boolean = false;
+  editando: boolean = false;
+  datosEditados: any = {};
   userRol:string = '';
   dni: string = '';
   arrayClases: any;
+  searchTerm: string = '';
+
+
 
   arrayClasesGuess=[
     {
@@ -65,6 +75,7 @@ export class VerClasesComponent implements OnInit{
 
   constructor(
     private jwtHelper: JwtHelperService,
+    private clasesService: ClasesService,
   ) { }
 
   ngOnInit(): void {
@@ -83,20 +94,22 @@ export class VerClasesComponent implements OnInit{
     this.isToken = false;
     this.arrayClases = this.arrayClasesGuess;
   }
-//   if (this.userRol=='profesor' || this.userRol=='admin')  {
-//     // Utiliza el servicio para obtener los datos del usuario
-//     this.planificacionService.getPlanificaciones().subscribe(
-//       (data: any) => {
-//         console.log('Datos del usuario', data);
-//         this.arrayPlanificaciones = data.Planificacion;
-//         // console.log('Datos del usuario', this.userData);
-//         // this.fillFormFields();
-//       },
-//       (error) => {
-//         console.error('Error al obtener los datos del usuario', error);
-//       }
-//     );
-//   }
+  if (this.userRol=='profesor' || this.userRol=='admin')  {
+    // Utiliza el servicio para obtener los datos del usuario
+    this.clasesService.getClases().subscribe(
+      (data: any) => {
+        console.log('Datos del usuario', data);
+        this.arrayClases = data.Clases;
+        console.log('Datos del usuario', this.arrayClases);
+        
+        // console.log('Datos del usuario', this.userData);
+        // this.fillFormFields();
+      },
+      (error) => {
+        console.error('Error al obtener los datos del usuario', error);
+      }
+    );
+  }
 //   if(this.userRol=='alumno'){
 //     this.planificacionService.getPlanificacionAlumno(this.dni).subscribe(
 //       (data: any) => {
@@ -124,6 +137,73 @@ export class VerClasesComponent implements OnInit{
   ocultarClases(){
       this.varVerClases = false;}
 
-
+      filtrarUsuariosNombre(){
+        if (!this.searchTerm) {
+          this.mostrarTodo();
+          return;
+        }
+        this.arrayClases = this.arrayClases.filter((Clases: any) => {
+          const nombreCompleto = `${Clases.nombre}${Clases.dias} `;
+          return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
+        });  
+      }
+      
+mostrarTodo() {
+  this.clasesService.getClases().subscribe((data: any) => {
+      console.log('JSON data:', data);
+      this.arrayClases = data.Clases;
+  });
 
 }
+editarClases(clase: any) {
+  // this.editando = true;
+  clase.editando = true;
+  this.datosEditados = { ...clase };
+}
+
+
+guardarCambios(clases: any) {
+      
+
+  const datosParaActualizar = {
+  nombre : clases.nombre,
+  dias : clases.dias,
+  // dias : clases.dias
+   
+  };
+  console.log('datosEditados', datosParaActualizar);
+  console.log('clase a editar', clases);
+  delete this.datosEditados.idClases;
+  
+  // Enviar una solicitud de actualización al servidor con this.datosEditados
+  this.clasesService.updateClase(clases.idClases, datosParaActualizar).subscribe(
+    (data: any) => {
+      console.log('Clases actualizada', data);
+      this.editando = false;
+      clases.editando = false;
+       // Volver al modo de visualización
+      // Actualizar la interfaz de usuario o recargar datos si es necesario
+    },
+    (error) => {
+      console.error('Error al actualizar la clase', error);
+      // Manejar errores y proporcionar retroalimentación al usuario
+    }
+  );
+}
+
+
+deleteClase(idClases: string){
+  this.clasesService.deleteClase(idClases).subscribe(
+    (data: any) => {
+      console.log('Clase Eliminada', data);
+      
+    },
+    (error) => {
+      console.error('Error al eliminar la clase', error);
+    }
+  );
+
+}
+
+}
+
