@@ -134,7 +134,7 @@ class PlanificacionesProfesores(Resource):
 
 
 class PlanificacionProfesor(Resource):
-    @role_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor', 'alumno'])
     def get(self):
         try:
             planificacion = db.session.query(PlanificacionModelo)

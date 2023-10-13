@@ -52,7 +52,8 @@ export class PlanificacionService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${auth_token}`
     });
+    console.log(planificacion);
 
-    return this.httpClient.post(this.url +'/planificacion_profesor', planificacion, {headers: headers});
+    return this.httpClient.post(this.url +'/planificaciones_profesores', planificacion, {headers: headers});
   }
 }

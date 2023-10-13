@@ -1,14 +1,20 @@
-import { Component } from '@angular/core';
+import { Component , OnInit} from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-ver-clases',
   templateUrl: './ver-clases.component.html',
   styleUrls: ['./ver-clases.component.css']
 })
-export class VerClasesComponent {
+export class VerClasesComponent implements OnInit{
 
   varVerClases = true;
-  arrayClases=[
+  isToken: boolean = false;
+  userRol:string = '';
+  dni: string = '';
+  arrayClases: any;
+
+  arrayClasesGuess=[
     {
       img:"../../../assets/clases/clases.png",
       nombreClase: "Entrenamiento Pecho",
@@ -57,10 +63,58 @@ export class VerClasesComponent {
     return clasesEnPares;
   }
 
-  constructor() { }
+  constructor(
+    private jwtHelper: JwtHelperService,
+  ) { }
 
   ngOnInit(): void {
-    console.log('arrayClases', this.arrayClases);
+   
+    
+    const token = localStorage.getItem('token');
+    // this.successMessage='Esperando validación de token por el ADMIN, mas tarde verá todas las funcionalidades...';
+    if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      this.userRol = decodedToken.rol;
+      
+      console.log('decodedToken', decodedToken.id);
+      this.isToken = true;
+      this.dni = decodedToken.id;
+  }else{
+    this.isToken = false;
+    this.arrayClases = this.arrayClasesGuess;
+  }
+//   if (this.userRol=='profesor' || this.userRol=='admin')  {
+//     // Utiliza el servicio para obtener los datos del usuario
+//     this.planificacionService.getPlanificaciones().subscribe(
+//       (data: any) => {
+//         console.log('Datos del usuario', data);
+//         this.arrayPlanificaciones = data.Planificacion;
+//         // console.log('Datos del usuario', this.userData);
+//         // this.fillFormFields();
+//       },
+//       (error) => {
+//         console.error('Error al obtener los datos del usuario', error);
+//       }
+//     );
+//   }
+//   if(this.userRol=='alumno'){
+//     this.planificacionService.getPlanificacionAlumno(this.dni).subscribe(
+//       (data: any) => {
+//         console.log('Datos del usuario', data);
+//         this.arrayPlanificaciones = data.Planificacion;
+//         // console.log('Datos del usuario', this.userData);
+//         // this.fillFormFields();
+//       },
+//       (error) => {
+//         console.error('Error al obtener los datos del usuario', error);
+//       }
+//     );
+//   }
+//   if(this.userRol=='espera'){
+//     this.arrayPlanificaciones = this.arrayPlanificacionesGuess;
+//   }
+// }
+
   }
   
   verClases(){

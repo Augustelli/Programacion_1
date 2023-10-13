@@ -1,26 +1,13 @@
 
 
- <div class="d-flex justify-content-end">
-  <button class="btn btn-light btn-sm mr-3 justify-content-end" style="color: white; background: rgb(146, 146, 146); border-radius: 85px;" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion"  >+</button>
+ <div class="d-flex justify-content-end" *ngIf="userRol=== 'admin' || userRol === 'profesor'">
+  <button class="btn btn-light btn-sm mr-3 justify-content-end" style="color: white; background: rgb(146, 146, 146); border-radius: 85px;" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion"  >New</button>
             
  </div>
+ <div *ngIf="mensajeExito" class="alert alert-success mt-3">
+  <p>{{ mensajeExito }}</p>
+</div>
 
- <!-- <div *ngIf="mostrarFormularioCreacion">
-  <form (ngSubmit)="crearPlanificacion()">
-    <div class="form-group">
-      <label for="rutina">Rutina</label>
-      <input
-        type="text"   class="form-control" id="rutina"  name="rutina" [(ngModel)]="nuevaPlanificacion.rutina"        required      />
-    </div>
-    <div class="form-group">
-      <label for="frecuencia">Frecuencia</label>
-      <input
-        type="text"    class="form-control"   id="frecuencia"   name="frecuencia"  [(ngModel)]="nuevaPlanificacion.frecuencia" required/>
-   
-
-    <button type="submit" class="btn btn-primary">Guardar</button>
-  </form>
-</div> -->
 
 <div  class="row ml-3 margin-bottom:10rem" *ngIf="mostrarFormularioCreacion" >
   <ng-container>
@@ -39,6 +26,11 @@
                 <label for="frecuencia">Frecuencia</label>
                 <input
                   type="text"    class="form-control"   id="frecuencia"   name="frecuencia"  [(ngModel)]="nuevaPlanificacion.frecuencia" required/>
+              </div>
+              <div>
+                <label for="fecha">Fecha</label>
+                <input
+                  type="date"    class="form-control"   id="fecha"   name="fecha"  [(ngModel)]="nuevaPlanificacion.fecha" required/>
               </div>
               <div class="form-group">
                 <label for="id_Alumno">ID Alumno</label>
@@ -131,5 +123,5 @@
     <div class="clearfix d-lg-none d-md-block" *ngIf="isLast"></div>
     <div class="clearfix d-none d-lg-block" *ngIf="(i + 1) % 3 === 0 || isLast"></div>
   </ng-container>
-</div>
+
 

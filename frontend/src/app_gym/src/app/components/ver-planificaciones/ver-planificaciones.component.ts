@@ -27,7 +27,9 @@ export class VerPlanificacionesComponent implements OnInit {
     id_Alumno: '', // El ID del alumno correspondiente
     id_Clase: '', // El ID de la clase correspondiente
     idProfesor: '', // El ID del profesor correspondiente
+    fecha: ''
   };
+  mensajeExito: string = '';
 
   
 
@@ -35,21 +37,23 @@ export class VerPlanificacionesComponent implements OnInit {
   arrayPlanificacionesGuess=[
     {
       
-      nombreprofesor: "Augusto Mancuso",
-      nombreclase: "Entrenamiento Pecho",
+      rutina: "Entrenamiento de biceps",
+     frecuencia: "Lunes",
+    fecha : "25-05-2021",
 
     },
     {
       
-      nombreprofesor: "Franco Narvaez",
-      nombreclase: "Entrenamiento Piernas",
-
-    },
+      rutina: "Entrenamiento de triceps",
+     frecuencia: "Martes",
+    fecha : "26-05-2021"},
     {
       
-      nombreprofesor: "Juan Perez",
-      nombreclase: "Zumba",
-    }
+      rutina: "Entrenamiento de pecho",
+     frecuencia: "Miercoles",
+     fecha : "27-05-2021"},
+
+   
   ]
   onPlanificacionClick() {
     this.planificacionClickeada.emit();}
@@ -67,8 +71,10 @@ export class VerPlanificacionesComponent implements OnInit {
     if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
       const decodedToken = this.jwtHelper.decodeToken(token);
       this.userRol = decodedToken.rol;
+      
+      console.log('decodedToken', decodedToken.id);
       this.isToken = true;
-      this.dni = decodedToken.dni;
+      this.dni = decodedToken.id;
   }else{
     this.isToken = false;
     this.arrayPlanificaciones = this.arrayPlanificacionesGuess;
@@ -99,6 +105,9 @@ export class VerPlanificacionesComponent implements OnInit {
         console.error('Error al obtener los datos del usuario', error);
       }
     );
+  }
+  if(this.userRol=='espera'){
+    this.arrayPlanificaciones = this.arrayPlanificacionesGuess;
   }
 }
 // activarEdicion() {
@@ -133,12 +142,15 @@ export class VerPlanificacionesComponent implements OnInit {
     
 
     guardarCambios(planificacion: any) {
+      
+
       const datosParaActualizar = {
         rutina: planificacion.rutina,
         frecuencia: planificacion.frecuencia,
         id_Alumno: planificacion.id_Alumno,
         id_Clase: planificacion.id_Clase,
-        idProfesor: planificacion.idProfesor
+        idProfesor: planificacion.idProfesor,
+       
       };
       console.log('datosEditados', datosParaActualizar);
       console.log('Planificación a editar', planificacion);
@@ -159,6 +171,13 @@ export class VerPlanificacionesComponent implements OnInit {
       );
     }
     crearPlanificacion() {
+      const fechaFormateada = new Date(this.nuevaPlanificacion.fecha).toLocaleDateString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      });
+      const fechaFormateadaConGuion = fechaFormateada.split('/').join('-');
+
       // Crea un objeto con los datos de la nueva planificación
       console.log('Nueva planificación', this.nuevaPlanificacion);
       const datosParaPost = {
@@ -166,7 +185,8 @@ export class VerPlanificacionesComponent implements OnInit {
         frecuencia: this.nuevaPlanificacion.frecuencia,
         id_Alumno: this.nuevaPlanificacion.id_Alumno,
         id_Clase: this.nuevaPlanificacion.id_Clase,
-        idProfesor: this.nuevaPlanificacion.idProfesor
+        idProfesor: this.nuevaPlanificacion.idProfesor,
+        fecha : fechaFormateadaConGuion
       };
 
       console.log('datosParaPost', datosParaPost);
@@ -176,6 +196,14 @@ export class VerPlanificacionesComponent implements OnInit {
       this.planificacionService.crearPlanificacion(datosParaPost).subscribe(
         (data: any) => {
           console.log('Nueva planificación creada', data);
+          this.mostrarFormularioCreacion = false;
+          // this.mensajeExito = 'La planificación se ha creado con éxito';
+          this.mensajeExito = 'La planificación se ha creado con éxito';
+          setTimeout(() => {
+            this.mensajeExito = ''; // Restablecer el mensaje de éxito después de 5 segundos
+          }, 3000); // 5000 milisegundos = 5 segundos
+          
+
           // Actualiza la interfaz de usuario o recarga datos si es necesario
         },
         (error) => {
