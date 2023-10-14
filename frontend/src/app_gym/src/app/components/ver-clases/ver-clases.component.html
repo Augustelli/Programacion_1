@@ -14,23 +14,34 @@
 </div>
 
 
-<!-- 
+<div *ngIf="mostrarFormularioCreacion" >
 <div *ngIf="varVerClases" class="row-md-auto ml-3">
   <div class="row">
-    <ng-container *ngFor="let clases of arrayClases; let i = index">
+    <!-- <ng-container *ngFor="let clases of arrayClases; let i = index"> -->
       <div class="col-md-6" >
         <div class="card card-sm" style="margin: 4rem; background-color: lightgray; border-radius: 15px;">
           <img src="../../../assets/clases/clases.png" class="card-img-top mx-auto"style="width: 50%;" alt="...">
           <div class="card-body" >
-
-            
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input
+                type="text"   class="form-control" id="nombre"  name="nombre" [(ngModel)]="nuevaclases.nombre"        required      />
+            </div>
+            <div class="form-group">
+              <label for="dias">Dias</label>
+              <input
+                type="text"   class="form-control" id="dias"  name="dias" [(ngModel)]="nuevaclases.dias"        required      />
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="crearClase()">Guardar</button>
+                        
           </div>
         </div>
       </div>
-     <div class="w-100" *ngIf="(i + 1) % 2 === 0"></div>
-    </ng-container>
+     <!-- <div class="w-100" *ngIf="(i + 1) % 2 === 0"></div> -->
+    <!-- </ng-container> -->
   </div>
-</div> -->
+</div>
+</div>
 
 
 
@@ -85,7 +96,17 @@
           </ng-container>
         </div>
       </div>
-      
+
+      <pagination-controls (pageChange)="onPageChange($event)" 
+                    previousLabel="Anterior"
+                    nextLabel="Siguiente"
+                    screenReaderPaginationLabel="Paginación"
+                    screenReaderPageLabel="página"
+                    id="custom-pagination-id"
+                    >
+</pagination-controls>
+
+ 
     
       
       

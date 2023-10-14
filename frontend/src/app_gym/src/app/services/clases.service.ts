@@ -12,13 +12,17 @@ export class ClasesService {
   ) { }
   url = '/api';
 
-  getClases(): Observable<any> {
+  getClases(pageNumber: number, pageSize: number): Observable<any> {
     let auth_token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${auth_token}`
     });
-    return this.httpClient.get(this.url +'/clases', {headers: headers});
+    const params = {
+      page: pageNumber.toString(),
+      per_page: pageSize.toString()
+    };
+    return this.httpClient.get(this.url +'/clases', {headers: headers, params: params});
   }
 
   updateClase(idClases: string, clase: any): Observable<any> {
@@ -39,6 +43,16 @@ export class ClasesService {
     });
 
     return this.httpClient.delete(this.url +'/clases?idClases='+idClases, {headers: headers});
+  }
+
+  postClase(clase: any): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.post(this.url +'/clases', clase, {headers: headers});
   }
 
   

@@ -2,6 +2,8 @@ import { Component , OnInit} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ClasesService } from 'src/app/services/clases.service';
+import { Output, EventEmitter } from '@angular/core';
+// import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-ver-clases',
@@ -10,9 +12,19 @@ import { ClasesService } from 'src/app/services/clases.service';
 })
 export class VerClasesComponent implements OnInit{
 
+
+  currentPage = 1;
+  itemsPerPage = 10;
+  totalItems = 0;
+  id = '';
+
   varVerClases = true;
   mostrarFormularioCreacion = false;
   mensajeExito: string = '';
+  nuevaclases = {
+    nombre: '',
+    dias: ''
+  };
   
   isToken: boolean = false;
   editando: boolean = false;
@@ -21,6 +33,10 @@ export class VerClasesComponent implements OnInit{
   dni: string = '';
   arrayClases: any;
   searchTerm: string = '';
+  paginaActual: number = 1;
+  clasesPorPagina: number = 10;
+  totalClases: number = 0;
+
 
 
 
@@ -96,19 +112,18 @@ export class VerClasesComponent implements OnInit{
   }
   if (this.userRol=='profesor' || this.userRol=='admin')  {
     // Utiliza el servicio para obtener los datos del usuario
-    this.clasesService.getClases().subscribe(
-      (data: any) => {
-        console.log('Datos del usuario', data);
-        this.arrayClases = data.Clases;
-        console.log('Datos del usuario', this.arrayClases);
-        
-        // console.log('Datos del usuario', this.userData);
-        // this.fillFormFields();
-      },
-      (error) => {
-        console.error('Error al obtener los datos del usuario', error);
-      }
-    );
+    // this.clasesService.getClases(this.paginaActual, this.clasesPorPagina).subscribe(
+    //   (data: any) => {
+    //     console.log('Datos del usuario', data);
+    //     this.arrayClases = data.Clases;
+    //     this.totalItems = data.Total;
+    //     console.log('Datos del usuario', this.arrayClases);
+    //   },
+    //   (error) => {
+    //     console.error('Error al obtener los datos del usuario', error);
+    //   }
+    // );
+    this.getClases();
   }
 //   if(this.userRol=='alumno'){
 //     this.planificacionService.getPlanificacionAlumno(this.dni).subscribe(
@@ -129,6 +144,25 @@ export class VerClasesComponent implements OnInit{
 // }
 
   }
+  getClases() {
+    this.clasesService.getClases(this.currentPage, this.itemsPerPage).subscribe(
+      (data: any) => {
+        console.log('Entre al get clases', data);
+        this.arrayClases = data.Clases;
+        this.totalItems = data.Total;
+        
+      },
+      (error) => {
+        console.error('Error al obtener las clases', error);
+      }
+    );
+  }
+
+  onPageChange(pageNumber: number) {
+    this.currentPage = pageNumber;
+    this.getClases();
+    
+  }
   
   verClases(){
       this.varVerClases = true;
@@ -143,13 +177,13 @@ export class VerClasesComponent implements OnInit{
           return;
         }
         this.arrayClases = this.arrayClases.filter((Clases: any) => {
-          const nombreCompleto = `${Clases.nombre}${Clases.dias} `;
+          const nombreCompleto = `${Clases.nombre}${Clases.dias}${Clases.idClases} `;
           return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
         });  
       }
       
 mostrarTodo() {
-  this.clasesService.getClases().subscribe((data: any) => {
+  this.clasesService.getClases(this.paginaActual,this.clasesPorPagina).subscribe((data: any) => {
       console.log('JSON data:', data);
       this.arrayClases = data.Clases;
   });
@@ -205,5 +239,56 @@ deleteClase(idClases: string){
 
 }
 
+crearClase() {
+  const datosParaPost = {
+    nombre: this.nuevaclases.nombre,
+    dias: this.nuevaclases.dias,
+    
+  };
+  console.log('datosParaPost', datosParaPost);
+  this.clasesService.postClase(datosParaPost).subscribe(
+    (data: any) => {
+      console.log('Nueva clase creada', data);
+      this.mostrarFormularioCreacion = false;
+     
+      this.mensajeExito = 'La clase se ha creado con éxito';
+      setTimeout(() => {
+        this.mensajeExito = ''; // Restablecer el mensaje de éxito después de 5 segundos
+      }, 3000); // 5000 milisegundos = 5 segundos
+      
+
+      
+    },
+    (error) => {
+      console.error('Error al crear la clase', error);
+      // Maneja errores y proporciona retroalimentación al usuario
+    }
+  );
+
+
+ 
+
+//   // Realiza una solicitud POST al servicio para crear la nueva planificación
+//   this.planificacionService.crearPlanificacion(datosParaPost).subscribe(
+//     (data: any) => {
+//       console.log('Nueva planificación creada', data);
+//       this.mostrarFormularioCreacion = false;
+//       // this.mensajeExito = 'La planificación se ha creado con éxito';
+//       this.mensajeExito = 'La planificación se ha creado con éxito';
+//       setTimeout(() => {
+//         this.mensajeExito = ''; // Restablecer el mensaje de éxito después de 5 segundos
+//       }, 3000); // 5000 milisegundos = 5 segundos
+      
+
+//       // Actualiza la interfaz de usuario o recarga datos si es necesario
+//     },
+//     (error) => {
+//       console.error('Error al crear la planificación', error);
+//       // Maneja errores y proporciona retroalimentación al usuario
+//     }
+//   );
+// }
+
+  }
 }
 

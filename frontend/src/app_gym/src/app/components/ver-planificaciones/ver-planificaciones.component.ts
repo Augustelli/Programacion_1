@@ -140,9 +140,7 @@ export class VerPlanificacionesComponent implements OnInit {
     
 
     guardarCambios(planificacion: any) {
-      
-
-      const datosParaActualizar = {
+            const datosParaActualizar = {
         rutina: planificacion.rutina,
         frecuencia: planificacion.frecuencia,
         id_Alumno: planificacion.id_Alumno,
