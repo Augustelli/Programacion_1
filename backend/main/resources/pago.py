@@ -62,7 +62,7 @@ class Pago(Resource):
 
 
 class Pagos(Resource):
-    @role_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor', 'alumno'])
     def post(self):
         try:
             dato_nuevo = PagosModelo.from_json(request.get_json())

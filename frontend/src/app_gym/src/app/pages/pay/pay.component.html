@@ -1,6 +1,6 @@
 <div style="width: 100%;
     height: 100vh;
-    background: url(https://www.figma.com/file/roAmLZXKECHvhgWlDB5Izi/image/9614d134935e1c61538787aff1d8131d6a0cb7c0)  center fixed repeat;
+    background: url('../../../assets/background.jpeg')  center fixed repeat;
     background-size: cover;         
     margin: 0;       
     padding: 0;">
@@ -12,7 +12,7 @@
                 <h3 style="font-size: 25px; color: var(--black, #fff); font-style: normal; font-weight: 400; line-height: normal; letter-spacing: 0.14px;">Enjoy workout access without ads and restrictions.</h3>
                 <div class="container-fluid">
                     <div class="d-flex justify-content-center" style="margin-top: 55px;">
-                        <input type="radio" id="monthly" name="subscription" value="monthly">
+                        <input type="radio" id="monthly" name="subscription" value="monthly" [(ngModel)]="seleccion">
                         <label for="monthly">
                             <div class="row">
                                 <div class="col-6">
@@ -21,7 +21,7 @@
                                             <div class="d-flex justify-content-center align-items-center">
                                                 <div class="text-center">
                                                     <h3>Monthly</h3>
-                                                    <h1>$ 9.99</h1>
+                                                    <h1>$ 9.99</h1> 
                                                     <h5>Pay once, cancel any time</h5>
                                                 </div>
                                             </div>
@@ -32,7 +32,7 @@
                         </label>
                     </div>
                     <div class="d-flex justify-content-center" style="margin-top: 55px;">
-                        <input type="radio" id="yearly" name="subscription" value="yearly">
+                        <input type="radio" id="yearly" name="subscription" value="yearly" [(ngModel)]="seleccion">
                         <label for="yearly">
                             <div class="row">
                                 <div class="col-6">
@@ -51,11 +51,15 @@
                             </div>
                         </label>
                 </div>
+                <div class="d-flex justify-content-center align-items ">
+                    <h1>Pago seleccionado: </h1>
+                <h1>$ {{ seleccion === 'monthly' ? 9.99 : 99.99 }}</h1>
+                </div>
 
                 
-                <div class="d-flex justify-content-center" style="margin-top: 75px; margin-bottom: 5rem;">
+                <div class="d-flex justify-content-center" style="margin-top: 75px; margin-bottom: 8rem;">
                     <div class="d-flex gap-3" style="align-items: flex-start">
-                        <button class="btn btn-primary btn-lg rounded-pill" style="background: #034AA6; width: 25rem;">Pay</button>
+                        <button class="btn btn-primary btn-lg rounded-pill" style="background: #034AA6; width: 25rem;" (click)="realizarPago()">Pay</button>
                     </div>
                 </div>
             </div>

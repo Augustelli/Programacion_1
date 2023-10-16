@@ -17,6 +17,7 @@ export class VerClasesComponent implements OnInit{
   itemsPerPage = 10;
   totalItems = 0;
   id = '';
+  idProfesor = '';
 
   varVerClases = true;
   mostrarFormularioCreacion = false;
@@ -25,17 +26,23 @@ export class VerClasesComponent implements OnInit{
     nombre: '',
     dias: ''
   };
+  arrayClases: any[] = [];
+  extendedCardId = '';
+  mostrandoProfesores = false;
+
   
   isToken: boolean = false;
   editando: boolean = false;
   datosEditados: any = {};
   userRol:string = '';
   dni: string = '';
-  arrayClases: any;
+
   searchTerm: string = '';
   paginaActual: number = 1;
   clasesPorPagina: number = 10;
   totalClases: number = 0;
+  arrayProfesoresPorClases: any;
+
 
 
 
@@ -110,37 +117,17 @@ export class VerClasesComponent implements OnInit{
     this.isToken = false;
     this.arrayClases = this.arrayClasesGuess;
   }
-  if (this.userRol=='profesor' || this.userRol=='admin')  {
-    // Utiliza el servicio para obtener los datos del usuario
-    // this.clasesService.getClases(this.paginaActual, this.clasesPorPagina).subscribe(
-    //   (data: any) => {
-    //     console.log('Datos del usuario', data);
-    //     this.arrayClases = data.Clases;
-    //     this.totalItems = data.Total;
-    //     console.log('Datos del usuario', this.arrayClases);
-    //   },
-    //   (error) => {
-    //     console.error('Error al obtener los datos del usuario', error);
-    //   }
-    // );
+  if (this.userRol=='profesor' || this.userRol=='admin' || this.userRol=='alumno')  {
+  
     this.getClases();
   }
-//   if(this.userRol=='alumno'){
-//     this.planificacionService.getPlanificacionAlumno(this.dni).subscribe(
-//       (data: any) => {
-//         console.log('Datos del usuario', data);
-//         this.arrayPlanificaciones = data.Planificacion;
-//         // console.log('Datos del usuario', this.userData);
-//         // this.fillFormFields();
-//       },
-//       (error) => {
-//         console.error('Error al obtener los datos del usuario', error);
-//       }
-//     );
-//   }
-//   if(this.userRol=='espera'){
-//     this.arrayPlanificaciones = this.arrayPlanificacionesGuess;
-//   }
+
+  if(this.userRol=='espera'){
+    this.arrayClases = this.arrayClasesGuess;
+  }
+  if (this.isToken==false){
+    this.arrayClases = this.arrayClasesGuess;
+  }
 // }
 
   }
@@ -197,8 +184,6 @@ editarClases(clase: any) {
 
 
 guardarCambios(clases: any) {
-      
-
   const datosParaActualizar = {
   nombre : clases.nombre,
   dias : clases.dias,
@@ -266,29 +251,62 @@ crearClase() {
   );
 
 
- 
+  }
 
-//   // Realiza una solicitud POST al servicio para crear la nueva planificación
-//   this.planificacionService.crearPlanificacion(datosParaPost).subscribe(
-//     (data: any) => {
-//       console.log('Nueva planificación creada', data);
-//       this.mostrarFormularioCreacion = false;
-//       // this.mensajeExito = 'La planificación se ha creado con éxito';
-//       this.mensajeExito = 'La planificación se ha creado con éxito';
-//       setTimeout(() => {
-//         this.mensajeExito = ''; // Restablecer el mensaje de éxito después de 5 segundos
-//       }, 3000); // 5000 milisegundos = 5 segundos
-      
+  getProfesoresPorClase(idClases: string) {
 
-//       // Actualiza la interfaz de usuario o recarga datos si es necesario
-//     },
-//     (error) => {
-//       console.error('Error al crear la planificación', error);
-//       // Maneja errores y proporciona retroalimentación al usuario
-//     }
-//   );
-// }
+    const clase = this.arrayClases.find((c: any) => c.idClases === idClases);
+    if (clase) {
+        clase.mostrandoProfesores = true;
+    }
+    this.clasesService.getProfebyClase(idClases).subscribe(
+      (data: any) => {
+        console.log('Profesores por clase', data);
+        // clase.mostrandoProfesores = true;
+        // this.arrayProfesoresPorClases = Object.values(data);;
+        const clase = this.arrayClases.find((c: any) => c.idClases === idClases);
+        if (clase) {
+          clase.profesores = Object.values(data);
+          this.extendedCardId = idClases;
+        }
+
+        
+      },
+      (error) => {
+        console.error('Error al obtener los profesores por clase', error);
+      }
+    );
+  }
+
+  ocultarProfesores(clase: any) {
+    clase.mostrandoProfesores = false;
+  }
+
+  profesorAgregando(clase: any) {
+    clase.agregandoProfesor = true;
+  }
+
+  guardarProfesorEnClase(clases:any){
+    const datosParaActualizar = {
+      idClase: clases.idClases,
+      idProfesor: Number(clases.idProfesor)
+    };
+    console.log('datosParaActualizar', datosParaActualizar);
+    this.clasesService.updateProfesorEnClase(datosParaActualizar).subscribe(
+      (data: any) => {
+        console.log('Profesor agregado a la clase', data);
+        clases.agregandoProfesor = false;
+        this.getProfesoresPorClase(clases.idClases);
+      },
+      (error) => {
+        console.error('Error al agregar el profesor a la clase', error);
+      }
+    );
 
   }
+  cancelarGuardadoProfesorEnClase(clases: any) {
+    clases.agregandoProfesor = false;
+  }
+
 }
 

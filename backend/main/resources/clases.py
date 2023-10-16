@@ -45,7 +45,7 @@ class Clase_Profesor_R(Resource):
             return {'error': str(e)}, 500
     
 
-    @role_required(roles=['admin', 'profesor'])
+    # @role_required(roles=['admin', 'profesor'])
     def post(self):
         try:
                 data = request.get_json()
@@ -110,7 +110,7 @@ class Clase_Profesor_R(Resource):
 
 class Clases_R(Resource):
     
-    @role_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor', 'alumno'])
     def get(self):
         try:
             clases = db.session.query(ClasesModelo)

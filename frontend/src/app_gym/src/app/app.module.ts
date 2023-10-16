@@ -39,6 +39,9 @@ import {JwtModule} from '@auth0/angular-jwt';
 import { CrearUsuarioAdminComponent } from './pages/crear-usuario-admin/crear-usuario-admin.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
+import { ToastrModule } from 'ngx-toastr';
+
+
 
 
 @NgModule({
@@ -84,6 +87,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    ToastrModule.forRoot(),
+   
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

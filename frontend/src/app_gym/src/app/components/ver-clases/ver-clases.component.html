@@ -51,11 +51,36 @@
           <ng-container *ngFor="let clases of arrayClases; let i = index">
             <div class="col-md-6" >
               <div class="card card-sm" style="margin: 4rem; background-color: lightgray; border-radius: 15px;">
+               
+
+
+               
+
                 <img src="../../../assets/clases/clases.png" class="card-img-top mx-auto"style="width: 50%;" alt="...">
                 <div class="card-body" >
                   <h5 class="card-title">ID de la clase: {{ clases.idClases }}</h5>
                   <p class="card-text">{{ clases.nombre }}</p>
                   <p class="card-text">{{ clases.dias }}</p>
+
+                  <div class="d-flex justify-content-end" *ngIf="userRol === 'alumno'">
+                    <!-- Solo muestra los botones de edición y eliminación si userRol es 'admin' -->
+        
+        
+                    <ng-container >
+                    <div class="d-flex justify-content-end">
+        
+                     
+                      <button *ngIf="!clases.mostrandoProfesores " class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" 
+                      (click)="getProfesoresPorClase(clases.idClases)">Profes</button>
+                      <button *ngIf="clases.mostrandoProfesores " class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" 
+                      (click)="ocultarProfesores(clases)">Ocultar</button>
+                    </div>
+         
+                    </ng-container>
+                    <ng-template #elseBlock>
+                      <!-- Si userRol no es 'admin', puedes mostrar un mensaje o no mostrar nada -->
+                    </ng-template>
+                  </div>
                  
                   <div class="d-flex justify-content-end">
                     <!-- Solo muestra los botones de edición y eliminación si userRol es 'admin' -->
@@ -63,9 +88,15 @@
         
                     <ng-container *ngIf="userRol === 'admin'; else elseBlock">
                     <div class="d-flex justify-content-end" *ngIf="userRol === 'admin'">
+
+                      <button *ngIf="!clases.mostrandoProfesores " class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" 
+                      (click)="profesorAgregando(clases)">Agregar</button>
         
-                     
-                    
+                      <button *ngIf="!clases.mostrandoProfesores " class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" 
+                      (click)="getProfesoresPorClase(clases.idClases)">Profes</button>
+                      <button *ngIf="clases.mostrandoProfesores " class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" 
+                      (click)="ocultarProfesores(clases)">Ocultar</button>
+                      
                       <button class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" 
                       (click)="editarClases(clases)">Editar</button>
                       <button class="btn btn-light btn-sm" style="color: rgb(255, 0, 0); background: none; border: none;"
@@ -78,17 +109,47 @@
                     </ng-template>
                   </div>
                   <div *ngIf="clases.editando== true">
-                    <!-- Agrega campos de entrada para editar los datos de la planificación -->
+                   
                     <input [(ngModel)]="clases.nombre" placeholder="Nombre" class="form-control" />
                     <input [(ngModel)]="clases.dias" placeholder="Dias" class="form-control" />
-                    <!-- <input [(ngModel)]="planificacion.rutina" placeholder="Rutina" class="form-control" />
-                    <input [(ngModel)]="planificacion.fecha" placeholder="Fecha" class="form-control" />
-                    <input [(ngModel)]="planificacion.frecuencia" placeholder="Frecuencia" class="form-control" /> -->
+                   
                     
                     <button class="btn btn-primary btn-sm" (click)="guardarCambios(clases)">
                       Guardar cambios
                     </button>
                   </div>
+                  <div *ngIf="clases.agregandoProfesor== true">
+                   
+                    <input [(ngModel)]="clases.idProfesor" placeholder="ID del profesor" class="form-control" />
+                   
+                    <div style="margin-top: 1rem;">
+                    <button class="btn btn-primary btn-sm" (click)="guardarProfesorEnClase(clases)">
+                      Guardar cambios
+                    </button>
+                    <button class="btn btn-primary btn-sm"  (click)="cancelarGuardadoProfesorEnClase(clases)" style="margin-left: 1rem; background-color: lightgray;color: rgb(88, 85, 85); border-color: rgb(88, 85, 85);">
+                      Cancelar
+                    </button>
+                  </div>
+                  </div>
+
+
+                
+
+                  
+                  
+                  <div *ngIf="clases.mostrandoProfesores">
+                      <h5>Profesores de la clase</h5>
+                      <ul>
+                          <li *ngFor="let profesor of clases.profesores">
+                              DNI: {{ profesor.dni }}, Nombre: {{ profesor.nombre }}, Apellido: {{ profesor.apellido }}
+                          </li>
+                      </ul>
+                  
+                  </div>
+                   
+          
+
+
                 </div>
               </div>
             </div>

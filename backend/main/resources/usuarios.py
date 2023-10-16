@@ -1,9 +1,10 @@
 from flask_restful import Resource
 from flask import request
 from .. import db
-from main.models import UsuarioModelo, AlumnoModel, ProfesorModelo,ClasesModelo
+from main.models import UsuarioModelo, AlumnoModel, ProfesorModelo,ClasesModelo, PagosModelo
 from flask_jwt_extended import jwt_required, get_jwt_identity  # noqa
 from main.auth.decorators import role_required
+import datetime
 import pdb  # noqa
 # from ..mail import sendMail
 
@@ -23,8 +24,25 @@ class Usuarios(Resource):
                 per_page = int(request.args.get('per_page'))
             usuarios = db.session.query(UsuarioModelo)
 
+             
+            for usuario in usuarios:
+                payments = PagosModelo.query.filter_by(dni=usuario.dni).all()
+                for payment in payments:
+                    current_time = datetime.datetime.now()
+                    # print(usuario.dni, payment.fecha_de_pago)
+                    if payment.fecha_de_pago <= current_time:
+                        usuario.estado = False
+                        db.session.commit()
+                    else:
+                        usuario.estado = True
+                        db.session.commit()
+
+
             usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items]
+
+     
+      
 
             return {
                 'Usuario': usuarios_json,

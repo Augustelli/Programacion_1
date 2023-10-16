@@ -55,6 +55,26 @@ export class ClasesService {
     return this.httpClient.post(this.url +'/clases', clase, {headers: headers});
   }
 
+  getProfebyClase(idClases: string): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.get(this.url +'/clase_profesor?idClase='+idClases, {headers: headers});
+  }
+
+  updateProfesorEnClase(datosParaActualizar:any): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.post(this.url +'/clase_profesor', datosParaActualizar,{headers: headers});
+  }
+
   
 
   
