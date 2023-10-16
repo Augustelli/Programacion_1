@@ -40,6 +40,8 @@ import { CrearUsuarioAdminComponent } from './pages/crear-usuario-admin/crear-us
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { ToastrModule } from 'ngx-toastr';
+import { PayAdminComponent } from './pages/pay-admin/pay-admin.component';
+
 
 
 
@@ -73,6 +75,8 @@ import { ToastrModule } from 'ngx-toastr';
     UsuariosComponent,
     AbmComponent,
     CrearUsuarioAdminComponent,
+    PayAdminComponent,
+    
     
     // TablaPlanificacionGrillaaComponent
     // crearUsuarioComponent

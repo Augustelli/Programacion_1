@@ -32,7 +32,8 @@
               <input
                 type="text"   class="form-control" id="dias"  name="dias" [(ngModel)]="nuevaclases.dias"        required      />
             </div>
-            <button type="submit" class="btn btn-primary" (click)="crearClase()">Guardar</button>
+            <button type="submit" class="btn btn-primary" (click)="crearClase()"style='margin-right: .5rem'>Guardar</button>
+            <button type="button" class="btn btn-danger" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion">Cancelar</button>
                         
           </div>
         </div>

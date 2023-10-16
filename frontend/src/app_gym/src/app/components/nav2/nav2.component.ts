@@ -27,6 +27,9 @@ export class Nav2Component  implements OnInit{
       this.userRol = decodedToken.rol;
   }
 }
+redirectPay(){
+  this.router.navigate(['/pay_admin']);
+}
 
 
   

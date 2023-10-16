@@ -27,6 +27,9 @@ class Usuarios(Resource):
              
             for usuario in usuarios:
                 payments = PagosModelo.query.filter_by(dni=usuario.dni).all()
+                if not payments:  # Check if there are no payments for the user
+                    usuario.estado = False
+                    db.session.commit()
                 for payment in payments:
                     current_time = datetime.datetime.now()
                     # print(usuario.dni, payment.fecha_de_pago)
@@ -100,7 +103,7 @@ class Usuarios(Resource):
 
                 salario = datos['salario'] if "salario" in datos else None
                 especialidad = datos['especialidad'] if 'especialidad' in datos else None
-                profesor_usuario = UsuarioModelo(dni=usuario_nuevo.dni, nombre=usuario_nuevo.nombre, apellido=usuario_nuevo.apellido, email=usuario_nuevo.email, contrasegna=usuario_nuevo.contrasegna, rol=usuario_nuevo.rol,fecha_nacimiento=usuario_nuevo.fecha_nacimiento, estado=usuario_nuevo.estado, nombre_usuario=usuario_nuevo.nombre_usuario)
+                profesor_usuario = UsuarioModelo(dni=usuario_nuevo.dni, nombre=usuario_nuevo.nombre, apellido=usuario_nuevo.apellido, email=usuario_nuevo.email, contrasegna=usuario_nuevo.contrasegna, rol=usuario_nuevo.rol,fecha_nacimiento=usuario_nuevo.fecha_nacimiento, estado=True, nombre_usuario=usuario_nuevo.nombre_usuario)
                 db.session.add(profesor_usuario)
                 profesor = ProfesorModelo(
                     profesor_dni=usuario_nuevo.dni, 

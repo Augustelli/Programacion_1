@@ -25,6 +25,10 @@
                         <input type="TEXT" class="form-control" id="dni" [(ngModel)]="userData.dni" name="dni"(change)="fieldChanged('dni', userData.dni) ">
                     </div>
                     <div class="mb-3">
+                        <label for="estado" class="form-label">Estado</label>
+                        <input type="text" class="form-control" id="estado" [(ngModel)]="userData.estado" name="estado" (change)="fieldChanged('estado', userData.estado)">
+                    </div>
+                    <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" [(ngModel)]="userData.email" name="email" (change)="fieldChanged('email', userData.email)" >
                     </div>

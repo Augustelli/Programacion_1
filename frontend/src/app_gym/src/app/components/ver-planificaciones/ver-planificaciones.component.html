@@ -51,7 +51,8 @@
                   type="text"    class="form-control"   id="id_Clase"   name="id_Clase"  [(ngModel)]="nuevaPlanificacion.id_Clase" required/>
             
           
-              <button type="submit" class="btn btn-primary" (click)="crearPlanificacion()">Guardar</button>
+              <button type="submit" class="btn btn-primary" (click)="crearPlanificacion()" style="margin-right: .5rem;">Guardar</button>
+              <button type="button" class="btn btn-danger" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion">Cancelar</button>
               </div>
             </form>
           </div>
@@ -119,6 +120,11 @@
             <button class="btn btn-primary btn-sm" (click)="guardarCambios(planificacion)">
               Guardar cambios
             </button>
+            
+            <button class="btn btn-secondary btn-sm" (click)="planificacion.editando = false">
+              Cancelar
+            </button>
+
           </div>
         </div>
       </div>

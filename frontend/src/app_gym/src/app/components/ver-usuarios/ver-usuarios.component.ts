@@ -14,24 +14,7 @@ export class VerUsuariosComponent implements OnInit {
   userRol:string = '';
 
 
-  // arrayUsuarios = [
-  //   {
-  //     id: 1,
-  //     nombre:' Usuario 1',
-  //     imagen : "chica_fachera.svg"
-  //   },
-  //   {
-  //     id: 2,
-  //     nombre:' Usuario 2',
-  //     imagen : "chico_fachero2.svg"
-  //   },
-  //   {
-  //     id: 3,
-  //     nombre:' Usuario 3',
-  //     imagen : "pibe_fachero.svg"
-  //   }
-  // ];
-  
+ 
   constructor(
     private usuariosService: UsuariosService,
     private jwtHelper: JwtHelperService,
