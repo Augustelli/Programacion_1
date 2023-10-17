@@ -149,25 +149,53 @@ export class PayAdminComponent implements OnInit{
       );
   }
 
-  modificarPago(dni: string) {
+  modificarPago(usuario: any) {
     this.mostrarFormularioEditar=true;
+    usuario.mostrandoPagos = false;
+    usuario.editando = true // Establece la bandera mostrandoPagos en false para ocultar los detalles de pago
+
+
+    
     
   }
-  putPago(idPago:any,editpago:any) {
-    const datosParaPost = {
-      dni: this.nuevopago.dni,
-      fecha_de_pago: this.nuevopago.fecha_de_pago,
-      monto: this.nuevopago.monto,
-      estado: this.nuevopago.estado
+  // putPago(idPago:any,editpago:any) {
+  //   const datosParaPost = {
+  //     dni: this.nuevopago.dni,
+  //     fecha_de_pago: this.nuevopago.fecha_de_pago,
+  //     monto: this.nuevopago.monto,
+  //     estado: this.nuevopago.estado
      
-    };
-    console.log('datosParaPost', datosParaPost);
-    this.pagoService.putPago(idPago,datosParaPost).subscribe((data: any) => {
-      console.log('Pago creado:', data);
-      this.mostrarFormularioEditar = false;
+  //   };
+  //   console.log('datosParaPost', datosParaPost);
+  //   this.pagoService.putPago(idPago,datosParaPost).subscribe((data: any) => {
+  //     console.log('Pago creado:', data);
+  //     this.mostrarFormularioEditar = false;
       
-    });
+  //   });
+  // }
+
+  guardarCambios(usuario: any) {
+    // Realiza las operaciones necesarias para guardar los cambios en la información de pago
+    const pago = usuario.pagos[0];
+    const datosParaPost = {
+      dni: pago.dni,
+      fecha_de_pago: pago.fecha_de_pago,
+      monto: pago.monto,
+      estado: pago.estado
+    };
+
+    console.log('datosParaPost', datosParaPost);
+    this.pagoService.putPago(pago.idPago ,datosParaPost).subscribe((data: any) => {
+      console.log('Pago creado:', data);
+      usuario.editando = false; // Establece la bandera editando en false para ocultar el formulario de edición
+      
+      
+    }
+    );
+
+
   }
+
 }
   
   

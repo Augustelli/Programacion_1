@@ -118,6 +118,9 @@
                     <button class="btn btn-primary btn-sm" (click)="guardarCambios(clases)">
                       Guardar cambios
                     </button>
+                    <button class="btn btn-primary btn-sm"  (click)="clases.editando = false" style="margin-left: 1rem; background-color: lightgray;color: rgb(88, 85, 85); border-color: rgb(88, 85, 85);">
+                      Cancelar
+                    </button>
                   </div>
                   <div *ngIf="clases.agregandoProfesor== true">
                    
