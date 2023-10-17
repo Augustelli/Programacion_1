@@ -122,6 +122,15 @@ export class UsuariosService {
 
     return this.httpClient.put(this.url + '/profesor?nrDni='+user_id, updatedUserData,{headers: headers});
   }
+  getProfes1(){
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+
+    });
+    return this.httpClient.get(this.url + '/profesor',{headers: headers});
+  }
 }
 
 

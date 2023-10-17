@@ -41,6 +41,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { ToastrModule } from 'ngx-toastr';
 import { PayAdminComponent } from './pages/pay-admin/pay-admin.component';
+import { ProfesComponent } from './pages/profes/profes.component';
 
 
 
@@ -76,6 +77,7 @@ import { PayAdminComponent } from './pages/pay-admin/pay-admin.component';
     AbmComponent,
     CrearUsuarioAdminComponent,
     PayAdminComponent,
+    ProfesComponent,
     
     
     // TablaPlanificacionGrillaaComponent

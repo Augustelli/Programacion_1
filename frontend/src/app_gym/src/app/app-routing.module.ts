@@ -16,6 +16,7 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { authsessionGuardToken, authsessionGuardTokenAdminProfe, authsessionGuardTokenAdminProfeAlum, authsessionGuardTokenAdminProfeAlumEspera, authsessionGuardTokenAdmin } from './guards/authsession.guard';
 import { CrearUsuarioAdminComponent } from './pages/crear-usuario-admin/crear-usuario-admin.component';
 import { PayAdminComponent } from './pages/pay-admin/pay-admin.component';
+import { ProfesComponent } from './pages/profes/profes.component';
 
 
 
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'usuario/:id/:tipo_op', component: UsuarioComponent, canActivate:[authsessionGuardTokenAdminProfe]},
   { path: 'crear_usuario_admin', component: CrearUsuarioAdminComponent , canActivate:[authsessionGuardTokenAdminProfe]},
   {path: 'pay_admin', component: PayAdminComponent, canActivate:[authsessionGuardTokenAdminProfe]},
+  {path: 'profesores', component: ProfesComponent, canActivate:[authsessionGuardTokenAdminProfeAlumEspera]}
   
   // {path:'crear_usuario_main',component:CrearUsuarioMainComponent},
 

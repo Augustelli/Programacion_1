@@ -75,6 +75,39 @@ export class ClasesService {
     return this.httpClient.post(this.url +'/clase_profesor', datosParaActualizar,{headers: headers});
   }
 
+
+  getClaseByProfesor(idProfesor: string): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.get(this.url +'/clase_profesor?idProfesor='+idProfesor, {headers: headers});
+  }
+  updateProfesorYClase(data:any): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`,
+    });
+    const idProfesor=data.idProfesor;
+    const idClase=data.idClase;
+
+    return this.httpClient.post(this.url +'/clase_profesor', {headers: headers});
+  }
+  deleteProfesorEnClase(datosParaDelete:any): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`,
+    });
+    const idProfesor=datosParaDelete.idProfesor;
+    const idClase=datosParaDelete.idClase;
+
+    return this.httpClient.delete(this.url +'/clase_profesor?idProfesor='+idProfesor+'&idClase='+idClase, {headers: headers});
+  }
+  
   
 
   
