@@ -124,6 +124,11 @@ export class PayAdminComponent implements OnInit{
       this.mostrarFormularioCreacion = false;
       
     });
+    this.usuariosService.getUsers().subscribe((data1:any) => {
+      this.arrayUsuariosIGNORE = data1.Usuario;
+    })
+    this.mostrarTodo();
+
   }
 
   deletePago(dni: string) {

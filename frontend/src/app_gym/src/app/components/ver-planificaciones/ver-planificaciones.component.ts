@@ -52,8 +52,10 @@ export class VerPlanificacionesComponent implements OnInit {
 
    
   ]
-  onPlanificacionClick() {
-    this.planificacionClickeada.emit();}
+  onPlanificacionClick(idPlanificacion: any) {
+    this.planificacionClickeada.emit(idPlanificacion);
+  }
+  
     
   constructor(
     private planificacionService: PlanificacionService,

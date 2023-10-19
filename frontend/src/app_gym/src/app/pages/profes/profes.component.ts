@@ -124,6 +124,12 @@ crearProfeClase(){
       
     });
   }
+  eliminarProfe(idProfesor: string) {
+    this.usuariosService.deleteProfesor(idProfesor).subscribe((data: any) => {
+      console.log('Profesor eliminado:', data);
+      this.mostrarTodo();
+    });
+  }
 }
 
 

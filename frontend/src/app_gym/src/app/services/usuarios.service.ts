@@ -124,13 +124,24 @@ export class UsuariosService {
   }
   getProfes1(){
     let auth_token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
+    const headers = new HttpHeaders({ 
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${auth_token}`
 
     });
     return this.httpClient.get(this.url + '/profesor',{headers: headers});
   }
+  deleteProfesor(user_id: string): Observable<any> {
+      
+      let auth_token = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${auth_token}`
+  
+      });
+      return this.httpClient.delete(this.url + '/profesor?idProfesor=' + user_id,{headers: headers});
+      
+    }
 }
 
 

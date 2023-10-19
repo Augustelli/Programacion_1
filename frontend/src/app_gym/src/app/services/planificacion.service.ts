@@ -56,4 +56,53 @@ export class PlanificacionService {
 
     return this.httpClient.post(this.url +'/planificaciones_profesores', planificacion, {headers: headers});
   }
+  
+  crearPlanificacionDetalle(planificacion_detalle: any): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`,
+    });
+    console.log(planificacion_detalle);
+
+    return this.httpClient.post(this.url + '/planificaciones_detalle', planificacion_detalle, { headers: headers });
+  }
+  getPlanificacionDetalle(planificacion_id: any): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${auth_token}`,
+    });
+    console.log(planificacion_id);
+    return this.httpClient.get(this.url + '/planificacion_detalle?idPlanificacion=' +planificacion_id, { headers: headers });
+  }
+
+  getPlanificacionesDetalle(): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${auth_token}`,
+    });
+    return this.httpClient.get(this.url + '/planificaciones_detalle', { headers: headers });
+  }
+  deletePlanificacionDetalle(planificacion_detalle_id: string): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${auth_token}`,
+    });
+    return this.httpClient.delete(this.url + '/planificaciones_detalle?idPlanificacionDetalle=' + planificacion_detalle_id, { headers: headers });
+  }
+
+  putPlanificacionDetalle(planificacion_detalle_id: string, planificacion_detalle: any): Observable<any> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${auth_token}`,
+    });
+    return this.httpClient.put(this.url + '/planificaciones_detalle?idPlanificacionDetalle=' + planificacion_detalle_id, planificacion_detalle, { headers: headers });
+  }
+
+
+
 }

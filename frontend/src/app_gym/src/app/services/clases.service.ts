@@ -23,6 +23,7 @@ export class ClasesService {
       per_page: pageSize.toString()
     };
     return this.httpClient.get(this.url +'/clases', {headers: headers, params: params});
+ 
   }
 
   updateClase(idClases: string, clase: any): Observable<any> {

@@ -14,15 +14,19 @@ export class HomeComponent implements OnInit{
   successMessage: string = '';
   userRol:string = '';
   isToken: boolean = false;
+  idPlanificaciones: any;
 
   constructor(
     private jwtHelper: JwtHelperService,
     private planificacionService: PlanificacionService
     ) {}
 
-  onPlanificacionClickeada() {
+  onPlanificacionClickeada(idPlanificacion: any) {
     this.varVerPlanificaciones = false;
     this.varNoVerPlanificaciones = true; // Cambia esto según tu lógica
+    console.log('ID de la planificacion clickeada:', idPlanificacion);
+    localStorage.setItem('idPlanificacion', idPlanificacion);
+  ;
   }
   back() {
     this.varVerPlanificaciones = true;

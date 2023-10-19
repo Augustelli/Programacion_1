@@ -75,7 +75,7 @@
         <img src="../../../assets/planificacion/chicaplanificacion2.png" class="card-img-top" alt="...">
         <div class="card-body">
           
-          <div (click)="onPlanificacionClick()">
+          <div (click)="onPlanificacionClick(planificacion.idPlanificacion)">
             <!-- Aquí se mostrarán los datos de la planificación -->
             <h5 class="card-title">{{planificacion.idPlanificacion}}-{{planificacion.rutina}}</h5>
             <p class="card-text">Ultima Actualización: {{planificacion.fecha}}</p>
@@ -97,13 +97,7 @@
                 (click)="deletePlanificacion(planificacion.idPlanificacion)">Eliminar</button>
             </div>
 
-            <!-- <ng-container *ngIf="userRol === 'admin'; else elseBlock"> -->
-              <!-- <button class="btn btn-light btn-sm mr-3" (click)="editarPlanificacion(planificacion)">
-                Editar
-              </button> -->
-              <!-- <button class="btn btn-light btn-sm" (click)="deletePlanificacion(planificacion.idPlanificacion)">
-                Eliminar
-              </button> -->
+           
             </ng-container>
             <ng-template #elseBlock>
               <!-- Si userRol no es 'admin', puedes mostrar un mensaje o no mostrar nada -->
