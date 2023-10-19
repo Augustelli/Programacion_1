@@ -1,49 +1,64 @@
-<div class="row-col-1" style="position: absolute 50%; margin-top: 3rem; text-align: center;">
+<div class="row-col-1" style="position: absolute 50%; margin-top: .5rem; text-align: center;">
   <h1 class="text-center">Rutina de Gym</h1>
   <!-- <h5 class="text-center" style="color:#1976D2"><br> </h5> -->
 </div>
 <div class="text-center mt-3" style="margin-bottom: 2rem;">
-  <button class="btn btn-primary" (click)="agregarFila()">Agregar nueva rutina</button>
+  <button *ngIf="userRol === 'admin'|| userRol ==='profesor'"class="btn btn-light btn-sm mr-3 justify-content-end" style="color: white; background: rgb(146, 146, 146); border-radius: 85px;" (click)="agregarFila()">Agregar nueva rutina</button>
 </div>
 <div *ngIf="mostrarFormulario" class="container" style="margin-bottom: 1rem;">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Ejercicio</th>
-        <th scope="col">Repeticiones</th>
-        <th scope="col">RIR</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr >
-        <!-- <td><input type="text" [(ngModel)]="nuevoEjercicio" placeholder="Ejercicio"></td>
-        <td><input type="text" [(ngModel)]="nuevasRepeticiones" placeholder="Repeticiones"></td>
-        <td><input type="text" [(ngModel)]="nuevoRIR" placeholder="RIR"></td> -->
-      </tr>
-    </tbody>
-    <td><button class="btn btn-primary" (click)="realizarPUT()">Guardar</button></td>
-  </table>
+  <form (submit)="realizarPUT()">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Ejercicio</th>
+          <th scope="col">Repeticiones</th>
+          <th scope="col">RIR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" [(ngModel)]="nuevaPlanificacion.nombre" name="nombre" required>
+            </div>
+          </td>
+          <td>
+            <div class="mb-3">
+              <label for="repeticiones" class="form-label">Repeticiones</label>
+              <input type="text" class="form-control" id="repeticiones" [(ngModel)]="nuevaPlanificacion.repeticion" name="repeticiones" required>
+            </div>
+          </td>
+          <td>
+            <div class="mb-3">
+              <label for="rir" class="form-label">RIR</label>
+              <input type="text" class="form-control" id="rir" [(ngModel)]="nuevaPlanificacion.rir" name="rir" required>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary" type="submit" style="margin-right: 1rem;">Guardar</button>
+    <button class="btn btn-secondary" type="button" (click)="mostrarFormulario = !mostrarFormulario">Cancelar</button>
+  </form>
 </div>
+
+
 
 <div class="text-center mt-3" style="margin-bottom: 2rem;">
-  <!-- <div>
-  <label>Selecciona el día:</label>
-  </div> -->
-  <!-- <div>
-  <button class="btn btn-primary"  style="margin-right: 3rem;"><</button>
-  
-  <button class="btn btn-primary"  style="margin-left: 3rem;">></button>
-</div> -->
+
 </div>
 
 
-<div class="container" style="margin-bottom: 8rem;">
+
+<!-- <div class="container" style="margin-bottom: 8rem;">
   <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">Ejercicio</th>
         <th scope="col">Repeticiones</th>
         <th scope="col">RIR</th>
+        <th scope="col" *ngIf="userRol==='admin'|| userRol === 'profesor'">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -51,8 +66,56 @@
         <td>{{ detalle.nombre }}</td>
         <td>{{ detalle.repeticion }}</td>
         <td>{{ detalle.rir }}</td>
+        <td *ngIf="userRol==='admin'|| userRol === 'profesor'">
+          
+          <img src="../../../assets/Boton tachurin.svg" (click)="eliminarDetalle(detalle.idPlanificacionDetalle)" style="cursor: pointer;">
+        </td>
       </tr>
+     
     </tbody>
   </table>
+</div> -->
+<div class="container" style="margin-bottom: 8rem;">
+  <ng-container *ngIf="isToken; else noTokenData">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Ejercicio</th>
+          <th scope="col">Repeticiones</th>
+          <th scope="col">RIR</th>
+          <th scope="col" *ngIf="userRol==='admin'|| userRol === 'profesor'">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detalle of arrayPlanificacionesDetalle.Planificacion">
+          <td>{{ detalle.nombre }}</td>
+          <td>{{ detalle.repeticion }}</td>
+          <td>{{ detalle.rir }}</td>
+          <td *ngIf="userRol==='admin'|| userRol === 'profesor'">
+            <img src="../../../assets/Boton tachurin.svg" (click)="eliminarDetalle(detalle.idPlanificacionDetalle)" style="cursor: pointer;">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-template #noTokenData>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Ejercicio</th>
+          <th scope="col">Repeticiones</th>
+          <th scope="col">RIR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detalle of arrayPlanificacionesDetalleGuess1">
+          <td>{{ detalle.nombre }}</td>
+          <td>{{ detalle.repeticion }}</td>
+          <td>{{ detalle.rir }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
 </div>
+
 
