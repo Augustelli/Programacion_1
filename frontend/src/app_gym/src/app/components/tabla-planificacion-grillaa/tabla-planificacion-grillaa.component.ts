@@ -5,6 +5,9 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';;
 import { NgIf,NgFor } from '@angular/common';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { PlanificacionService } from 'src/app/services/planificacion.service';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms'; 
+
 
 @Component({
   selector: 'app-tabla-planificacion-grillaa',
@@ -30,10 +33,16 @@ export class TablaPlanificacionGrillaaComponent implements OnInit {
   userRol:string = '';
   arrayPlanificacionesDetalle: any=[];
   idPlanificaciones: any;
+  mostrarFormulario = false;
+  nuevoEjercicio: string = '';
+  nuevasRepeticiones: string = '';
+  nuevoRIR: string = '';
 
 
 
   ngOnInit(): void {
+    
+
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = this.jwtHelper.decodeToken(token);
@@ -50,10 +59,22 @@ export class TablaPlanificacionGrillaaComponent implements OnInit {
       });
 }
   }
+  agregarFila() {
+    this.mostrarFormulario = true;
+    
+  }realizarPUT() {
+    const data = {
+      ejercicio: this.nuevoEjercicio,
+      repeticiones: this.nuevasRepeticiones,
+      rir: this.nuevoRIR,
+    };
+  
+    this.planificacionService.putPlanificacionDetalle(this.idPlanificaciones, data).subscribe((data: any) => {
+      console.log('JSON data:', data);
+      this.arrayPlanificacionesDetalle = data; // Asegúrate de que "PlanificacionDetalle" es la propiedad que contiene los detalles de la planificación
+    });
+  }
+  
+
+
 }
-
-
-
-
-
-

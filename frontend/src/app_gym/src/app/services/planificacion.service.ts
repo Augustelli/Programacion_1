@@ -91,16 +91,16 @@ export class PlanificacionService {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${auth_token}`,
     });
-    return this.httpClient.delete(this.url + '/planificaciones_detalle?idPlanificacionDetalle=' + planificacion_detalle_id, { headers: headers });
+    return this.httpClient.delete(this.url + '/planificacion_detalle?idPlanificacionDetalle=' + planificacion_detalle_id, { headers: headers });
   }
 
-  putPlanificacionDetalle(planificacion_detalle_id: string, planificacion_detalle: any): Observable<any> {
+  putPlanificacionDetalle(planificacion_detalle_id: any, planificacion_detalle: any): Observable<any> {
     let auth_token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${auth_token}`,
     });
-    return this.httpClient.put(this.url + '/planificaciones_detalle?idPlanificacionDetalle=' + planificacion_detalle_id, planificacion_detalle, { headers: headers });
+    return this.httpClient.put(this.url + '/planificacion_detalle?idPlanificacionDetalle=' + planificacion_detalle_id, planificacion_detalle, { headers: headers });
   }
 
 

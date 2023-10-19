@@ -42,6 +42,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrModule } from 'ngx-toastr';
 import { PayAdminComponent } from './pages/pay-admin/pay-admin.component';
 import { ProfesComponent } from './pages/profes/profes.component';
+import { CommonModule } from '@angular/common';
+
+
 
 
 
@@ -85,6 +88,10 @@ import { ProfesComponent } from './pages/profes/profes.component';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    FormsModule,
+
+    CommonModule,
     AppRoutingModule,
     TablaPlanificacionGrillaaComponent,
     LoginThreeComponent,
