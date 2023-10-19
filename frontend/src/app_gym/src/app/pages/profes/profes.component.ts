@@ -34,23 +34,49 @@ export class ProfesComponent implements OnInit {
     idClase:''}
 
   mostrarFormularioEliminacion = false;
+  isToken: boolean = false;
+  arrayUsuariosGuess=[
+    {
+      idUsuario: "1",
+      nombre: "Juan",
+      apellido: "Perez",
+      dni: "12345678"},
+      {
+        idUsuario: "2",
+        nombre: "Pedro",
+        apellido: "Gomez",
+        dni: "12345678"},
+        {
+          idUsuario: "3",
+          nombre: "Maria",
+          apellido: "Rodriguez",
+          dni: "12345678"
+      }
+  ];
 
 
   
 
   ngOnInit(): void {
-    this.usuariosService.getProfes1().subscribe((data:any) => {
-      this.arrayUsuarios = data.Usuario
-      console.log('profes',this.arrayUsuarios);
-    });
+    
     
     const token = localStorage.getItem('token');
     if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
       const decodedToken = this.jwtHelper.decodeToken(token);
       this.userRol = decodedToken.rol;
-    } 
+      this.isToken = true;
     
-}
+    this.usuariosService.getProfes1().subscribe((data:any) => {
+      this.arrayUsuarios = data.Usuario
+      console.log('profes',this.arrayUsuarios);
+    });
+  }
+  if(this.isToken == false){
+    this.arrayUsuarios = this.arrayUsuariosGuess;
+  }
+  }
+  
+
 
 
   filtrarUsuariosNombre(){

@@ -12,6 +12,7 @@ export class EditarPerfilComponent implements OnInit {
   userDni:string = '';
   userData: any = {};
   updatedFields: any = {};
+  userRol:string = '';
   successMessage: string = '';
   toHome() {
     window.location.href = '/home';
@@ -32,6 +33,7 @@ export class EditarPerfilComponent implements OnInit {
       const decodedToken = this.jwtHelper.decodeToken(token);
       this.userDni = decodedToken.id;
       console.log('DNI del usuario', this.userDni);
+      this.userRol = decodedToken.rol;
  
    
     this.usuariosService.getUserData(this.userDni).subscribe(

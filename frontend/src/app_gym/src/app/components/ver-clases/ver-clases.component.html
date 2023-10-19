@@ -43,10 +43,56 @@
   </div>
 </div>
 </div>
+<div *ngIf="isToken=== false">
+  <div *ngIf="varVerClases" class="row-md-auto ml-3">
+          <div class="row">
+            <ng-container *ngFor="let clases of arrayClases; let i = index">
+              <div class="col-md-6" >
+                <div class="card card-sm" style="margin: 4rem; background-color: lightgray; border-radius: 15px;">
+                 
+  
+  
+                 
+  
+                  <img src="../../../assets/clases/clase1.png" class="card-img-top mx-auto"style="width: 50%;" alt="...">
+                  <div class="card-body" >
+                    <h5 class="card-title">ID de la clase: {{ clases.idClases }}</h5>
+                    <p class="card-text">{{ clases.nombre }}</p>
+                    <p class="card-text">{{ clases.dias }}</p>
+  
+                    <div class="d-flex justify-content-end" *ngIf="userRol === 'alumno'">
+                      
+          
+          
+                      
+                   
+                    
+                   
+                   
+  
+  
+                  
+  
+                    
+                    
+                  
+                     
+            
+  
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+             <div class="w-100" *ngIf="(i + 1) % 2 === 0"></div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
 
 
 
-
+<div *ngIf="userRol==='alumno'|| userRol=== 'profesor'|| userRol === 'admin'">
 <div *ngIf="varVerClases" class="row-md-auto ml-3">
         <div class="row">
           <ng-container *ngFor="let clases of arrayClases; let i = index">
@@ -57,7 +103,8 @@
 
                
 
-                <img src="../../../assets/clases/clases.png" class="card-img-top mx-auto"style="width: 50%;" alt="...">
+                <!-- <img src="../../../assets/clases/clase{{i}}.png" class="card-img-top mx-auto"style="width: 50%;" alt="..."> -->
+                <img [src]="'../../../assets/clases/clase' + (i % 8) + '.png'" class="card-img-top mx-auto" style="width: 50%;" alt="...">
                 <div class="card-body" >
                   <h5 class="card-title">ID de la clase: {{ clases.idClases }}</h5>
                   <p class="card-text">{{ clases.nombre }}</p>
@@ -161,8 +208,9 @@
           </ng-container>
         </div>
       </div>
+    </div>
 
-      <pagination-controls (pageChange)="onPageChange($event)" 
+      <pagination-controls *ngIf="isToken" (pageChange)="onPageChange($event)" 
                     previousLabel="Anterior"
                     nextLabel="Siguiente"
                     screenReaderPaginationLabel="Paginación"
