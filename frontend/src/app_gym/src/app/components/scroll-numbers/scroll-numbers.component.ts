@@ -70,6 +70,7 @@
 // }
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { OnChanges,SimpleChanges } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Component({
   selector: 'app-scroll-numbers',
@@ -121,7 +122,7 @@ export class ScrollNumbersComponent implements OnChanges {
   
   
   selectedNumber: number | null = null;
-
+  contador:number = 0;
 
   days: { dayNumber: number }[] = [];
   ngOnChanges(changes: SimpleChanges) {
@@ -168,16 +169,37 @@ export class ScrollNumbersComponent implements OnChanges {
     this.daySelected.emit(dayNumber);
     this.selectedNumber = dayNumber;
   
-    if (!localStorage.getItem('dia')) {
-      localStorage.setItem('dia', this.selectedNumber.toString());
-    } else if (!localStorage.getItem('mes')) {
-      localStorage.setItem('mes', this.selectedNumber.toString());
-    } else if (!localStorage.getItem('anio')) {
-      localStorage.setItem('anio', this.selectedNumber.toString());
-    } else if (!localStorage.getItem('altura')) {
-      localStorage.setItem('altura', this.selectedNumber.toString());
-    } else if (!localStorage.getItem('peso')) {
-      localStorage.setItem('peso', this.selectedNumber.toString());
-  }
+  //   if (!localStorage.getItem('dia')) {
+  //     localStorage.setItem('dia', this.selectedNumber.toString());
+  //   } else if (!localStorage.getItem('mes')) {
+  //     localStorage.setItem('mes', this.selectedNumber.toString());
+  //   } else if (!localStorage.getItem('anio')) {
+  //     localStorage.setItem('anio', this.selectedNumber.toString());
+  //   } else if (!localStorage.getItem('altura')) {
+  //     localStorage.setItem('altura', this.selectedNumber.toString());
+  //   } else if (!localStorage.getItem('peso')) {
+  //     localStorage.setItem('peso', this.selectedNumber.toString());
+  // }
+  
+//   if (this.variable === 0){
+//     localStorage.setItem('dia', this.selectedNumber.toString());
+//     this.contador = this.contador + 1;
+// } else if (this.contador === 1){
+//     localStorage.setItem('mes', this.selectedNumber.toString());
+    
+//   } else if (this.contador === 2){
+//     localStorage.setItem('anio', this.selectedNumber.toString());
+    
+//   }else if (this.contador === 3){
+//     localStorage.setItem('altura', this.selectedNumber.toString());
+    
+//   } else if (this.contador === 4){
+//     localStorage.setItem('peso', this.selectedNumber.toString());
+    
+//   }
+
 }
+
+  
 }
+

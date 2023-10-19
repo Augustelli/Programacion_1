@@ -3,6 +3,7 @@
         <div class="col-md-8 offset-md-2">
             <!-- <h2 class="text-center mb-4">ABM usuario</h2> -->
             <h2 class="text-center mb-4">{{tipoOperacion}} usuario {{user_id === null ? '' : user_id}}</h2>
+            <h3 class="text-center mb-4">ID del Usuario "{{userData2.idProfesor}}{{userData1.id}}"</h3>
             <div>
                 <!-- Formulario para cargar un nuevo usuario -->
                 <form>
@@ -10,27 +11,59 @@
                         <label for="nombre" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="nombre"  [(ngModel)]="userData.nombre" name="nombre" (change)="fieldChanged('nombre', userData.nombre)">
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3">                  
                         <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="apellido" >
+                        <input type="text" class="form-control" id="apellido" [(ngModel)]="userData.apellido" name="apellido" (change)="fieldChanged('apellido', userData.apellido)" >
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="birth" class="form-label">Birth</label>
-                        <input type="birth" class="form-control" id="birth" >
-                    </div>
+                        <input type="birth" class="form-control" id="birth" [(ngModel)]="userData.fecha_nacimiento" name="fecha_nacimiento" (change)="fieldChanged('fecha_nacimiento', userData.fecha_nacimiento)">
+                    </div> -->
 
                     <div class="mb-3">
                         <label for="DNI" class="form-label">DNI</label>
-                        <input type="TEXT" class="form-control" id="DNI" >
+                        <input type="TEXT" class="form-control" id="dni" [(ngModel)]="userData.dni" name="dni"(change)="fieldChanged('dni', userData.dni) ">
+                    </div>
+                    <div class="mb-3">
+                        <label for="estado" class="form-label">Estado</label>
+                        <input type="text" class="form-control" id="estado" [(ngModel)]="userData.estado" name="estado" (change)="fieldChanged('estado', userData.estado)">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" >
+                        <input type="email" class="form-control" id="email" [(ngModel)]="userData.email" name="email" (change)="fieldChanged('email', userData.email)" >
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username">
+                        <input type="text" class="form-control" id="username" [(ngModel)]="userData.username" name="username" (change)="fieldChanged('username', userData.username)">
+                    </div> -->
+                    <div class="mb-3">
+                        <label for="nombre_usuario" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" [(ngModel)]="userData.nombre_usuario" name="nombre_usuario" (change)="fieldChanged('nombre_usuario', userData.nombre_usuario)">
                     </div>
+                    
+                    <div class="mb-3" *ngIf="userRol==='admin'">
+                        <label for="rol" class="form-label">Rol</label>
+                        <input type="text" class="form-control" id="rol" [(ngModel)]="userData.rol" name="rol" (change)="fieldChanged('rol', userData.rol)">
+                    </div>
+                    <div class="mb-3" *ngIf="userRol==='admin'&& userData.rol==='alumno'">
+                        <label for="rol" class="form-label">Altura</label>
+                        <input type="text" class="form-control" id="altura" name="altura" [(ngModel)]="userData1.altura " (change)="fieldChanged2('altura',userData1.altura)">
+                    </div>
+                    <div class="mb-3" *ngIf="userRol==='admin'&& userData.rol==='alumno'">
+                        <label for="rol" class="form-label">Peso</label>
+                        <input type="text" class="form-control" id="peso" name="peso" [(ngModel)]="userData1.peso" (change)="fieldChanged2('peso',userData1.peso)">
+                    </div>
+                    <div class="mb-3" *ngIf="userRol==='admin'&& userData.rol==='profesor'">
+                        <label for="rol" class="form-label">Salario</label>
+                        <input type="int" class="form-control" id="salario" name="salario" [(ngModel)]="userData2.salario" (change)="fieldChanged3('salario',userData2.salario)">
+                    </div>
+                    <div class="mb-3" *ngIf="userRol==='admin'&& userData.rol==='profesor'">
+                        <label for="rol" class="form-label">Especialidad</label>
+                        <input type="int" class="form-control" id="especialidad" name="especialidad" [(ngModel)]="userData2.especialidad" (change)="fieldChanged3('especialidad',userData2.especialidad)">
+                    </div>
+
+
+
                     
                    
 
@@ -51,6 +84,10 @@
                 <button type="button" class="btn btn-secondary" style=" margin-right: 1rem;" data-bs-dismiss="modal" (click)="back()">Cancelar</button>
                 <button type="button" class="btn btn-primary" (click)="updateUser()" >Guardar</button>
             </div>
+            <div *ngIf="successMessage" class="alert alert-success mt-3">
+            {{ successMessage }}
+            </div>
+            
         </div>
     </div>
   </div>

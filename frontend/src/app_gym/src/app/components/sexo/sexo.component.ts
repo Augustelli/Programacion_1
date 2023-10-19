@@ -31,8 +31,21 @@ export class SexoComponent {
       (response) => {
         // Maneja la respuesta exitosa si es necesario
         console.log('Registro exitoso', response);
-        this.clearLocalStorage();
-        this.router.navigate(['/home']);
+        this.authService.login({ email: localStorage.getItem('email'), contrasegna: localStorage.getItem('contrasegna') }).subscribe({
+          next: (rta:any) => {
+            alert('Login correcto');
+            console.log('Respuesta Login:',rta.access_token);
+            localStorage.setItem('token', rta.access_token);
+            this.clearLocalStorage();
+            this.router.navigate(['/home']);
+      
+          }, error: (error) => {
+            alert('Login incorrecto');
+            localStorage.removeItem('token');
+          }, complete: () => {
+            console.log('Login finalizado');
+          }});
+       
 
       },
       (error) => {
@@ -41,6 +54,22 @@ export class SexoComponent {
       }
     );
   }
+
+
+  // this.authService.login(dataLogin).subscribe({
+//   next: (rta:any) => {
+//     alert('Login correcto');
+//     console.log('Respuesta Login:',rta.access_token);
+//     localStorage.setItem('token', rta.access_token);
+//     this.router.navigate(['/home']);
+
+//   }, error: (error) => {
+//     alert('Login incorrecto');
+//     localStorage.removeItem('token');
+//   }, complete: () => {
+//     console.log('Login finalizado');
+//   }});
+// }
   
   clearLocalStorage() {
     localStorage.removeItem('email');

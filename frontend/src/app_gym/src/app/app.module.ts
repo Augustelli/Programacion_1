@@ -36,6 +36,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {JwtModule} from '@auth0/angular-jwt';
+import { CrearUsuarioAdminComponent } from './pages/crear-usuario-admin/crear-usuario-admin.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+
+import { ToastrModule } from 'ngx-toastr';
+import { PayAdminComponent } from './pages/pay-admin/pay-admin.component';
+import { ProfesComponent } from './pages/profes/profes.component';
+import { CommonModule } from '@angular/common';
+
+
+
+
 
 
 
@@ -67,12 +78,20 @@ import {JwtModule} from '@auth0/angular-jwt';
     PayComponent,
     UsuariosComponent,
     AbmComponent,
+    CrearUsuarioAdminComponent,
+    PayAdminComponent,
+    ProfesComponent,
+    
     
     // TablaPlanificacionGrillaaComponent
     // crearUsuarioComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    FormsModule,
+
+    CommonModule,
     AppRoutingModule,
     TablaPlanificacionGrillaaComponent,
     LoginThreeComponent,
@@ -80,6 +99,9 @@ import {JwtModule} from '@auth0/angular-jwt';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
+    ToastrModule.forRoot(),
+   
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

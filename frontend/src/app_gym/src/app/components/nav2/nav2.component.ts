@@ -27,6 +27,9 @@ export class Nav2Component  implements OnInit{
       this.userRol = decodedToken.rol;
   }
 }
+redirectPay(){
+  this.router.navigate(['/pay_admin']);
+}
 
 
   
@@ -34,6 +37,7 @@ export class Nav2Component  implements OnInit{
   redirectLogout() {
     this.router.navigate(['/logout']);
   }
+
 
   redirectEditar() {
     this.router.navigate(['/editar_perfil']);
@@ -44,6 +48,9 @@ export class Nav2Component  implements OnInit{
   }
   redirectLogin() {
     this.router.navigate(['/login_two'], { queryParams: { varLogin: true } });
+  }
+  redirectSignIn() {
+    this.router.navigate(['/login_two'], { queryParams: { varLogin: false } });
   }
   
 }

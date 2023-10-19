@@ -124,7 +124,7 @@ class PlanificacionesProfesores(Resource):
             planificacion_nueva = PlanificacionModelo.from_json(datos)
             db.session.add(planificacion_nueva)
             db.session.commit()
-            sent = sendMail([usuario.email], "Bienvenido a la plataforma del gimnasio del Grupo D, hay una nueva planificación disponible", "plani", planificacion=planificacion_nueva)  # noqa
+           # sent = sendMail([usuario.email], "Bienvenido a la plataforma del gimnasio del Grupo D, hay una nueva planificación disponible", "plani", planificacion=planificacion_nueva)  # noqa
             # sent=sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D", "register", usuario=usuario_nuevo)
             return planificacion_nueva.to_json(), 201
         except Exception as e:
@@ -134,7 +134,7 @@ class PlanificacionesProfesores(Resource):
 
 
 class PlanificacionProfesor(Resource):
-    @role_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor', 'alumno'])
     def get(self):
         try:
             planificacion = db.session.query(PlanificacionModelo)
@@ -226,7 +226,8 @@ class PlanificacionProfesor(Resource):
                 usuario_eliminar = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.idPlanificacion == request.args.get('nrIdPlanificacion')).first()  # noqa
                 db.session.delete(usuario_eliminar)
                 db.session.commit()
-                return 204, f"Planificacion con ID  {request.args.get('nrIdPlanificacion')} eliminado"
+                # return 'Usuario eliminado correctamente', 200
+                return "Planificacion eliminada correctamente",204
             else:
                 raise Exception("El ID de la planificacion debe ser especificado para eliminarlo")
         except Exception:

@@ -1,0 +1,161 @@
+
+<app-nav1></app-nav1>
+<app-nav2></app-nav2>
+<app-flecha-atras></app-flecha-atras>
+
+
+
+
+<div class="container mt-5" style="margin-bottom: 3rem;">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="text-center mb-4">Lista de Profes</h2>
+            <div class="d-flex mb-3">
+                <input  type="text"  class="form-control me-2 flex-grow-1"  placeholder="Buscar profe..."  [(ngModel)]="searchTerm"  (input)="filtrarUsuariosNombre()">
+
+                <button class="btn btn-outline-secondary" (click)="mostrarTodo()" type="button"><i class="fa-solid fa-magnifying-glass">Todos</i></button>
+                <button class ="btn btn-danger " (click)="mostrarFormularioEliminacion = !mostrarFormularioEliminacion" *ngIf="userRol === 'admin' || userRol === 'profesor'" style="margin-left: 1rem;"><i class="fa-solid fa-trash"></i>Eliminar</button>
+                <a class="btn btn-secondary ms-2" *ngIf=" userRol === 'admin' || userRol === 'profesor'" > 
+                    <!-- routerLink="/usuario/null/Alta" -->
+                  <i class="fa-solid fa-plus" (click)="mostrarFormularioCreacion=true">+</i>
+                </a>
+
+            </div>
+
+
+
+            <div *ngIf="mostrarFormularioCreacion" >
+                <div  class="col-md-auto ml-3">
+                  <div class="col">
+               
+                      <div class="col-md-6" >
+                        <div class="card card-sm" style="margin: 4rem; background-color: lightgray; border-radius: 15px;">
+                          <div class="card-body" >
+                            <div class="form-group">
+                                <label for="idClase" >idClase</label>
+                                <input type="text" class="form-control" id="idClase"  name="idClase" [(ngModel)]="nuevaClaseProfe.idClase" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="idProfesor" >idProfes</label>
+                                <input type="text" class="form-control" id="idProfesor"  name="idProfesor" [(ngModel)]="nuevaClaseProfe.idProfesor" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" (click)="crearProfeClase()" style="margin-bottom: 1rem; margin-top: 1rem;">Guardar</button> 
+                            <button type="submit" class="btn btn-secondary" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion">Cancelar</button>
+                                        
+                          </div>
+                        </div>
+                      </div> 
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="mostrarFormularioEliminacion" >
+                <div  class="col-md-auto ml-3">
+                  <div class="col">
+               
+                      <div class="col-md-6" >
+                        <div class="card card-sm" style="margin: 4rem; background-color: lightgray; border-radius: 15px;">
+                          <div class="card-body" >
+                            <div class="form-group">
+                                <label for="idClase" >idClase</label>
+                                <input type="text" class="form-control" id="idClase"  name="idClase" [(ngModel)]="eliminarClaseProfe.idClase" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="idProfesor" >idProfes</label>
+                                <input type="text" class="form-control" id="idProfesor"  name="idProfesor" [(ngModel)]="eliminarClaseProfe.idProfesor" required>
+                            </div>
+                            <button type="submit" class="btn btn-danger" (click)="eliminarProfeYClase()" style="margin-bottom: 1rem; margin-top: 1rem;">Eliminar</button> 
+                            <button type="submit" class="btn btn-secondary" (click)="mostrarFormularioEliminacion = !mostrarFormularioEliminacion">Cancelar</button>
+                                        
+                          </div>
+                        </div>
+                      </div> 
+                    </div>
+                </div>
+            </div>
+        
+                 
+                
+    
+
+         
+
+            <ul class="list-group" style="margin-bottom: 3rem;">
+                
+                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let usuario of arrayUsuarios; let i = index" style="background-color: whitesmoke">
+                  <div class="d-flex align-items-center">
+                    <img src="../assets/usuario_editar/chica_fachera.svg" alt="{{ usuario.nombre }}" width="30" height="30" class="me-2">
+                    <div>
+                      <span style="font-size: 18px;">{{ usuario.apellido }} {{ usuario.nombre }}</span>
+                      <br>
+                      <span style="font-size: 14px;">{{ usuario.dni }}</span>
+
+
+                      <!-- <div *ngIf="usuario.editando== true">
+                        <div *ngFor="let pago of usuario.pagos; let i = index">
+                        
+                        <input [(ngModel)]="usuario.pagos[i].monto" placeholder="monto" class="form-control" />
+                        <input [(ngModel)]="usuario.pagos[i].fecha_de_pago" placeholder="Fechas" class="form-control" />
+                        <input [(ngModel)]="usuario.pagos[i].estado" placeholder="estado" class="form-control" />
+                        
+                        <button class="btn btn-primary btn-sm"  (click)="guardarCambios(usuario)" style="margin-top: .5 rem;">
+                          Guardar cambios
+                        </button>
+                        
+                        <button class="btn btn-secondary btn-sm" (click)="usuario.editando = false">
+                          Cancelar
+                        </button>
+            
+                      </div> 
+                    </div> -->
+
+                    <div *ngIf="indice === i" >
+                        <ul>
+                            <li *ngFor="let key of getKeys(arrayClases)">
+                                <div>
+                                  <span style="font-size: 18px;">{{ arrayClases[key].nombre }}</span>
+                                  <br>
+                                  <span style="font-size: 14px;">{{ arrayClases[key].dias }}</span>
+                                </div>
+                              </li>
+                        </ul> 
+                        <div>
+                          
+                          <button class="btn btn-primary btn-sm me-2" (click)="indice=-1">Cancelar<i class="fa-solid fa-pen-to-square"></i></button>
+                        </div>
+                      </div>
+                      
+                      
+                      
+                    </div>
+                  </div>
+                  <div >
+                                        
+                        <img  src="../../../assets/info-icon-svgrepo-com.svg" (click)="mostrarInformacion(usuario.idProfesor,i)" alt="Info clases" width="20" height="20" class="me-2">
+                    
+                    
+                    
+                </div>
+
+                </li>
+            
+              </ul>
+
+
+            </div>
+    </div>
+                    
+</div>
+  
+      
+              
+            
+
+      
+      
+
+
+  
+
+
+<app-backvar1></app-backvar1>
+<app-backvar2></app-backvar2>

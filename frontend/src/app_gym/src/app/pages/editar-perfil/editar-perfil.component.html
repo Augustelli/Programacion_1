@@ -1,24 +1,11 @@
 
 <app-nav1></app-nav1>
 <app-nav2> </app-nav2>
-<div class="row-col-1" style="position: absolute 50%; margin-top: 3rem;">    
+<div class="row-col-1" style="position: absolute 50%; margin-top: 1rem; margin-bottom: 1rem;">    
     <h1 class="text-center" >Edith Profile</h1>
 </div>
-<div class = "container" style="margin-bottom: 5rem;">
-    <div class="row" style="text-align: center; justify-content: center;">
-        <!-- left column -->
-        <div class="col-md-3">
-          <div class="text-center">
-            <img src="//placehold.it/100" class="avatar img-circle" alt="avatar" style="border-radius: 25px;">
-            
-            
-            <h6>Upload a different photo...</h6>
-            
-            <input type="file" class="form-control">
-          </div>
-        </div>
-
-</div >
+<div class = "container" style="margin-bottom: 2rem;">
+    
 <div class="col-md-12 text-center mt-3">
   <button (click)="routeToPay()" style="margin-bottom:5rem" class="btn btn-primary">Pay suscription</button>
 </div>
@@ -29,73 +16,61 @@
       <!-- edit form column -->
       <div class="col-md-12 personal-info">
         
-        <h3 style="text-align: center; margin-top: 2rem;">Personal info</h3>
+        <h3 style="text-align: center;">Personal info</h3>
         
-        <form class="form-horizontal" role="form" style="text-align: start; justify-content: center;">
-          <div class="form-group ">
-            <label class="col-lg-3 control-label " style="text-align: start;" >Name:</label>
-            <div class="col-lg-12">
-              <input class="form-control" type="text" >
-            </div>
+        <form>
+          <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre"  [(ngModel)]="userData.nombre" name="nombre" (change)="fieldChanged('nombre', userData.nombre)">
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Lastname:<</label>
-            <div class="col-lg-12">
-              <input class="form-control" type="text" >
-            </div>
+          <div class="mb-3">
+              <label for="apellido" class="form-label">Apellido</label>
+              <input type="text" class="form-control" id="apellido" [(ngModel)]="userData.apellido" name="apellido" (change)="fieldChanged('apellido', userData.apellido)" >
+          </div>
+          <!-- <div class="mb-3">
+              <label for="birth" class="form-label">Birth</label>
+              <input type="birth" class="form-control" id="birth" [(ngModel)]="userData.fecha_nacimiento" name="fecha_nacimiento" (change)="fieldChanged('fecha_nacimiento', userData.fecha_nacimiento)">
+          </div> -->
+
+          <div class="mb-3">
+              <label for="DNI" class="form-label">DNI</label>
+              <input type="TEXT" class="form-control" id="dni" [(ngModel)]="userData.dni" name="dni"(change)="fieldChanged('dni', userData.dni)">
+          </div>
+          <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="userData.email" name="email" (change)="fieldChanged('email', userData.email)" >
+          </div>
+          <!-- <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" [(ngModel)]="userData.username" name="username" (change)="fieldChanged('username', userData.username)">
+          </div> -->
+          <div class="mb-3">
+              <label for="nombre_usuario" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" [(ngModel)]="userData.nombre_usuario" name="nombre_usuario" (change)="fieldChanged('nombre_usuario', userData.nombre_usuario)">
           </div>
           
-          <div class="form-group">
-            <label class="col-lg-3 control-label">DNI:</label>
-            <div class="col-lg-12">
-              <input class="form-control" type="text" >
-            </div>
+          <div class="mb-3">
+              <label for="rol" class="form-label">Rol</label>
+              <input type="text" class="form-control" id="rol" [(ngModel)]="userData.rol" name="rol" (change)="fieldChanged('rol', userData.rol)">
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Birth:</label>
-            <div class="col-lg-12">
-              <input class="form-control" type="date" >
-            </div>
-          </div>
-        
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Email:</label>
-            <div class="col-lg-12">
-              <input class="form-control" type="text">
-            </div>
-          </div>
+
           
-          <div class="form-group">
-            <label class="col-md-3 control-label">Username:</label>
-            <div class="col-md-12">
-              <input class="form-control" type="text" >
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label">Password:</label>
-            <div class="col-md-12">
-              <input class="form-control" type="password">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label">Confirm password:</label>
-            <div class="col-md-12">
-              <input class="form-control" type="password">
-            </div>
-          </div>
          
-        </form>
+
+          <!-- Agrega más campos del formulario aquí -->
+      </form>
       </div>
-      <div class="form-group" style="margin-bottom:5rem">
-        <label class="control-label"></label>
-        <div class="col-md-12 text-center">
-          <input type="reset" class="btn btn-default" value="Cancel">
-          <input type="button" class="btn btn-primary" value="Save Changes" (click)="toHome()">
-        </div>
-      </div>
+      <div>
+        <button type="button" class="btn btn-secondary" style=" margin-right: 1rem;" data-bs-dismiss="modal" (click)="toHome()">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="updateUser()" >Guardar</button>
+    </div>
+    <div *ngIf="successMessage" class="alert alert-success mt-3">
+    {{ successMessage }}
+    </div>
+      
   </div>
 </div >
 
 
 <!-- <app-backvar1></app-backvar1> -->
-<app-backvar2></app-backvar2>
+<app-backvar1></app-backvar1>

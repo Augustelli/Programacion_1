@@ -10,21 +10,19 @@
 
 
 <form [formGroup]="loginForm2" *ngIf="varLogin" >
-  
+
   <div style="text-align: center; margin-top: 1rem;"  >
     <mat-form-field>
       <mat-label>Dni</mat-label>
       <input matInput placeholder="Ej.Dni: 44444444" formControlName="dni">
     </mat-form-field>
   </div>
-
   <div style="text-align: center; margin-top: .5rem;"  >
     <mat-form-field>
       <mat-label>Nombe</mat-label>
       <input matInput placeholder="Ex. Pepe" formControlName="nombre">
     </mat-form-field>
   </div>
-
   <div style="text-align: center; margin-top: .5rem;"  >
     <mat-form-field>
       <mat-label>Apellido</mat-label>
@@ -32,6 +30,7 @@
     </mat-form-field>
   </div>
 
+  
   <div style="text-align: center; margin-top: 1rem; margin-bottom: 1rem;">
     <mat-form-field>
       <mat-label>Enter your email</mat-label>
@@ -47,29 +46,19 @@
       <mat-error *ngIf="confirmEmail.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
   </div>
-
-    <div style="text-align: center; margin-top: .5rem;">
-      <mat-form-field>
-        <mat-label>Enter your password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" formControlName="contrasegna">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-      </mat-form-field>
-    </div>
 </form>
 
- 
-  <form [formGroup]="loginForm" *ngIf="!varLogin">
-    
-    <div style="text-align: center; margin-top: 1rem; margin-bottom: 1rem;">
-      <mat-form-field>
-        <mat-label>Enter your email</mat-label>
-        <input matInput placeholder="pat@example.com" formControlName="email">
-        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </div>
 
+<form [formGroup]="loginForm" *ngIf="!varLogin">
+  
+  <div style="text-align: center; margin-top: 1rem; margin-bottom: 1rem;">
+    <mat-form-field>
+      <mat-label>Enter your email</mat-label>
+      <input matInput placeholder="pat@example.com" formControlName="email">
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+  
     <div style="text-align: center; margin-top: 1rem;">
       <mat-form-field>
         <mat-label>Enter your password</mat-label>
@@ -85,7 +74,7 @@
   </form>
   
       
-      <div class="col-sm-12 text-center" *ngIf="varLogin" style="margin-top: 0rem; margin-bottom: 1rem;" >
+      <div class="col-sm-12 text-center" *ngIf="varLogin" style="margin-top: 0rem; margin-bottom: 4rem;" >
      <!-- <div [routerLink]="['/crear_usuario']"> -->
         <a  style="text-decoration: none;" >
             <!-- <div routerLink="/crear_usuario" > -->
@@ -98,7 +87,7 @@
         <!-- </div> -->
     
 </div>
-<div class="col-sm-12 text-center" *ngIf="!varLogin"  style="margin-top: 0rem; margin-bottom: 1rem;"  >
+<div class="col-sm-12 text-center" *ngIf="!varLogin"  style="margin-top: 0rem; margin-bottom: 4rem;"  >
       <a  style="text-decoration: none;" >
               <button type="button" class="btn active," (click)="submit()" data-bs-toggle="button" aria-pressed="true" style="padding-left: 9.5%; padding-right: 9.5%; ; background-color: #1976D2; color: var(--white, #FFF);border-radius: 25px; ">
                   Continueee

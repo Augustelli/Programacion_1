@@ -10,7 +10,12 @@
 
         </div>
       </a>
-      <div >
+      <div>
+        <p  class="d-inline-flex gap-1" style="margin-right: 1rem;">
+          
+          <a  class="btn btn-primary" *ngIf="userRol==='profesor' || userRol === 'admin'"  (click)="redirectPay()"role="button" data-bs-toggle="button">Pago Alumnos</a>
+        </p>
+
         <a>
           <button class="btn btn-primary" style="margin-right: 1rem;" *ngIf="userRol==='profesor' || userRol === 'admin'" (click)="routeTrouteToAlumnoProfesorListado()">Listado de Alumnos/Profesores</button>
           <!-- *ngIf="rolUsuario === 'profesor' || rolUsuario === 'admin'"  -->
@@ -18,9 +23,13 @@
         <a class="navbar-brand" *ngIf="userRol==='profesor' || userRol === 'admin' || userRol === 'alumno'"  >
           <img src="../../../assets/Vector.svg" (click)="redirectEditar()" role="button" alt="configuracion" width="30" height="24" >
         </a>
-        <p  class="d-inline-flex gap-1">
+        <p  class="d-inline-flex gap-1" style="margin-right: 1rem;">
           
-          <a  class="btn btn-primary" *ngIf="!isToken"  (click)="redirectLogin()"role="button" data-bs-toggle="button">Loguearse</a>
+          <a  class="btn btn-primary" *ngIf="!isToken"  (click)="redirectLogin()"role="button" data-bs-toggle="button">Sign up</a>
+        </p>
+        <p  class="d-inline-flex gap-1" style="margin-right: 1rem;">
+          
+          <a  class="btn btn-primary" *ngIf="!isToken"  (click)="redirectSignIn()"role="button" data-bs-toggle="button">Log in</a>
         </p>
         <p  class="d-inline-flex gap-1">
           
