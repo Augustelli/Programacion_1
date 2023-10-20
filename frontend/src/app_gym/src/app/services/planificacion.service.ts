@@ -12,14 +12,34 @@ export class PlanificacionService {
     private httpClient: HttpClient
     ) {}
 
-  getPlanificaciones(): Observable<any> {
+  getPlanificaciones(pageNumber: number, pageSize: number): Observable<any> {
     let auth_token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${auth_token}`
     });
-    return this.httpClient.get(this.url +'/planificaciones_profesores', {headers: headers});
+    const params = {
+          page: pageNumber.toString(),
+          per_page: pageSize.toString()
+        };
+    return this.httpClient.get(this.url +'/planificaciones_profesores', {headers: headers,params: params});
   }
+
+
+  // getClases(pageNumber: number, pageSize: number): Observable<any> {
+  //   let auth_token = localStorage.getItem('token');
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer ${auth_token}`
+  //   });
+  //   const params = {
+  //     page: pageNumber.toString(),
+  //     per_page: pageSize.toString()
+  //   };
+  //   return this.httpClient.get(this.url +'/clases', {headers: headers, params: params});
+ 
+  // }
+
   deletePlanificacion(planificacion_id: string): Observable<any> {
     let auth_token = localStorage.getItem('token');
     const headers = new HttpHeaders({

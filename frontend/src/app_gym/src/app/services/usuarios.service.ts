@@ -17,25 +17,34 @@ export class UsuariosService {
 
 
 // mostar todos los usuarios
-  getUsers(){
+  getUsers(pageNumber: number, pageSize: number){
     let auth_token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${auth_token}`
     });
-    return this.httpClient.get(this.url + '/usuarios', {headers: headers});
+    const params = {
+      page: pageNumber.toString(),
+      per_page: pageSize.toString()
+    };
+    return this.httpClient.get(this.url + '/usuarios', {headers: headers,params: params});
   }
 
   // mostar todos los alumnos
  
-  getAlumnos() {
+  getAlumnos(pageNumber: number, pageSize: number) {
     let auth_token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${auth_token}`
     });
+    const params = {
+      page: pageNumber.toString(),
+      per_page: pageSize.toString()
+    };
+
     // Cambia la URL a tu endpoint específico para obtener usuarios con rol "alumno"
-    return this.httpClient.get(this.url + '/alumnos',{headers: headers});
+    return this.httpClient.get(this.url + '/alumnos',{headers: headers, params: params});
 }
   //mostar alumno por dni
 
@@ -122,14 +131,18 @@ export class UsuariosService {
 
     return this.httpClient.put(this.url + '/profesor?nrDni='+user_id, updatedUserData,{headers: headers});
   }
-  getProfes1(){
+  getProfes1(pageNumber: number, pageSize: number){
     let auth_token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${auth_token}`
 
     });
-    return this.httpClient.get(this.url + '/profesor',{headers: headers});
+    const params = {
+      page: pageNumber.toString(),
+      per_page: pageSize.toString()
+    };
+    return this.httpClient.get(this.url + '/profesor',{headers: headers, params: params});
   }
   deleteProfesor(user_id: string): Observable<any> {
       

@@ -11,7 +11,7 @@ import pdb  # noqa
 class Usuarios(Resource):
 
     # Rol : Admin
-    @role_required(roles=['admin'])
+    @role_required(roles=['admin','profesor'])
     def get(self):
 
         try:
@@ -321,7 +321,7 @@ class UsuarioAlumnos(Resource):
 class UsuarioProfesor(Resource):
 
     # Rol admin, Profesor
-    @role_required(roles=['admin', 'profesor', 'alumno'])
+    @role_required(roles=['admin', 'profesor', 'alumno','espera'])
     def get(self):
         try:
             profesores = db.session.query(UsuarioModelo, ProfesorModelo).\

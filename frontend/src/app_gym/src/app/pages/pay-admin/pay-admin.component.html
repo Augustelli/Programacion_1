@@ -1,3 +1,8 @@
+<div style="
+background-color: #d8e7f7; 
+background-size: cover;         
+margin: 0;       
+padding: 0;">
 <app-nav1></app-nav1>
 <app-nav2></app-nav2>
 <app-flecha-atras></app-flecha-atras>
@@ -102,13 +107,15 @@
                                 </div>
                             </li>
                         </ul>
-                          
-                        <div *ngFor="let pago of usuario.pagos">
-                            <button class="btn btn-info btn-sm"  (click)="modificarPago(usuario)" style="margin-right: .5rem;" *ngIf="usuario.estado === true"><i class="fa-solid fa-pen-to-square"></i>Modificar</button>
-                            <button class="btn btn-primary btn-sm me-2" (click)="usuario.mostrandoPagos = false">Cancelar<i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger btn-sm" (click)="deletePago(pago.idPago)"><i class="fa-solid fa-trash"></i>Eliminar</button>
-                        </div>
-                    
+                        
+                          <div *ngFor="let pago of usuario.pagos">
+                            <div *ngIf="userRol==='admin'">
+                              <button  class="btn btn-info btn-sm"  (click)="modificarPago(usuario)" style="margin-right: .5rem;" *ngIf="usuario.estado === true"><i class="fa-solid fa-pen-to-square"></i>Modificar</button>
+                            </div>
+                              <button class="btn btn-primary btn-sm me-2" (click)="usuario.mostrandoPagos = false">Cancelar<i class="fa-solid fa-pen-to-square"></i></button>
+                              <button *ngIf="userRol==='admin'" class="btn btn-danger btn-sm" (click)="deletePago(pago.idPago)"><i class="fa-solid fa-trash"></i>Eliminar</button>
+                          </div>
+                        
                     </div>
                     </div>
                   </div>
@@ -135,6 +142,17 @@
     </div>
 </div>
 
+<div class="d-flex justify-content-center mt-3" style="margin-bottom: 8rem; color: #1976d2;">
+  <button *ngIf="page === 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2" disabled>
+       < </button>
+  <button *ngIf="page !== 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2">
+      < </button>
+  <button *ngIf="isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary" disabled>
+      > </button>
+  <button *ngIf="!isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary"> 
+    > </button>
+</div>
+
 
    
       
@@ -147,3 +165,4 @@
 
 <app-backvar1></app-backvar1>
 <app-backvar2></app-backvar2>
+</div>
