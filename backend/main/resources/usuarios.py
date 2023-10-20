@@ -321,7 +321,7 @@ class UsuarioAlumnos(Resource):
 class UsuarioProfesor(Resource):
 
     # Rol admin, Profesor
-    @role_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor', 'alumno'])
     def get(self):
         try:
             profesores = db.session.query(UsuarioModelo, ProfesorModelo).\
@@ -444,7 +444,7 @@ class UsuarioAlumno(Resource):
 
     #   
     #        
-    @role_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor', 'alumno'])
     def get(self):
         
         try:

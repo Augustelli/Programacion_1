@@ -122,12 +122,10 @@ export class PayAdminComponent implements OnInit{
     this.pagoService.crearPago(datosParaPost).subscribe((data: any) => {
       console.log('Pago creado:', data);
       this.mostrarFormularioCreacion = false;
+      this.ngOnInit();
       
     });
-    this.usuariosService.getUsers().subscribe((data1:any) => {
-      this.arrayUsuariosIGNORE = data1.Usuario;
-    })
-    this.mostrarTodo();
+   
 
   }
 
@@ -137,27 +135,18 @@ export class PayAdminComponent implements OnInit{
         (response) => {
           // Assuming status code 0 indicates successful deletion
           alert('Pago eliminado con éxito');
-          this.usuariosService.getUsers().subscribe((data:any) => {
-            console.log('JSON data:', data);
-            this.arrayUsuariosIGNORE = data.Usuario;
-            
-            
-            // Perform any other necessary operations after successful deletion
-          });
-          this.mostrarTodo();
-        },
-        (error) => {
-          // Handle error scenarios appropriately
-          console.error('Error al eliminar el pago', error);
-          // Provide user feedback about the error, if necessary
+          this.ngOnInit();
         }
       );
+       // Perform any other necessary operations after successful deletion
+       
   }
 
   modificarPago(usuario: any) {
     this.mostrarFormularioEditar=true;
     usuario.mostrandoPagos = false;
-    usuario.editando = true // Establece la bandera mostrandoPagos en false para ocultar los detalles de pago
+    usuario.editando = true
+     // Establece la bandera mostrandoPagos en false para ocultar los detalles de pago
 
 
     
@@ -193,6 +182,7 @@ export class PayAdminComponent implements OnInit{
     this.pagoService.putPago(pago.idPago ,datosParaPost).subscribe((data: any) => {
       console.log('Pago creado:', data);
       usuario.editando = false; // Establece la bandera editando en false para ocultar el formulario de edición
+      this.ngOnInit();
       
       
     }

@@ -72,7 +72,9 @@
   <ng-container *ngFor="let planificacion of arrayPlanificaciones; index as i; let isLast = last">
     <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 1rem;">
       <div class="card" style="background-color: lightblue; border-radius: 15px;">
-        <img src="../../../assets/planificacion/chicaplanificacion2.png" class="card-img-top" alt="...">
+        <!-- <img src="../../../assets/planificacion/planificacion0.png" class="card-img-top" alt="..."> -->
+        <img [src]="'../../../assets/planificacion/planificacion' + (i % 2) + '.png'" class="card-img-top" alt="...">
+
         <div class="card-body">
           
           <div (click)="onPlanificacionClick(planificacion.idPlanificacion)">
@@ -83,14 +85,8 @@
           </div>
 
           <div class="d-flex justify-content-end">
-            <!-- Solo muestra los botones de edición y eliminación si userRol es 'admin' -->
-
-
             <ng-container *ngIf="userRol === 'admin'; else elseBlock">
             <div class="d-flex justify-content-end" *ngIf="userRol === 'admin'">
-
-             
-            
               <button class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" (click)="editarPlanificacion(planificacion)"
                 >Editar</button>
               <button class="btn btn-light btn-sm" style="color: rgb(255, 0, 0); background: none; border: none;"

@@ -81,6 +81,7 @@ import { CommonModule } from '@angular/common';
     CrearUsuarioAdminComponent,
     PayAdminComponent,
     ProfesComponent,
+    TablaPlanificacionGrillaaComponent,
     
     
     // TablaPlanificacionGrillaaComponent
@@ -93,7 +94,7 @@ import { CommonModule } from '@angular/common';
 
     CommonModule,
     AppRoutingModule,
-    TablaPlanificacionGrillaaComponent,
+    // TablaPlanificacionGrillaaComponent,
     LoginThreeComponent,
     BrowserAnimationsModule,
     HttpClientModule,

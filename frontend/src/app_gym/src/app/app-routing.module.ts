@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: 'usuario/:id/:tipo_op', component: UsuarioComponent, canActivate:[authsessionGuardTokenAdminProfe]},
   { path: 'crear_usuario_admin', component: CrearUsuarioAdminComponent , canActivate:[authsessionGuardTokenAdminProfe]},
   {path: 'pay_admin', component: PayAdminComponent, canActivate:[authsessionGuardTokenAdminProfe]},
-  {path: 'profesores', component: ProfesComponent, canActivate:[authsessionGuardTokenAdminProfeAlumEspera]}
+  {path: 'profesores', component: ProfesComponent}
   
   // {path:'crear_usuario_main',component:CrearUsuarioMainComponent},
 

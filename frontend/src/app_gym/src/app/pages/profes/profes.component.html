@@ -83,30 +83,16 @@
                 
                 <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let usuario of arrayUsuarios; let i = index" style="background-color: whitesmoke">
                   <div class="d-flex align-items-center">
-                    <img src="../assets/usuario_editar/chica_fachera.svg" alt="{{ usuario.nombre }}" width="30" height="30" class="me-2">
+                    <!-- <img src="../../../assets/Profesor/Image0.png" alt="{{ usuario.nombre }}" width="30" height="30" class="me-2"> -->
+                    <img [src]="'../../../assets/Profesor/Image' + (i % 5) + '.png'" alt="{{ usuario.nombre }}" width="80" height="80" class="me-2">
+
                     <div>
                       <span style="font-size: 18px;">{{ usuario.apellido }} {{ usuario.nombre }}</span>
                       <br>
                       <span style="font-size: 14px;">{{ usuario.dni }}</span>
 
 
-                      <!-- <div *ngIf="usuario.editando== true">
-                        <div *ngFor="let pago of usuario.pagos; let i = index">
-                        
-                        <input [(ngModel)]="usuario.pagos[i].monto" placeholder="monto" class="form-control" />
-                        <input [(ngModel)]="usuario.pagos[i].fecha_de_pago" placeholder="Fechas" class="form-control" />
-                        <input [(ngModel)]="usuario.pagos[i].estado" placeholder="estado" class="form-control" />
-                        
-                        <button class="btn btn-primary btn-sm"  (click)="guardarCambios(usuario)" style="margin-top: .5 rem;">
-                          Guardar cambios
-                        </button>
-                        
-                        <button class="btn btn-secondary btn-sm" (click)="usuario.editando = false">
-                          Cancelar
-                        </button>
-            
-                      </div> 
-                    </div> -->
+                     
 
                     <div *ngIf="indice === i" >
                         <ul>

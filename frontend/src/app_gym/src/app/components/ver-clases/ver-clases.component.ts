@@ -11,6 +11,10 @@ import { Output, EventEmitter } from '@angular/core';
   styleUrls: ['./ver-clases.component.css']
 })
 export class VerClasesComponent implements OnInit{
+  constructor(
+    private jwtHelper: JwtHelperService,
+    private clasesService: ClasesService,
+  ) { }
 
 
   currentPage = 1;
@@ -49,42 +53,20 @@ export class VerClasesComponent implements OnInit{
 
   arrayClasesGuess=[
     {
-      img:"../../../assets/clases/clases.png",
-      nombreClase: "Entrenamiento Pecho",
-      nombreProfesor: "Augusto Mancuso",
-      horario: "Lunes 18:00hs",
-      duracion: "1:00hs",
-      cupos: "20"},
-
+      idClases: "1",
+      nombre: "Entrenamiento Pecho",
+      dias: "Lunes",
+    },
     {
-      img:"../../../assets/clases/clases.png",
-      nombreClase: "Entrenamiento Piernas",
-      nombreProfesor: "Franco Narvaez",
-      horario: "Martes 18:00hs",
-      duracion: "1:00hs",
-      cupos: "20"},
+      idClases: "2",
+      nombre: "Entrenamiento Espalda",
+      dias: "Martes",
+    },
     {
-      img:"../../../assets/clases/clases.png",
-      nombreClase: "Zumba",
-      nombreProfesor: "Juan Perez",
-      horario: "Miercoles 18:00hs",
-      duracion: "1:00hs",
-      cupos: "20"},
-    {
-      img:"../../../assets/clases/clases.png",
-      nombreClase: "Entrenamiento Pecho",
-      nombreProfesor: "Augusto Mancuso",
-      horario: "Jueves 18:00hs",
-      duracion: "1:00hs",
-      cupos: "20"},
-    {
-      img:"../../../assets/clases/clases.png",
-      nombreClase: "Entrenamiento Piernas",
-      nombreProfesor: "Franco Narvaez",
-      horario: "Viernes 18:00hs",
-      duracion: "1:00hs",
-      cupos: "20"}
-
+      idClases: "3",
+      nombre: "Entrenamiento Piernas",
+      dias: "Miercoles",
+    }
 
   ]
   getClasesEnPares() {
@@ -96,10 +78,7 @@ export class VerClasesComponent implements OnInit{
     return clasesEnPares;
   }
 
-  constructor(
-    private jwtHelper: JwtHelperService,
-    private clasesService: ClasesService,
-  ) { }
+  
 
   ngOnInit(): void {
    
@@ -116,6 +95,7 @@ export class VerClasesComponent implements OnInit{
   }else{
     this.isToken = false;
     this.arrayClases = this.arrayClasesGuess;
+    console.log('clases del notoken',this.arrayClases);
   }
   if (this.userRol=='profesor' || this.userRol=='admin' || this.userRol=='alumno')  {
   
