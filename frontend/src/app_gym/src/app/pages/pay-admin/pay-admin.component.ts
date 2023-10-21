@@ -16,6 +16,14 @@ export class PayAdminComponent implements OnInit{
     private pagoService: PagosService,    
     private router: Router
   ){}
+
+  page=1;
+  perPage=4;
+  isLastPage: boolean = true;
+  totalItems = 0;
+  
+
+
   arrayUsuarios: any;
   userRol:string = '';
   searchTerm: string = '';
@@ -33,18 +41,23 @@ export class PayAdminComponent implements OnInit{
   };
 
   ngOnInit(): void {
-    this.usuariosService.getUsers().subscribe((data1:any) => {
+    this.usuariosService.getUsers(this.page, this.perPage).subscribe((data1:any) => {
     })
 
-    this.usuariosService.getAlumnos().subscribe((data:any) => {
-      console.log('JSON data:', data);
-      this.arrayUsuarios = data.Usuario;
-    })
+    
     const token = localStorage.getItem('token');
-    if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
+    if (token){
       const decodedToken = this.jwtHelper.decodeToken(token);
       this.userRol = decodedToken.rol;
     }
+    this.usuariosService.getAlumnos(this.page,this.perPage).subscribe((data:any) => {
+      console.log('JSON data:', data);
+      this.arrayUsuarios = data.Usuario;
+      this.totalItems = data.Total;
+      this.isLastPage = this.totalItems / this.perPage <= this.page;
+    
+      
+    })
     
   }
 
@@ -60,14 +73,15 @@ export class PayAdminComponent implements OnInit{
     });  
   }
   mostrarTodo() {
-    this.usuariosService.getAlumnos().subscribe((data: any) => {
-        console.log('JSON data:', data);
-        this.arrayUsuarios = data.Usuario;
-    });
+    // this.usuariosService.getAlumnos().subscribe((data: any) => {
+    //     console.log('JSON data:', data);
+    //     this.arrayUsuarios = data.Usuario;
+    // });
+    this.ngOnInit();
 
   }
   mostrarDeuda(){
-    this.usuariosService.getAlumnos().subscribe((data: any) => {
+    this.usuariosService.getAlumnos(this.page, this.perPage).subscribe((data: any) => {
       console.log('JSON data:', data);
       this.arrayUsuarios = data.Usuario;
       this.arrayUsuarios = this.arrayUsuarios.filter((usuario:any) => usuario.estado === false);
@@ -75,7 +89,7 @@ export class PayAdminComponent implements OnInit{
     
   }
   mostarAlDia(){
-    this.usuariosService.getAlumnos().subscribe((data: any) => {
+    this.usuariosService.getAlumnos(this.page, this.perPage).subscribe((data: any) => {
       console.log('JSON data:', data);
       this.arrayUsuarios = data.Usuario;
       this.arrayUsuarios = this.arrayUsuarios.filter((usuario: any) => usuario.estado === true);
@@ -189,6 +203,17 @@ export class PayAdminComponent implements OnInit{
     );
 
 
+  }
+  onClickAnteriorPag(){
+    this.page-=1;
+    this.ngOnInit();
+
+
+  }
+onClickSiguientePag(){
+
+  this.page+=1;
+  this.ngOnInit();
   }
 
 }

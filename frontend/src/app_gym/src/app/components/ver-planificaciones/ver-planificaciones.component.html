@@ -2,7 +2,18 @@
 <div class="d-flex mb-3">
   <input  type="text"  class="form-control me-2 flex-grow-1"  placeholder="Buscar clase..."  [(ngModel)]="searchTerm" (input)="filtrarUsuariosNombre()">
 </div>
-
+<div *ngIf="isToken">
+  <div class="d-flex justify-content-center mt-3" style=" color: #1976d2;">
+    <button *ngIf="page === 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2" disabled>
+        < </button>
+    <button *ngIf="page !== 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2">
+        < </button>
+    <button *ngIf="isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary" disabled>
+        > </button>
+    <button *ngIf="!isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary"> 
+      > </button>
+  </div>
+</div>
  <div class="d-flex justify-content-end" *ngIf="userRol=== 'admin' || userRol === 'profesor'">
   <button class="btn btn-light btn-sm mr-3 justify-content-end" style="color: white; background: rgb(146, 146, 146); border-radius: 85px;" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion"  >New</button>
             
@@ -51,7 +62,7 @@
                   type="text"    class="form-control"   id="id_Clase"   name="id_Clase"  [(ngModel)]="nuevaPlanificacion.id_Clase" required/>
             
           
-              <button type="submit" class="btn btn-primary" (click)="crearPlanificacion()" style="margin-right: .5rem;">Guardar</button>
+              <button type="submit" class="btn btn-primary"  style="margin-right: .5rem;">Guardar</button>
               <button type="button" class="btn btn-danger" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion">Cancelar</button>
               </div>
             </form>
@@ -85,8 +96,8 @@
           </div>
 
           <div class="d-flex justify-content-end">
-            <ng-container *ngIf="userRol === 'admin'; else elseBlock">
-            <div class="d-flex justify-content-end" *ngIf="userRol === 'admin'">
+            <ng-container *ngIf="userRol === 'admin'|| userRol==='profesor' || userRol==='alumno'; else elseBlock">
+            <div class="d-flex justify-content-end">
               <button class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" (click)="editarPlanificacion(planificacion)"
                 >Editar</button>
               <button class="btn btn-light btn-sm" style="color: rgb(255, 0, 0); background: none; border: none;"
@@ -122,5 +133,19 @@
     <div class="clearfix d-lg-none d-md-block" *ngIf="isLast"></div>
     <div class="clearfix d-none d-lg-block" *ngIf="(i + 1) % 3 === 0 || isLast"></div>
   </ng-container>
+
+
+<div *ngIf="isToken">
+  <div class="d-flex justify-content-center mt-3" style="margin-bottom: .5rem; color: #1976d2;">
+    <button *ngIf="page === 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2" disabled>
+         < </button>
+    <button *ngIf="page !== 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2">
+        < </button>
+    <button *ngIf="isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary" disabled>
+        > </button>
+    <button *ngIf="!isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary"> 
+      > </button>
+  </div>
+</div>
 
 

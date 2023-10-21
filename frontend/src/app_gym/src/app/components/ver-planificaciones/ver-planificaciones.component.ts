@@ -14,6 +14,10 @@ export class VerPlanificacionesComponent implements OnInit {
   @Output() planificacionClickeada = new EventEmitter<void>();
 
   arrayPlanificaciones: any;
+  page=1;
+  perPage=6;
+  isLastPage: boolean = true;
+  totalItems = 0;
 
   varVerPlanificaciones = true;
   isToken: boolean = false;
@@ -81,12 +85,13 @@ export class VerPlanificacionesComponent implements OnInit {
   }
   if (this.userRol=='profesor' || this.userRol=='admin')  {
     // Utiliza el servicio para obtener los datos del usuario
-    this.planificacionService.getPlanificaciones().subscribe(
+    this.planificacionService.getPlanificaciones(this.page, this.perPage).subscribe(
       (data: any) => {
         console.log('Datos del usuario', data);
         this.arrayPlanificaciones = data.Planificacion;
-        // console.log('Datos del usuario', this.userData);
-        // this.fillFormFields();
+        this.totalItems = data.Total;
+        this.isLastPage = this.totalItems / this.perPage <= this.page;
+        
       },
       (error) => {
         console.error('Error al obtener los datos del usuario', error);
@@ -229,14 +234,42 @@ filtrarUsuariosNombre(){
   }
       
 mostrarTodo() {
-  this.planificacionService.getPlanificaciones().subscribe((data: any) => {
+  this.planificacionService.getPlanificaciones(this.page,this.perPage).subscribe((data: any) => {
       console.log('JSON data:', data);
       this.arrayPlanificaciones = data.Planificacion;
   });
+}
+onClickAnteriorPag(){
+    this.page-=1;
+    this.ngOnInit();
+
+
+  }
+onClickSiguientePag(){
+
+  this.page+=1;
+  this.ngOnInit();
+  }
 
 }
 
-}
+
+
+// getClases() {
+//   this.clasesService.getClases(this.page, this.perPage).subscribe(
+//     (data: any) => {
+//       console.log('Entre al get clases', data);
+//       this.arrayClases = data.Clases;
+//       this.totalItems = data.Total;
+//       this.isLastPage = this.totalItems / this.perPage <= this.page;
+
+      
+//     },
+//     (error) => {
+//       console.error('Error al obtener las clases', error);
+//     }
+//   );
+// }
 
 
 

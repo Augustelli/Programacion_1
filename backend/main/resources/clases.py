@@ -110,7 +110,7 @@ class Clase_Profesor_R(Resource):
 
 class Clases_R(Resource):
     
-    @role_required(roles=['admin', 'profesor', 'alumno'])
+    @role_required(roles=['admin', 'profesor', 'alumno','espera'])
     def get(self):
         try:
             clases = db.session.query(ClasesModelo)

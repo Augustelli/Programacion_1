@@ -15,7 +15,9 @@ export class VerClasesComponent implements OnInit{
     private jwtHelper: JwtHelperService,
     private clasesService: ClasesService,
   ) { }
-
+  page = 1;
+  perPage = 10;
+  isLastPage: boolean = false;
 
   currentPage = 1;
   itemsPerPage = 10;
@@ -97,14 +99,14 @@ export class VerClasesComponent implements OnInit{
     this.arrayClases = this.arrayClasesGuess;
     console.log('clases del notoken',this.arrayClases);
   }
-  if (this.userRol=='profesor' || this.userRol=='admin' || this.userRol=='alumno')  {
+  if (this.userRol=='profesor' || this.userRol=='admin' || this.userRol=='alumno'|| this.userRol=='espera')  {
   
     this.getClases();
   }
 
-  if(this.userRol=='espera'){
-    this.arrayClases = this.arrayClasesGuess;
-  }
+  // if(this.userRol=='espera'){
+  //   this.arrayClases = this.arrayClasesGuess;
+  // }
   if (this.isToken==false){
     this.arrayClases = this.arrayClasesGuess;
   }
@@ -112,11 +114,13 @@ export class VerClasesComponent implements OnInit{
 
   }
   getClases() {
-    this.clasesService.getClases(this.currentPage, this.itemsPerPage).subscribe(
+    this.clasesService.getClases(this.page, this.perPage).subscribe(
       (data: any) => {
         console.log('Entre al get clases', data);
         this.arrayClases = data.Clases;
         this.totalItems = data.Total;
+        this.isLastPage = this.totalItems / this.perPage <= this.page;
+
         
       },
       (error) => {
@@ -248,6 +252,7 @@ crearClase() {
         if (clase) {
           clase.profesores = Object.values(data);
           this.extendedCardId = idClases;
+          
         }
 
         
@@ -287,6 +292,18 @@ crearClase() {
   cancelarGuardadoProfesorEnClase(clases: any) {
     clases.agregandoProfesor = false;
   }
+  onClickAnteriorPag(){
+  
+      this.page-=1;
+      this.getClases();
 
+    
+  }
+  onClickSiguientePag(){
+    
+    this.page+=1;
+    this.getClases();
+  }
+  
 }
 

@@ -12,6 +12,14 @@ export class VerUsuariosComponent implements OnInit {
   arrayUsuarios: any;
   searchTerm: string = '';
   userRol:string = '';
+  userTodos:boolean=true;
+
+  page=1;
+  perPage=6;
+  isLastPage: boolean = true;
+  totalItems = 0;
+  isEspera: boolean = false;
+  isToken: boolean = false;
 
 
  
@@ -23,26 +31,51 @@ export class VerUsuariosComponent implements OnInit {
   ){}
 
   mostrarTodo() {
-    this.usuariosService.getUsers().subscribe((data: any) => {
-        console.log('JSON data:', data);
-        this.arrayUsuarios = data.Usuario;
-    });
+    // this.usuariosService.getUsers(this.page, this.perPage).subscribe((data: any) => {
+    //     console.log('JSON data:', data);
+    //     this.arrayUsuarios = data.Usuario;
+    //     this.userTodos=true;
+    // });
+    this.ngOnInit();
 }
   filtrarAlumnos() {
-    this.usuariosService.getAlumnos().subscribe((data: any) => {
-        console.log('Usuarios filtrados por rol "alumno":', data);
+    this.usuariosService.getAlumnos(this.page, this.perPage).subscribe((data: any) => {
+        console.log('Usuarios filtrados por rol "alumno wasaaaaa":', data);
         this.arrayUsuarios = data.Usuario;
+        this.userTodos=false;
+        this.totalItems = data.Total;
+        this.isLastPage = this.totalItems / this.perPage <= this.page;  
+        this.isEspera = false;
     });
 }
-filtrarAlumnosEspera(rol:string) {
-  this.usuariosService.getUsers().subscribe((data: any) => {
+// filtrarAlumnosEspera(rol:string) {
+//   this.usuariosService.getUsers(this.page, this.perPage).subscribe((data: any) => {
+//     console.log(`Usuarios filtrados por rol "${rol}":`, data);
+//     // Filtra los usuarios por el rol específico
+//     this.arrayUsuarios = data.Usuario.filter((usuario: any) => {
+//       this.userTodos=false;
+//       this.isEspera = true;
+//       return usuario.rol === rol;
+//     });
+// }
+filtrarAlumnosEspera(rol: string) {
+  this.usuariosService.getUsers(this.page, this.perPage).subscribe((data: any) => {
     console.log(`Usuarios filtrados por rol "${rol}":`, data);
     // Filtra los usuarios por el rol específico
     this.arrayUsuarios = data.Usuario.filter((usuario: any) => {
+      this.userTodos = false;
+      this.isEspera = true;
       return usuario.rol === rol;
     });
-});
+
+    // Cuenta la cantidad de usuarios con el rol específico
+    const nrEspera : number = this.arrayUsuarios.length;
+    data.Usuario.Total = nrEspera;
+    console.log(`Número de usuarios con rol "${rol}":`, nrEspera);
+  });
 }
+
+
 
   editarUsuario(usuario:any){
     console.log('Usuario a editar', usuario);
@@ -50,15 +83,33 @@ filtrarAlumnosEspera(rol:string) {
   }
 
 ngOnInit(){
-  this.usuariosService.getUsers().subscribe((data:any) => {
-    console.log('JSON data:', data);
-    this.arrayUsuarios = data.Usuario;
-  })
   const token = localStorage.getItem('token');
   if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
     const decodedToken = this.jwtHelper.decodeToken(token);
     this.userRol = decodedToken.rol;
+    this.isToken = true;
 }
+if (this.userRol === 'admin') {
+  this.usuariosService.getUsers(this.page, this.perPage).subscribe((data:any) => {
+    console.log('JSON data:', data);
+    this.userTodos=true;
+    this.arrayUsuarios = data.Usuario;
+    this.totalItems = data.Total;
+    this.isLastPage = this.totalItems / this.perPage <= this.page; 
+    this.isEspera = false;   
+  })
+}
+if (this.userRol === 'profesor') {
+  this.usuariosService.getAlumnos(this.page,this.perPage).subscribe((data:any) => {
+    this.userTodos=true;
+    console.log('JSON data:', data);
+    this.arrayUsuarios = data.Usuario
+    this.totalItems = data.Total;
+    this.isLastPage = this.totalItems / this.perPage <= this.page;   
+    this.isEspera = false;
+  });
+}
+ 
 
 // ngOnInit() {
 //   const token = localStorage.getItem('token');
@@ -106,7 +157,31 @@ deleteUsuario(user_id: string) {
     }
   );
 }
+onClickAnteriorPag(){
+  this.page-=1;
+  this.ngOnInit();
+
+
 }
+onClickSiguientePag(){
+
+this.page+=1;
+this.ngOnInit();
+
+}
+onClickAnteriorPagAlum(){
+  this.page-=1;
+  this.filtrarAlumnos();
+
+
+}
+onClickSiguientePagAlum(){
+
+this.page+=1;
+this.filtrarAlumnos();
+}
+}
+
 
     
 

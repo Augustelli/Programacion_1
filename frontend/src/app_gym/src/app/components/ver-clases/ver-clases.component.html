@@ -1,5 +1,9 @@
 
-
+<div style="
+background-color: #d8e7f7; 
+background-size: cover;         
+margin: 0;       
+padding: 0;">
 <div class="d-flex mb-3">
   <input  type="text"  class="form-control me-2 flex-grow-1"  placeholder="Buscar clase..."  [(ngModel)]="searchTerm" (input)="filtrarUsuariosNombre()">
 </div>
@@ -11,6 +15,19 @@
  </div>
  <div *ngIf="mensajeExito" class="alert alert-success mt-3">
   <p>{{ mensajeExito }}</p>
+</div>
+
+<div *ngIf="isToken">
+  <div class=" d-flex justify-content-center mt-3" style="margin-bottom: .5rem; color: #1976d2;">
+    <button *ngIf="page === 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2" disabled>
+        < </button>
+    <button *ngIf="page !== 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2">
+        < </button>
+    <button *ngIf="isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary" disabled>
+        > </button>
+    <button *ngIf="!isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary"> 
+      > </button>
+  </div>
 </div>
 
 
@@ -50,10 +67,6 @@
               <div class="col-md-6" >
                 <div class="card card-sm" style="margin: 4rem; background-color: lightgray; border-radius: 15px;">
                  
-  
-  
-                 
-  
                   <img src="../../../assets/clases/clase1.png" class="card-img-top mx-auto"style="width: 50%;" alt="...">
                   <div class="card-body" >
                     <h5 class="card-title">ID de la clase: {{ clases.idClases }}</h5>
@@ -62,24 +75,6 @@
   
                     <div class="d-flex justify-content-end" *ngIf="userRol === 'alumno'">
                       
-          
-          
-                      
-                   
-                    
-                   
-                   
-  
-  
-                  
-  
-                    
-                    
-                  
-                     
-            
-  
-  
                   </div>
                 </div>
               </div>
@@ -90,19 +85,13 @@
         </div>
       </div>
 
-
-
-<div *ngIf="userRol==='alumno'|| userRol=== 'profesor'|| userRol === 'admin'">
+<div *ngIf="userRol==='alumno'|| userRol=== 'profesor'|| userRol === 'admin'|| userRol==='espera'">
 <div *ngIf="varVerClases" class="row-md-auto ml-3">
         <div class="row">
           <ng-container *ngFor="let clases of arrayClases; let i = index">
             <div class="col-md-6" >
               <div class="card card-sm" style="margin: 4rem; background-color: lightgray; border-radius: 15px;">
                
-
-
-               
-
                 <!-- <img src="../../../assets/clases/clase{{i}}.png" class="card-img-top mx-auto"style="width: 50%;" alt="..."> -->
                 <img [src]="'../../../assets/clases/clase' + (i % 8) + '.png'" class="card-img-top mx-auto" style="width: 50%;" alt="...">
                 <div class="card-body" >
@@ -113,11 +102,9 @@
                   <div class="d-flex justify-content-end" *ngIf="userRol === 'alumno'">
                     <!-- Solo muestra los botones de edición y eliminación si userRol es 'admin' -->
         
-        
                     <ng-container >
                     <div class="d-flex justify-content-end">
-        
-                     
+                            
                       <button *ngIf="!clases.mostrandoProfesores " class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" 
                       (click)="getProfesoresPorClase(clases.idClases)">Profes</button>
                       <button *ngIf="clases.mostrandoProfesores " class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" 
@@ -182,12 +169,7 @@
                     </button>
                   </div>
                   </div>
-
-
-                
-
-                  
-                  
+ 
                   <div *ngIf="clases.mostrandoProfesores">
                       <h5>Profesores de la clase</h5>
                       <ul>
@@ -195,12 +177,7 @@
                               DNI: {{ profesor.dni }}, Nombre: {{ profesor.nombre }}, Apellido: {{ profesor.apellido }}
                           </li>
                       </ul>
-                  
                   </div>
-                   
-          
-
-
                 </div>
               </div>
             </div>
@@ -209,18 +186,18 @@
         </div>
       </div>
     </div>
+  <div *ngIf="isToken">
+    <div class="d-flex justify-content-center mt-3" style="margin-bottom: .5rem; color: #1976d2;">
+      <button *ngIf="page === 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2" disabled>
+           < </button>
+      <button *ngIf="page !== 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2">
+          < </button>
+      <button *ngIf="isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary" disabled>
+          > </button>
+      <button *ngIf="!isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary"> 
+        > </button>
+    </div>
+  </div>
 
-      <pagination-controls *ngIf="isToken" (pageChange)="onPageChange($event)" 
-                    previousLabel="Anterior"
-                    nextLabel="Siguiente"
-                    screenReaderPaginationLabel="Paginación"
-                    screenReaderPageLabel="página"
-                    id="custom-pagination-id"
-                    >
-</pagination-controls>
-
- 
-    
-      
-      
-
+</div>
+  

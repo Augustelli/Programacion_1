@@ -71,3 +71,27 @@
         </div>
     </div>
   </div>
+  <div *ngIf="isEspera===false || isToken">
+  <div *ngIf="userTodos===true" class="d-flex justify-content-center mt-3" style="margin-bottom: 8rem;">
+    <button *ngIf="page === 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2" disabled>
+         < </button>
+    <button *ngIf="page !== 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2">
+        < </button>
+    <button *ngIf="isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary" disabled>
+        > </button>
+    <button *ngIf="!isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary"> 
+      > </button>
+  </div>
+
+  <div *ngIf="userTodos!==true" class="d-flex justify-content-center mt-3" style="margin-bottom: 8rem;">
+    <button *ngIf="page === 1" (click)="onClickAnteriorPagAlum()" class="btn btn-primary me-2" disabled>
+         < </button>
+    <button *ngIf="page !== 1" (click)="onClickAnteriorPagAlum()" class="btn btn-primary me-2">
+        < </button>
+    <button *ngIf="isLastPage" (click)="onClickSiguientePagAlum()" class="btn btn-primary"disabled>
+        > </button>
+    <button *ngIf="!isLastPage" (click)="onClickSiguientePagAlum()" class="btn btn-primary"> 
+      > </button>
+  </div>
+</div>
+

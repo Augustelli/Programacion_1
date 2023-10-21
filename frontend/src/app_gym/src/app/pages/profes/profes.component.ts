@@ -20,6 +20,11 @@ export class ProfesComponent implements OnInit {
     private clasesService: ClasesService
   ) { }
 
+  page=1;
+  perPage=6;
+  isLastPage: boolean = true;
+  totalItems = 0;
+
   arrayUsuarios: any;
   userRol:string = '';
   searchTerm: string = '';
@@ -66,9 +71,13 @@ export class ProfesComponent implements OnInit {
       this.userRol = decodedToken.rol;
       this.isToken = true;
     
-    this.usuariosService.getProfes1().subscribe((data:any) => {
+    this.usuariosService.getProfes1(this.page,this.perPage).subscribe((data:any) => {
       this.arrayUsuarios = data.Usuario
-      console.log('profes',this.arrayUsuarios);
+      this.totalItems = data.Total;
+      
+
+      this.isLastPage = this.totalItems / this.perPage <= this.page;
+      
     });
   }
   if(this.isToken == false){
@@ -90,9 +99,10 @@ export class ProfesComponent implements OnInit {
     });  
   }
   mostrarTodo(){
-  this.usuariosService.getProfes1().subscribe((data: any) => {
-    this.arrayUsuarios = data.Usuario
-  });
+  // this.usuariosService.getProfes1().subscribe((data: any) => {
+  //   this.arrayUsuarios = data.Usuario
+  // });
+  this.ngOnInit();
 }
 mostrarInformacion(idProfesor: string, i: number) {
   this.clasesService.getClaseByProfesor(idProfesor).subscribe((data: any) => {
@@ -155,6 +165,17 @@ crearProfeClase(){
       console.log('Profesor eliminado:', data);
       this.mostrarTodo();
     });
+  }
+  onClickAnteriorPag(){
+    this.page-=1;
+    this.ngOnInit();
+
+
+  }
+onClickSiguientePag(){
+
+  this.page+=1;
+  this.ngOnInit();
   }
 }
 
