@@ -18,9 +18,10 @@ export class PayAdminComponent implements OnInit{
   ){}
 
   page=1;
-  perPage=15;
+  perPage=4;
   isLastPage: boolean = true;
   totalItems = 0;
+  estadoBoton = 1;
   
 
 
@@ -73,28 +74,48 @@ export class PayAdminComponent implements OnInit{
     });  
   }
   mostrarTodo() {
-    // this.usuariosService.getAlumnos().subscribe((data: any) => {
-    //     console.log('JSON data:', data);
-    //     this.arrayUsuarios = data.Usuario;
-    // });
+    this.estadoBoton=1;
     this.ngOnInit();
 
   }
   mostrarDeuda(){
-    this.usuariosService.getAlumnos(this.page, this.perPage).subscribe((data: any) => {
-      console.log('JSON data:', data);
-      this.arrayUsuarios = data.Usuario;
-      this.arrayUsuarios = this.arrayUsuarios.filter((usuario:any) => usuario.estado === false);
-  });
-    
+    const state = false;
+    // this.page=1;
+    this.estadoBoton=2;
+
+    console.log('paso por aqui,',state)
+    this.usuariosService.getAlumnos1(this.page, this.perPage, state).subscribe(
+      (data: any) => {
+        console.log('JSON data:', data);
+        this.arrayUsuarios = data.Usuario;
+        this.totalItems = data.Total;
+        this.isLastPage = this.totalItems / this.perPage <= this.page;
+      },
+      (error) => {
+        console.error('Error al obtener datos de alumnos:', error);
+        // Agrega el manejo de errores aquí, como mostrar un mensaje de error al usuario
+      }
+    );
   }
-  mostarAlDia(){
-    this.usuariosService.getAlumnos(this.page, this.perPage).subscribe((data: any) => {
-      console.log('JSON data:', data);
-      this.arrayUsuarios = data.Usuario;
-      this.arrayUsuarios = this.arrayUsuarios.filter((usuario: any) => usuario.estado === true);
-    });
+
+  mostarAlDia() {
+    const state = true;
+    this.estadoBoton=3;
+    // this.page=1;
+    this.usuariosService.getAlumnos1(this.page, this.perPage, state).subscribe(
+      (data: any) => {
+        console.log('JSON data:', data);
+        this.arrayUsuarios = data.Usuario;
+        this.totalItems = data.Total;
+        this.isLastPage = this.totalItems / this.perPage <= this.page;
+      },
+      (error) => {
+        console.error('Error al obtener datos de alumnos:', error);
+        // Agrega el manejo de errores aquí, como mostrar un mensaje de error al usuario
+      }
+    );
   }
+  
 
 
   mostrarInformacion(dni: string) {
@@ -166,21 +187,7 @@ export class PayAdminComponent implements OnInit{
     
     
   }
-  // putPago(idPago:any,editpago:any) {
-  //   const datosParaPost = {
-  //     dni: this.nuevopago.dni,
-  //     fecha_de_pago: this.nuevopago.fecha_de_pago,
-  //     monto: this.nuevopago.monto,
-  //     estado: this.nuevopago.estado
-     
-  //   };
-  //   console.log('datosParaPost', datosParaPost);
-  //   this.pagoService.putPago(idPago,datosParaPost).subscribe((data: any) => {
-  //     console.log('Pago creado:', data);
-  //     this.mostrarFormularioEditar = false;
-      
-  //   });
-  // }
+ 
 
   guardarCambios(usuario: any) {
     // Realiza las operaciones necesarias para guardar los cambios en la información de pago
@@ -214,6 +221,28 @@ onClickSiguientePag(){
 
   this.page+=1;
   this.ngOnInit();
+  }
+  onClickAnteriorPag2(){
+    this.page-=1;
+    this.mostrarDeuda();
+
+
+  }
+onClickSiguientePag2(){
+
+  this.page+=1;
+  this.mostrarDeuda();
+  }
+  onClickAnteriorPag3(){
+    this.page-=1;
+    this.mostarAlDia();
+
+
+  }
+onClickSiguientePag3(){
+
+  this.page+=1;
+  this.mostarAlDia();
   }
 
 }

@@ -46,6 +46,21 @@ export class UsuariosService {
     // Cambia la URL a tu endpoint específico para obtener usuarios con rol "alumno"
     return this.httpClient.get(this.url + '/alumnos',{headers: headers, params: params});
 }
+getAlumnos1(pageNumber: number, pageSize: number, state: any) {
+  let auth_token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${auth_token}`
+  });
+  const params = {
+    page: pageNumber.toString(),
+    per_page: pageSize.toString(),
+    estado: state.toString()
+  };
+
+  // Cambia la URL a tu endpoint específico para obtener usuarios con rol "alumno"
+  return this.httpClient.get(this.url + '/alumnos',{headers: headers, params: params});
+}
   //mostar alumno por dni
 
   getUserData(user_id: string): Observable<any> {
@@ -64,6 +79,7 @@ export class UsuariosService {
     });
     return this.httpClient.get(this.url + '/alumno?nrDni='+user_id, {headers: headers});
   }
+
   getUserDataProfesor(user_id:string): Observable<any> {
     let auth_token = localStorage.getItem('token');
     const headers = new HttpHeaders({

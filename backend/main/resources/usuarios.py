@@ -23,6 +23,7 @@ class Usuarios(Resource):
                 page = int(request.args.get('page'))
             if request.args.get('per_page'):
                 per_page = int(request.args.get('per_page'))
+            
             usuarios = db.session.query(UsuarioModelo)
 
              
@@ -162,6 +163,7 @@ class Usuario(Resource):
             usuarios = db.session.query(UsuarioModelo)
             if request.args.get('nrDni'):
                 usuarios = usuarios.filter(UsuarioModelo.dni == int(request.args.get('nrDni')))
+
                 
 
             usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
@@ -276,20 +278,25 @@ class UsuarioAlumnos(Resource):
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
 
-        usuarios = db.session.query(UsuarioModelo )
-        usuarios = usuarios.outerjoin(AlumnoModel, UsuarioModelo.dni == AlumnoModel.alumno_dni)
-        usuarios = usuarios.filter(UsuarioModelo.rol == 'alumno')
-        # usuarios = query.filter(UsuarioModelo.dni == request.args.get('nrAlumno'))
+        usuarios_query = db.session.query(UsuarioModelo).filter(UsuarioModelo.rol == 'alumno')
 
-        usuarios_paginados = usuarios.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
+        if request.args.get('estado'):
+            estado = request.args.get('estado')
+            if estado == 'true':
+                usuarios_query = usuarios_query.filter(UsuarioModelo.estado == True)
+            elif estado == 'false':
+                usuarios_query = usuarios_query.filter(UsuarioModelo.estado == False)
+
+        usuarios_paginados = usuarios_query.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
         usuarios_json = [usuario.to_json() for usuario in usuarios_paginados.items]
 
         return {
-                'Usuario': usuarios_json,
-                'Pagina': page,
-                'Por pagina': per_page,
-                'Total': usuarios_paginados.total
-                }
+            'Usuario': usuarios_json,
+            'Pagina': page,
+            'Por pagina': per_page,
+            'Total': usuarios_paginados.total
+        }
+
 
     @role_required(roles=['admin'])
     def post(self):
