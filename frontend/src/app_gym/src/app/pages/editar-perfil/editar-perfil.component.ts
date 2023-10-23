@@ -52,7 +52,7 @@ export class EditarPerfilComponent implements OnInit {
 
 fillFormFields() {
   // Llena los campos del formulario con los datos del usuario
-  const { nombre, apellido, fecha_nacimiento, dni, email, nombre_usuario,rol } = this.userData;
+  const { nombre, apellido, fecha_nacimiento, dni, email, nombre_usuario,rol, contrasegna, contrasegna2 } = this.userData;
   document.getElementById('nombre')!.setAttribute('value', nombre);
   document.getElementById('apellido')!.setAttribute('value', apellido);
   // document.getElementById('birth')!.setAttribute('value', fecha_nacimiento);
@@ -60,6 +60,8 @@ fillFormFields() {
   document.getElementById('email')!.setAttribute('value', email);
   document.getElementById('username')!.setAttribute('value', nombre_usuario);
   document.getElementById('rol')!.setAttribute('value', rol);
+  document.getElementById('contrasegna')!.setAttribute('value', contrasegna);
+  document.getElementById('contrasegna2')!.setAttribute('value', contrasegna2);
 }
 fieldChanged(fieldName: string, newValue: any) {
   // Actualiza el campo modificado en el objeto updatedFields
@@ -67,6 +69,14 @@ fieldChanged(fieldName: string, newValue: any) {
 }
 
 updateUser() {
+  if (this.userData.contrasegna !== this.userData.contrasegna2) {
+    alert('Las contraseñas no coinciden');
+    // Agrega lógica adicional si las contraseñas no coinciden, como mostrar un mensaje de error al usuario
+    return;
+  }
+  
+  // Elimina el campo 'contrasegna2' del objeto updatedFields antes de enviarlo al servicio
+  delete this.updatedFields['contrasegna2'];
   // Realiza la solicitud PUT con this.updatedFields
   this.usuariosService.updateUserData(this.userDni, this.updatedFields).subscribe(
     (response) => {

@@ -56,6 +56,16 @@ padding: 0;">
               <label for="rol" class="form-label">Rol</label>
               <input type="text" class="form-control" id="rol" [(ngModel)]="userData.rol" name="rol" (change)="fieldChanged('rol', userData.rol)">
           </div>
+          <div class="mb-3">
+            <label for="contrasegna" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="contrasegna" [(ngModel)]="userData.contrasegna" name="contrasegna" (change)="fieldChanged('contrasegna', userData.contrasegna)">
+        </div>
+        <div class="mb-3">
+            <label for="contrasegna" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="contrasegna2" [(ngModel)]="userData.contrasegna2" name="contrasegna2" (change)="fieldChanged('contrasegna2', userData.contrasegna2)">
+        </div>
+          
+          
 
           
          

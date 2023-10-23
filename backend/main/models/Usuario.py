@@ -116,15 +116,16 @@ class Usuario(db.Model):
         nombre = usuario_json.get('nombre')
         apellido = usuario_json.get('apellido')
         email = usuario_json.get('email')
-        # fecha_nacimiento = (datetime.strptime(usuario_json.get('fecha_nacimiento'), '%Y-%m-%d'))
-        fecha_nacimiento = (datetime.strptime(usuario_json.get('fecha_nacimiento'), '%d-%m-%Y'))
+        fecha_nacimiento = datetime.strptime(usuario_json.get('fecha_nacimiento'), '%d-%m-%Y')
         estado = usuario_json.get('estado')
         rol = usuario_json.get('rol')
         nombre_usuario = usuario_json.get('nombre_usuario')
         contrasegna = usuario_json.get('contrasegna')
-        # contrasegna = usuario_json.get('contrasegna')
-        # altura = usuario_json.get('altura')
-        # peso = usuario_json.get('peso')
+
+        if contrasegna:  # Si la contraseña está presente en el JSON
+            contrasegna_hasheada = generate_password_hash(contrasegna)  # Hashea la contraseña
+        else:
+            contrasegna_hasheada = None  # Si no hay contraseña en el JSON, deja el valor como None
 
         return Usuario(
             dni=dni,
@@ -135,10 +136,10 @@ class Usuario(db.Model):
             estado=estado,
             rol=rol,
             nombre_usuario=nombre_usuario,
-            plain_password=contrasegna,
-            # altura=altura,
-            # peso=peso,
+            contrasegna=contrasegna_hasheada  # Establece la contraseña hasheada en el objeto Usuario
         )
+
+
 
 # @event.listens_for(Usuario, 'before_update')
 # def prevent_rol_change(mapper, connection, target):

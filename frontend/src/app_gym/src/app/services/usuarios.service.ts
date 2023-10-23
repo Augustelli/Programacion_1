@@ -82,6 +82,7 @@ export class UsuariosService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${auth_token}`
     });
+    console.log('Datos del usuario actualizado', updatedUserData);
     return this.httpClient.put(this.url + '/usuario?nrDni='+user_id, updatedUserData,{headers: headers});
   }
   //hacer delete de usuario

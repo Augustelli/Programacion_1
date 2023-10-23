@@ -18,7 +18,7 @@ export class PayAdminComponent implements OnInit{
   ){}
 
   page=1;
-  perPage=4;
+  perPage=15;
   isLastPage: boolean = true;
   totalItems = 0;
   

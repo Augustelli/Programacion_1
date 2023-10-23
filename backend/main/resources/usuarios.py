@@ -7,6 +7,7 @@ from main.auth.decorators import role_required
 import datetime
 import pdb  # noqa
 # from ..mail import sendMail
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Usuarios(Resource):
 
@@ -179,7 +180,7 @@ class Usuario(Resource):
             db.session.close()
 
     # Rol: Admin
-    @role_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor','alumno'])
     def put(self):
         try:
             if request.args.get('nrDni'):
@@ -196,12 +197,14 @@ class Usuario(Resource):
                 usuario_editar2 = db.session.query(ProfesorModelo).filter(ProfesorModelo.profesor_dni == int(request.args.get('nrDni'))).first()
                 informacion = request.get_json().items()
                 for campo, valor in informacion:
-                    # if campo == 'dni':
-
-                    # if campo == 'rol':
-                    #     raise Exception('El rol del usuario no puede ser modificado.')
-
                     setattr(usuario_editar, campo, valor)
+                    if campo == 'contrasegna':
+                        usuario_editar.contrasegna = generate_password_hash(valor)
+                       
+                        db.session.add(usuario_editar)
+                        
+
+                  
                     if campo == 'peso':
                         usuario_editar1.peso = float(valor)
                         db.session.add(usuario_editar1)
