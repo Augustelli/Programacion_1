@@ -13,6 +13,7 @@ export class VerUsuariosComponent implements OnInit {
   searchTerm: string = '';
   userRol:string = '';
   userTodos:boolean=true;
+  rolUsuarios: string = '';
 
   page=1;
   perPage=6;
@@ -30,15 +31,12 @@ export class VerUsuariosComponent implements OnInit {
     private router: Router
   ){}
 
-  mostrarTodo() {
-    // this.usuariosService.getUsers(this.page, this.perPage).subscribe((data: any) => {
-    //     console.log('JSON data:', data);
-    //     this.arrayUsuarios = data.Usuario;
-    //     this.userTodos=true;
-    // });
-    this.ngOnInit();
-}
+
   filtrarAlumnos() {
+    
+    this.page = 1
+    this.rolUsuarios='alumno'
+
     this.usuariosService.getAlumnos(this.page, this.perPage).subscribe((data: any) => {
         console.log('Usuarios filtrados por rol "alumno wasaaaaa":', data);
         this.arrayUsuarios = data.Usuario;
@@ -58,21 +56,23 @@ export class VerUsuariosComponent implements OnInit {
 //       return usuario.rol === rol;
 //     });
 // }
-filtrarAlumnosEspera(rol: string) {
-  this.usuariosService.getUsers(this.page, this.perPage).subscribe((data: any) => {
-    console.log(`Usuarios filtrados por rol "${rol}":`, data);
-    // Filtra los usuarios por el rol específico
-    this.arrayUsuarios = data.Usuario.filter((usuario: any) => {
+filtrarAlumnosEspera() {
+  
+  this.page = 1
+  this.rolUsuarios='espera'
+
+  this.usuariosService.getUsers1(this.page, this.perPage, this.rolUsuarios).subscribe((data: any) => {
+   
+    this.arrayUsuarios = data.Usuario;
       this.userTodos = false;
       this.isEspera = true;
-      return usuario.rol === rol;
+      this.totalItems = data.Total;
+      this.isLastPage = this.totalItems / this.perPage <= this.page;
     });
+  
 
     // Cuenta la cantidad de usuarios con el rol específico
-    const nrEspera : number = this.arrayUsuarios.length;
-    data.Usuario.Total = nrEspera;
-    console.log(`Número de usuarios con rol "${rol}":`, nrEspera);
-  });
+
 }
 
 
@@ -84,7 +84,7 @@ filtrarAlumnosEspera(rol: string) {
 
 ngOnInit(){
   const token = localStorage.getItem('token');
-  if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
+  if (token){ 
     const decodedToken = this.jwtHelper.decodeToken(token);
     this.userRol = decodedToken.rol;
     this.isToken = true;
@@ -109,18 +109,13 @@ if (this.userRol === 'profesor') {
     this.isEspera = false;
   });
 }
- 
 
-// ngOnInit() {
-//   const token = localStorage.getItem('token');
-//   if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
-//     const decodedToken = this.jwtHelper.decodeToken(token);
-//     this.userRol = decodedToken.rol;
-// }
 }
-nuevoUsuario(){
-  this.router.navigate(['/crear_usuario_admin']);
+mostrarTodo() {
 
+  this.rolUsuarios=''
+  this.page=1
+  this.ngOnInit();
 }
 filtrarUsuariosNombre(){
   if (!this.searchTerm) {
@@ -131,6 +126,10 @@ filtrarUsuariosNombre(){
     const nombreCompleto = `${usuario.nombre} ${usuario.apellido}${usuario.dni}`;
     return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
   });  
+}
+nuevoUsuario(){
+  this.router.navigate(['/crear_usuario_admin']);
+
 }
 
 deleteUsuario(user_id: string) {
@@ -159,27 +158,41 @@ deleteUsuario(user_id: string) {
 }
 onClickAnteriorPag(){
   this.page-=1;
+
+
   this.ngOnInit();
 
 
 }
 onClickSiguientePag(){
-
-this.page+=1;
-this.ngOnInit();
-
+  this.page+=1;
+  if (this.rolUsuarios === 'alumno'){
+    this.usuariosService.getAlumnos(this.page, this.perPage).subscribe((data: any) => {
+      console.log('Usuarios filtrados por rol "alumno wasaaaaa":', data);
+      this.arrayUsuarios = data.Usuario;
+      this.userTodos=false;
+      this.totalItems = data.Total;
+      this.isLastPage = this.totalItems / this.perPage <= this.page;  
+      this.isEspera = false;
+  });
+  }
+  if (this.rolUsuarios === 'espera'){
+   
+    this.usuariosService.getUsers1(this.page, this.perPage, this.rolUsuarios).subscribe((data: any) => {
+      console.log('Usuarios filtrados por rol "alumno wasaaaaa":', data);
+      this.arrayUsuarios = data.Usuario;
+      this.userTodos=false;
+      this.totalItems = data.Total;
+      this.isLastPage = this.totalItems / this.perPage <= this.page;  
+      this.isEspera = false;
+  });
+  }
+  if (this.rolUsuarios === '') {
+   
+    this.ngOnInit();
+  }
 }
-onClickAnteriorPagAlum(){
-  this.page-=1;
-  this.filtrarAlumnos();
 
-
-}
-onClickSiguientePagAlum(){
-
-this.page+=1;
-this.filtrarAlumnos();
-}
 }
 
 

@@ -142,7 +142,7 @@ padding: 0;">
     </div>
 </div>
 
-<div *ngIf="estadoBoton ===1" class="d-flex justify-content-center mt-3" style="margin-bottom: 8rem; color: #1976d2;">
+<div  class="d-flex justify-content-center mt-3" style="margin-bottom: 8rem; color: #1976d2;">
   <button *ngIf="page === 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2" disabled>
        < </button>
   <button *ngIf="page !== 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2">
@@ -151,37 +151,6 @@ padding: 0;">
       > </button>
   <button *ngIf="!isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary"> 
     > </button>
-</div>
-<div *ngIf="estadoBoton ===2" class="d-flex justify-content-center mt-3" style="margin-bottom: 8rem; color: #1976d2;">
-  <button *ngIf="page === 1" (click)="onClickAnteriorPag2()" class="btn btn-primary me-2" disabled>
-       < </button>
-  <button *ngIf="page !== 1" (click)="onClickAnteriorPag2()" class="btn btn-primary me-2">
-      < </button>
-  <button *ngIf="isLastPage" (click)="onClickSiguientePag2()" class="btn btn-primary" disabled>
-      > </button>
-  <button *ngIf="!isLastPage" (click)="onClickSiguientePag2()" class="btn btn-primary"> 
-    > </button>
-</div>
-<div  *ngIf="estadoBoton ===3" class="d-flex justify-content-center mt-3" style="margin-bottom: 8rem; color: #1976d2;">
-  <button *ngIf="page === 1" (click)="onClickAnteriorPag3()" class="btn btn-primary me-2" disabled>
-       < </button>
-  <button *ngIf="page !== 1" (click)="onClickAnteriorPag3()" class="btn btn-primary me-2">
-      < </button>
-  <button *ngIf="isLastPage" (click)="onClickSiguientePag3()" class="btn btn-primary" disabled>
-      > </button>
-  <button *ngIf="!isLastPage" (click)="onClickSiguientePag3()" class="btn btn-primary"> 
-    > </button>
-</div>
-
-
-   
-      
-      
-      
-
-
-  
-
 
 <app-backvar1></app-backvar1>
 <app-backvar2></app-backvar2>

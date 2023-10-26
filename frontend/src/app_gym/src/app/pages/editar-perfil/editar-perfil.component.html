@@ -56,21 +56,21 @@ padding: 0;">
               <label for="rol" class="form-label">Rol</label>
               <input type="text" class="form-control" id="rol" [(ngModel)]="userData.rol" name="rol" (change)="fieldChanged('rol', userData.rol)">
           </div>
-          <div class="mb-3">
-            <label for="contrasegna" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="contrasegna" [(ngModel)]="userData.contrasegna" name="contrasegna" (change)="fieldChanged('contrasegna', userData.contrasegna)">
-        </div>
-        <div class="mb-3">
-            <label for="contrasegna" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="contrasegna2" [(ngModel)]="userData.contrasegna2" name="contrasegna2" (change)="fieldChanged('contrasegna2', userData.contrasegna2)">
-        </div>
-          
-          
 
+            <button class="btn btn-light" (click)="mostrarContrasegna =! mostrarContrasegna">Cambiar contraseña?</button> 
           
-         
-
-          <!-- Agrega más campos del formulario aquí -->
+            <div *ngIf="mostrarContrasegna">
+            <div class="mb-3">
+                <label for="contrasegna" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="contrasegna" [(ngModel)]="userData.contrasegna" name="contrasegna" (change)="fieldChanged('contrasegna', userData.contrasegna)">
+            </div>
+            <div class="mb-3">
+                <label for="contrasegna" class="form-label">Confirmar contraseña</label>
+                <input type="password" class="form-control" id="contrasegna2" [(ngModel)]="userData.contrasegna2" name="contrasegna2" (change)="fieldChanged('contrasegna2', userData.contrasegna2)">
+            </div>
+        </div>  
+        
+        
       </form>
       </div>
       <div>
@@ -79,6 +79,9 @@ padding: 0;">
     </div>
     <div *ngIf="successMessage" class="alert alert-success mt-3">
     {{ successMessage }}
+    </div>
+    <div *ngIf="badMessage" class="alert alert-danger mt-3">
+        {{ badMessage }}
     </div>
       
   </div>

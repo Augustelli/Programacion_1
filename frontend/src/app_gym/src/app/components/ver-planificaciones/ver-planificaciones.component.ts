@@ -219,26 +219,32 @@ export class VerPlanificacionesComponent implements OnInit {
     
 
 
-
-    
-
-filtrarUsuariosNombre(){
-    if (!this.searchTerm) {
-      this.mostrarTodo();
-      return;
+    filtrarUsuariosNombre() {
+      if (this.searchTerm) {
+        this.page = 1;
+        this.perPage = 100; // Otra cantidad de elementos por página si es necesario
+        this.mostrarTodo(); // Asegúrate de manejar correctamente la lógica de mostrarTodo()
+      } else {
+        this.page = 1;
+        this.perPage = 6; // Otra cantidad de elementos por página si es necesario
+        this.mostrarTodo(); // Asegúrate de manejar correctamente la lógica de mostrarTodo()
+      }
     }
-    this.arrayPlanificaciones = this.arrayPlanificaciones.filter((Planificacion: any) => {
-      const nombreCompleto = `${Planificacion.rutina} `;
-      return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
-    });  
-  }
-      
-mostrarTodo() {
-  this.planificacionService.getPlanificaciones(this.page,this.perPage).subscribe((data: any) => {
-      console.log('JSON data:', data);
-      this.arrayPlanificaciones = data.Planificacion;
-  });
-}
+    
+    mostrarTodo() {
+      this.planificacionService.getPlanificaciones(this.page, this.perPage).subscribe((data: any) => {
+        console.log('HOLAAA:', data);
+        if (this.searchTerm) {
+          this.arrayPlanificaciones = data.Planificacion.filter((planificacion: any) => {
+            const nombreCompleto = `${planificacion.rutina} `;
+            return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
+          });
+        } else {
+          this.arrayPlanificaciones = data.Planificacion;
+        }
+      });
+    }
+    
 onClickAnteriorPag(){
     this.page-=1;
     this.ngOnInit();
@@ -253,21 +259,4 @@ onClickSiguientePag(){
 
 }
 
-
-
-// getClases() {
-//   this.clasesService.getClases(this.page, this.perPage).subscribe(
-//     (data: any) => {
-//       console.log('Entre al get clases', data);
-//       this.arrayClases = data.Clases;
-//       this.totalItems = data.Total;
-//       this.isLastPage = this.totalItems / this.perPage <= this.page;
-
-      
-//     },
-//     (error) => {
-//       console.error('Error al obtener las clases', error);
-//     }
-//   );
-// }
 

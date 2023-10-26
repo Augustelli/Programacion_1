@@ -24,7 +24,12 @@ class Usuarios(Resource):
             if request.args.get('per_page'):
                 per_page = int(request.args.get('per_page'))
             
-            usuarios = db.session.query(UsuarioModelo)
+            if request.args.get('rol'):
+                rol = request.args.get('rol')
+                usuarios = db.session.query(UsuarioModelo).filter(UsuarioModelo.rol == rol)
+            else:
+            
+                usuarios = db.session.query(UsuarioModelo)
 
              
             for usuario in usuarios:
@@ -198,7 +203,23 @@ class Usuario(Resource):
                 usuario_editar1 = db.session.query(AlumnoModel).filter(AlumnoModel.alumno_dni == int(request.args.get('nrDni'))).first()
                 usuario_editar2 = db.session.query(ProfesorModelo).filter(ProfesorModelo.profesor_dni == int(request.args.get('nrDni'))).first()
                 informacion = request.get_json().items()
+                
                 for campo, valor in informacion:
+                    if campo == 'email':
+                        mailexistente=db.session.query(UsuarioModelo).filter(UsuarioModelo.email == valor).first()
+                        if mailexistente:
+                            raise Exception('El mail ya existe.')
+                        else:
+                            db.session.add(usuario_editar)
+                    
+                    if campo == 'dni':
+                        dniexistente=db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == valor).first()
+                        if dniexistente:
+                            raise Exception('El dni ya existe.')
+                        else:
+                            db.session.add(usuario_editar)
+                        
+
                     setattr(usuario_editar, campo, valor)
                     if campo == 'contrasegna':
                         usuario_editar.contrasegna = generate_password_hash(valor)

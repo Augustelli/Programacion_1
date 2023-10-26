@@ -29,6 +29,20 @@ export class UsuariosService {
     };
     return this.httpClient.get(this.url + '/usuarios', {headers: headers,params: params});
   }
+  getUsers1(pageNumber: number, pageSize: number, state: any){
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+    const params = {
+      page: pageNumber.toString(),
+      per_page: pageSize.toString(),
+      rol: state.toString()
+    };
+    return this.httpClient.get(this.url + '/usuarios', {headers: headers,params: params});
+  }
+
 
   // mostar todos los alumnos
  

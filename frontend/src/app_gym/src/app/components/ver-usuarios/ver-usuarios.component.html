@@ -13,7 +13,7 @@
                     <!-- routerLink="/usuario/null/Alta" -->
                   <i class="fa-solid fa-plus">Alumno</i>
                 </a>
-                <a class="btn btn-primary ms-2" *ngIf=" userRol === 'admin'" (click)="filtrarAlumnosEspera('espera')"> 
+                <a class="btn btn-primary ms-2" *ngIf=" userRol === 'admin'" (click)="filtrarAlumnosEspera()"> 
                     <!-- routerLink="/usuario/null/Alta" -->
                   <i class="fa-solid fa-plus">Espera</i>
                 </a>
@@ -71,8 +71,8 @@
         </div>
     </div>
   </div>
-  <div *ngIf="isEspera===false || isToken">
-  <div *ngIf="userTodos===true" class="d-flex justify-content-center mt-3" style="margin-bottom: 8rem;">
+  <div *ngIf="isToken">
+  <div class="d-flex justify-content-center mt-3" style="margin-bottom: 8rem;">
     <button *ngIf="page === 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2" disabled>
          < </button>
     <button *ngIf="page !== 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2">
@@ -83,7 +83,7 @@
       > </button>
   </div>
 
-  <div *ngIf="userTodos!==true" class="d-flex justify-content-center mt-3" style="margin-bottom: 8rem;">
+  <!-- <div *ngIf="userTodos!==true" class="d-flex justify-content-center mt-3" style="margin-bottom: 8rem;">
     <button *ngIf="page === 1" (click)="onClickAnteriorPagAlum()" class="btn btn-primary me-2" disabled>
          < </button>
     <button *ngIf="page !== 1" (click)="onClickAnteriorPagAlum()" class="btn btn-primary me-2">
@@ -92,6 +92,6 @@
         > </button>
     <button *ngIf="!isLastPage" (click)="onClickSiguientePagAlum()" class="btn btn-primary"> 
       > </button>
-  </div>
+  </div> -->
 </div>
 

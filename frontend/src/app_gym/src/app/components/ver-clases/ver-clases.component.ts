@@ -142,24 +142,52 @@ export class VerClasesComponent implements OnInit{
   ocultarClases(){
       this.varVerClases = false;}
 
-      filtrarUsuariosNombre(){
-        if (!this.searchTerm) {
-          this.mostrarTodo();
-          return;
-        }
-        this.arrayClases = this.arrayClases.filter((Clases: any) => {
-          const nombreCompleto = `${Clases.nombre}${Clases.dias}${Clases.idClases} `;
-          return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
-        });  
-      }
+//       filtrarUsuariosNombre(){
+//         if (!this.searchTerm) {
+//           this.mostrarTodo();
+//           return;
+//         }
+//         this.arrayClases = this.arrayClases.filter((Clases: any) => {
+//           const nombreCompleto = `${Clases.nombre}${Clases.dias}${Clases.idClases} `;
+//           return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
+//         });  
+//       }
       
-mostrarTodo() {
-  this.clasesService.getClases(this.paginaActual,this.clasesPorPagina).subscribe((data: any) => {
-      console.log('JSON data:', data);
-      this.arrayClases = data.Clases;
-  });
+// mostrarTodo() {
+//   this.clasesService.getClases(this.paginaActual,this.clasesPorPagina).subscribe((data: any) => {
+//       console.log('JSON data:', data);
+//       this.arrayClases = data.Clases;
+//   });
 
+// }
+
+filtrarUsuariosNombre() {
+  if (!this.searchTerm) {
+    this.page = 1;
+    this.perPage = 6; // Otra cantidad de elementos por página si es necesario
+    this.mostrarTodo();
+    return;
+  }
+
+  this.page = 1;
+  this.perPage = 100; // Otra cantidad de elementos por página si es necesario
+  this.mostrarTodo();
 }
+
+mostrarTodo() {
+  this.clasesService.getClases(this.page, this.perPage).subscribe((data: any) => {
+    console.log('JSON data:', data);
+    if (this.searchTerm) {
+      this.arrayClases = data.Clases.filter((Clase: any) => {
+        const nombreCompleto = `${Clase.nombre}${Clase.dias}${Clase.idClases} `;
+        return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
+      });
+    } else {
+      this.arrayClases = data.Clases;
+    }
+  });
+}
+ 
 editarClases(clase: any) {
   // this.editando = true;
   clase.editando = true;

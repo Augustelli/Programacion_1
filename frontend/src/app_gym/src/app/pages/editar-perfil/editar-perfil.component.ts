@@ -14,6 +14,8 @@ export class EditarPerfilComponent implements OnInit {
   updatedFields: any = {};
   userRol:string = '';
   successMessage: string = '';
+  badMessage: string = '';
+  mostrarContrasegna : boolean = false;
   toHome() {
     window.location.href = '/home';
   }
@@ -88,7 +90,15 @@ updateUser() {
       }, 3000);
     },
     (error) => {
-      console.error('Error al actualizar el usuario', error);
+      if (error.error && error.error.error) {
+        this.badMessage = error.error.error
+        // alert(error.error.error); // Muestra el mensaje de error devuelto por el servidor
+      } else {
+        alert('Error al actualizar el usuario'); // Si no hay un mensaje de error específico, muestra un mensaje genérico
+      }
+      
+      // console.error('Error al actualizar el usuario', error);
+      // alert.log('Error al actualizar el usuario', error);
     }
   );
 }

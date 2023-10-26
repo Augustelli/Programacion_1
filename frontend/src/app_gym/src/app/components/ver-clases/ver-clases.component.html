@@ -32,12 +32,12 @@ padding: 0;">
 
 
 <div *ngIf="mostrarFormularioCreacion" >
-<div *ngIf="varVerClases" class="row-md-auto ml-3">
+<div *ngIf="varVerClases" class="row-md-6 ml-3">
   <div class="row">
     <!-- <ng-container *ngFor="let clases of arrayClases; let i = index"> -->
-      <div class="col-md-6" >
-        <div class="card card-sm" style="margin: 4rem; background-color: lightgray; border-radius: 15px;">
-          <img src="../../../assets/clases/clases.png" class="card-img-top mx-auto"style="width: 50%;" alt="...">
+      <div>
+        <div class="card card-md" style="margin: 4rem; background-color: lightgray; border-radius: 15px;">
+          <img src="../../../assets/clases/clases.png" class="card-img-top mx"style="width: 50%;" alt="...">
           <div class="card-body" >
             <div class="form-group">
               <label for="nombre">Nombre</label>
@@ -122,7 +122,7 @@ padding: 0;">
         
         
                     <ng-container *ngIf="userRol === 'admin'; else elseBlock">
-                    <div class="d-flex justify-content-end" *ngIf="userRol === 'admin'">
+                    <div class="sm justify-content-end" *ngIf="userRol === 'admin'">
 
                       <button *ngIf="!clases.mostrandoProfesores " class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" 
                       (click)="profesorAgregando(clases)">Agregar</button>
