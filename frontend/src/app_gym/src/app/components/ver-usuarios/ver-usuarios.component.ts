@@ -21,6 +21,9 @@ export class VerUsuariosComponent implements OnInit {
   totalItems = 0;
   isEspera: boolean = false;
   isToken: boolean = false;
+  arrayUsuarios1: any;
+  page1=1;
+  perPage1=100;
 
 
  
@@ -112,21 +115,36 @@ if (this.userRol === 'profesor') {
 
 }
 mostrarTodo() {
-
   this.rolUsuarios=''
   this.page=1
   this.ngOnInit();
 }
+
 filtrarUsuariosNombre(){
-  if (!this.searchTerm) {
+  if (!this.searchTerm || this.searchTerm === '') {
     this.mostrarTodo();
     return;
   }
-  this.arrayUsuarios = this.arrayUsuarios.filter((usuario: any) => {
-    const nombreCompleto = `${usuario.nombre} ${usuario.apellido}${usuario.dni}`;
-    return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
-  });  
+  if (this.userRol === 'admin') {
+    this.usuariosService.getUsers(this.page1, this.perPage1).subscribe((data:any) => {
+      this.arrayUsuarios1 = data.Usuario;
+    
+      this.arrayUsuarios = this.arrayUsuarios1.filter((usuario: any) => {
+        const nombreCompleto = `${usuario.nombre} ${usuario.apellido}${usuario.dni}`;
+        return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
+      }); }); 
 }
+if (this.userRol === 'profesor') {
+  this.usuariosService.getAlumnos(this.page1, this.perPage1).subscribe((data:any) => {
+    this.arrayUsuarios1 = data.Usuario;
+  
+    this.arrayUsuarios = this.arrayUsuarios1.filter((usuario: any) => {
+      const nombreCompleto = `${usuario.nombre} ${usuario.apellido}${usuario.dni}`;
+      return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
+    }); }); 
+}
+}
+
 nuevoUsuario(){
   this.router.navigate(['/crear_usuario_admin']);
 
