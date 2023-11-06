@@ -1,8 +1,8 @@
 <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
   <g id="iconamoon:discover-light">
     <g id="Group">
-      <path id="Vector" d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="black" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" fill="white"/>
-      <path id="Vector_2" d="M9.4225 8.11583L12.5 7.5L11.8842 10.5775C11.8197 10.9001 11.6612 11.1963 11.4287 11.429C11.1962 11.6617 10.9 11.8203 10.5775 11.885L7.5 12.5L8.11583 9.4225C8.18045 9.10009 8.33898 8.804 8.57149 8.57149C8.804 8.33898 9.10009 8.18045 9.4225 8.11583Z" stroke="black" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" fill="white"/>
+      <path id="Vector" d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="white" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" fill="white"/>
+      <path id="Vector_2" d="M9.4225 8.11583L12.5 7.5L11.8842 10.5775C11.8197 10.9001 11.6612 11.1963 11.4287 11.429C11.1962 11.6617 10.9 11.8203 10.5775 11.885L7.5 12.5L8.11583 9.4225C8.18045 9.10009 8.33898 8.804 8.57149 8.57149C8.804 8.33898 9.10009 8.18045 9.4225 8.11583Z" stroke="#1976D2" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" fill="white"/>
     </g>
   </g>
 </svg>

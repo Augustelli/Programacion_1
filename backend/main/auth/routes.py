@@ -74,7 +74,7 @@ def register():
                 if datos[campo] is None:
                     raise Exception(f'Error al crear usuario. El campo {campo} no puede ser nulo. Por favor, proporcione un valor válido para {campo} y vuelva a intentarlo.')  # noqa
 
-            datos['rol'] = "alumno"
+            datos['rol'] = "espera"
             usuario_nuevo = UsuarioModelo.from_json(datos)
             db.session.add(usuario_nuevo)
             alumno = AlumnoModel(
@@ -86,6 +86,7 @@ def register():
             db.session.commit()
             # Enviar mail de Bienvenida
             _ = sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D", "register", usuario=usuario_nuevo)
+            # _=sendMail(["av.kark@hotmail.com"], "Nuevo usuario registrado", "admin", usuario=usuario_nuevo)
             return usuario_nuevo.to_json(), 201
         except Exception as e:
             db.session.rollback()

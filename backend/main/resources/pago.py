@@ -4,6 +4,7 @@ from main.models import PagosModelo, UsuarioModelo
 from .. import db
 from flask_jwt_extended import jwt_required, get_jwt_identity  # noqa
 from main.auth.decorators import role_required
+from datetime import datetime
 
 
 class Pago(Resource):
@@ -62,7 +63,7 @@ class Pago(Resource):
 
 
 class Pagos(Resource):
-    @role_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor', 'alumno'])
     def post(self):
         try:
             dato_nuevo = PagosModelo.from_json(request.get_json())
@@ -99,26 +100,61 @@ class Pagos(Resource):
         finally:
             db.session.close()
 
+    # def put(self):
+
+    #     try:
+    #         if request.args.get('idPago'):
+    #             registro = db.session.query(PagosModelo).get(request.args.get('idPago'))
+    #             if registro:
+    #                 pass
+    #             else:
+    #                 raise Exception(f"No se ha encontrado usuario con DNI: {(request.args.get('idPago'))}")
+    #             usuario_editar = db.session.query(PagosModelo).filter(PagosModelo.idPago == (request.args.get('idPago'))).first()
+    #             informacion = request.get_json().items()
+    #             for campo, valor in informacion:
+
+    #                 setattr(usuario_editar, campo, valor)
+    #             db.session.add(usuario_editar)
+    #             db.session.commit()
+    #             return usuario_editar.to_json(), 201
+    #         else:
+    #             raise Exception('El DNI del usuario es necesario para poder modificarlo.')
+    #     except Exception as e:
+    #         return {'error': str(e)}, 400
+    #     finally:
+    #         db.session.close()
     def put(self):
-
         try:
-            if request.args.get('idPago'):
-                registro = db.session.query(PagosModelo).get(request.args.get('idPago'))
+            idPago = request.args.get('idPago')
+            if idPago:
+                registro = db.session.query(PagosModelo).get(idPago)
                 if registro:
-                    pass
-                else:
-                    raise Exception(f"No se ha encontrado usuario con DNI: {(request.args.get('idPago'))}")
-                usuario_editar = db.session.query(PagosModelo).filter(PagosModelo.idPago == (request.args.get('idPago'))).first()
-                informacion = request.get_json().items()
-                for campo, valor in informacion:
+                    informacion = request.get_json()
+                    for campo, valor in informacion.items():
+                        if campo == 'fecha_de_pago':
+                        # Realizar el procesamiento especial para el campo de fecha_de_pago
+                            fecha_procesada = datetime.strptime(valor, "%d/%m/%Y")
+                            setattr(registro, campo, fecha_procesada)
+                            print(f"Se ha actualizado el campo {campo} con el valor {fecha_procesada}.")
+                        elif hasattr(registro, campo):
+                            setattr(registro, campo, valor)
+                            print(f"Se ha actualizado el campo {campo} con el valor {valor}.")
+                        else:
 
-                    setattr(usuario_editar, campo, valor)
-                db.session.add(usuario_editar)
-                db.session.commit()
-                return usuario_editar.to_json(), 201
+
+                        # if hasattr(registro, campo):
+                        #     setattr(registro, campo, valor)
+                        #     print(f"Se ha actualizado el campo {campo} con el valor {valor}.")
+                        # else:
+                            raise Exception(f"El campo {campo} no es válido para la actualización.")
+                    db.session.commit()
+                    return registro.to_json(), 201
+                else:
+                    return {'error': f"No se ha encontrado usuario con idPago: {idPago}"}, 404
             else:
-                raise Exception('El DNI del usuario es necesario para poder modificarlo.')
+                return {'error': 'El idPago del usuario es necesario para poder modificarlo.'}, 400
         except Exception as e:
             return {'error': str(e)}, 400
         finally:
             db.session.close()
+

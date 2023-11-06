@@ -52,3 +52,4 @@ export class TablaPlanificacionComponent  {}
 //   {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
 //   {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
 // ];
+

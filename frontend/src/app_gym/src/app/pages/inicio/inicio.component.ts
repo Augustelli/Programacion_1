@@ -12,7 +12,12 @@ export class InicioComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.router.navigate(['/login']);
+      if (localStorage.getItem('token') != null) {
+        localStorage.removeItem('token');}
+
+
+      this.router.navigate(['/home']);
+
     },5000);
 
   }

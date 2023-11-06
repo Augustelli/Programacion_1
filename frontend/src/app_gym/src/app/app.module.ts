@@ -33,6 +33,21 @@ import { PayComponent } from './pages/pay/pay.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { AbmComponent } from './components/abm/abm.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {JwtModule} from '@auth0/angular-jwt';
+import { CrearUsuarioAdminComponent } from './pages/crear-usuario-admin/crear-usuario-admin.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+
+import { ToastrModule } from 'ngx-toastr';
+import { PayAdminComponent } from './pages/pay-admin/pay-admin.component';
+import { ProfesComponent } from './pages/profes/profes.component';
+import { CommonModule } from '@angular/common';
+
+
+
+
+
 
 
 @NgModule({
@@ -63,16 +78,39 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PayComponent,
     UsuariosComponent,
     AbmComponent,
+    CrearUsuarioAdminComponent,
+    PayAdminComponent,
+    ProfesComponent,
+    TablaPlanificacionGrillaaComponent,
+    
     
     // TablaPlanificacionGrillaaComponent
     // crearUsuarioComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    FormsModule,
+
+    CommonModule,
     AppRoutingModule,
-    TablaPlanificacionGrillaaComponent,
+    // TablaPlanificacionGrillaaComponent,
     LoginThreeComponent,
     BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    ToastrModule.forRoot(),
+   
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('tu_variable_token');
+        },
+        allowedDomains: ['example.com'],
+      },
+    }),
 
   
   ],

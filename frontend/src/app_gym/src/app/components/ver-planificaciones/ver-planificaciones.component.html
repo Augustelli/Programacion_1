@@ -1,53 +1,151 @@
-<!-- <button (click)="verPlanificaciones()">Ver Planificaciones</button>
-<button (click)="ocultarPlanificaciones()">Ocultar Planificaciones</button> -->
-<div *ngIf="varVerPlanificaciones" class="row ml-3 margin-bottom:10rem">
-    <ng-container *ngFor="let planificacion of arrayPlanificaciones;index as i; let isLast = last">
-      <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 1rem;">
-        <div class="card" style="background-color: lightblue; border-radius: 15px;">
-          <img src={{planificacion.img}} class="card-img-top" alt="...">
-          <div class="card-body">
-            <div (click)="onPlanificacionClick()">
-              <h5 class="card-title">{{i}}-{{planificacion.nombreprofesor}}</h5>
-              <p class="card-text">{{planificacion.nombreclase}}</p>
+
+<div class="d-flex mb-3">
+  <input  type="text"  class="form-control me-2 flex-grow-1"  placeholder="Buscar clase..."  [(ngModel)]="searchTerm" (input)="filtrarUsuariosNombre()">
+</div>
+<div *ngIf="isToken">
+  <div class="d-flex justify-content-center mt-3" style=" color: #1976d2;">
+    <button *ngIf="page === 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2" disabled>
+        < </button>
+    <button *ngIf="page !== 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2">
+        < </button>
+    <button *ngIf="isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary" disabled>
+        > </button>
+    <button *ngIf="!isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary"> 
+      > </button>
+  </div>
+</div>
+ <div class="d-flex justify-content-end" *ngIf="userRol=== 'admin' || userRol === 'profesor'">
+  <button class="btn btn-light btn-sm mr-3 justify-content-end" style="color: white; background: rgb(146, 146, 146); border-radius: 85px;" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion"  >New</button>
+            
+ </div>
+ <div *ngIf="mensajeExito" class="alert alert-success mt-3">
+  <p>{{ mensajeExito }}</p>
+</div>
+
+
+<div  class="row ml-3 margin-bottom:10rem" *ngIf="mostrarFormularioCreacion" >
+  <ng-container>
+    <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 1rem;">
+      <div class="card" style="background-color: lightblue; border-radius: 15px;">
+        <img src="../../../assets/planificacion/chicaplanificacion2.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <div *ngIf="mostrarFormularioCreacion">
+            <form (ngSubmit)="crearPlanificacion()">
+              <div class="form-group">
+                <label for="rutina">Rutina</label>
+                <input
+                  type="text"   class="form-control" id="rutina"  name="rutina" [(ngModel)]="nuevaPlanificacion.rutina"        required      />
+              </div>
+              <div class="form-group">
+                <label for="frecuencia">Frecuencia</label>
+                <input
+                  type="text"    class="form-control"   id="frecuencia"   name="frecuencia"  [(ngModel)]="nuevaPlanificacion.frecuencia" required/>
+              </div>
+              <div>
+                <label for="fecha">Fecha</label>
+                <input
+                  type="date"    class="form-control"   id="fecha"   name="fecha"  [(ngModel)]="nuevaPlanificacion.fecha" required/>
+              </div>
+              <div class="form-group">
+                <label for="id_Alumno">ID Alumno</label>
+                <input
+                  type="text"    class="form-control"   id="id_Alumno"   name="id_Alumno"  [(ngModel)]="nuevaPlanificacion.id_Alumno" required/>
+              </div>
+              <div class="form-group">
+                <label for="idProfesor">ID Profesor</label>
+                <input
+                  type="text"    class="form-control"   id="idProfesor"   name="idProfesor"  [(ngModel)]="nuevaPlanificacion.idProfesor" required/>
+              </div>
+              <div class="form-group">
+                <label for="id_Clase">ID Clase</label>
+                <input
+                  type="text"    class="form-control"   id="id_Clase"   name="id_Clase"  [(ngModel)]="nuevaPlanificacion.id_Clase" required/>
+            
+          
+              <button type="submit" class="btn btn-primary"  style="margin-right: .5rem;">Guardar</button>
+              <button type="button" class="btn btn-danger" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion">Cancelar</button>
+              </div>
+            </form>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+          
+          
+          
+
+ <div *ngIf="varVerPlanificaciones" class="row ml-3 margin-bottom:10rem">
+  <ng-container *ngFor="let planificacion of arrayPlanificaciones; index as i; let isLast = last">
+    <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 1rem;">
+      <div class="card" style="background-color: lightblue; border-radius: 15px;">
+        <!-- <img src="../../../assets/planificacion/planificacion0.png" class="card-img-top" alt="..."> -->
+        <img [src]="'../../../assets/planificacion/planificacion' + (i % 2) + '.png'" class="card-img-top" alt="...">
+
+        <div class="card-body">
+          
+          <div (click)="onPlanificacionClick(planificacion.idPlanificacion)">
+            <!-- Aquí se mostrarán los datos de la planificación -->
+            <h5 class="card-title">{{planificacion.idPlanificacion}}-{{planificacion.rutina}}</h5>
+            <p class="card-text">Ultima Actualización: {{planificacion.fecha}}</p>
+            <p class="card-text">Frecuencia: {{planificacion.frecuencia}}</p>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <ng-container *ngIf="userRol === 'admin'|| userRol==='profesor' || userRol==='alumno'; else elseBlock">
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" (click)="editarPlanificacion(planificacion)"
+                >Editar</button>
+              <button class="btn btn-light btn-sm" style="color: rgb(255, 0, 0); background: none; border: none;"
+                (click)="deletePlanificacion(planificacion.idPlanificacion)">Eliminar</button>
             </div>
+
+           
+            </ng-container>
+            <ng-template #elseBlock>
+              <!-- Si userRol no es 'admin', puedes mostrar un mensaje o no mostrar nada -->
+            </ng-template>
+          </div>
+
+          <!-- Mostrar campos de edición cuando se active la edición -->
+          <div *ngIf="planificacion.editando== true">
+            <!-- Agrega campos de entrada para editar los datos de la planificación -->
+            <input [(ngModel)]="planificacion.rutina" placeholder="Rutina" class="form-control" />
+            <input [(ngModel)]="planificacion.fecha" placeholder="Fecha" class="form-control" />
+            <input [(ngModel)]="planificacion.frecuencia" placeholder="Frecuencia" class="form-control" />
+            
+            <button class="btn btn-primary btn-sm" (click)="guardarCambios(planificacion)">
+              Guardar cambios
+            </button>
+            
+            <button class="btn btn-secondary btn-sm" (click)="planificacion.editando = false">
+              Cancelar
+            </button>
+
           </div>
         </div>
       </div>
-      <div class="clearfix d-lg-none d-md-block" *ngIf="isLast"></div>
-      <div class="clearfix d-none d-lg-block" *ngIf="(i + 1) % 3 === 0 || isLast"></div>
-    </ng-container>
+    </div>
+    <div class="clearfix d-lg-none d-md-block" *ngIf="isLast"></div>
+    <div class="clearfix d-none d-lg-block" *ngIf="(i + 1) % 3 === 0 || isLast"></div>
+  </ng-container>
+
+
+<div *ngIf="isToken">
+  <div class="d-flex justify-content-center mt-3" style="margin-bottom: .5rem; color: #1976d2;">
+    <button *ngIf="page === 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2" disabled>
+         < </button>
+    <button *ngIf="page !== 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2">
+        < </button>
+    <button *ngIf="isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary" disabled>
+        > </button>
+    <button *ngIf="!isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary"> 
+      > </button>
   </div>
-  
-
-  
-
-<!-- Aquí aplicamos la clase ml-3 para agregar margen a la izquierda -->
-<!-- <div class="col col-md-auto ml-3">
-    <div class="card">
-        <img src="../../../assets/planificacion/chicaplanificacion.png" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Profesor .</p>
-        </div>
-    </div>
 </div>
 
-<div class="col col-md-auto">
-    <div class="card">
-        <img src="../../../assets/planificacion/chicaplanificacion.png" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Profesor</p>
-        </div>
-    </div>
-</div>
 
-<div class="col col-md-auto">
-    <div class="card">
-        <img src="../../../assets/planificacion/chicaplanificacion.png" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Profesor.</p>
-        </div>
-    </div>
-</div> -->

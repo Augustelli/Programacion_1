@@ -1,0 +1,20 @@
+.green-text {
+    color: green;
+  }
+  
+  .red-text {
+    color: red;
+  }
+  
+  .btn-success {
+    background-color: lightgreen;
+  }
+  
+  .btn-danger {
+    background-color: lightcoral;
+  }
+  .btn {
+    width: 120px;
+    border-radius: 10px; /* Ancho deseado */
+  }
+  
