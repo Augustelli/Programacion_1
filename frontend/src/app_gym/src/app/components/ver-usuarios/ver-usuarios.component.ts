@@ -12,26 +12,21 @@ export class VerUsuariosComponent implements OnInit {
   arrayUsuarios: any;
   searchTerm: string = '';
   userRol:string = '';
+  userTodos:boolean=true;
+  rolUsuarios: string = '';
+
+  page=1;
+  perPage=6;
+  isLastPage: boolean = true;
+  totalItems = 0;
+  isEspera: boolean = false;
+  isToken: boolean = false;
+  arrayUsuarios1: any;
+  page1=1;
+  perPage1=100;
 
 
-  // arrayUsuarios = [
-  //   {
-  //     id: 1,
-  //     nombre:' Usuario 1',
-  //     imagen : "chica_fachera.svg"
-  //   },
-  //   {
-  //     id: 2,
-  //     nombre:' Usuario 2',
-  //     imagen : "chico_fachero2.svg"
-  //   },
-  //   {
-  //     id: 3,
-  //     nombre:' Usuario 3',
-  //     imagen : "pibe_fachero.svg"
-  //   }
-  // ];
-  
+ 
   constructor(
     private usuariosService: UsuariosService,
     private jwtHelper: JwtHelperService,
@@ -39,27 +34,51 @@ export class VerUsuariosComponent implements OnInit {
     private router: Router
   ){}
 
-  mostrarTodo() {
-    this.usuariosService.getUsers().subscribe((data: any) => {
-        console.log('JSON data:', data);
-        this.arrayUsuarios = data.Usuario;
-    });
-}
+
   filtrarAlumnos() {
-    this.usuariosService.getAlumnos().subscribe((data: any) => {
-        console.log('Usuarios filtrados por rol "alumno":', data);
+    
+    this.page = 1
+    this.rolUsuarios='alumno'
+
+    this.usuariosService.getAlumnos(this.page, this.perPage).subscribe((data: any) => {
+        console.log('Usuarios filtrados por rol "alumno wasaaaaa":', data);
         this.arrayUsuarios = data.Usuario;
+        this.userTodos=false;
+        this.totalItems = data.Total;
+        this.isLastPage = this.totalItems / this.perPage <= this.page;  
+        this.isEspera = false;
     });
 }
-filtrarAlumnosEspera(rol:string) {
-  this.usuariosService.getUsers().subscribe((data: any) => {
-    console.log(`Usuarios filtrados por rol "${rol}":`, data);
-    // Filtra los usuarios por el rol específico
-    this.arrayUsuarios = data.Usuario.filter((usuario: any) => {
-      return usuario.rol === rol;
+// filtrarAlumnosEspera(rol:string) {
+//   this.usuariosService.getUsers(this.page, this.perPage).subscribe((data: any) => {
+//     console.log(`Usuarios filtrados por rol "${rol}":`, data);
+//     // Filtra los usuarios por el rol específico
+//     this.arrayUsuarios = data.Usuario.filter((usuario: any) => {
+//       this.userTodos=false;
+//       this.isEspera = true;
+//       return usuario.rol === rol;
+//     });
+// }
+filtrarAlumnosEspera() {
+  
+  this.page = 1
+  this.rolUsuarios='espera'
+
+  this.usuariosService.getUsers1(this.page, this.perPage, this.rolUsuarios).subscribe((data: any) => {
+   
+    this.arrayUsuarios = data.Usuario;
+      this.userTodos = false;
+      this.isEspera = true;
+      this.totalItems = data.Total;
+      this.isLastPage = this.totalItems / this.perPage <= this.page;
     });
-});
+  
+
+    // Cuenta la cantidad de usuarios con el rol específico
+
 }
+
+
 
   editarUsuario(usuario:any){
     console.log('Usuario a editar', usuario);
@@ -67,36 +86,68 @@ filtrarAlumnosEspera(rol:string) {
   }
 
 ngOnInit(){
-  this.usuariosService.getUsers().subscribe((data:any) => {
-    console.log('JSON data:', data);
-    this.arrayUsuarios = data.Usuario;
-  })
   const token = localStorage.getItem('token');
-  if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
+  if (token){ 
     const decodedToken = this.jwtHelper.decodeToken(token);
     this.userRol = decodedToken.rol;
+    this.isToken = true;
+}
+if (this.userRol === 'admin') {
+  this.usuariosService.getUsers(this.page, this.perPage).subscribe((data:any) => {
+    console.log('JSON data:', data);
+    this.userTodos=true;
+    this.arrayUsuarios = data.Usuario;
+    this.totalItems = data.Total;
+    this.isLastPage = this.totalItems / this.perPage <= this.page; 
+    this.isEspera = false;   
+  })
+}
+if (this.userRol === 'profesor') {
+  this.usuariosService.getAlumnos(this.page,this.perPage).subscribe((data:any) => {
+    this.userTodos=true;
+    console.log('JSON data:', data);
+    this.arrayUsuarios = data.Usuario
+    this.totalItems = data.Total;
+    this.isLastPage = this.totalItems / this.perPage <= this.page;   
+    this.isEspera = false;
+  });
 }
 
-// ngOnInit() {
-//   const token = localStorage.getItem('token');
-//   if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
-//     const decodedToken = this.jwtHelper.decodeToken(token);
-//     this.userRol = decodedToken.rol;
-// }
 }
-nuevoUsuario(){
-  this.router.navigate(['/crear_usuario_admin']);
+mostrarTodo() {
+  this.rolUsuarios=''
+  this.page=1
+  this.ngOnInit();
+}
 
-}
 filtrarUsuariosNombre(){
-  if (!this.searchTerm) {
+  if (!this.searchTerm || this.searchTerm === '') {
     this.mostrarTodo();
     return;
   }
-  this.arrayUsuarios = this.arrayUsuarios.filter((usuario: any) => {
-    const nombreCompleto = `${usuario.nombre} ${usuario.apellido}`;
-    return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
-  });  
+  if (this.userRol === 'admin') {
+    this.usuariosService.getUsers(this.page1, this.perPage1).subscribe((data:any) => {
+      this.arrayUsuarios1 = data.Usuario;
+    
+      this.arrayUsuarios = this.arrayUsuarios1.filter((usuario: any) => {
+        const nombreCompleto = `${usuario.nombre} ${usuario.apellido}${usuario.dni}`;
+        return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
+      }); }); 
+}
+if (this.userRol === 'profesor') {
+  this.usuariosService.getAlumnos(this.page1, this.perPage1).subscribe((data:any) => {
+    this.arrayUsuarios1 = data.Usuario;
+  
+    this.arrayUsuarios = this.arrayUsuarios1.filter((usuario: any) => {
+      const nombreCompleto = `${usuario.nombre} ${usuario.apellido}${usuario.dni}`;
+      return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
+    }); }); 
+}
+}
+
+nuevoUsuario(){
+  this.router.navigate(['/crear_usuario_admin']);
+
 }
 
 deleteUsuario(user_id: string) {
@@ -123,7 +174,45 @@ deleteUsuario(user_id: string) {
     }
   );
 }
+onClickAnteriorPag(){
+  this.page-=1;
+
+
+  this.ngOnInit();
+
+
 }
+onClickSiguientePag(){
+  this.page+=1;
+  if (this.rolUsuarios === 'alumno'){
+    this.usuariosService.getAlumnos(this.page, this.perPage).subscribe((data: any) => {
+      console.log('Usuarios filtrados por rol "alumno wasaaaaa":', data);
+      this.arrayUsuarios = data.Usuario;
+      this.userTodos=false;
+      this.totalItems = data.Total;
+      this.isLastPage = this.totalItems / this.perPage <= this.page;  
+      this.isEspera = false;
+  });
+  }
+  if (this.rolUsuarios === 'espera'){
+   
+    this.usuariosService.getUsers1(this.page, this.perPage, this.rolUsuarios).subscribe((data: any) => {
+      console.log('Usuarios filtrados por rol "alumno wasaaaaa":', data);
+      this.arrayUsuarios = data.Usuario;
+      this.userTodos=false;
+      this.totalItems = data.Total;
+      this.isLastPage = this.totalItems / this.perPage <= this.page;  
+      this.isEspera = false;
+  });
+  }
+  if (this.rolUsuarios === '') {
+   
+    this.ngOnInit();
+  }
+}
+
+}
+
 
     
 

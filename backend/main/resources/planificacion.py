@@ -134,7 +134,7 @@ class PlanificacionesProfesores(Resource):
 
 
 class PlanificacionProfesor(Resource):
-    @role_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor', 'alumno'])
     def get(self):
         try:
             planificacion = db.session.query(PlanificacionModelo)
@@ -226,7 +226,8 @@ class PlanificacionProfesor(Resource):
                 usuario_eliminar = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.idPlanificacion == request.args.get('nrIdPlanificacion')).first()  # noqa
                 db.session.delete(usuario_eliminar)
                 db.session.commit()
-                return 204, f"Planificacion con ID  {request.args.get('nrIdPlanificacion')} eliminado"
+                # return 'Usuario eliminado correctamente', 200
+                return "Planificacion eliminada correctamente",204
             else:
                 raise Exception("El ID de la planificacion debe ser especificado para eliminarlo")
         except Exception:

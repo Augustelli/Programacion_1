@@ -45,7 +45,7 @@ class Clase_Profesor_R(Resource):
             return {'error': str(e)}, 500
     
 
-    @role_required(roles=['admin', 'profesor'])
+    # @role_required(roles=['admin', 'profesor'])
     def post(self):
         try:
                 data = request.get_json()
@@ -99,9 +99,9 @@ class Clase_Profesor_R(Resource):
                     clase.profesores.remove(profesor)
                     db.session.commit()
 
-                    return {'message': 'Profesor eliminado a la clase exitosamente.'}, 201
+                    return 'Profesor eliminado a la clase exitosamente.', 201
             else:
-                return {'error': 'Falta un dato para su eliminación'}, 404
+                return  'Falta un dato para su eliminación', 404
                
         except Exception as e:
             db.session.rollback()
@@ -110,7 +110,7 @@ class Clase_Profesor_R(Resource):
 
 class Clases_R(Resource):
     
-    @role_required(roles=['admin', 'profesor'])
+    @role_required(roles=['admin', 'profesor', 'alumno','espera'])
     def get(self):
         try:
             clases = db.session.query(ClasesModelo)
@@ -181,7 +181,7 @@ class Clases_R(Resource):
                 clase_eliminar = db.session.query(ClasesModelo).filter(ClasesModelo.idClases == request.args.get('idClases')).first()
                 db.session.delete(clase_eliminar)
                 db.session.commit()
-                return 204, f"Clase con ID {request.args.get('idClases')} eliminado"
+                return "Clase eliminada", 204
             else:
                 raise Exception("El ID debe ser especificado para poder eliminar")
         except Exception:

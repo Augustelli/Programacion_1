@@ -1,0 +1,157 @@
+<div style="
+background-color: #d8e7f7; 
+background-size: cover;         
+margin: 0;       
+padding: 0;">
+<app-nav1></app-nav1>
+<app-nav2></app-nav2>
+<app-flecha-atras></app-flecha-atras>
+
+
+
+
+<div class="container mt-5" style="margin-bottom: 3rem;">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="text-center mb-4">Lista de los Pagos</h2>
+            <div class="d-flex mb-3">
+                <input  type="text"  class="form-control me-2 flex-grow-1"  placeholder="Buscar usuario..."  [(ngModel)]="searchTerm"  (input)="filtrarUsuariosNombre()">
+                <button class="btn btn-outline-secondary" (click)="mostarAlDia()" *ngIf="userRol ===  'admin'" type="button"><i class="fa-solid fa-magnifying-glass">Al día</i></button>
+                <button class="btn btn-outline-secondary" (click)="mostrarDeuda()" *ngIf="userRol ===  'admin'" type="button"><i class="fa-solid fa-magnifying-glass">Deuda</i></button>
+
+                <button class="btn btn-outline-secondary" (click)="mostrarTodo()" *ngIf="userRol ===  'admin'"type="button"><i class="fa-solid fa-magnifying-glass">Todos</i></button>
+                <a class="btn btn-secondary ms-2" *ngIf=" userRol === 'admin' || userRol === 'profesor'" (click)="nuevoPago()"> 
+                    <!-- routerLink="/usuario/null/Alta" -->
+                  <i class="fa-solid fa-plus">+</i>
+                </a>
+                
+                
+               
+            </div>
+            <div *ngIf="mostrarFormularioCreacion" >
+                <div  class="col-md-auto ml-3">
+                  <div class="col">
+                    <!-- <ng-container *ngFor="let clases of arrayClases; let i = index"> -->
+                      <div class="col-md-6" >
+                        <div class="card card-sm" style="margin: 4rem; background-color: lightgray; border-radius: 15px;">
+                          <div class="card-body" >
+                            <div class="form-group">
+                                <label for="dni" >DNI</label>
+                                <input type="text" class="form-control" id="dni"  name="dni" [(ngModel)]="nuevopago.dni" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha_de_pago" >Fecha de vencimiento</label>
+                                <input type="text" class="form-control" id="fecha_de_pago"  name="fecha_de_pago" [(ngModel)]="nuevopago.fecha_de_pago" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="monto" >Monto</label>
+                                <input type="text" class="form-control" id="monto"  name="monto" [(ngModel)]="nuevopago.monto" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="estado" >Estado</label>
+                                <input type="text" class="form-control" id="estado"  name="estado" [(ngModel)]="nuevopago.estado" required>
+
+                            </div>
+                          
+                            <button type="submit" class="btn btn-primary" (click)="crearPago()" style="margin-bottom: 1rem; margin-top: 1rem;">Guardar</button> 
+                            <button type="submit" class="btn btn-secondary" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion">Cancelar</button>
+                                        
+                          </div>
+                        </div>
+                      </div>
+                    
+                  </div>
+                </div>
+                </div>
+           
+    
+
+         
+
+            <ul class="list-group" style="margin-bottom: 3rem;">
+                
+                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let usuario of arrayUsuarios" style="background-color: whitesmoke">
+                  <div class="d-flex align-items-center">
+                    <img src="../assets/usuario_editar/chica_fachera.svg" alt="{{ usuario.nombre }}" width="30" height="30" class="me-2">
+                    <div>
+                      <span style="font-size: 18px;">{{ usuario.apellido }} {{ usuario.nombre }}</span>
+                      <br>
+                      <span style="font-size: 14px;">{{ usuario.dni }}</span>
+
+
+                      <div *ngIf="usuario.editando== true">
+                        <div *ngFor="let pago of usuario.pagos; let i = index">
+                        
+                        <input [(ngModel)]="usuario.pagos[i].monto" placeholder="monto" class="form-control" />
+                        <input [(ngModel)]="usuario.pagos[i].fecha_de_pago" placeholder="Fechas" class="form-control" />
+                        <input [(ngModel)]="usuario.pagos[i].estado" placeholder="estado" class="form-control" />
+                        
+                        <button class="btn btn-primary btn-sm"  (click)="guardarCambios(usuario)" style="margin-top: .5 rem;">
+                          Guardar cambios
+                        </button>
+                        
+                        <button class="btn btn-secondary btn-sm" (click)="usuario.editando = false">
+                          Cancelar
+                        </button>
+            
+                      </div> 
+                    </div>
+
+                      <div *ngIf="usuario.mostrandoPagos">
+                    
+                        <ul>
+                            <li *ngFor="let pago of usuario.pagos">
+                                <div>
+                                    <p>Fecha de vencimiento: {{ pago.fecha_de_pago }}</p>
+                                    <p>Monto: {{ pago.monto }}</p>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                          <div *ngFor="let pago of usuario.pagos">
+                            <div *ngIf="userRol==='admin'">
+                              <button  class="btn btn-info btn-sm"  (click)="modificarPago(usuario)" style="margin-right: .5rem;" *ngIf="usuario.estado === true"><i class="fa-solid fa-pen-to-square"></i>Modificar</button>
+                            </div>
+                              <button class="btn btn-primary btn-sm me-2" (click)="usuario.mostrandoPagos = false">Cancelar<i class="fa-solid fa-pen-to-square"></i></button>
+                              <button *ngIf="userRol==='admin'" class="btn btn-danger btn-sm" (click)="deletePago(pago.idPago)"><i class="fa-solid fa-trash"></i>Eliminar</button>
+                          </div>
+                        
+                    </div>
+                    </div>
+                  </div>
+                  <div>
+                                        
+                        <img  src="../../../assets/info-icon-svgrepo-com.svg" (click)="mostrarInformacion(usuario.dni)" alt="Info Pago" width="20" height="20" class="me-2">
+                    
+                    <a *ngIf="usuario.estado === true" class="btn btn-success btn-sm me-2" [ngClass]="{'green-text': usuario.estado === true}">ON DATE<i class="fa-solid fa-pen-to-square"></i></a>
+              
+                    <a *ngIf="usuario.estado === false" class="btn btn-danger btn-sm me-2" [ngClass]="{'red-text': usuario.estado === false}">NON-PAYMENT<i class="fa-solid fa-pen-to-square"></i></a>
+                    
+                </div>
+                 
+
+                  
+
+                </li>
+            
+              </ul>
+
+              
+            
+        </div>
+    </div>
+</div>
+
+<div  class="d-flex justify-content-center mt-3" style="margin-bottom: 8rem; color: #1976d2;">
+  <button *ngIf="page === 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2" disabled>
+       < </button>
+  <button *ngIf="page !== 1" (click)="onClickAnteriorPag()" class="btn btn-primary me-2">
+      < </button>
+  <button *ngIf="isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary" disabled>
+      > </button>
+  <button *ngIf="!isLastPage" (click)="onClickSiguientePag()" class="btn btn-primary"> 
+    > </button>
+
+<app-backvar1></app-backvar1>
+<app-backvar2></app-backvar2>
+</div>

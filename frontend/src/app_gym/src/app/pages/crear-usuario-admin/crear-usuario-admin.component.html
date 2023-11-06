@@ -49,15 +49,31 @@
         <label for="rol" class="form-label">Rol</label>
         <input type="text" class="form-control" id="rol" [(ngModel)]="formData.rol" name="rol" >
     </div>
+    <div class="mb-3" *ngIf="formData.rol === 'alumno'">
+        <label for="password" class="form-label">Altura</label>
+        <input type="text" class="form-control" id="altura" [(ngModel)]="formData.altura" name="altura"  >
+    </div>
+    <div class="mb-3" *ngIf="formData.rol === 'alumno'">
+        <label for="password" class="form-label">Peso</label>
+        <input type="text" class="form-control" id="peso" [(ngModel)]="formData.peso" name="peso"  >
+    </div>
+
+    <div class="mb-3" *ngIf="formData.rol === 'profesor'">
+        <label for="password" class="form-label">Especialidad</label>
+        <input type="text" class="form-control" id="especialidad" [(ngModel)]="formData.especialidad" name="especialidad"  >
+    </div>
+
+
+    <div class="mb-3" *ngIf="formData.rol === 'profesor'">
+        <label for="password" class="form-label">Salario</label>
+        <input type="int" class="form-control" id="salario" [(ngModel)]="formData.salario" name="salario"  >
+    </div>
 
     <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input type="text" class="form-control" id="password" [(ngModel)]="formData.contrasegna" name="contrasegna"  >
     </div>
-    <div class="mb-3" *ngIf="formData.rol === 'profesor'">
-        <label for="password" class="form-label">Especialidad</label>
-        <input type="text" class="form-control" id="password" [(ngModel)]="formData.contrasegna" name="contrasegna"  >
-    </div>
+    
 
 
     <button type="button" class="btn btn-secondary" (click)="goBack()">Cancelar</button>

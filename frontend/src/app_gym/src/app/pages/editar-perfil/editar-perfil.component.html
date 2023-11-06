@@ -1,35 +1,25 @@
-
+<div style="
+background-color: #d8e7f7; 
+background-size: cover;         
+margin: 0;       
+padding: 0;">
 <app-nav1></app-nav1>
 <app-nav2> </app-nav2>
-<div class="row-col-1" style="position: absolute 50%; margin-top: 3rem;">    
-    <h1 class="text-center" >Edith Profile</h1>
-</div>
-<div class = "container" style="margin-bottom: 5rem;">
-    <div class="row" style="text-align: center; justify-content: center;">
-        <!-- left column -->
-        <div class="col-md-3">
-          <div class="text-center">
-            <img src="//placehold.it/100" class="avatar img-circle" alt="avatar" style="border-radius: 25px;">
-            
-            
-            <h6>Upload a different photo...</h6>
-            
-            <input type="file" class="form-control">
-          </div>
-        </div>
+<app-flecha-atras></app-flecha-atras>
 
-</div >
+<div class = "container" style="margin-bottom: 8rem;">
+    
 <div class="col-md-12 text-center mt-3">
-  <button (click)="routeToPay()" style="margin-bottom:5rem" class="btn btn-primary">Pay suscription</button>
+  <button (click)="routeToPay()" style="margin-bottom:.5rem" class="btn btn-success">Pay suscription</button>
 </div>
 <div class="container-fluid" style="justify-content: center;">
    
 
       
       <!-- edit form column -->
-      <div class="col-md-12 personal-info">
+      <div class="col-md-12 personal-info" style="margin-bottom: 3rem;">
         
-        <h3 style="text-align: center; margin-top: 2rem;">Personal info</h3>
+        <h3 style="text-align: center;">Personal info</h3>
         
         <form>
           <div class="mb-3">
@@ -62,15 +52,25 @@
               <input type="text" class="form-control" id="username" [(ngModel)]="userData.nombre_usuario" name="nombre_usuario" (change)="fieldChanged('nombre_usuario', userData.nombre_usuario)">
           </div>
           
-          <div class="mb-3">
+          <div class="mb-3" *ngIf="userRol === 'admin'">
               <label for="rol" class="form-label">Rol</label>
               <input type="text" class="form-control" id="rol" [(ngModel)]="userData.rol" name="rol" (change)="fieldChanged('rol', userData.rol)">
           </div>
 
+            <button class="btn btn-light" (click)="mostrarContrasegna =! mostrarContrasegna">Cambiar contraseña?</button> 
           
-         
-
-          <!-- Agrega más campos del formulario aquí -->
+            <div *ngIf="mostrarContrasegna">
+            <div class="mb-3">
+                <label for="contrasegna" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="contrasegna" [(ngModel)]="userData.contrasegna" name="contrasegna" (change)="fieldChanged('contrasegna', userData.contrasegna)">
+            </div>
+            <div class="mb-3">
+                <label for="contrasegna" class="form-label">Confirmar contraseña</label>
+                <input type="password" class="form-control" id="contrasegna2" [(ngModel)]="userData.contrasegna2" name="contrasegna2" (change)="fieldChanged('contrasegna2', userData.contrasegna2)">
+            </div>
+        </div>  
+        
+        
       </form>
       </div>
       <div>
@@ -80,16 +80,14 @@
     <div *ngIf="successMessage" class="alert alert-success mt-3">
     {{ successMessage }}
     </div>
-      <!-- <div class="form-group" style="margin-bottom:5rem">
-        <label class="control-label"></label>
-        <div class="col-md-12 text-center">
-          <input type="reset" class="btn btn-default" value="Cancel">
-          <input type="button" class="btn btn-primary" value="Save Changes" (click)="toHome()">
-        </div>
-      </div> -->
+    <div *ngIf="badMessage" class="alert alert-danger mt-3">
+        {{ badMessage }}
+    </div>
+      
   </div>
 </div >
 
 
 <!-- <app-backvar1></app-backvar1> -->
-<app-backvar2></app-backvar2>
+<app-backvar1></app-backvar1>
+</div>
