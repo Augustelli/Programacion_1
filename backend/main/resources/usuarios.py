@@ -6,7 +6,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity  # noqa
 from main.auth.decorators import role_required
 import datetime
 import pdb  # noqa
-# from ..mail import sendMail
+from main.mail.functions import sendMail
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class Usuarios(Resource):
@@ -70,6 +70,7 @@ class Usuarios(Resource):
     @role_required(roles=['admin', 'profesor'])
     def post(self):
         try:
+            adminmail="augustokark@hotmail.com"
             campos_obligatorios = {'dni', 'nombre', 'apellido', 'email', 'contrasegna'}
             datos = request.get_json()
             campos_recibidos = set(datos.keys())
@@ -144,7 +145,6 @@ class Usuarios(Resource):
                 db.session.add(usuario)
 
             db.session.commit()
-            # sent = sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D, hay una nueva planificación disponible", "register", )
             return usuario_nuevo.to_json(), 201
         except Exception as e:
             return {'error': str(e)}, 400
@@ -441,40 +441,12 @@ class UsuarioProfesor(Resource):
             db.session.close()
 
     
-        #       
-        #         for campo, valor in informacion:
-        #             # if campo == 'dni':
 
-        #             # if campo == 'rol':
-        #             #     raise Exception('El rol del usuario no puede ser modificado.')
-
-        #             setattr(usuario_editar, campo, valor)
-        #             if campo == 'peso':
-        #                 usuario_editar1.peso = float(valor)
-        #                 db.session.add(usuario_editar1)
-        #             if campo == 'altura':
-        #                 usuario_editar1.altura = float(valor)
-        #                 db.session.add(usuario_editar1)
-        #             if campo == 'dni':
-        #                 usuario_editar1.alumno_dni = int(valor)
-        #                 db.session.add(usuario_editar1)
-        #         db.session.add(usuario_editar)
-        #         db.session.commit()
-        #         return usuario_editar.to_json(), 201
-        #     else:
-        #         raise Exception('El DNI del usuario es necesario para poder modificarlo.')
-        # except Exception as e:
-        #     return {'error': str(e)}, 400
-        # finally:
-        #     db.session.close()
 
 
 class UsuarioAlumno(Resource):
 
-
-
-    #   
-    #        
+      
     @role_required(roles=['admin', 'profesor', 'alumno'])
     def get(self):
         
@@ -520,25 +492,6 @@ class UsuarioAlumno(Resource):
             db.session.close()
 
 
-             
-    #            
-    #             
-
-    #               
-
-    #                 setattr(usuario_editar, campo, valor)
-
-    #             db.session.add(usuario_editar)
-
-    #             db.session.commit()
-    #             return usuario_editar.to_json(), 201
-    #         else:
-    #             raise Exception('El DNI del usuario es necesario para poder modificarlo.')
-    #     except Exception as e:
-    #         return {'error': str(e)}, 400
-    #     finally:
-
-    # Rol Admin, Profesor
 
 
     @role_required(roles=['admin', 'profesor'])

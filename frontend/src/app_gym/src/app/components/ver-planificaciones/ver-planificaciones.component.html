@@ -34,32 +34,32 @@
               <div class="form-group">
                 <label for="rutina">Rutina</label>
                 <input
-                  type="text"   class="form-control" id="rutina"  name="rutina" [(ngModel)]="nuevaPlanificacion.rutina"        required      />
+                  type="text"   class="form-control" id="rutina"  name="rutina" [(ngModel)]="nuevaPlanificacion.rutina"     placeholder="Rutina de Abs"   required      />
               </div>
               <div class="form-group">
                 <label for="frecuencia">Frecuencia</label>
                 <input
-                  type="text"    class="form-control"   id="frecuencia"   name="frecuencia"  [(ngModel)]="nuevaPlanificacion.frecuencia" required/>
+                  type="text"    class="form-control"   id="frecuencia"   name="frecuencia"  [(ngModel)]="nuevaPlanificacion.frecuencia"  placeholder="Sabado" required/>
               </div>
               <div>
                 <label for="fecha">Fecha</label>
                 <input
-                  type="date"    class="form-control"   id="fecha"   name="fecha"  [(ngModel)]="nuevaPlanificacion.fecha" required/>
+                  type="date"    class="form-control"   id="fecha"   name="fecha"  [(ngModel)]="nuevaPlanificacion.fecha" placeholder="1" required/>
               </div>
               <div class="form-group">
                 <label for="id_Alumno">ID Alumno</label>
                 <input
-                  type="text"    class="form-control"   id="id_Alumno"   name="id_Alumno"  [(ngModel)]="nuevaPlanificacion.id_Alumno" required/>
+                  type="text"    class="form-control"   id="id_Alumno"   name="id_Alumno"  [(ngModel)]="nuevaPlanificacion.id_Alumno" placeholder="1"required/>
               </div>
               <div class="form-group">
                 <label for="idProfesor">ID Profesor</label>
                 <input
-                  type="text"    class="form-control"   id="idProfesor"   name="idProfesor"  [(ngModel)]="nuevaPlanificacion.idProfesor" required/>
+                  type="text"    class="form-control"   id="idProfesor"   name="idProfesor"  [(ngModel)]="nuevaPlanificacion.idProfesor" placeholder="1" required/>
               </div>
               <div class="form-group">
                 <label for="id_Clase">ID Clase</label>
                 <input
-                  type="text"    class="form-control"   id="id_Clase"   name="id_Clase"  [(ngModel)]="nuevaPlanificacion.id_Clase" required/>
+                  type="text"    class="form-control"   id="id_Clase"   name="id_Clase"  [(ngModel)]="nuevaPlanificacion.id_Clase" placeholder="1" required/>
             
           
               <button type="submit" class="btn btn-primary"  style="margin-right: .5rem;">Guardar</button>
@@ -96,7 +96,7 @@
           </div>
 
           <div class="d-flex justify-content-end">
-            <ng-container *ngIf="userRol === 'admin'|| userRol==='profesor' || userRol==='alumno'; else elseBlock">
+            <ng-container *ngIf="userRol === 'admin'|| userRol==='profesor'; else elseBlock">
             <div class="d-flex justify-content-end">
               <button class="btn btn-light btn-sm mr-3" style="color: rgb(85, 85, 85); background: none; border: none;" (click)="editarPlanificacion(planificacion)"
                 >Editar</button>

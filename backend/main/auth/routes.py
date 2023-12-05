@@ -85,8 +85,14 @@ def register():
             db.session.add(alumno)
             db.session.commit()
             # Enviar mail de Bienvenida
-            _ = sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D", "register", usuario=usuario_nuevo)
-            # _=sendMail(["av.kark@hotmail.com"], "Nuevo usuario registrado", "admin", usuario=usuario_nuevo)
+            try:
+                sent = sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D", "register", usuario=usuario_nuevo)
+            except Exception as e:
+                print(e)
+            try:    
+                sent1=sendMail(["augustokark@hotmail.com"], "Nuevo usuario registrado", "admin", usuario=usuario_nuevo)
+            except Exception as e:
+                print(e)
             return usuario_nuevo.to_json(), 201
         except Exception as e:
             db.session.rollback()

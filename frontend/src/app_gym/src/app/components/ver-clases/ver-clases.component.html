@@ -42,12 +42,12 @@ padding: 0;">
             <div class="form-group">
               <label for="nombre">Nombre</label>
               <input
-                type="text"   class="form-control" id="nombre"  name="nombre" [(ngModel)]="nuevaclases.nombre"        required      />
+                type="text"   class="form-control" id="nombre"  name="nombre" [(ngModel)]="nuevaclases.nombre"   placeholder="Rutina de Cardio"     required      />
             </div>
             <div class="form-group">
               <label for="dias">Dias</label>
               <input
-                type="text"   class="form-control" id="dias"  name="dias" [(ngModel)]="nuevaclases.dias"        required      />
+                type="text"   class="form-control" id="dias"  name="dias" [(ngModel)]="nuevaclases.dias"  placeholder="Sabado"      required      />
             </div>
             <button type="submit" class="btn btn-primary" (click)="crearClase()"style='margin-right: .5rem'>Guardar</button>
             <button type="button" class="btn btn-danger" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion">Cancelar</button>

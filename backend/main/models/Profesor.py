@@ -10,12 +10,10 @@ class Profesor(db.Model):
     profesor_dni = db.Column(db.Integer, db.ForeignKey('usuario.dni'), nullable=False, unique=True)
     especialidad = db.Column(db.String(50), default='No posee.')
     salario = db.Column(db.Float, default=0.0)
-    #Relaciones
+    
     usuario = db.relationship('Usuario', back_populates='profesor', uselist=False)
-
     planificaciones = db.relationship('Planificacion', back_populates='profesor', cascade='all, delete-orphan', single_parent=True)
-    # clases= db.relationship('Clases', secondary=clase_profesor, back_populates='profesores')
-
+    
     def __repr__(self):
         profesor_json = {
             'idProfesor': self.idProfesor,

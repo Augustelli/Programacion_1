@@ -22,8 +22,6 @@ class Pagos(db.Model):
             'idPago': self.idPago,
             'monto': self.monto,
             'fecha_de_pago': str(self.fecha_de_pago.strftime("%d/%m/%Y")),
-           
-            # 'fecha_de_pago': self.fecha_de_pago,
             'estado': self.estado,
             'dni': self.dni
         }
@@ -34,7 +32,6 @@ class Pagos(db.Model):
         idPago = pago_json.get('idPago')
         monto = pago_json.get('monto')
         fecha_de_pago = (datetime.strptime(pago_json.get('fecha_de_pago'), '%d/%m/%Y'))
-        #  fecha_nacimiento = (datetime.strptime(usuario_json.get('fecha_nacimiento'), '%d-%m-%Y'))
         estado = pago_json.get('estado')
         dni = pago_json.get('dni')
         return Pagos(
