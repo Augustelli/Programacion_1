@@ -104,7 +104,6 @@ class PlanificacionesProfesores(Resource):
     @role_required(roles=['admin', 'profesor'])
     def post(self):
         try:
-            # Se supone que puede haber rutinas que no pertenezcan a ninguna clase
             campos_obligatorios = {'rutina', 'id_Alumno', 'idProfesor'}
             datos = request.get_json()
             campos_recibidos = set(datos.keys())
@@ -124,7 +123,7 @@ class PlanificacionesProfesores(Resource):
             planificacion_nueva = PlanificacionModelo.from_json(datos)
             db.session.add(planificacion_nueva)
             db.session.commit()
-           # sent = sendMail([usuario.email], "Bienvenido a la plataforma del gimnasio del Grupo D, hay una nueva planificación disponible", "plani", planificacion=planificacion_nueva)  # noqa
+            sent = sendMail([usuario.email], "Bienvenido a la plataforma del gimnasio del Grupo D, hay una nueva planificación disponible", "plani", planificacion=planificacion_nueva)  # noqa
             # sent=sendMail([usuario_nuevo.email], "Bienvenido a la plataforma del gimnasio del Grupo D", "register", usuario=usuario_nuevo)
             return planificacion_nueva.to_json(), 201
         except Exception as e:
@@ -145,8 +144,7 @@ class PlanificacionProfesor(Resource):
                 page = int(request.args.get('page'))
             if request.args.get('per_page'):
                 per_page = int(request.args.get('per_page'))
-            # Si manda DNI, le va a mostrar Todas , si manda id Planificacion 1 y si manda idAlumno la más reciente
-            # Si no hay argumentos, listará todas las planificaciones
+           
             if request.args.get('nrDni'):
                 planificacion = planificacion.outerjoin(
                     AlumnoModel, AlumnoModel.idAlumno == PlanificacionModelo.id_Alumno).filter(
@@ -158,24 +156,7 @@ class PlanificacionProfesor(Resource):
                     PlanificacionModelo.idPlanificacion == int(request.args.get('nrIdPlanificacion'))
                 ).order_by(PlanificacionModelo.fecha.desc())
 
-            # elif request.args.get('nrIdAlumno'):
-            #     planificacion = db.session.query(PlanificacionModelo).filter(
-            #         PlanificacionModelo.id_Alumno == int(request.args.get('nrIdAlumno'))
-            #         ).order_by(PlanificacionModelo.fecha.desc())
-            #     planificacion_alumno = db.session.query(AlumnoModel).outerjoin(
-            #         db.session.query(PlanificacionModelo).filter(
-            #             AlumnoModel.idAlumno == PlanificacionModelo.id_Alumno))
-            #     planificacion_completa = { planificacion , planificacion_alumno}
-            #     #     'idPlanificacion': planificacion.idPlanificacion,
-            #     #     'rutina': planificacion.rutina,
-            #     #     'fecha': str(planificacion.fecha.strftime("%d-%m-%Y")),
-            #     #     'frecuencia': planificacion.frecuencia,
-            #     #     'id_Alumno': planificacion.id_Alumno,
-            #     #     'id_Clase': planificacion.id_Clase,
-            #     #     'idProfesor': planificacion.idProfesor,
-            #     #     'alumno_dni': planificacion_alumno.alumno_dni
-            #     # }
-            #     return jsonify(planificacion_completa)
+            
             planificacion_paginados = planificacion.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
             planificacion_json = [planificacion.to_json() for planificacion in planificacion_paginados.items]
 
@@ -226,7 +207,7 @@ class PlanificacionProfesor(Resource):
                 usuario_eliminar = db.session.query(PlanificacionModelo).filter(PlanificacionModelo.idPlanificacion == request.args.get('nrIdPlanificacion')).first()  # noqa
                 db.session.delete(usuario_eliminar)
                 db.session.commit()
-                # return 'Usuario eliminado correctamente', 200
+                
                 return "Planificacion eliminada correctamente",204
             else:
                 raise Exception("El ID de la planificacion debe ser especificado para eliminarlo")

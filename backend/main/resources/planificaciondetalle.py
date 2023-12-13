@@ -59,7 +59,6 @@ class PlanificacionesDetalle(Resource):
             planificaciondetallenueva = PlanificacionDetalleModelo.from_json(datos)
             db.session.add(planificaciondetallenueva)
             db.session.commit()
-            #sent=
             return planificaciondetallenueva.to_json(), 201
         except Exception as e:
             return {'error': str(e)}, 400

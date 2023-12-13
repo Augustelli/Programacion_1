@@ -1,6 +1,6 @@
 # Gym App -  Grupo D
 
-Desarrollo completo de aplicación para gimnasio (backedn + frontend)
+Desarrollo completo de aplicación para gimnasio (backend + frontend)
 ## Requisitos
 
 - Python 3.x
@@ -27,7 +27,7 @@ Desarrollo completo de aplicación para gimnasio (backedn + frontend)
 
 - `Backend/`: Código fuente del backend.
 - `Frontend/`: Código fuente del frontend. [Plantilla de Figma](https://www.figma.com/file/roAmLZXKECHvhgWlDB5Izi/Program-Front-(Maquetado)?type=design&node-id=0%3A1&mode=design&t=GQDNKYREJltbrnIs-1)
-- `Testing/`: Directorio de pruebas y Dockerfile.  (WIP)
+
 
 
 ## Contacto

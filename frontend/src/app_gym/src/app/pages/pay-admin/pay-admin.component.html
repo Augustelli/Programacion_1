@@ -37,21 +37,22 @@ padding: 0;">
                           <div class="card-body" >
                             <div class="form-group">
                                 <label for="dni" >DNI</label>
-                                <input type="text" class="form-control" id="dni"  name="dni" [(ngModel)]="nuevopago.dni" required>
+                                <input type="text" class="form-control" id="dni"  name="dni" [(ngModel)]="nuevopago.dni" placeholder="11111111" required>
                             </div>
                             <div class="form-group">
                                 <label for="fecha_de_pago" >Fecha de vencimiento</label>
-                                <input type="text" class="form-control" id="fecha_de_pago"  name="fecha_de_pago" [(ngModel)]="nuevopago.fecha_de_pago" required>
+                                <input type="date" class="form-control" id="fecha_de_pago"  name="fecha_de_pago" [(ngModel)]="nuevopago.fecha_de_pago" required>
                             </div>
                             <div class="form-group">
                                 <label for="monto" >Monto</label>
-                                <input type="text" class="form-control" id="monto"  name="monto" [(ngModel)]="nuevopago.monto" required>
+                                <input type="text" class="form-control" id="monto"  name="monto" [(ngModel)]="nuevopago.monto"  placeholder="9.99" required>
+                                
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="estado" >Estado</label>
-                                <input type="text" class="form-control" id="estado"  name="estado" [(ngModel)]="nuevopago.estado" required>
+                                <input type="text" class="form-control" id="estado"  name="estado" [(ngModel)]="nuevopago.estado" placeholder="True" required>
 
-                            </div>
+                            </div> -->
                           
                             <button type="submit" class="btn btn-primary" (click)="crearPago()" style="margin-bottom: 1rem; margin-top: 1rem;">Guardar</button> 
                             <button type="submit" class="btn btn-secondary" (click)="mostrarFormularioCreacion = !mostrarFormularioCreacion">Cancelar</button>

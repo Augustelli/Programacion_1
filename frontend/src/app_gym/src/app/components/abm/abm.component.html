@@ -53,14 +53,24 @@
                         <label for="rol" class="form-label">Peso</label>
                         <input type="text" class="form-control" id="peso" name="peso" [(ngModel)]="userData1.peso" (change)="fieldChanged2('peso',userData1.peso)">
                     </div>
-                    <div class="mb-3" *ngIf="userRol==='admin'&& userData.rol==='profesor'">
+                    <!-- <div class="mb-3" *ngIf="userRol==='admin'&& userData.rol==='profesor'">
                         <label for="rol" class="form-label">Salario</label>
                         <input type="int" class="form-control" id="salario" name="salario" [(ngModel)]="userData2.salario" (change)="fieldChanged3('salario',userData2.salario)">
                     </div>
                     <div class="mb-3" *ngIf="userRol==='admin'&& userData.rol==='profesor'">
                         <label for="rol" class="form-label">Especialidad</label>
                         <input type="int" class="form-control" id="especialidad" name="especialidad" [(ngModel)]="userData2.especialidad" (change)="fieldChanged3('especialidad',userData2.especialidad)">
-                    </div>
+                    </div> -->
+
+                    <div class="mb-3" *ngIf="userRol==='admin'&& userData.rol==='profesor'">
+                        <label for="salario" class="form-label">Salario</label>
+                        <input type="int" class="form-control" id="salario" name="salario" [(ngModel)]="userData2.salario" (change)="fieldChanged3('salario', userData2.salario)">
+                      </div>
+                      <div class="mb-3" *ngIf="userRol==='admin'&& userData.rol==='profesor'">
+                        <label for="especialidad" class="form-label">Especialidad</label>
+                        <input type="int" class="form-control" id="especialidad" name="especialidad" [(ngModel)]="userData2.especialidad" (change)="fieldChanged3('especialidad', userData2.especialidad)">
+                      </div>
+                      
 
 
 

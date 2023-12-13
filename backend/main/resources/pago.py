@@ -9,28 +9,7 @@ from datetime import datetime
 
 class Pago(Resource):
 
-    # def get(self, (request.args.get('nrDni'))):
-    #     try:
-    #         rescate_pago = db.session.query(PagosModelo).filter(
-    #             PagosModelo.idPago == (request.args.get('nrDni'))
-    #         ).first()
-
-    #         return rescate_pago.to_json(), 201
-
-    #     except BaseException:
-    #         abort(404, 'No se ha encontrado pagos del alumnmo')
-
-    #     finally:
-    #         db.session.close()
-
-    #   def get(self, (request.args.get('nrDni'))):
-    # try:
-    #     usuario_rescatado = db.session.query(UsuarioModelo).filter(
-    #         UsuarioModelo.dni == (request.args.get('nrDni'))).first()
-    #     return usuario_rescatado.to_json(), 201
-    # except Exception:
-    #     abort(404, f'No se ha encontrado del usuario de id: {(request.args.get('nrDni'))}')
-    # finally:
+  
     @role_required(roles=['admin', 'profesor'])
     def put(self):
         try:
@@ -74,6 +53,8 @@ class Pagos(Resource):
             abort(404, 'Error al crear el Pago')
         finally:
             db.session.close()
+
+            
     @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:
@@ -100,29 +81,7 @@ class Pagos(Resource):
         finally:
             db.session.close()
 
-    # def put(self):
-
-    #     try:
-    #         if request.args.get('idPago'):
-    #             registro = db.session.query(PagosModelo).get(request.args.get('idPago'))
-    #             if registro:
-    #                 pass
-    #             else:
-    #                 raise Exception(f"No se ha encontrado usuario con DNI: {(request.args.get('idPago'))}")
-    #             usuario_editar = db.session.query(PagosModelo).filter(PagosModelo.idPago == (request.args.get('idPago'))).first()
-    #             informacion = request.get_json().items()
-    #             for campo, valor in informacion:
-
-    #                 setattr(usuario_editar, campo, valor)
-    #             db.session.add(usuario_editar)
-    #             db.session.commit()
-    #             return usuario_editar.to_json(), 201
-    #         else:
-    #             raise Exception('El DNI del usuario es necesario para poder modificarlo.')
-    #     except Exception as e:
-    #         return {'error': str(e)}, 400
-    #     finally:
-    #         db.session.close()
+   
     def put(self):
         try:
             idPago = request.args.get('idPago')
@@ -132,7 +91,7 @@ class Pagos(Resource):
                     informacion = request.get_json()
                     for campo, valor in informacion.items():
                         if campo == 'fecha_de_pago':
-                        # Realizar el procesamiento especial para el campo de fecha_de_pago
+                        
                             fecha_procesada = datetime.strptime(valor, "%d/%m/%Y")
                             setattr(registro, campo, fecha_procesada)
                             print(f"Se ha actualizado el campo {campo} con el valor {fecha_procesada}.")
@@ -141,11 +100,6 @@ class Pagos(Resource):
                             print(f"Se ha actualizado el campo {campo} con el valor {valor}.")
                         else:
 
-
-                        # if hasattr(registro, campo):
-                        #     setattr(registro, campo, valor)
-                        #     print(f"Se ha actualizado el campo {campo} con el valor {valor}.")
-                        # else:
                             raise Exception(f"El campo {campo} no es válido para la actualización.")
                     db.session.commit()
                     return registro.to_json(), 201

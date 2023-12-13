@@ -46,16 +46,6 @@ export class HomeComponent implements OnInit{
     this.successMessage='Usted no se ha registrado, la visión sera reducidada...';
   }
   
-    // this.usuariosService.getUsers().subscribe((data:any) => {
-    //   console.log('JSON data:', data);
-    //   this.arrayUsuarios = data.Usuario;
-    // })
-    // const token = localStorage.getItem('token');
-    // if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
-    //   const decodedToken = this.jwtHelper.decodeToken(token);
-    //   this.userRol = decodedToken.rol;
-  }
-    
-    // this.successMessage='Bienvenido, usted esta registrado...';
-  }
 
+  }
+}

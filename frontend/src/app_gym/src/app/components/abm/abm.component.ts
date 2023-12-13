@@ -108,19 +108,27 @@ fieldChanged2(fieldName: string, newValue: any) {
   // Actualiza el campo modificado en el objeto updatedFields
   this.updatedFields2[fieldName] = newValue;
 }
+// fieldChanged3(fieldName: string, newValue: any) {
+//   // Actualiza el campo modificado en el objeto updatedFields
+//   this.updatedFields3[fieldName] = newValue;
+// }
 fieldChanged3(fieldName: string, newValue: any) {
-  // Actualiza el campo modificado en el objeto updatedFields
-  this.updatedFields3[fieldName] = newValue;
+  // Actualiza el campo modificado en el objeto userData2
+  this.userData2 = {
+    ...this.userData2,
+    [fieldName]: newValue
+  };
+
+  // Actualiza el campo modificado en el objeto updateFields3
+  this.updatedFields3 = {
+    ...this.updatedFields3,
+    [fieldName]: newValue
+  };
 }
-
-
-
-
-
-
 
 updateUser() {
   if (this.userData.rol === 'profesor') {
+    console.log('UpdateFields3', this.updatedFields3);
     this.usuariosService.updateUserDataProfesor(this.user_id, this.updatedFields3).subscribe(
       (response) => {
         // Manejar la respuesta del backend si es necesario
@@ -131,6 +139,7 @@ updateUser() {
       }
     );
   }
+
 
 
   if (this.userData1.rol === 'alumno') {

@@ -69,11 +69,16 @@ export class PayAdminComponent implements OnInit{
 
 
   filtrarUsuariosNombre(){
-    if (!this.searchTerm) {
+    if (!this.searchTerm || this.searchTerm === '') {
       this.mostrarTodo();
       return;
     }
-    this.arrayUsuarios = this.arrayUsuarios.filter((usuario: any) => {
+    const page=1;
+    const perPage=1000;
+    this.usuariosService.getAlumnos(page, perPage).subscribe((data:any) => {
+      this.arrayUsuariosIGNORE = data.Usuario;
+    })
+    this.arrayUsuarios = this.arrayUsuariosIGNORE.filter((usuario: any) => {
       const nombreCompleto = `${usuario.nombre} ${usuario.apellido}${usuario.dni}`;
       return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
     });  
@@ -154,11 +159,28 @@ export class PayAdminComponent implements OnInit{
   }
 
   crearPago() {
+    const fechaFormateada = this.formatoFecha(this.nuevopago.fecha_de_pago);
+    if (!/^\d{8}$/.test(this.nuevopago.dni)) {
+      console.error('El DNI debe tener exactamente 8 números');
+      alert('El DNI debe tener exactamente 8 números');
+      
+      return;
+    }
+  
+   
+    if (!/^\d+(\.\d+)?$/.test(this.nuevopago.monto)) {
+      console.error('El monto debe ser un número válido');
+      alert('El monto debe ser un número válido');
+    
+      return;
+    }
+    const  estadix = "True"
+
     const datosParaPost = {
       dni: this.nuevopago.dni,
-      fecha_de_pago: this.nuevopago.fecha_de_pago,
+      fecha_de_pago: fechaFormateada,
       monto: this.nuevopago.monto,
-      estado: this.nuevopago.estado
+      estado: estadix
      
     };
     console.log('datosParaPost', datosParaPost);
@@ -170,6 +192,12 @@ export class PayAdminComponent implements OnInit{
     });
    
 
+  }
+
+  formatoFecha(fecha: any) {
+    const partes = fecha.split('-');
+    const fechaFormateada = `${partes[2]}/${partes[1]}/${partes[0]}`;
+    return fechaFormateada;
   }
 
   deletePago(dni: string) {

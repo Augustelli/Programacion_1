@@ -1,0 +1,11 @@
+    Notificación de Registro de Nuevo Alumno
+    Estimado Administrador
+    Un nuevo alumno se ha registrado en el gimnasio.
+
+          
+    No dude en ponerse en contacto con el alumno para proporcionar más detalles sobre los servicios y programas ofrecidos en el gimnasio.
+    Gracias.
+        
+       
+    Gimnasio GrupoD | Dirección del Gimnasio | Teléfono: 123-456-7890
+        

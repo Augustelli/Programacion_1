@@ -10,17 +10,13 @@ class Planificacion(db.Model):
     idPlanificacion = db.Column(db.Integer, primary_key=True)
     rutina = db.Column(db.String(50), nullable=False)
     frecuencia = db.Column(db.String)
-    fecha = db.Column(db.Date)  # default=lambda: func.current_timestamp().strftime('%d-%m-%Y'))
-
+    fecha = db.Column(db.Date)  
     id_Alumno = db.Column(db.Integer, db.ForeignKey('alumno.idAlumno'))
     id_Clase = db.Column(db.Integer, db.ForeignKey('clases.idClases'))
     idProfesor = db.Column(db.Integer, db.ForeignKey('profesor.idProfesor'))
-# RELACIONES de Planificacion
+
 
     alumno = db.relationship('Alumno', back_populates='planificaciones', single_parent=True)
-    # planificacion_alumno = db.relationship('Alumno', uselist=False)
-    # planificaciones_profesor = db.relationship('Profesor', cascade="all, delete-orphan")
-    # planificacion_clases = db.relationship('Clases', cascade="all, delete-orphan")
     profesor = db.relationship('Profesor', back_populates='planificaciones', single_parent=True)
     clase = db.relationship('Clases', back_populates='planificaciones', single_parent=True)
 
@@ -59,4 +55,4 @@ class Planificacion(db.Model):
             idProfesor=idProfesor
 
         )
-#   ** RELACIONES de Planificacion
+

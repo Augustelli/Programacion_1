@@ -55,14 +55,13 @@ class Usuario(db.Model):
     @property
     def plain_password(self):
         raise AttributeError('Password cant be read')
-    # Setter de la contraseña toma un valor en texto plano
-    # calcula el hash y lo guarda en el atributo password
+    
 
     @plain_password.setter
     def plain_password(self, password):
         self.contrasegna = generate_password_hash(password)
 
-    # Método que compara una contraseña en texto plano con el hash guardado en la db
+  
 
     def validate_pass(self, password):
         return check_password_hash(self.contrasegna, password)
@@ -77,15 +76,11 @@ class Usuario(db.Model):
             'nombre': self.nombre,
             'apellido': self.apellido,
             'email': self.email,
-            # 'fecha_nacimiento': str(datetime.strptime(self.fecha_nacimiento) , '%Y-%m-%d'),
-            # 'fecha_nacimiento': str(self.fecha_nacimiento.strftime( '%Y-%m-%d')),
             'fecha_nacimiento': str(self.fecha_nacimiento.strftime( '%d-%m-%Y')),
             'estado': self.estado,
             'rol': self.rol,
             'nombre_usuario': self.nombre_usuario
-            # 'contrasegna': self.contrasegna,
-            # 'altura': self.altura,
-            # 'peso': self.peso
+            
         }
         return usuario_json
 
@@ -96,7 +91,6 @@ class Usuario(db.Model):
             'apellido': self.apellido,
             'email': self.email,
             'fecha_nacimiento': str((self.fecha_nacimiento.strftime( '%d-%m-%Y'))),
-            # 'fecha_nacimiento': str((self.fecha_nacimiento.strftime( '%Y-%m-%d'))),
             'estado': self.estado,
             'rol': self.rol,
             'nombre_usuario': self.nombre_usuario,
@@ -139,9 +133,3 @@ class Usuario(db.Model):
             contrasegna=contrasegna_hasheada  # Establece la contraseña hasheada en el objeto Usuario
         )
 
-
-
-# @event.listens_for(Usuario, 'before_update')
-# def prevent_rol_change(mapper, connection, target):
-#     if target.rol != db.session.dirty.get.rol:
-#         raise Exception('No se puede cambiar el rol de un usuario.')

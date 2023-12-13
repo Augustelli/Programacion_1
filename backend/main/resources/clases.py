@@ -123,13 +123,6 @@ class Clases_R(Resource):
             if request.args.get('idClases'):
                 clases = clases.filter(ClasesModelo.idClases == int(request.args.get('idClases')))
             clases1 = clases.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
-            # clases_lista = list()
-            # for clase in clases:
-            #     clase_dict = {}
-            #     clase_dict['idClases'] = clase.idClases
-            #     clase_dict['nombre'] = clase.nombre
-            #     clase_dict['dias'] = clase.dias
-            #     clases_lista.append(clase_dict)
             clases_json = [clases.to_json() for clases in clases1.items]
 
             return {
@@ -153,9 +146,7 @@ class Clases_R(Resource):
             db.session.commit()
             if 'idProfesor' in datos:
                     id_profesor = datos['idProfesor']
-                    
                     id_clase = db.session.query(ClasesModelo).order_by(desc(ClasesModelo.idClases)).first().idClases
-                    
                     try:
                         profesor = db.session.query(ProfesorModelo).filter_by(idProfesor=id_profesor).first()
                         clase = db.session.query(ClasesModelo).filter_by(idClases=id_clase).first()
@@ -219,39 +210,3 @@ class Clases_R(Resource):
 
 class Clase_R(Resource):
     pass
-# #     # def delete(self, user_id):
-# #     #     try:
-# #     #         clase_eliminar = db.session.query(ClasesModelo).filter(
-# #     #             ClasesModelo.idClases == user_id).first()
-# #     #         db.session.delete(clase_eliminar)
-# #     #         db.session.commit()
-# #     #         return 204
-# #     #     except BaseException:
-# #     #         abort(404, 'No se ha encontrado la clase {}'.format(user_id))
-# #     #     finally:
-# #     #         db.session.close()
-
-# #     # def get(self, user_id):
-# #     #     try:
-# #     #         clase = db.session.query(ClasesModelo).filter(
-# #     #                ClasesModelo.idClases == user_id).first()
-# #     #         return clase.to_json(), 201
-# #     #     except BaseException:
-# #     #         abort(404, 'No se ha encontrado la Clase')
-# #     #     finally:
-# #     #         db.session.close()
-
-# #     def put(self, user_id):
-# #         try:
-# #             clase_modificar = db.session.query(ClasesModelo).filter(
-# #                 ClasesModelo.idClases == user_id).first()
-# #             informacion = request.get_json().items()
-# #             for campo, valor in informacion:
-# #                 setattr(clase_modificar, campo, valor)
-# #             db.session.add(clase_modificar)
-# #             db.session.commit()
-
-# #             return clase_modificar.to_json(), 201
-# #         except BaseException:
-# #             abort(404, 'No se ha encontrado la Clase')
-# #         finally:

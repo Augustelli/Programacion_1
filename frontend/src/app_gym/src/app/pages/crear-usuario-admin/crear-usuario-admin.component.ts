@@ -15,13 +15,29 @@ export class CrearUsuarioAdminComponent implements OnInit {
   succesMessage: string = '';
   userRol:string = '';
 
+  errorMessages: string[] = [];
+
+
 
   constructor(
     private usuariosService: UsuariosService,
     private router: Router,
     private jwtHelper: JwtHelperService,
   ){}
-  onSubmit(form: NgForm) { // Añade NgForm como argumento
+  onSubmit(form: NgForm) { 
+    this.errorMessages = []; 
+
+
+   
+      if (!this.validateDNI(this.formData.dni)) {
+        this.errorMessages.push('El DNI no tiene el formato correcto');
+      }
+    
+      if (!this.validateEmail(this.formData.email)) {
+        this.errorMessages.push('El correo electrónico no tiene el formato correcto');
+      }
+    
+  
     const fechaNacimiento = this.formatDate(this.formData.fecha_nacimiento);
 
     const newUserData = {
@@ -58,10 +74,24 @@ export class CrearUsuarioAdminComponent implements OnInit {
     }
     return date;
   }
+
+  validateDNI(dni: string): boolean {
+    // Validar que el DNI tenga exactamente 8 números
+    const dniRegex = /^\d{8}$/;
+    return dniRegex.test(dni);
+  }
+  
+  validateEmail(email: string): boolean {
+    // Validar el formato del correo electrónico
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+  
   goBack() {
     this.router.navigate(['/usuarios']);
 }
 ngOnInit() {
+  this.errorMessages = [];
   const token = localStorage.getItem('token');
   // this.succesMessage='Esperando validación de token por el ADMIN, mas tarde verá todas las funcionalidades...';
   if (token){ // Reemplaza 'tu_variable_token' con el nombre de tu variable local que contiene el token.
