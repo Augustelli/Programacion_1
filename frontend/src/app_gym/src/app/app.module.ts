@@ -3,9 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
 import { ClasesComponent } from './pages/clases/clases.component';
-import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { Nav1Component } from './components/nav1/nav1.component';
 import { Nav2Component } from './components/nav2/nav2.component';
 import { Backvar1Component } from './components/backvar1/backvar1.component';
@@ -18,7 +16,6 @@ import * as crearUsuarioComponent from './pages/crear-usuario/crear-usuario.comp
 import { FlechaAtrasComponent } from './components/flecha-atras/flecha-atras.component';
 import { BotonesBkctComponent } from './components/botones-bkct/botones-bkct.component';
 import { ScrollNumbersComponent } from './components/scroll-numbers/scroll-numbers.component';
-// import { TablaPlanificacionComponent } from './components/tabla-planificacion/tabla-planificacion.component';
 import { SexoComponent } from './components/sexo/sexo.component';
 import { TablaPlanificacionGrillaaComponent } from './components/tabla-planificacion-grillaa/tabla-planificacion-grillaa.component';
 import { LoginTwoComponent } from './pages/login-two/login-two.component';
@@ -40,15 +37,14 @@ import { PayAdminComponent } from './pages/pay-admin/pay-admin.component';
 import { ProfesComponent } from './pages/profes/profes.component';
 import { CommonModule } from '@angular/common';
 
-
+ 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent,
+  
     ClasesComponent,
-    ErrorPageComponent,
     Nav1Component,
     Nav2Component,
     Backvar1Component,
@@ -61,7 +57,6 @@ import { CommonModule } from '@angular/common';
     FlechaAtrasComponent,
     BotonesBkctComponent,
     ScrollNumbersComponent,
-    // TablaPlanificacionComponent,
     SexoComponent,
     LoginTwoComponent,
     LogoutComponent,

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  // url='http://127.0.0.1:5002';
+ 
   url = '/api';
 
   constructor(
@@ -18,13 +18,11 @@ export class AuthService {
   login (dataLogin:any):Observable<any>{
     console.log('comprobando credenciales');
 
-    // let dataLogin = {email:'admin@example.com', contrasegna:'admin'};
     return this.httpClient.post(this.url + '/auth/login',dataLogin).pipe(take(1));
   }
 
 
   signup(): Observable<any> {
-    // Obtener los valores necesarios de localStorage o de donde sea que los tengas
     let dni = localStorage.getItem('dni');
     let nombre = localStorage.getItem('nombre');
     let apellido = localStorage.getItem('apellido');
@@ -37,7 +35,7 @@ export class AuthService {
     let altura = localStorage.getItem('altura');
     let peso = localStorage.getItem('peso');
   
-    // Crear el objeto de datos que deseas enviar en la solicitud POST
+
     const dataSignup = {
       dni: dni,
       nombre: nombre,
@@ -50,12 +48,11 @@ export class AuthService {
       peso: peso
     };
       
-    // Realizar la solicitud POST con los datos construidos
-    // return this.httpClient.post(this.url + '/auth/register', dataSignup).pipe(take(1));
+    
     return this.httpClient.post(this.url + '/auth/register', dataSignup).pipe(
       take(1),
       switchMap(() => {
-        // Después del registro exitoso, realizar el inicio de sesión
+   
         return this.login({ email: email, contrasegna: contrasegna });
         
       })
@@ -70,18 +67,3 @@ export class AuthService {
   }
 }
 
-
-// this.authService.login(dataLogin).subscribe({
-//   next: (rta:any) => {
-//     alert('Login correcto');
-//     console.log('Respuesta Login:',rta.access_token);
-//     localStorage.setItem('token', rta.access_token);
-//     this.router.navigate(['/home']);
-
-//   }, error: (error) => {
-//     alert('Login incorrecto');
-//     localStorage.removeItem('token');
-//   }, complete: () => {
-//     console.log('Login finalizado');
-//   }});
-// }
