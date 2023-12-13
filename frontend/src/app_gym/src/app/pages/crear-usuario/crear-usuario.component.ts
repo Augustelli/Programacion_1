@@ -74,7 +74,7 @@ export class CrearUsuarioComponent {
       "numbers": [],
       "title": "What's your height?",
       "description": "Height in cm. Don't worry, you can always change this later.",
-      "minValue": 100,
+      "minValue": 150,
       "maxValue": 250,
     },
     {

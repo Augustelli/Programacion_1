@@ -34,12 +34,12 @@ class Usuarios(Resource):
              
             for usuario in usuarios:
                 payments = PagosModelo.query.filter_by(dni=usuario.dni).all()
-                if not payments:  # Check if there are no payments for the user
+                if not payments:  
                     usuario.estado = False
                     db.session.commit()
                 for payment in payments:
                     current_time = datetime.datetime.now()
-                    # print(usuario.dni, payment.fecha_de_pago)
+    
                     if payment.fecha_de_pago <= current_time:
                         usuario.estado = False
                         db.session.commit()
@@ -70,7 +70,7 @@ class Usuarios(Resource):
     @role_required(roles=['admin', 'profesor'])
     def post(self):
         try:
-            adminmail="augustokark@hotmail.com"
+            
             campos_obligatorios = {'dni', 'nombre', 'apellido', 'email', 'contrasegna'}
             datos = request.get_json()
             campos_recibidos = set(datos.keys())
@@ -85,7 +85,6 @@ class Usuarios(Resource):
                     raise Exception(f'Error al crear usuario. El campo {campo} no puede ser nulo. Por favor, proporcione un valor válido para {campo} y vuelva a intentarlo.')  # noqa
 
             usuario_nuevo = UsuarioModelo.from_json(datos)
-            # db.session.add(usuario_nuevo)
             if usuario_nuevo.rol == "alumno":
 
                 alumno_usuario = UsuarioModelo(
@@ -192,14 +191,12 @@ class Usuario(Resource):
         try:
             if request.args.get('nrDni'):
                 registro = db.session.query(UsuarioModelo).get(request.args.get('nrDni'))
-                registro1 = db.session.query(AlumnoModel).get(request.args.get('nrDni'))
                 if registro:
                     pass
                 else:
                     raise Exception(f"No se ha encontrado usuario con DNI: {(request.args.get('nrDni'))}")
                 
                 usuario_editar = db.session.query(UsuarioModelo).filter(UsuarioModelo.dni == int(request.args.get('nrDni'))).first()
-                
                 usuario_editar1 = db.session.query(AlumnoModel).filter(AlumnoModel.alumno_dni == int(request.args.get('nrDni'))).first()
                 usuario_editar2 = db.session.query(ProfesorModelo).filter(ProfesorModelo.profesor_dni == int(request.args.get('nrDni'))).first()
                 informacion = request.get_json().items()
@@ -221,13 +218,11 @@ class Usuario(Resource):
                         
 
                     setattr(usuario_editar, campo, valor)
+
+                    '''Valida que el campo contrasegna no sea nulo y lo hashea'''
                     if campo == 'contrasegna':
                         usuario_editar.contrasegna = generate_password_hash(valor)
-                       
                         db.session.add(usuario_editar)
-                        
-
-                  
                     if campo == 'peso':
                         usuario_editar1.peso = float(valor)
                         db.session.add(usuario_editar1)
@@ -265,14 +260,11 @@ class Usuario(Resource):
                 usuario_eliminar = db.session.query(UsuarioModelo).filter_by(dni=dni).first()
                 if usuario_eliminar:
                     db.session.delete(usuario_eliminar)
-
                     alumno_eliminar = db.session.query(AlumnoModel).get(dni)
                     if alumno_eliminar:
                         db.session.delete(alumno_eliminar)
-
                     db.session.commit()
                     return 'Usuario eliminado correctamente', 200
-
                 else:
                     raise Exception(f"No se ha encontrado usuario con DNI: {dni}")
             else:
@@ -341,7 +333,6 @@ class UsuarioAlumnos(Resource):
             alumno = AlumnoModel(alumno_dni=usuario_nuevo.dni)
             db.session.add(alumno)
             db.session.commit()
-            #sent=
             return usuario_nuevo.to_json(), 201
         except Exception as e:
             return {'error': str(e)}, 400
@@ -368,7 +359,6 @@ class UsuarioProfesor(Resource):
 
             if request.args.get('nrDni'):
                 profesores = profesores.filter(UsuarioModelo.dni == request.args.get('nrDni'))
-
 
             profesores_paginados = profesores.paginate(page=page, per_page=per_page, error_out=False, max_per_page=30)
 

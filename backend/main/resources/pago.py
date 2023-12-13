@@ -53,6 +53,8 @@ class Pagos(Resource):
             abort(404, 'Error al crear el Pago')
         finally:
             db.session.close()
+
+            
     @role_required(roles=['admin', 'profesor'])
     def get(self):
         try:

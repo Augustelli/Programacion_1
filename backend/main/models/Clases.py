@@ -7,14 +7,11 @@ clase_profesor = db.Table(
     db.Column('clase_id', db.Integer, db.ForeignKey('clases.idClases'))
 )
 
-
-
 class Clases(db.Model):
     __tablename__ = 'clases'
 
     idClases = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, index=True)
     nombre = db.Column(db.String(50), nullable=False, default='Rutina personal.')
-  
     dias = db.Column(db.String(50), nullable=False, default='Lunes-Miercoles-Viernes')
 
     profesores = db.relationship('Profesor', secondary=clase_profesor,backref='clases' )

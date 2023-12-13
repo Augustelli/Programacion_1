@@ -146,9 +146,7 @@ class Clases_R(Resource):
             db.session.commit()
             if 'idProfesor' in datos:
                     id_profesor = datos['idProfesor']
-                    
                     id_clase = db.session.query(ClasesModelo).order_by(desc(ClasesModelo.idClases)).first().idClases
-                    
                     try:
                         profesor = db.session.query(ProfesorModelo).filter_by(idProfesor=id_profesor).first()
                         clase = db.session.query(ClasesModelo).filter_by(idClases=id_clase).first()
