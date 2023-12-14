@@ -86,22 +86,24 @@ export class ProfesComponent implements OnInit {
   }
   
 
-
-
   filtrarUsuariosNombre(){
-    if (!this.searchTerm) {
+    if (!this.searchTerm || this.searchTerm == '') {
       this.mostrarTodo();
       return;
     }
-    this.arrayUsuarios = this.arrayUsuarios.filter((usuario: any) => {
-      const nombreCompleto = `${usuario.nombre} ${usuario.apellido}${usuario.dni}`;
-      return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
-    });  
+    
+    this.usuariosService.getProfes1(1,500).subscribe((data:any) => {
+      this.arrayUsuarios = data.Usuario;
+  
+      this.arrayUsuarios = this.arrayUsuarios.filter((usuario: any) => {
+        const nombreCompleto = `${usuario.nombre} ${usuario.apellido}${usuario.dni}`;
+        return nombreCompleto.toLowerCase().includes(this.searchTerm.toLowerCase());
+      });  
+    });
   }
+  
   mostrarTodo(){
-  // this.usuariosService.getProfes1().subscribe((data: any) => {
-  //   this.arrayUsuarios = data.Usuario
-  // });
+ 
   this.ngOnInit();
 }
 mostrarInformacion(idProfesor: string, i: number) {
@@ -118,20 +120,7 @@ mostrarInformacion(idProfesor: string, i: number) {
   });
 }
 
-// const datosParaPost = {
-//   dni: this.nuevopago.dni,
-//   fecha_de_pago: this.nuevopago.fecha_de_pago,
-//   monto: this.nuevopago.monto,
-//   estado: this.nuevopago.estado
- 
-// };
-// console.log('datosParaPost', datosParaPost);
-// this.pagoService.crearPago(datosParaPost).subscribe((data: any) => {
-//   console.log('Pago creado:', data);
-//   this.mostrarFormularioCreacion = false;
-  
-// });
-// }
+
 crearProfeClase(){
   const datosParaPost = {
     idProfesor: this.nuevaClaseProfe.idProfesor,
