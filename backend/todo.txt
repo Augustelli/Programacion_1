@@ -1,7 +1,0 @@
-FIX
-
-- Si se crea un admin, se añade en alumnos.
-- Eliminar datos en cascada.
-- Llenar tablas intermedias.
-- Crear el registres para admins.
-    
